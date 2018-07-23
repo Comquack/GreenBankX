@@ -6,9 +6,15 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-    	<Label Text="Welcome to Xamarin.Forms!" 
+        <Label Text="Welcome to Xamarin.Forms!" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
+        <Image Source = "leaf_logo.png"/>
     </StackLayout>
+    <ContentPage.BackgroundColor>
+        <Color>
+            #66ff99
+        </Color>
+    </ContentPage.BackgroundColor>
 
 </ContentPage>
