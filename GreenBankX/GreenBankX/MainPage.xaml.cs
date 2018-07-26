@@ -12,6 +12,10 @@ namespace GreenBankX
 		public MainPage()
 		{
 			InitializeComponent();
-		}
-	}
+        }
+        async void OpenMenu(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MenuPage());
+        }
+    }
 }

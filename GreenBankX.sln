@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBankX.Android", "Green
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBankX.iOS", "GreenBankX\GreenBankX.iOS\GreenBankX.iOS.csproj", "{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBankX", "GreenBankX\GreenBankX\GreenBankX.csproj", "{11E73AE8-36D7-45C5-AAB1-744F6FD7A8C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenBankX", "GreenBankX\GreenBankX\GreenBankX.csproj", "{11E73AE8-36D7-45C5-AAB1-744F6FD7A8C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,7 +80,6 @@ Global
 		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.AppStore|iPhoneSimulator.Deploy.0 = AppStore|iPhoneSimulator
 		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
-		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
 		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}.Debug|iPhone.Build.0 = Debug|iPhone
