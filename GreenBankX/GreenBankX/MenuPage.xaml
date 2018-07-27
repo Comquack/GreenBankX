@@ -4,7 +4,9 @@
              x:Class="GreenBankX.MenuPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hello, XAML!"
+            <Label
+               x:Name="Lbl1"
+               Text="{Binding Numbers}"
                VerticalOptions="Center"
                HorizontalTextAlignment="Center"
                IsVisible="true"
@@ -13,4 +15,9 @@
                TextColor="Blue" />
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.BackgroundColor>
+        <Color>
+            #66ff99
+        </Color>
+    </ContentPage.BackgroundColor>
 </ContentPage>
