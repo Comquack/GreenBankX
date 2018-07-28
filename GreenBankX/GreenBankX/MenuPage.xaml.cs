@@ -23,9 +23,11 @@ namespace GreenBankX
             plot1 = new Plot("Ethl");
             plot1.AddTree(tree1);
             result = calc.Calc(100, 10);
-            Lbl1.Text =result[0,0].ToString();
-
-
         }
-	}
+        async void OpenMeasure(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new MeasureTree());
+        }
+    }
+
 }

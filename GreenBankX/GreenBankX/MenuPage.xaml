@@ -4,20 +4,65 @@
              x:Class="GreenBankX.MenuPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label
-               x:Name="Lbl1"
-               Text="{Binding Numbers}"
+            <Grid>
+            <Button
+                x:Name="Bttn1"
+               Text="Measure Tree"
                VerticalOptions="Center"
-               HorizontalTextAlignment="Center"
                IsVisible="true"
                FontSize="Large"
                FontAttributes="Bold"
-               TextColor="Blue" />
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="1"
+                Grid.Row="3"
+                Clicked="OpenMeasure"/>
+                <Button
+                x:Name="Bttn2"
+               Text="Create Plot"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="1"
+                Grid.Row="4"/>
+                <Button
+                x:Name="Bttn3"
+               Text="Manage Plots"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="1"
+                    Grid.Row="5"/>
+            <Button
+                x:Name="Bttn4"
+               Text="Settings"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="1"
+                Grid.Row="6"/>
+            
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="60*" />
+                    <ColumnDefinition Width="20*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
     <ContentPage.BackgroundColor>
         <Color>
-            #66ff99
+            #FFFFF0
         </Color>
     </ContentPage.BackgroundColor>
+
 </ContentPage>
