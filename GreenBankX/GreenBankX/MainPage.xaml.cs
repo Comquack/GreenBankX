@@ -17,5 +17,9 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new MenuPage());
         }
+        async void OpenMap(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreatePlot());
+        }
     }
 }
