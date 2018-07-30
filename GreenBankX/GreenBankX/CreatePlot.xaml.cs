@@ -6,29 +6,43 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Xamarin.Forms.Maps;
+using TK.CustomMap;
 
 namespace GreenBankX
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CreatePlot : ContentPage
 	{
-		public CreatePlot ()
+        TKCustomMapPin newPin;
+        List<TKCustomMapPin> Pins = new List<TKCustomMapPin>();
+        public CreatePlot ()
 		{
-			InitializeComponent ();
             StartMap();
+            InitializeComponent ();
+            }
+        public void PlacePin(Position position)
+        {
 
+            Loca.Text =Pins.Count.ToString();
+            Pins.Add( new TKCustomMapPin
+            {
+                Position = position,
+                Title = "TestPlot",
+                IsVisible = true,
+                ShowCallout = false
+            });
+            MyMap.Pins = Pins;
 
         }
-        public async void StartMap() {
+            public async void StartMap() {
             try
             {
-                var request = new  GeolocationRequest(GeolocationAccuracy.High);
+                var request = new GeolocationRequest(GeolocationAccuracy.High);
                 var location = await Geolocation.GetLocationAsync(request);
 
                 if (location != null)
-                { 
-                    MyMap.MoveToRegion(
+                {
+                    MyMap.MoveToMapRegion(
                         MapSpan.FromCenterAndRadius(
                         new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
                 }
@@ -46,5 +60,6 @@ namespace GreenBankX
                 // Unable to get location
             }
         }
+
 	}
 }

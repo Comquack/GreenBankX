@@ -10,6 +10,7 @@ using Android.Gms.Common.Apis;
 using Android.Support.V4.Content;
 using Android.Support.V4.App;
 using Android;
+using TK.CustomMap.Droid;
 
 namespace GreenBankX.Droid
 {
@@ -25,7 +26,7 @@ namespace GreenBankX.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            Xamarin.FormsMaps.Init(this, bundle);
+            TKGoogleMaps.Init(this, bundle);
             LoadApplication(new App());
         }
         protected override void OnStart()
