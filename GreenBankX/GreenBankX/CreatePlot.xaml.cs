@@ -22,17 +22,17 @@ namespace GreenBankX
             }
         public void PlacePin(Position position)
         {
-
-            Loca.Text =Pins.Count.ToString();
+            MyMap.Pins = new List<TKCustomMapPin>();
             Pins.Add( new TKCustomMapPin
             {
                 Position = position,
-                Title = "TestPlot",
+                Title = "TestPlot"+ Pins.Count.ToString(),
                 IsVisible = true,
                 ShowCallout = false
             });
-            MyMap.Pins = Pins;
 
+            MyMap.Pins = Pins;
+            Loca.Text = MyMap.Pins.Last<TKCustomMapPin>().Title;
         }
             public async void StartMap() {
             try

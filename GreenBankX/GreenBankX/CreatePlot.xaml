@@ -15,6 +15,8 @@
                 IsShowingUser="True"
                  MapType="Street"
                 MapLongPress="PlacePin"
+                IsClusteringEnabled="True"
+
                 />
         </StackLayout>
     </ContentPage.Content>
