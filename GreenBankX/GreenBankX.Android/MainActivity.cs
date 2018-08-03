@@ -19,7 +19,7 @@ namespace GreenBankX.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
-            
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -43,6 +43,7 @@ namespace GreenBankX.Droid
                 System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
             }
         }
+
     }
 }
 

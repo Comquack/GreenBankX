@@ -22,7 +22,7 @@ namespace GreenBankX
             string resText0 = "Diameter\n";
             string resText1 = "Price\n";
             string resText2 = "Volume\n";
-            double[] range = calc.rangeBracket();
+            double[] range = calc.RangeBracket();
             for (int i = 0; i < result.GetLength(0); i++) {
                 resText0 = resText0 + Math.Round(result[i, 3], 2) + "cm\n";
                 resText1 = resText1 + Math.Round(result[i, 1], 2) + " kip\n"; 

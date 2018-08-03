@@ -6,9 +6,9 @@ namespace GreenBankX
 {
     class Calculator
     {
-        private static double A = 0.0022;
-        private static double B = -0.0202;
-        private static double C = 0.5441;
+        private static readonly double A = 0.0022;
+        private static readonly double B = -0.0202;
+        private static readonly double C = 0.5441;
         private double[] rangeValue = new double[]{ 1000000, 1500000, 1800000, 2000000, 2500000};
         private double[] rangeSizes = new double[]{ 12, 16, 19, 21, 30 };
         private int rangeNo = 5;
@@ -61,7 +61,7 @@ namespace GreenBankX
             }
             return totals;
         }
-        public void setRanges(double[] ranges, double[] values)
+        public void SetRanges(double[] ranges, double[] values)
         {
             rangeValue = new double[ranges.Length];
             rangeSizes = new double[ranges.Length];
@@ -72,7 +72,7 @@ namespace GreenBankX
                 rangeValue[i] = values[i];
             }
         }
-        public double[] rangeBracket()
+        public double[] RangeBracket()
         {
             return rangeSizes;
         }
@@ -80,7 +80,7 @@ namespace GreenBankX
         {
             return rangeValue;
         }
-        public int getNo()
+        public int GetNo()
         {
             return rangeNo;
         }

@@ -22,12 +22,12 @@ namespace GreenBankX
         {
             return trees;
         }
-        public void setTag(double[] geotag)
+        public void SetTag(double[] geotag)
         {
             this.geotag = geotag;
         }
 
-        public double[] getTag()
+        public double[] GetTag()
         {
             return this.geotag;
         }
