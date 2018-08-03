@@ -4,11 +4,14 @@
              x:Class="GreenBankX.MeasureTree">
     <ContentPage.Content>
         <StackLayout>
-            <Entry  
+            
+                <Entry  
+                x:Name="girth"
                    TextColor="Black"
                    Keyboard="Numeric"
                    Placeholder="Girth (cm)"/>
             <Entry 
+                x:Name="height"
                    TextColor="Black"
                     Keyboard="Numeric"
                    Placeholder="Height (m)"/>
@@ -34,7 +37,8 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Grid.Column="1"
-                Grid.Row="4"/>
+                Grid.Row="4"
+                Clicked="RunCalc"/>
             <Button
                 x:Name="Add"
                Text="Add to plot"
@@ -46,11 +50,31 @@
                TextColor="Green"
                 Grid.Column="1"
                 Grid.Row="4"/>
+
+            <Grid>
+                <Label
+                x:Name="Result0"
+                Grid.Column="0"/>
+                <Label
+                x:Name="Result1"
+                Grid.Column="1"/>
+                <Label
+                x:Name="Result2"
+                Grid.Column="2"/>
+                <Label
+                x:Name="Result"/>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="33*" />
+                    <ColumnDefinition Width="33*" />
+                    <ColumnDefinition Width="33*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
         </StackLayout>
-    </ContentPage.Content>
+        </ContentPage.Content>
         <ContentPage.BackgroundColor>
         <Color>
-            #FFFFF0
+            #66ff99
         </Color>
     </ContentPage.BackgroundColor>
 </ContentPage>

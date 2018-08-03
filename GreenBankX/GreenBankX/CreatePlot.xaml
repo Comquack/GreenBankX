@@ -6,9 +6,6 @@
              x:Class="GreenBankX.CreatePlot">
     <ContentPage.Content>
         <StackLayout>
-            <Label
-                x:Name="Loca"
-                Text="Willy"/>
             <customMap:TKCustomMap WidthRequest="320" HeightRequest="700"
             x:Name="MyMap"
                 x:FieldModifier="MyMaps"
@@ -17,6 +14,17 @@
                 MapLongPress="PlacePin"
                 IsClusteringEnabled="True"
 
+                />
+            <Button
+                   x:Name="AddPlot"
+               Text="Settings"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="NewPlot"
                 />
         </StackLayout>
     </ContentPage.Content>

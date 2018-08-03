@@ -12,6 +12,7 @@ namespace GreenBankX
 		public MainPage()
 		{
 			InitializeComponent();
+            Application.Current.Properties["Plots"] = new List<Plot>();
         }
         async void OpenMenu(object sender, EventArgs e)
         {

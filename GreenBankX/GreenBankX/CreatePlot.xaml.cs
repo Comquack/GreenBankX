@@ -20,6 +20,9 @@ namespace GreenBankX
             StartMap();
             InitializeComponent ();
             }
+        public void NewPlot() {
+            //Plot newPlot = new Plot();
+        }
         public void PlacePin(Position position)
         {
             MyMap.Pins = new List<TKCustomMapPin>();
@@ -32,7 +35,6 @@ namespace GreenBankX
             });
 
             MyMap.Pins = Pins;
-            Loca.Text = MyMap.Pins.Last<TKCustomMapPin>().Title;
         }
             public async void StartMap() {
             try
