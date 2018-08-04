@@ -22,7 +22,7 @@ namespace GreenBankX
                 double[] geo = (double[])Application.Current.Properties["ThisLocation"];
                 Plot NextPlot = new Plot(PlotName.Text);
                 NextPlot.SetTag(geo);
-                //Application.Current.Properties["Test"] = NextPlot.GetCSV();
+                ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
                 await PopupNavigation.Instance.PopAsync();
                 
             }

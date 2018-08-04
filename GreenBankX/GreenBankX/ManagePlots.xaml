@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GreenBankX.ManagePlots">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Manage Plots"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Picker x:Name="pickPlot" Title="Select a Plot"
+                    PropertyChanged="SelectPlot"
+                        TextColor="Black">
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
+            <Label x:Name="ListOfTree" 
+                Text="Manage Plots"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -39,6 +39,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
+                         Clicked="OpenManager"
                         Grid.Row="5"/>
             <Button
                 x:Name="Bttn4"

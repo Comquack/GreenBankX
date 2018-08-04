@@ -31,6 +31,11 @@ namespace GreenBankX
         {
             return this.geotag;
         }
+        public string GetName()
+        {
+            return this.name;
+        }
+
 
         public String GetCSV()
         {

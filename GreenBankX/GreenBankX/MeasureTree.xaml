@@ -26,6 +26,11 @@
                     </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
+            <Picker x:Name="pickPlot" Title="Select a Plot"
+                        TextColor="Black">
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
 
             <Button
                 x:Name="Estimate"
@@ -49,7 +54,8 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Grid.Column="1"
-                Grid.Row="4"/>
+                Grid.Row="4"
+                Clicked="RunAdd"/>
 
             <Grid>
                 <Label

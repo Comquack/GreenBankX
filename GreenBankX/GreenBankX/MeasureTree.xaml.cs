@@ -14,7 +14,11 @@ namespace GreenBankX
 	{
 		public MeasureTree ()
 		{
-			InitializeComponent ();
+            InitializeComponent();
+            ((List<Plot>)Application.Current.Properties["Plots"]).Count();
+             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
+                pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
+             }  
 		}
         public void RunCalc() {
             Calculator calc = new Calculator();
@@ -32,6 +36,12 @@ namespace GreenBankX
             Result1.Text = resText1;
             Result2.Text = resText2;
 
+        }
+
+        public void RunAdd() {
+            if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree(float.Parse(girth.Text), float.Parse(height.Text),0));
+            }
         }
 	}
 }
