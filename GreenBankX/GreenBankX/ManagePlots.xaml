@@ -17,6 +17,10 @@
                 Text="Manage Plots"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="Delete"
+                    Text="Delete Plot"
+                    Clicked="DelPlot"
+                    IsVisible="False"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

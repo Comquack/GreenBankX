@@ -36,6 +36,10 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new ManagePlots());
         }
+        async void OpenPrice(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreatePricing());
+        }
     }
 
 }

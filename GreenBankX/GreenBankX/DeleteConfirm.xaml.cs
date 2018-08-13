@@ -9,35 +9,21 @@ using Xamarin.Forms.Xaml;
 
 namespace GreenBankX
 {
-    public partial class Popup : Rg.Plugins.Popup.Pages.PopupPage
+    public partial class DeleteConfirm : Rg.Plugins.Popup.Pages.PopupPage
     {
-        public Popup()
+        public DeleteConfirm()
         {
             
             InitializeComponent();
-            for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
-            {
-                pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-            }
         }
-        public async void Done() {
-            if (PlotName.Text != null)
-            {
-                double[] geo = (double[])Application.Current.Properties["ThisLocation"];
-                Plot NextPlot = new Plot(PlotName.Text);
-                NextPlot.SetTag(geo);
-                if (pickPrice.SelectedIndex > -1)
-                {
-                    NextPlot.SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
-                }
-                ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
-                await PopupNavigation.Instance.PopAsync();
-                
-            }
-            else {
-                NameLabel.Text = "Please Enter Name";
-            }
+        public async Task YesDelete() {
+            MessagingCenter.Send<DeleteConfirm>(this, "Delete");
+            await PopupNavigation.Instance.PopAsync();
+        }
 
+        public async Task NoDelete()
+        {
+            await PopupNavigation.Instance.PopAsync();
         }
         protected override void OnAppearing()
         {

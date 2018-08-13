@@ -9,6 +9,7 @@ namespace GreenBankX
         double[] geotag = { 0, 0 };
         List<Tree> trees;
         String Csv;
+        PriceRange PlotPrice;
         public Plot(String name)
         {
             this.name = name;
@@ -34,6 +35,14 @@ namespace GreenBankX
         public string GetName()
         {
             return this.name;
+        }
+
+        public void SetRange(PriceRange newRange) {
+            PlotPrice = newRange;
+        }
+
+        public PriceRange GetRange() {
+            return PlotPrice;
         }
 
 

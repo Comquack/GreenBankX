@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -35,6 +35,26 @@ namespace GreenBankX
                 }
 
                 ListOfTree.Text = trees;
+                Delete.IsVisible = true;
+            }
+        }
+        public async void DelPlot() {
+            if (pickPlot.SelectedIndex > -1)
+            {
+                MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
+                    string trees = "";
+  
+                        ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
+                        Delete.IsVisible = false;
+                        ListOfTree.Text = trees;
+                        pickPlot.Items.Clear();
+                        ((List<Plot>)Application.Current.Properties["Plots"]).Count();
+                        for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
+                        {
+                            pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
+                        }
+                });
+                await PopupNavigation.PushAsync(new DeleteConfirm());
             }
         }
     }

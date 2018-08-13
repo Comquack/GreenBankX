@@ -21,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="DeleteConfirm.xaml.cs">
+      <DependentUpon>DeleteConfirm.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Popup.xaml.cs">
       <DependentUpon>Popup.xaml</DependentUpon>
     </Compile>
@@ -28,6 +31,9 @@
 
   <ItemGroup>
     <EmbeddedResource Update="CreatePlot.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="CreatePricing.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="ManagePlots.xaml">

@@ -43,7 +43,7 @@
                         Grid.Row="5"/>
             <Button
                 x:Name="Bttn4"
-               Text="Settings"
+               Text="Pricings"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"
@@ -51,6 +51,7 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Grid.Column="1"
+                Clicked="OpenPrice"
                 Grid.Row="6"/>
             
                 <Grid.ColumnDefinitions>

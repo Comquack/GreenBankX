@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GreenBankX.CreatePricing">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry  
+                x:Name="Name"
+                   TextColor="Black"
+                   Placeholder="Name"/>
+            <Entry  
+                x:Name="Len"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="Log Length"/>
+            <Button x:Name="AddName"
+                    Text="New Pricing scheme"
+                    Clicked="AddPriceName"
+                    />
+            <Picker x:Name="pickPrice" Title="Select a Pricing"
+                    PropertyChanged="SelectPrice"
+                        TextColor="Black">
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
+            <Entry  
+                x:Name="maxDiam"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="maximum diameter (cm)"/>
+            <Entry 
+                x:Name="price"
+                   TextColor="Black"
+                    Keyboard="Numeric"
+                   Placeholder="Price (k)"/>
+            <Button x:Name="AddPrice"
+                    Text="Add Price"
+                    Clicked="AddPrice_Clicked" 
+                    />
+            <Label x:Name="NameOfPrices" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="ListOfPrices" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

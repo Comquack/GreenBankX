@@ -13,6 +13,7 @@ namespace GreenBankX
 		{
 			InitializeComponent();
             Application.Current.Properties["Plots"] = new List<Plot>();
+            Application.Current.Properties["Prices"] = new List<PriceRange>();
         }
         async void OpenMenu(object sender, EventArgs e)
         {
