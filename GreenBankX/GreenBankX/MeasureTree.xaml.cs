@@ -57,7 +57,8 @@ namespace GreenBankX
 
         public void RunAdd() {
             if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree(float.Parse(girth.Text), float.Parse(height.Text),0));
+                int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree(float.Parse(girth.Text), float.Parse(height.Text),ID));
             }
         }
 	}

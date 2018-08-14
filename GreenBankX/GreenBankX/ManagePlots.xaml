@@ -8,7 +8,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Picker x:Name="pickPlot" Title="Select a Plot"
-                    PropertyChanged="SelectPlot"
+                    SelectedIndexChanged="SelectPlot"
                         TextColor="Black">
                 <Picker.Items>
                 </Picker.Items>
@@ -17,6 +17,19 @@
                 Text="Manage Plots"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Picker x:Name="pickTree" Title="Select a Tree"
+                    SelectedIndexChanged="SelectTree"
+                        TextColor="Black"
+                    IsVisible="False">
+                <Picker.Items>
+                </Picker.Items>
+             
+            </Picker>
+            <Button x:Name="DeleteTree"
+                    Text="Delete Tree"
+                    Clicked="DelTree"
+                    IsVisible="False"/>
             <Button x:Name="Delete"
                     Text="Delete Plot"
                     Clicked="DelPlot"
