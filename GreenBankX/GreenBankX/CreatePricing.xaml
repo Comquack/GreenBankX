@@ -4,6 +4,10 @@
              x:Class="GreenBankX.CreatePricing">
     <ContentPage.Content>
         <StackLayout>
+            <Button x:Name="AddNew"
+                    Text="New Pricing scheme"
+                    Clicked="NewPrice"
+                    />
             <Entry  
                 x:Name="Name"
                    TextColor="Black"
@@ -13,8 +17,9 @@
                    TextColor="Black"
                    Keyboard="Numeric"
                    Placeholder="Log Length"/>
+            
             <Button x:Name="AddName"
-                    Text="New Pricing scheme"
+                    Text="Add Pricing scheme"
                     Clicked="AddPriceName"
                     />
             <Picker x:Name="pickPrice" Title="Select a Pricing"
@@ -27,7 +32,7 @@
                 x:Name="maxDiam"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="maximum diameter (cm)"/>
+                   Placeholder="minimum diameter (cm)"/>
             <Entry 
                 x:Name="price"
                    TextColor="Black"

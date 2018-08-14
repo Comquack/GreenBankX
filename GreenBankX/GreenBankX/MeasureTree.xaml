@@ -15,17 +15,12 @@
                    TextColor="Black"
                     Keyboard="Numeric"
                    Placeholder="Height (m)"/>
- 
-                <Picker x:Name="picker" Title="Select a currency"
+
+            <Picker x:Name="pickPrice" Title="Select a Pricing"
                         TextColor="Black">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Laotian Kip</x:String>
-                            <x:String>US Dollar</x:String>
-                            <x:String>Euro</x:String>
-                    </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
             <Picker x:Name="pickPlot" Title="Select a Plot"
                         TextColor="Black">
                 <Picker.Items>

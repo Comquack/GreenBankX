@@ -11,11 +11,13 @@ namespace GreenBankX
         private string brackName;
         private string treeType;
         private double logLen;
+
         public PriceRange(string name, string type , SortedList<double, double> newBracket,double setLen) {
             brackName = name;
             treeType = type;
             PriceBrack = newBracket;
             logLen = setLen;
+
         }
         public string GetName() {
             return brackName;
@@ -24,6 +26,7 @@ namespace GreenBankX
         {
             return logLen;
         }
+ 
         public double[,] GetBracket() {
             return PriceBracket;
         }

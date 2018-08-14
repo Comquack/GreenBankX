@@ -19,10 +19,6 @@ namespace GreenBankX
         public MenuPage ()
 		{
 			InitializeComponent ();
-            tree1 = new Tree(100, 10, 1);
-            plot1 = new Plot("Ethl");
-            plot1.AddTree(tree1);
-            result = calc.Calc(100, 10);
         }
         async void OpenMeasure(object sender, EventArgs e)
         {

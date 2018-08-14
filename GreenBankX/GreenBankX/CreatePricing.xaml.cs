@@ -12,12 +12,28 @@ namespace GreenBankX
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CreatePricing : ContentPage
 	{
-        int selector;
+        int selector=-1;
 		public CreatePricing ()
 		{
 			InitializeComponent ();
             selector = -10;
-            ((List<PriceRange>)Application.Current.Properties["Prices"]).Count();
+            if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count() == 0)
+            {
+                Name.IsVisible = true;
+                Len.IsVisible = true;
+                AddName.IsVisible = true;
+                AddNew.IsVisible = false;
+                maxDiam.IsVisible = false;
+                price.IsVisible = false;
+            }
+            else {
+                Name.IsVisible = false;
+                Len.IsVisible = false;
+                AddName.IsVisible = false;
+                AddNew.IsVisible = true;
+                maxDiam.IsVisible = true;
+                price.IsVisible = true;
+            }
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
@@ -44,6 +60,13 @@ namespace GreenBankX
                     pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
                 }
                 selector = ((List<PriceRange>)Application.Current.Properties["Prices"]).Count()-1;
+                pickPrice.SelectedIndex = selector;
+                Name.IsVisible = false;
+                Len.IsVisible = false;
+                AddName.IsVisible = false;
+                AddNew.IsVisible = true;
+                maxDiam.IsVisible = true;
+                price.IsVisible = true;
             }
             else if (Name.Text == null || Name.Text == "")
             {
@@ -68,7 +91,7 @@ namespace GreenBankX
             {
                 selector = pickPrice.SelectedIndex;
                 popList(selector);
-            }
+                }
         }
 
         private void popList(int select) {
@@ -116,6 +139,14 @@ namespace GreenBankX
                     DisplayAlert("price is invalid", "price is invalid", "OK");
                 });
             }
+        }
+        public void NewPrice() {
+            Name.IsVisible = true;
+            Len.IsVisible = true;
+            AddName.IsVisible = true;
+            AddNew.IsVisible = false;
+            maxDiam.IsVisible = false;
+            price.IsVisible = false;
         }
     }
 }
