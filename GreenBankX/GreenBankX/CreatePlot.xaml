@@ -7,7 +7,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid>
-            <customMap:TKCustomMap 
+                <customMap:TKCustomMap 
             x:Name="MyMap"
                 x:FieldModifier="MyMaps"
                 IsShowingUser="True"
@@ -15,8 +15,10 @@
                 MapLongPress="PlacePin"
                 IsClusteringEnabled="True"
                 Grid.Row="0"
+                MapReady="MapReady"
+                PinSelected="MyMap_PinSelected"
                 />
-            <Button
+                <Button
                    x:Name="AddPlot"
                Text="Add Plot"
                VerticalOptions="Center"
@@ -28,7 +30,10 @@
                 Clicked="NewPlot"
                 Grid.Row="1"
                 />
-            
+                <Label
+                    x:Name="showName"
+                  IsVisible="False"  
+                    />
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90*" />
                     <RowDefinition Height="10*" />

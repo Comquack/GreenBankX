@@ -25,6 +25,7 @@ namespace GreenBankX
                 AddNew.IsVisible = false;
                 maxDiam.IsVisible = false;
                 price.IsVisible = false;
+                AddPrice.IsVisible = false;
             }
             else {
                 Name.IsVisible = false;
@@ -33,6 +34,7 @@ namespace GreenBankX
                 AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
                 price.IsVisible = true;
+                AddPrice.IsVisible = true;
             }
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
@@ -67,6 +69,8 @@ namespace GreenBankX
                 AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
                 price.IsVisible = true;
+                AddPrice.IsVisible = true;
+
             }
             else if (Name.Text == null || Name.Text == "")
             {
@@ -91,7 +95,8 @@ namespace GreenBankX
             {
                 selector = pickPrice.SelectedIndex;
                 popList(selector);
-                }
+                AddPrice.IsVisible = true;
+            }
         }
 
         private void popList(int select) {

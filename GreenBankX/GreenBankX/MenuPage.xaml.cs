@@ -12,10 +12,6 @@ namespace GreenBankX
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MenuPage : ContentPage
 	{
-        Tree tree1;
-        Plot plot1;
-        Calculator calc = new Calculator();
-        double[,] result;
         public MenuPage ()
 		{
 			InitializeComponent ();

@@ -19,7 +19,7 @@ namespace GreenBankX
         public CreatePlot ()
 		{
             
-          StartMap();
+          //StartMap();
             InitializeComponent ();
             }
         public async Task NewPlot() {
@@ -45,6 +45,7 @@ namespace GreenBankX
                 Pins.RemoveAt(Pins.Count - 1);
             }
             MyMap.Pins = new List<TKCustomMapPin>();
+            showName.IsVisible = false;
             Pins.Add(new TKCustomMapPin
             {
                 Position = position,
@@ -54,6 +55,9 @@ namespace GreenBankX
             });
             MyMap.Pins = Pins;
             CanAdd = false;
+        }
+        public void MapReady() {
+            StartMap();
         }
             public async void StartMap() {
             try
@@ -74,7 +78,7 @@ namespace GreenBankX
                     Pins.Add(new TKCustomMapPin
                     {
                         Position = position,
-                        Title = "TestPlot" + Pins.Count.ToString(),
+                        Title = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName(),
                         IsVisible = true,
                         ShowCallout = false
                     });
@@ -95,5 +99,10 @@ namespace GreenBankX
             }
         }
 
-	}
+        private void MyMap_PinSelected(object sender, TKGenericEventArgs<TKCustomMapPin> e)
+        {
+            showName.IsVisible = true;
+            showName.Text = "Selected Plot" +e.Value.Title;
+        }
+    }
 }

@@ -16,6 +16,15 @@
                     Keyboard="Numeric"
                    Placeholder="Height (m)"/>
 
+            <Picker x:Name="pickMeasurement" Title="Select a Unit"
+                        TextColor="Black"
+                    SelectedIndexChanged="pickMeasurement_SelectedIndexChanged">
+                <Picker.Items>
+                    <x:String>cm/m</x:String>
+                    <x:String>inches</x:String>
+                </Picker.Items>
+                
+            </Picker>
             <Picker x:Name="pickPrice" Title="Select a Pricing"
                         TextColor="Black">
                 <Picker.Items>
