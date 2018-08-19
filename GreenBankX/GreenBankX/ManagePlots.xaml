@@ -14,15 +14,25 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
-            <Label x:Name="ListOfTree" 
+   
+            <Grid x:Name="Graphgrid"
+                IsVisible="True"
+                  MinimumHeightRequest="100">
+                <Label x:Name="ListOfTree" 
                 Text="Manage Plots"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="0"/>
             <oxy:PlotView
                 x:Name="Oxy"
                 IsVisible="False"
+                Grid.Row="1"
                 />
-
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="70*" />
+                </Grid.RowDefinitions>
+            </Grid>
             <Picker x:Name="pickTree" Title="Select a Tree"
                     SelectedIndexChanged="SelectTree"
                         TextColor="Black"

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
@@ -81,28 +82,29 @@ namespace GreenBankX
                         total = +result[x, 1];      
                      }
                     trees = trees + "Total logs:" + result.GetLength(0) + " Total Price: " + Math.Round(total, 2) + "k\n";
-
-                    
+                    for (int x = 0; x < thisRange.GetBrack().Count + 1; x++) {
+                        ItemsSource.ElementAt(x).Value = logs[x];
+                    }
                     Oxy.Model = new OxyPlot.PlotModel {
                         Title = "Tree ID:"
                     };
+                    var barSeries = new BarSeries
+                    {
+                        ItemsSource = ItemsSource,
+                        LabelPlacement = LabelPlacement.Inside,
+                        LabelFormatString = "{0}"
+                    };
+
+                    Oxy.Model.Series.Add(barSeries);
+                    Oxy.Model.Axes.Add(new CategoryAxis
+                    {
+                        Position = AxisPosition.Left,
+                        Key = "Log Classes",
+                        ItemsSource = Lablels
+                    });
+                    Oxy.IsVisible = true;
+
                     
-
-
-              //      var barSeries = new BarSeries
-               //     {
-             //           ItemsSource = new List<BarItem>(new[]
-             //        {
-               //             new BarItem{ Value = (cakePopularity[0] / sum * 100) },
-              //               new BarItem{ Value = (cakePopularity[1] / sum * 100) },
-              //               new BarItem{ Value = (cakePopularity[2] / sum * 100) },
-              //               new BarItem{ Value = (cakePopularity[3] / sum * 100) },
-               //              new BarItem{ Value = (cakePopularity[4] / sum * 100) }
-               //       }),
-               //         LabelPlacement = LabelPlacement.Inside,
-               //         LabelFormatString = "{0:.00}%"
-               //     };
-               //     barSeries.ItemsSource.
                 }
                 
 
