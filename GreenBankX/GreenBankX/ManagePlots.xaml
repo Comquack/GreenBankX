@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
              x:Class="GreenBankX.ManagePlots">
     <ContentPage.Content>
         <StackLayout>
@@ -17,6 +18,10 @@
                 Text="Manage Plots"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <oxy:PlotView
+                x:Name="Oxy"
+                IsVisible="False"
+                />
 
             <Picker x:Name="pickTree" Title="Select a Tree"
                     SelectedIndexChanged="SelectTree"
@@ -26,6 +31,14 @@
                 </Picker.Items>
              
             </Picker>
+            <Button x:Name="AddTree"
+                    Text="Add Tree"
+                    Clicked="AddNewTree"
+                    IsVisible="False"/>
+            <Button x:Name="AddMes"
+                    Text="Add new Mesurement"
+                    Clicked="AddTreeMes"
+                    IsVisible="False"/>
             <Button x:Name="DeleteTree"
                     Text="Delete Tree"
                     Clicked="DelTree"

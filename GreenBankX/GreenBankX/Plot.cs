@@ -55,20 +55,20 @@ namespace GreenBankX
             }
             return result;
         }
-        public void setCSV(String csv)
-        {
-            this.Csv = csv;
-            String[] data = csv.Split(';');
-            String[] data2 = data[0].Split(',');
-            this.name = data2[0];
-            this.geotag[0] = Double.Parse(data2[1]);
-            this.geotag[1] = Double.Parse(data2[2]);
-            for (int x = 1; x < data.Length; x++)
-            {
-                String[] dataT = data[x].Split(',');
-                this.trees.Add(new Tree(float.Parse(dataT[1]), float.Parse(dataT[2]),x));
-            }
-        }
+       // public void setCSV(String csv)
+       // {
+           // this.Csv = csv;
+           // String[] data = csv.Split(';');
+           // String[] data2 = data[0].Split(',');
+           // this.name = data2[0];
+           // this.geotag[0] = Double.Parse(data2[1]);
+          //  this.geotag[1] = Double.Parse(data2[2]);
+          //  for (int x = 1; x < data.Length; x++)
+          //  {
+          //      String[] dataT = data[x].Split(',');
+         //       this.trees.Add(new Tree(float.Parse(dataT[1]), float.Parse(dataT[2]),x));
+        //    }
+        //}
 
     }
 }

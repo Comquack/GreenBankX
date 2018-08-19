@@ -40,7 +40,7 @@ namespace GreenBankX
                 string[] unitm3 = { "m3", "y3" };
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
-                    if (result[i, 0] == 0)
+                    if (result[i, 0] == -1)
                     {
                         resText0 = resText0 + "Log is too small\n";
                     }
@@ -62,7 +62,7 @@ namespace GreenBankX
         public void RunAdd() {
             if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
                 int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((float)(double.Parse(girth.Text)*Math.Pow(2.54, pickMeasurement.SelectedIndex)), (float)(double.Parse(height.Text) * Math.Pow(0.914, pickMeasurement.SelectedIndex)), ID));
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((float)(double.Parse(girth.Text)*Math.Pow(2.54, pickMeasurement.SelectedIndex)), (float)(double.Parse(height.Text) * Math.Pow(0.914, pickMeasurement.SelectedIndex)), ID, DateTime.Now));
             }
         }
 

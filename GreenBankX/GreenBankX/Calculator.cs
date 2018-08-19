@@ -51,8 +51,10 @@ namespace GreenBankX
                     rH = (2 * rL - LOGLEN * taper) / 2;
                 }
                 value = 0;
+                sizeClass = -1;
                 for (int a = 0; a < brack.Count; a++)
                 {
+                    
                     if (2 * rH > brack.ElementAt(a).Key)
                     {
                         value = brack.ElementAt(a).Value;
