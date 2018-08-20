@@ -13,7 +13,7 @@
 
         <StackLayout>
             <Label Text="Manage Plots"
-                VerticalOptions="CenterAndExpand" 
+                   x:Name="Titlename"
                 HorizontalOptions="CenterAndExpand" />
             <Picker x:Name="pickPlot" Title="Select a Plot"
                     SelectedIndexChanged="SelectPlot"
@@ -21,7 +21,6 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
-
             <Grid x:Name="Graphgrid"
                 IsVisible="True"
                   MinimumHeightRequest="100">
@@ -30,17 +29,33 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="0"/>
-                <Button
-                    Text="Earlier"
-                    />
+
                 <oxy:PlotView
                 x:Name="Oxy"
                 IsVisible="False"
                 Grid.Row="1"
                 />
+                <Button
+                    Text="Earlier"
+                    x:Name="Earlier"
+                    Clicked="Earlier_Clicked"
+                IsVisible="False"
+                    HorizontalOptions="Start"
+                    Margin="0"
+                    Grid.Row="2"
+                    />
+                <Button
+                    x:Name="Later"
+                    Text="Later"
+                    Clicked="Later_Clicked"
+                IsVisible="False"
+                    Grid.Row="2"
+                    HorizontalOptions="End"
+                    />
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30*" />
+                    <RowDefinition Height="20*" />
                     <RowDefinition Height="70*" />
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
             </Grid>
             <Picker x:Name="pickTree" Title="Select a Tree"

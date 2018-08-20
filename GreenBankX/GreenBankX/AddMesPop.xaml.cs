@@ -29,12 +29,23 @@ namespace GreenBankX
         public async void Done() {
             if (Height.Text != null && double.Parse(Height.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1 && Application.Current.Properties["TCounter"] != null && (int)Application.Current.Properties["TCounter"] > -1)
             {
+               
                 counter = (int)Application.Current.Properties["Counter"];
                 int tCounter = (int)Application.Current.Properties["TCounter"];
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(float.Parse(Diameter.Text), float.Parse(Height.Text),DateMes.Date);
-                Application.Current.Properties["Counter"] = -1;
-                MessagingCenter.Send<AddMesPop>(this, "Append");
-                await PopupNavigation.Instance.PopAsync();   
+                if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ContainsKey(DateMes.Date))
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Date exists", "Measurement exists for this date", "OK");
+                    });
+                }
+                else
+                {
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(float.Parse(Diameter.Text), float.Parse(Height.Text), DateMes.Date);
+                    Application.Current.Properties["Counter"] = -1;
+                    MessagingCenter.Send<AddMesPop>(this, "Append");
+                    await PopupNavigation.Instance.PopAsync();
+                }
             }
             else {
                 Device.BeginInvokeOnMainThread(() =>

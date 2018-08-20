@@ -50,6 +50,10 @@
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="Delete"
+                    Text="Delete Pricing scheme"
+                    Clicked="DelPrice"
+                    />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+//generic delete confirmation popup uses message centre "delete"
 namespace GreenBankX
 {
     public partial class DeleteConfirm : Rg.Plugins.Popup.Pages.PopupPage

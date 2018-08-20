@@ -24,10 +24,23 @@
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"
+                    HorizontalOptions="StartAndExpand"
                FontAttributes="Bold"
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Clicked="NewPlot"
+                Grid.Row="1"
+                />
+                <Button
+                x:Name="CancelButton"
+               Text="Cancel"
+               HorizontalOptions="EndAndExpand"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Cancel"
                 Grid.Row="1"
                 />
                 <Label

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TK.CustomMap;
+using Xamarin.Essentials;
+
 namespace GreenBankX
 {
     class Plot
@@ -8,12 +11,14 @@ namespace GreenBankX
         String name;
         double[] geotag = { 0, 0 };
         List<Tree> trees;
+        List<Position> polygon;
         String Csv;
         PriceRange PlotPrice;
         public Plot(String name)
         {
             this.name = name;
             this.trees = new List<Tree>();
+            polygon = new List<Position>();
         }
         public void AddTree(Tree newTree)
         {
@@ -54,6 +59,12 @@ namespace GreenBankX
                 result += a.GetCSV();
             }
             return result;
+        }
+        public void AddPolygon(List<Position> newpoly) {
+            polygon = newpoly;
+        }
+        public List<Position> GetPolygon() {
+            return polygon;
         }
        // public void setCSV(String csv)
        // {

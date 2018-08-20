@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -152,6 +153,27 @@ namespace GreenBankX
             AddNew.IsVisible = false;
             maxDiam.IsVisible = false;
             price.IsVisible = false;
+        }
+        public async Task DelPrice()
+        {
+            MessagingCenter.Unsubscribe<DeleteConfirm>(this,"Delete");
+            MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
+                ((List<PriceRange>)Application.Current.Properties["Prices"]).RemoveAt(selector);
+                pickPrice.Items.Clear();
+                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
+                {
+                    pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+                }
+                Name.IsVisible = false;
+                Len.IsVisible = false;
+                AddName.IsVisible = false;
+                AddNew.IsVisible = true;
+                maxDiam.IsVisible = true;
+                price.IsVisible = true;
+                AddPrice.IsVisible = true;
+            });
+            await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
+            
         }
     }
 }
