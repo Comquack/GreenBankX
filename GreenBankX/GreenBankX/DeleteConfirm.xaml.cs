@@ -11,14 +11,24 @@ namespace GreenBankX
 {
     public partial class DeleteConfirm : Rg.Plugins.Popup.Pages.PopupPage
     {
-        public DeleteConfirm()
+        public static DeleteConfirm instance = new DeleteConfirm();
+        public static DeleteConfirm GetInstance()
+        {
+            if (instance == null)
+            {
+                return new DeleteConfirm();
+            }
+            return instance;
+        }
+
+        private DeleteConfirm()
         {
             
             InitializeComponent();
         }
         public async Task YesDelete() {
-            MessagingCenter.Send<DeleteConfirm>(this, "Delete");
             await PopupNavigation.Instance.PopAsync();
+            MessagingCenter.Send<DeleteConfirm>(this, "Delete");
         }
 
         public async Task NoDelete()

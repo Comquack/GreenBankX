@@ -12,7 +12,17 @@ namespace GreenBankX
     public partial class AddMesPop : Rg.Plugins.Popup.Pages.PopupPage
     {
         int counter;
-        public AddMesPop()
+        public static AddMesPop instance = new AddMesPop();
+        public static AddMesPop GetInstance()
+        {
+            if (instance == null)
+            {
+                return new AddMesPop();
+            }
+            return instance;
+        }
+
+        private AddMesPop()
         { 
             InitializeComponent();
         }

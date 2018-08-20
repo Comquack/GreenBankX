@@ -32,12 +32,10 @@ namespace GreenBankX
                 }
                 ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
                 await PopupNavigation.Instance.PopAsync();
-                
             }
             else {
                 NameLabel.Text = "Please Enter Name";
             }
-
         }
         protected override void OnAppearing()
         {

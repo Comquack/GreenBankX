@@ -12,7 +12,17 @@ namespace GreenBankX
     public partial class AddTreePop : Rg.Plugins.Popup.Pages.PopupPage
     {
         int counter;
-        public AddTreePop()
+        public static AddTreePop instance = new AddTreePop();
+        public static AddTreePop GetInstance()
+        {
+            if (instance == null)
+            {
+                return new AddTreePop();
+            }
+            return instance;
+        }
+
+        private AddTreePop()
         { 
             InitializeComponent();
         }

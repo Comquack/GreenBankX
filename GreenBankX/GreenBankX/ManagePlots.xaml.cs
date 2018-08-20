@@ -39,11 +39,14 @@ namespace GreenBankX
                 }
 
                 ListOfTree.Text = trees;
-                Delete.IsVisible = true;
-                DeleteTree.IsVisible = true;
                 pickTree.IsVisible = true;
                 AddTree.IsVisible = true;
                 DeleteTree.IsVisible = false;
+
+                ToolDelete.Text = "Delete Plot";
+                ToolDeleteTree.Text = "";
+                ToolAddTree.Text = "Add Tree";
+                ToolAddMes.Text = "";
             }
         }
         public void SelectTree() {
@@ -121,6 +124,9 @@ namespace GreenBankX
                 }
 
             }
+
+            ToolDeleteTree.Text = "Delete Tree";
+            ToolAddMes.Text = "Add Mesurement";
             DeleteTree.IsVisible = true;
             AddMes.IsVisible = true;
             ListOfTree.Text = trees;
@@ -134,7 +140,10 @@ namespace GreenBankX
                     string trees = "";
   
                         ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
-                        Delete.IsVisible = false;
+                    ToolDelete.Text = "";
+                    ToolDeleteTree.Text = "";
+                    ToolAddTree.Text = "";
+                    ToolAddMes.Text = "";
                     DeleteTree.IsVisible = false;
                     ListOfTree.Text = trees;
                         pickPlot.Items.Clear();
@@ -142,18 +151,13 @@ namespace GreenBankX
                     pickTree.IsVisible = false;
                     AddTree.IsVisible = false;
                     AddMes.IsVisible = false;
-                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    List<Tree> TreeList = ThisPlot.getTrees();
-                    Tree ThisTree;
-                    for (int x = 0; x < TreeList.Count; x++)
+                    for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                     {
-                        ThisTree = TreeList.ElementAt(x);
-                        trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm)" + ThisTree.GetDia().ToString() + "Height(m)" + ThisTree.Merch.ToString() + "\n";
-                        pickTree.Items.Add(ThisTree.ID.ToString());
+                        pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                     }
                     ListOfTree.Text = trees;
                 });
-                await PopupNavigation.PushAsync(new DeleteConfirm());
+                await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
 
             }
         }
@@ -180,7 +184,7 @@ namespace GreenBankX
                     }
                     ListOfTree.Text = trees;
                 });
-                await PopupNavigation.PushAsync(new AddTreePop());
+                await PopupNavigation.PushAsync(AddTreePop.GetInstance());
             }
        }
         public async void AddTreeMes()
@@ -206,7 +210,7 @@ namespace GreenBankX
                     }
                     ListOfTree.Text = trees;
                 });
-                await PopupNavigation.PushAsync(new AddMesPop());
+                await PopupNavigation.PushAsync(AddMesPop.GetInstance());
             }
         }
         public async void DelTree()
@@ -232,8 +236,10 @@ namespace GreenBankX
                     }
                     ListOfTree.Text = trees;
                     AddMes.IsVisible = false;
+   
+                    ToolAddMes.Text = "";
                 });
-                await PopupNavigation.PushAsync(new DeleteConfirm());
+                await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
 
             }
         }

@@ -3,7 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
              x:Class="GreenBankX.ManagePlots">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolDelete" Order="Primary"  Text="" Priority="0" Clicked="DelPlot"/>
+        <ToolbarItem x:Name="ToolAddTree" Order="Primary"  Text="" Priority="1" Clicked="AddNewTree" />
+        <ToolbarItem x:Name="ToolDeleteTree" Order="Primary"  Text="" Priority="2" Clicked="DelTree"/>
+        <ToolbarItem x:Name="ToolAddMes" Order="Primary"  Text="" Priority="3" Clicked="AddTreeMes"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
+
         <StackLayout>
             <Label Text="Manage Plots"
                 VerticalOptions="CenterAndExpand" 
@@ -14,7 +21,7 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
-   
+
             <Grid x:Name="Graphgrid"
                 IsVisible="True"
                   MinimumHeightRequest="100">
@@ -23,7 +30,10 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="0"/>
-            <oxy:PlotView
+                <Button
+                    Text="Earlier"
+                    />
+                <oxy:PlotView
                 x:Name="Oxy"
                 IsVisible="False"
                 Grid.Row="1"
@@ -39,7 +49,7 @@
                     IsVisible="False">
                 <Picker.Items>
                 </Picker.Items>
-             
+
             </Picker>
             <Button x:Name="AddTree"
                     Text="Add Tree"
@@ -53,10 +63,7 @@
                     Text="Delete Tree"
                     Clicked="DelTree"
                     IsVisible="False"/>
-            <Button x:Name="Delete"
-                    Text="Delete Plot"
-                    Clicked="DelPlot"
-                    IsVisible="False"/>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
