@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using Rg.Plugins.Popup.Services;
+using Syncfusion.XlsIO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -418,6 +420,56 @@ namespace GreenBankX
 
             }
 
+        }
+        public void SavePlots()
+        {
+            //Create an instance of ExcelEngine.
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                //Set the default application version as Excel 2013.
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+
+                //Create a workbook with a worksheet
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+
+                //Access first worksheet from the workbook instance.
+                //IWorksheet worksheet = workbook.Worksheets[0];
+
+                //Adding text to a cell
+                for (int y = 0; y < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); y++)
+                {
+                    Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(y);
+                    workbook.Worksheets.Create(thisPlot.GetName());
+                    IWorksheet worksheet = workbook.Worksheets[y + 1];
+
+
+                    worksheet.SetValue(1, 1, "Name");
+                    worksheet.SetValue(2, 1, "Co-ordinates");
+                    worksheet.SetValue(1, 2, thisPlot.GetName());
+                    worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
+                    worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
+                    worksheet.SetValue(3, 1, "Pricing Name");
+                    worksheet.SetValue(3, 2, thisPlot.GetRange().GetName());
+                    worksheet.SetValue(3, 3, thisPlot.getTrees().Count.ToString());
+                    for (int x = 0; x < thisPlot.getTrees().Count; x++)
+                    {
+                        worksheet.SetValue(5 + x, 1, thisPlot.getTrees().ElementAt(x).ID.ToString());
+                        worksheet.SetValue(5 + x, 2, thisPlot.getTrees().ElementAt(x).Merch.ToString());
+                        worksheet.SetValue(5 + x, 3, thisPlot.getTrees().ElementAt(x).GetDia().ToString());
+                    }
+                }
+
+
+                workbook.Worksheets[0].Remove();
+                //Save the workbook to stream in xlsx format. 
+                MemoryStream stream = new MemoryStream();
+                workbook.SaveAs(stream);
+
+                workbook.Close();
+
+                //Save the stream as a file in the device and invoke it for viewing
+                Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView("Plots.xlsx", "application/msexcel", stream);
+            }
         }
     }
 }

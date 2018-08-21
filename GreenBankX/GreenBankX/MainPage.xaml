@@ -6,8 +6,11 @@
 
     <StackLayout>
         <!-- Place new controls here -->
-
+        <Label
+                    x:Name="boffo"
+                    HorizontalOptions="CenterAndExpand"/>
         <Image Source = "leaf_logo.png"
+               x:Name="Logos"
                HorizontalOptions="Center"
                VerticalOptions="CenterAndExpand"
                >

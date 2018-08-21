@@ -52,6 +52,17 @@
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
             </Grid>
+            <Button
+                x:Name="Save"
+               Text="Save????"
+               HorizontalOptions="EndAndExpand"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="SavePlots"
+                />
 
         </StackLayout>
     </ContentPage.Content>

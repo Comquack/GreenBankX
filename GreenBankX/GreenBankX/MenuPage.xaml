@@ -4,6 +4,9 @@
              x:Class="GreenBankX.MenuPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label
+                    x:Name="boffo"
+                    HorizontalOptions="CenterAndExpand"/>
             <Grid>
                 <Button
                     x:Name="Bttn1"
@@ -53,7 +56,20 @@
                 Grid.Column="1"
                 Clicked="OpenPrice"
                 Grid.Row="6"/>
-            
+                <Button
+                x:Name="Bttn5"
+               Text="XISIO"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="1"
+                Clicked="OnButtonClicked"
+                Grid.Row="7"/>
+
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="60*" />

@@ -54,6 +54,11 @@
                     Text="Delete Pricing scheme"
                     Clicked="DelPrice"
                     />
+
+            <Button x:Name="Bttn5"
+                    Text="Save?????"
+                    Clicked="OnButtonClicked"
+                    />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
