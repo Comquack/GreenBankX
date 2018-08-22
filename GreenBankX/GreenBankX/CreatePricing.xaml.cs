@@ -74,6 +74,7 @@ namespace GreenBankX
                 maxDiam.IsVisible = true;
                 price.IsVisible = true;
                 AddPrice.IsVisible = true;
+                //SavePrice();
 
             }
             else if (Name.Text == null || Name.Text == "")
@@ -132,6 +133,7 @@ namespace GreenBankX
                     popList(selector);
                     maxDiam.Text = null;
                     price.Text = null;
+                   // SavePrice();
                 };
 
             } else if (maxDiam.Text == null || double.Parse(maxDiam.Text)<= 0)
@@ -174,64 +176,15 @@ namespace GreenBankX
                 maxDiam.IsVisible = true;
                 price.IsVisible = true;
                 AddPrice.IsVisible = true;
+                //SavePrice();
+
             });
             await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
             
         }
-
-
-        void OnButtonClicked(object sender, EventArgs args)
-        {
-            //Create an instance of ExcelEngine.
-            using (ExcelEngine excelEngine = new ExcelEngine())
-            {
-                //Set the default application version as Excel 2013.
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-
-                //Create a workbook with a worksheet
-                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
-
-                //Access first worksheet from the workbook instance.
-                //IWorksheet worksheet = workbook.Worksheets[0];
-
-                //Adding text to a cell
-                if (selector > -100) {
-                    for (int y = 0; y < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); y++)
-                    {
-                        PriceRange thisPrice = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(y);
-                        workbook.Worksheets.Create(thisPrice.GetName());
-                        IWorksheet worksheet = workbook.Worksheets[y+1];
-
-                     
-                    worksheet.SetValue(1, 1, "Name");
-                    worksheet.SetValue(2, 1, "Log Size");
-                    worksheet.SetValue(1, 2, thisPrice.GetName());
-                    worksheet.SetValue(2, 2, thisPrice.GetLength().ToString());
-                    worksheet.SetValue(3, 1, "Size");
-                    worksheet.SetValue(3, 2, "Price");
-                        worksheet.SetValue(3, 3, thisPrice.GetBrack().Count.ToString());
-                        for (int x = 0; x < thisPrice.GetBrack().Count; x++)
-                    {
-                        worksheet.SetValue(4 + x, 1, thisPrice.GetBrack().ElementAt(x).Key.ToString());
-                        worksheet.SetValue(4 + x, 2, thisPrice.GetBrack().ElementAt(x).Value.ToString());
-                    }
-                }
-                }
-                else {
-                    IWorksheet worksheet = workbook.Worksheets[0];
-                    worksheet.Range["A1"].Text = "Error";
-                }
-                workbook.Worksheets[0].Remove();
-                //Save the workbook to stream in xlsx format. 
-                MemoryStream stream = new MemoryStream();
-                workbook.SaveAs(stream);
-
-                workbook.Close();
-
-                //Save the stream as a file in the device and invoke it for viewing
-                Xamarin.Forms.DependencyService.Get<ISave>().SaveAndView("Pricings.xlsx", "application/msexcel", stream);
-            }
-
+        void SaveTest() {
+            SaveAll.GetInstance().SavePricing();
         }
+        
     }
 }

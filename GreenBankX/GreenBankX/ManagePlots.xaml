@@ -78,6 +78,9 @@
                     Text="Delete Tree"
                     Clicked="DelTree"
                     IsVisible="False"/>
+            <Button x:Name="SaveState"
+                    Text="Save???"
+                    Clicked="Save"/>
 
         </StackLayout>
     </ContentPage.Content>
