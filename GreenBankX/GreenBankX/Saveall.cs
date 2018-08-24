@@ -153,5 +153,15 @@ namespace GreenBankX
             }
 
         }
+        public void DeletePlot(string name) {
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xlsx");
+            if (doesExist) {
+                try
+                {
+                    File.Delete(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xlsx");
+                }
+                catch { }
+            }
+        }
     }
 }

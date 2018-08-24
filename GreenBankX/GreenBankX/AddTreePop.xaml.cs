@@ -27,10 +27,10 @@ namespace GreenBankX
             InitializeComponent();
         }
         public async void Done() {
-            if (Height.Text != null && double.Parse(Height.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1)
+            if (MHeight.Text != null && double.Parse(MHeight.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1)
             {
                 counter = (int)Application.Current.Properties["Counter"];
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(float.Parse(Diameter.Text), float.Parse(Height.Text), ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count,DateMes.Date));
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(float.Parse(Diameter.Text), float.Parse(MHeight.Text), ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count,DateMes.Date));
                 Application.Current.Properties["Counter"] = -1;
                 MessagingCenter.Send<AddTreePop>(this, "Add");
                 await PopupNavigation.Instance.PopAsync();   

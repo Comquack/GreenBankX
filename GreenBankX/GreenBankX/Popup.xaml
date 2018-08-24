@@ -2,6 +2,7 @@
 <pages:PopupPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:local="clr-namespace:GreenBankX"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     x:Class="GreenBankX.Popup">
@@ -21,17 +22,18 @@
     <StackLayout 
         VerticalOptions="Center" 
         HorizontalOptions="Center" 
+        BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
         <Label
             x:Name="NameLabel"
             Text="Name Plot"
-            BackgroundColor="LightSeaGreen"/>
+            />
         <Entry 
                 x:Name="PlotName"
                    TextColor="Black"
                    Placeholder="Plot Name"
             BackgroundColor="LightSeaGreen"/>
-        <Picker x:Name="pickPrice" Title="Select a Pricing"
+        <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                 BackgroundColor="LightGray">
             <Picker.Items>
@@ -39,7 +41,7 @@
         </Picker>
         <Button
                    x:Name="NamedPlot"
-               Text="Add Plot"
+               Text="{local:TranslateExtension AddPlot}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

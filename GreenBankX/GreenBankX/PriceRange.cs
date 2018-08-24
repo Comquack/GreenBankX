@@ -7,7 +7,6 @@ namespace GreenBankX
     class PriceRange
     {
         private SortedList<double,double> PriceBrack;
-        private double[,] PriceBracket;
         private string brackName;
         private string treeType;
         private double logLen;
@@ -22,19 +21,8 @@ namespace GreenBankX
         public string GetName() {
             return brackName;
         }
-        public double GetLength()
-        {
-            return logLen;
-        }
- 
-        public double[,] GetBracket() {
-            return PriceBracket;
-        }
+        public double GetLength() => logLen;
 
-        public void SetBracket(double[,] newBrack)
-        {
-            PriceBracket = newBrack;
-        }
 
         public SortedList<double, double> GetBrack()
         {

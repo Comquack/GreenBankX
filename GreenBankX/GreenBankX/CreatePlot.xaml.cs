@@ -29,7 +29,24 @@ namespace GreenBankX
             //If setpoly not = -1 (pin selected) converts a set of placed pins into a polygon 
            
             if (setpoly > -1) {
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly).AddPolygon(newpolygon);
+                List<double> lat = new List<double>();
+                List<double> lon = new List<double>();
+                for (int x = 0; x < newpolygon.Count; x++)
+                {
+                    lat.Add(newpolygon.ElementAt(x).Latitude);
+                    lon.Add(newpolygon.ElementAt(x).Longitude);
+                }
+                Plot thisPLot = (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly));
+                if (thisPLot.GetTag()[0] > lat.Min() && thisPLot.GetTag()[1] > lon.Min() && thisPLot.GetTag()[0] < lat.Max() && thisPLot.GetTag()[1] < lon.Max()) {
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly).AddPolygon(newpolygon);
+                }
+                else {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Area not near pin", "Area not near pin", "OK");
+                    });
+                }
+                
                 setpoly = -1;
                 AddPlot.Text = "New Plot";
                 StartMap();
@@ -114,7 +131,6 @@ namespace GreenBankX
                         new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
                 }
                 Pins = new List<TKCustomMapPin>();
-                MyMap.Pins = Pins;
                 int num = ((List<Plot>)Application.Current.Properties["Plots"]).Count();
                 for (int x=0; x < num; x++) {
                     double[] pinLoc = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetTag();
@@ -130,17 +146,8 @@ namespace GreenBankX
                 }
                 MyMap.Pins = Pins;
             }
-            catch (FeatureNotSupportedException fnsEx)
+            catch
             {
-                // Handle not supported on device exception
-            }
-            catch (PermissionException pEx)
-            {
-                // Handle permission exception
-            }
-            catch (Exception ex)
-            {
-                // Unable to get location
             }
         }
 

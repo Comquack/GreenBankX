@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Services;
+﻿using GreenBankX.Resources;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace GreenBankX
                     if (((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(i).GetName() == Name.Text) {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert("Name is in use", "Name is in use", "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetString("NameInUse"), AppResource.ResourceManager.GetString("NameInUse"), "OK");
                         });
                         return;
                     }
@@ -105,18 +106,23 @@ namespace GreenBankX
         }
 
         private void popList(int select) {
+            //Fills list of prices
             string prices = "";
+            string logs = "";
             if (select > -1)
             {
                 PriceRange ThisPrice = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(select);
-                double[,] PriceList = ThisPrice.GetBracket();
                 SortedList<double, double> brack = ThisPrice.GetBrack();
+                prices = AppResource.ResourceManager.GetString("Price") + "/m3\n";
+                logs = AppResource.ResourceManager.GetString("minimumdiameter")+"\n ";
                 for (int x = 0; x < brack.Count(); x++)
                 {
-                    prices = prices + "Max Diameter: " + brack.ElementAt(x).Key + "Price/m3" + brack.ElementAt(x).Value + "\n";
+                    prices = prices +  brack.ElementAt(x).Key +"\n";
+                    logs = logs + brack.ElementAt(x).Value + "\n";
                 }
-                NameOfPrices.Text = "Name: " + ThisPrice.GetName() + "Log Length: " + ThisPrice.GetLength().ToString() + "m";
+                NameOfPrices.Text = AppResource.ResourceManager.GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 ListOfPrices.Text = prices;
+                LogSizes.Text = logs;
             }
         }
         private void AddPrice_Clicked(object sender, EventArgs e)
@@ -126,7 +132,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Size already exists", "Size already exists", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetString("SizeExists"), AppResource.ResourceManager.GetString("SizeExists"), "OK");
                     });
                 }
                 else {
@@ -140,14 +146,14 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Diameter is invalid", "Diameter is invalid", "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetString("DiaInvalid"), AppResource.ResourceManager.GetString("DiaInvalid"), "OK");
                 });
             }
             else if (price.Text == null || double.Parse(price.Text) <= 0)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("price is invalid", "price is invalid", "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetString("PriceInvalid"), AppResource.ResourceManager.GetString("PriceInvalid"), "OK");
                 });
             }
         }
@@ -163,12 +169,21 @@ namespace GreenBankX
         {
             MessagingCenter.Unsubscribe<DeleteConfirm>(this,"Delete");
             MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
+
+                for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
+                {
+                    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetRange() == ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector))
+                    {
+                        ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).SetRange(null);
+                    }
+                }
                 ((List<PriceRange>)Application.Current.Properties["Prices"]).RemoveAt(selector);
                 pickPrice.Items.Clear();
                 for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
                 {
                     pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
                 }
+          
                 Name.IsVisible = false;
                 Len.IsVisible = false;
                 AddName.IsVisible = false;

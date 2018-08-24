@@ -20,12 +20,14 @@
     </pages:PopupPage.Animation>
     <StackLayout 
         VerticalOptions="Center" 
-        HorizontalOptions="Center" 
+        HorizontalOptions="Center"
+        BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
         <Label
             x:Name="NameLabel"
             Text="Are You Sure you want to delete?"
-            BackgroundColor="LightSeaGreen"/>
+            FontSize="Large"
+           />
         <Button
                    x:Name="YesDel"
                Text="Delete"

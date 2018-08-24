@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:local="clr-namespace:GreenBankX"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenBankX.CreatePricing">
     <ContentPage.Content>
@@ -11,18 +12,18 @@
             <Entry  
                 x:Name="Name"
                    TextColor="Black"
-                   Placeholder="Name"/>
+                   Placeholder="{local:TranslateExtension Name}"/>
             <Entry  
                 x:Name="Len"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="Log Length"/>
+                   Placeholder="{local:TranslateExtension Name}"/>
             
             <Button x:Name="AddName"
-                    Text="Add Pricing scheme"
+                    Text="{local:TranslateExtension AddPricing}"
                     Clicked="AddPriceName"
                     />
-            <Picker x:Name="pickPrice" Title="Select a Pricing"
+            <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                     PropertyChanged="SelectPrice"
                         TextColor="Black">
                 <Picker.Items>
@@ -32,12 +33,12 @@
                 x:Name="maxDiam"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="minimum diameter (cm)"/>
+                   Placeholder="{local:TranslateExtension minimumdiameter}"/>
             <Entry 
                 x:Name="price"
                    TextColor="Black"
                     Keyboard="Numeric"
-                   Placeholder="Price (k)"/>
+                   Placeholder="{local:TranslateExtension Price}"/>
             <Button x:Name="AddPrice"
                     Text="Add Price"
                     Clicked="AddPrice_Clicked" 
@@ -46,15 +47,27 @@
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <Grid>
+            <Label x:Name="LogSizes" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                   Grid.Column="0"/>
+
             <Label x:Name="ListOfPrices" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand"
+                   Grid.Column="1"/>
+
+                <Grid.RowDefinitions>
+                   
+                </Grid.RowDefinitions>
+            </Grid>
             <Button x:Name="Delete"
                     Text="Delete Pricing scheme"
                     Clicked="DelPrice"
                     />
-
             <Button x:Name="Bttn5"
                     Text="Save?????"
                     Clicked="SaveTest"

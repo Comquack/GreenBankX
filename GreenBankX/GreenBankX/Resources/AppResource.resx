@@ -117,4 +117,109 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddMeasurement" xml:space="preserve">
+    <value>Add Measurement</value>
+  </data>
+  <data name="AddPlot" xml:space="preserve">
+    <value>Add Plot</value>
+  </data>
+  <data name="AddtoPlot" xml:space="preserve">
+    <value>Add to Plot</value>
+  </data>
+  <data name="AddTree" xml:space="preserve">
+    <value>Add Tree</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CreatePlot" xml:space="preserve">
+    <value>Create Plot</value>
+  </data>
+  <data name="DeletePlot" xml:space="preserve">
+    <value>Delete Plot</value>
+  </data>
+  <data name="DeleteTree" xml:space="preserve">
+    <value>Delete Tree</value>
+  </data>
+  <data name="Earlier" xml:space="preserve">
+    <value>Earlier</value>
+  </data>
+  <data name="Girth" xml:space="preserve">
+    <value>Girth(cm)</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Height(m)</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="ManagePlots" xml:space="preserve">
+    <value>Manage Plots</value>
+  </data>
+  <data name="MeasureTree" xml:space="preserve">
+    <value>Measure Tree</value>
+  </data>
+  <data name="Pricings" xml:space="preserve">
+    <value>Pricings</value>
+  </data>
+  <data name="SelectaPlot" xml:space="preserve">
+    <value>Select a Plot</value>
+  </data>
+  <data name="SelectaTree" xml:space="preserve">
+    <value>Select a Tree</value>
+  </data>
+  <data name="TooSmall" xml:space="preserve">
+    <value>Too Small</value>
+  </data>
+  <data name="TotalLogs" xml:space="preserve">
+    <value>Total Logs</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="AddNewTree" xml:space="preserve">
+    <value>Add a New Tree</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="MerchHeight" xml:space="preserve">
+    <value>Merchantable Height(m)</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TreeID" xml:space="preserve">
+    <value>Tree ID</value>
+  </data>
+  <data name="AddPricing" xml:space="preserve">
+    <value>Add Pricing scheme</value>
+  </data>
+  <data name="DiaInvalid" xml:space="preserve">
+    <value>Diameter is invalid</value>
+  </data>
+  <data name="LogLength" xml:space="preserve">
+    <value>Log Length(m)</value>
+  </data>
+  <data name="minimumdiameter" xml:space="preserve">
+    <value>minimum diameter (cm)</value>
+  </data>
+  <data name="NameInUse" xml:space="preserve">
+    <value>Name is already in use</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="PriceInvalid" xml:space="preserve">
+    <value>Price is invalid</value>
+  </data>
+  <data name="SelectPricing" xml:space="preserve">
+    <value>Select A Pricing Scheme</value>
+  </data>
+  <data name="SizeExists" xml:space="preserve">
+    <value>Size already exists</value>
+  </data>
 </root>

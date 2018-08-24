@@ -27,7 +27,7 @@ namespace GreenBankX
             InitializeComponent();
         }
         public async void Done() {
-            if (Height.Text != null && double.Parse(Height.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1 && Application.Current.Properties["TCounter"] != null && (int)Application.Current.Properties["TCounter"] > -1)
+            if (MHeight.Text != null && double.Parse(MHeight.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1 && Application.Current.Properties["TCounter"] != null && (int)Application.Current.Properties["TCounter"] > -1)
             {
                
                 counter = (int)Application.Current.Properties["Counter"];
@@ -41,7 +41,7 @@ namespace GreenBankX
                 }
                 else
                 {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(float.Parse(Diameter.Text), float.Parse(Height.Text), DateMes.Date);
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(float.Parse(Diameter.Text), float.Parse(MHeight.Text), DateMes.Date);
                     Application.Current.Properties["Counter"] = -1;
                     MessagingCenter.Send<AddMesPop>(this, "Append");
                     await PopupNavigation.Instance.PopAsync();

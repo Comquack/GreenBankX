@@ -1,20 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GreenBankX"
             xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
              x:Class="GreenBankX.ManagePlots">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ToolDelete" Order="Primary"  Text="" Priority="0" Clicked="DelPlot"/>
         <ToolbarItem x:Name="ToolAddTree" Order="Primary"  Text="" Priority="1" Clicked="AddNewTree" />
         <ToolbarItem x:Name="ToolDeleteTree" Order="Primary"  Text="" Priority="2" Clicked="DelTree"/>
-        <ToolbarItem x:Name="ToolAddMes" Order="Primary"  Text="" Priority="3" Clicked="AddTreeMes"/>
+        <ToolbarItem x:Name="ToolAddMes" Order="Secondary"  Text="" Priority="3" Clicked="AddTreeMes"/>
+        <ToolbarItem x:Name="ToolPricing" Order="Secondary"  Text="Change Pricing" Priority="4" Clicked="ChangePrice"/>
+        <ToolbarItem x:Name="ToolSave" Order="Secondary"  Text="" Priority="4" Clicked="Save"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
 
         <StackLayout>
-            <Label Text="Manage Plots"
+            <Label Text="{local:TranslateExtension ManagePlots}"
                    x:Name="Titlename"
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" 
+                   FontSize="Large"/>
             <Picker x:Name="pickPlot" Title="Select a Plot"
                     SelectedIndexChanged="SelectPlot"
                         TextColor="Black">
@@ -36,7 +40,7 @@
                 Grid.Row="1"
                 />
                 <Button
-                    Text="Earlier"
+                    Text="{local:TranslateExtension Earlier}"
                     x:Name="Earlier"
                     Clicked="Earlier_Clicked"
                 IsVisible="False"
@@ -46,7 +50,7 @@
                     />
                 <Button
                     x:Name="Later"
-                    Text="Later"
+                    Text="{local:TranslateExtension Later}"
                     Clicked="Later_Clicked"
                 IsVisible="False"
                     Grid.Row="2"
@@ -58,7 +62,7 @@
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
             </Grid>
-            <Picker x:Name="pickTree" Title="Select a Tree"
+            <Picker x:Name="pickTree" Title="{local:TranslateExtension SelectaTree}"
                     SelectedIndexChanged="SelectTree"
                         TextColor="Black"
                     IsVisible="False">
@@ -67,7 +71,7 @@
 
             </Picker>
             <Button x:Name="AddTree"
-                    Text="Add Tree"
+                    Text="{local:TranslateExtension AddTree}"
                     Clicked="AddNewTree"
                     IsVisible="False"/>
             <Button x:Name="AddMes"
@@ -78,9 +82,6 @@
                     Text="Delete Tree"
                     Clicked="DelTree"
                     IsVisible="False"/>
-            <Button x:Name="SaveState"
-                    Text="Save???"
-                    Clicked="Save"/>
 
         </StackLayout>
     </ContentPage.Content>

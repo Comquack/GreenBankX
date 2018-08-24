@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GreenBankX.Resources;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using Rg.Plugins.Popup.Services;
@@ -19,36 +20,41 @@ namespace GreenBankX
         int GraphNo = -1;
 		public ManagePlots ()
 		{
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
             InitializeComponent();
             ((List<Plot>)Application.Current.Properties["Plots"]).Count();
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
             {
                 pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
             }
+            Graphgrid.RowDefinitions.ElementAt(0).Height = new GridLength(90, GridUnitType.Star);
+            Graphgrid.RowDefinitions.ElementAt(1).Height = new GridLength(0, GridUnitType.Star);
         }
         public void SelectPlot()
         { string trees = "";
             if (pickPlot.SelectedIndex > -1)
             {
-                Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                List<Tree> TreeList = ThisPlot.getTrees();
+                
+                   Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+                trees = AppResource.ResourceManager.GetString("Name") + ": " + ThisPlot.GetName() + "\n"+ AppResource.ResourceManager.GetString("Area")+": " + ThisPlot.GetArea()+"km2\n";
+                List <Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;
                 pickTree.Items.Clear();
                 for (int x = 0; x < TreeList.Count; x++)
                 {
                     ThisTree = TreeList.ElementAt(x);
-                    trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm): " + ThisTree.GetDia().ToString() + "Height(m): " + ThisTree.Merch.ToString()+"\n";
+                    trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("DeletePlot")+": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString()+"\n";
                     pickTree.Items.Add(ThisTree.ID.ToString());
                 }
 
                 ListOfTree.Text = trees;
                 pickTree.IsVisible = true;
-                //AddTree.IsVisible = true;
-               // DeleteTree.IsVisible = false;
-
-                ToolDelete.Text = "Delete Plot";
+                Graphgrid.RowDefinitions.ElementAt(0).Height = new GridLength(90, GridUnitType.Auto);
+                Graphgrid.RowDefinitions.ElementAt(1).Height = new GridLength(0, GridUnitType.Star);
+                Oxy.IsVisible = false;
+                ToolDelete.Text = AppResource.ResourceManager.GetString("DeletePlot");
                 ToolDeleteTree.Text = "";
-                ToolAddTree.Text = "Add Tree";
+                ToolAddTree.Text = AppResource.ResourceManager.GetString("AddTree");
                 ToolAddMes.Text = "";
             }
         }
@@ -56,7 +62,7 @@ namespace GreenBankX
             string trees = "";
             if (pickTree.SelectedIndex > -1&& pickPlot.SelectedIndex > -1) {
                 Tree ThisTree = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(pickTree.SelectedIndex);
-                trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm): " + ThisTree.GetDia().ToString() + "Height(m): " + ThisTree.Merch.ToString() + "\n";
+                trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "\n";
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange() != null)
                 {
                     PriceRange thisRange = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange();
@@ -70,7 +76,7 @@ namespace GreenBankX
                         ItemsSource.Add(new BarItem { CategoryIndex = x });
                         if (x == -1)
                         {
-                            Lablels.Add("Too Small");
+                            Lablels.Add(AppResource.ResourceManager.GetString("TooSmall"));
                         }
                         else if (x == thisRange.GetBrack().Count - 1)
                         {
@@ -87,12 +93,12 @@ namespace GreenBankX
                         logs[(int)result[x, 0]+1]++;
                         total = +result[x, 1];      
                      }
-                    trees = trees + "Total logs:" + result.GetLength(0) + " Total Price: " + Math.Round(total, 2) + "k\n";
+                    trees = trees + AppResource.ResourceManager.GetString("TotalLogs") + ": " + result.GetLength(0) + AppResource.ResourceManager.GetString("TotalPrice")+": " + Math.Round(total, 2) + "k\n";
                     for (int x = 0; x < thisRange.GetBrack().Count + 1; x++) {
                         ItemsSource.ElementAt(x).Value = logs[x];
                     }
                     Oxy.Model = new OxyPlot.PlotModel {
-                        Title = "Tree ID:"
+                        Title = AppResource.ResourceManager.GetString("TreeID") + ": "
                     };
                     var barSeries = new BarSeries
                     {
@@ -112,7 +118,8 @@ namespace GreenBankX
                     GraphNo = 0;
                     Later.IsVisible = false;
                     Earlier.IsVisible = true;
-
+                    Graphgrid.RowDefinitions.ElementAt(0).Height = new GridLength(20, GridUnitType.Star);
+                    Graphgrid.RowDefinitions.ElementAt(1).Height = new GridLength(70, GridUnitType.Star);
 
 
                 }
@@ -127,14 +134,14 @@ namespace GreenBankX
                 for (int x = 0; x < TreeList.Count; x++)
                 {
                     ThisTree = TreeList.ElementAt(x);
-                    trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm): " + ThisTree.GetDia().ToString() + "Height(m): " + ThisTree.Merch.ToString() + "\n";
+                    trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "\n";
                 }
 
             }
 
-            ToolDeleteTree.Text = "Delete Tree";
-            ToolAddMes.Text = "Add Mesurement";
-           // DeleteTree.IsVisible = true;
+            ToolDeleteTree.Text = AppResource.ResourceManager.GetString("DeleteTree");
+            ToolAddMes.Text = AppResource.ResourceManager.GetString("AddMeasurement");
+            // DeleteTree.IsVisible = true;
             AddMes.IsVisible = true;
             ListOfTree.Text = trees;
         }
@@ -145,8 +152,8 @@ namespace GreenBankX
                 MessagingCenter.Unsubscribe<DeleteConfirm>(this, "Delete");
                 MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
                     string trees = "";
-  
-                        ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
+                    SaveAll.GetInstance().DeletePlot(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName());
+                    ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
                     ToolDelete.Text = "";
                     ToolDeleteTree.Text = "";
                     ToolAddTree.Text = "";
@@ -163,9 +170,9 @@ namespace GreenBankX
                         pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                     }
                     ListOfTree.Text = trees;
+                    
                 });
-                await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
-
+                await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
             }
         }
 
@@ -186,12 +193,14 @@ namespace GreenBankX
                     for (int x = 0; x < TreeList.Count; x++)
                     {
                         ThisTree = TreeList.ElementAt(x);
-                        trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm)" + ThisTree.GetDia().ToString() + "Height(m)" + ThisTree.Merch.ToString() + "/n";
+                        trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "\n";
                         pickTree.Items.Add(ThisTree.ID.ToString());
                     }
                     ListOfTree.Text = trees;
+                    pickTree.SelectedIndex = ThisPlot.getTrees().Count - 1;
+                    SelectTree();
                 });
-                await PopupNavigation.PushAsync(AddTreePop.GetInstance());
+                await PopupNavigation.Instance.PushAsync(AddTreePop.GetInstance());
             }
        }
         public async void AddTreeMes()
@@ -212,12 +221,12 @@ namespace GreenBankX
                     for (int x = 0; x < TreeList.Count; x++)
                     {
                         ThisTree = TreeList.ElementAt(x);
-                        trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm)" + ThisTree.GetDia().ToString() + "Height(m)" + ThisTree.Merch.ToString() + "/n";
+                        trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "/n";
 
                     }
                     ListOfTree.Text = trees;
                 });
-                await PopupNavigation.PushAsync(AddMesPop.GetInstance());
+                await PopupNavigation.Instance.PushAsync(AddMesPop.GetInstance());
             }
         }
         public async void DelTree()
@@ -238,7 +247,7 @@ namespace GreenBankX
                     for (int x = 0; x < TreeList.Count; x++)
                     {
                         ThisTree = TreeList.ElementAt(x);
-                        trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm)" + ThisTree.GetDia().ToString() + "Height(m)" + ThisTree.Merch.ToString() + "/n";
+                        trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "/n";
                         pickTree.Items.Add(ThisTree.ID.ToString());
                     }
                     ListOfTree.Text = trees;
@@ -246,7 +255,7 @@ namespace GreenBankX
    
                     ToolAddMes.Text = "";
                 });
-                await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
+                await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
 
             }
         }
@@ -263,7 +272,7 @@ namespace GreenBankX
                 double girth = ThisTree.GetHistory().ElementAt(GraphNo).Value.Item1;
                 double high = ThisTree.GetHistory().ElementAt(GraphNo).Value.Item2;
 
-                trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm): " + girth.ToString() + "Height(m): " + high.ToString() + "\n";
+                trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + girth.ToString() + AppResource.ResourceManager.GetString("Height") + ": " + high.ToString() + "\n";
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange() != null)
                 {
                     PriceRange thisRange = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange();
@@ -300,8 +309,8 @@ namespace GreenBankX
                     {
                         ItemsSource.ElementAt(x).Value = logs[x];
                     }
-                    string title ="Tree ID: " + ThisTree.ID.ToString() + " Date: " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
-                    //string title = GraphNo.ToString() + "/" + (ThisTree.GetHistory().Count - 1).ToString() + " Date: " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
+                    string title = AppResource.ResourceManager.GetString("TreeID") + ": " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Date") + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
+                   
                     Oxy.Model = new OxyPlot.PlotModel
                     {
                         Title = title
@@ -326,9 +335,10 @@ namespace GreenBankX
                     {
                         Earlier.IsVisible = false;
                     }
-                    Titlename.Text = GraphNo.ToString();
-
-
+                    if (GraphNo <= 0)
+                    {
+                        Later.IsVisible = false;
+                    }
 
                 }
 
@@ -348,7 +358,7 @@ namespace GreenBankX
                 }
                 double girth = ThisTree.GetHistory().ElementAt(GraphNo).Value.Item1;
                 double high = ThisTree.GetHistory().ElementAt(GraphNo).Value.Item2;
-                trees = trees + "ID: " + ThisTree.ID.ToString() + "Girth(cm): " + girth.ToString() + "Height(m): " + high.ToString() + "\n";
+                trees = trees + "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + girth.ToString() + AppResource.ResourceManager.GetString("Height") + ": " + high.ToString() + "\n";
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange() != null)
                 {
                     PriceRange thisRange = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange();
@@ -385,8 +395,8 @@ namespace GreenBankX
                     {
                         ItemsSource.ElementAt(x).Value = logs[x];
                     }
-                    string title ="Tree ID: " + ThisTree.ID.ToString() + " Date: " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
-                    //string title = GraphNo.ToString() + "/" + (ThisTree.GetHistory().Count - 1).ToString() + " Date: " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
+                    string title = AppResource.ResourceManager.GetString("TreeID") + ": " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Date") + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
+                    
 
                     Oxy.Model = new OxyPlot.PlotModel
                     {
@@ -411,9 +421,12 @@ namespace GreenBankX
                     {
                         Later.IsVisible = false;
                     }
+                    Later.IsVisible = true;
                     Earlier.IsVisible = true;
-                    Titlename.Text = GraphNo.ToString();
-
+                    if (GraphNo >= ThisTree.GetHistory().Count - 1)
+                    {
+                        Earlier.IsVisible = false;
+                    }
 
                 }
 
@@ -425,6 +438,19 @@ namespace GreenBankX
         {
             SaveAll.GetInstance().SavePlots();
             SaveAll.GetInstance().SaveTrees();
+        }
+        public void ChangePrice() {
+
+        }
+        public void ChangeTree()
+        {
+
+        }
+        public void PlotOverTime()
+        {
+            if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1) {
+                Tree ThisTree = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(pickTree.SelectedIndex);
+            }
         }
     }
 }

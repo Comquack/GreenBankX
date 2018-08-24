@@ -10,7 +10,6 @@ namespace GreenBankX
         private double diameter;
         private double merchHeight;
         private int id;
-        DateTime date;
         private SortedList<DateTime, (double,double)> History;
         // constructor
         public Tree(float diam, float merch, int ID, DateTime date)

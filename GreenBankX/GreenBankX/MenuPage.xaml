@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GreenBankX"
              x:Class="GreenBankX.MenuPage">
     <ContentPage.Content>
         <StackLayout>
@@ -10,7 +11,7 @@
             <Grid>
                 <Button
                     x:Name="Bttn1"
-                   Text="Measure Tree"
+                   Text="{local:TranslateExtension MeasureTree}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -22,7 +23,7 @@
                     Clicked="OpenMeasure"/>
                     <Button
                     x:Name="Bttn2"
-                   Text="Create Plot"
+                   Text="{local:TranslateExtension CreatePlot}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -34,7 +35,7 @@
                         Clicked="OpenMap"/>
                     <Button
                     x:Name="Bttn3"
-                   Text="Manage Plots"
+                   Text="{local:TranslateExtension ManagePlots}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -46,7 +47,7 @@
                         Grid.Row="5"/>
             <Button
                 x:Name="Bttn4"
-               Text="Pricings"
+               Text="{local:TranslateExtension Pricings}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"
@@ -56,19 +57,6 @@
                 Grid.Column="1"
                 Clicked="OpenPrice"
                 Grid.Row="6"/>
-                <Button
-                x:Name="Bttn5"
-               Text="XISIO"
-               VerticalOptions="Center"
-               IsVisible="true"
-               FontSize="Large"
-               FontAttributes="Bold"
-                BackgroundColor="LightGray"
-               TextColor="Green"
-                Grid.Column="1"
-                Clicked="OnButtonClicked"
-                Grid.Row="7"/>
-
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TK.CustomMap;
 using Xamarin.Essentials;
@@ -12,7 +13,6 @@ namespace GreenBankX
         double[] geotag = { 0, 0 };
         List<Tree> trees;
         List<Position> polygon;
-        String Csv;
         PriceRange PlotPrice;
         public Plot(String name)
         {
@@ -51,14 +51,14 @@ namespace GreenBankX
         }
 
 
-        public String GetCSV()
+        public double GetArea()
         {
-            String result = name + "," + geotag[0] + "," + geotag[1] + ";";
-            foreach (Tree a in this.trees)
-            {
-                result += a.GetCSV();
+            double area = 0;
+            int m = GetPolygon().Count;
+            for (int x = 0; x < m; x++) {
+                area = area + GetPolygon().ElementAt(x).Latitude* 111139* 111139* (GetPolygon().ElementAt((((x-1)%m)+m)%m).Longitude - GetPolygon().ElementAt((((x+1) % m) + m) % m).Longitude)/10000;
             }
-            return result;
+            return Math.Abs(area)*0.5;
         }
         public void AddPolygon(List<Position> newpoly) {
             polygon = newpoly;
@@ -66,20 +66,5 @@ namespace GreenBankX
         public List<Position> GetPolygon() {
             return polygon;
         }
-       // public void setCSV(String csv)
-       // {
-           // this.Csv = csv;
-           // String[] data = csv.Split(';');
-           // String[] data2 = data[0].Split(',');
-           // this.name = data2[0];
-           // this.geotag[0] = Double.Parse(data2[1]);
-          //  this.geotag[1] = Double.Parse(data2[2]);
-          //  for (int x = 1; x < data.Length; x++)
-          //  {
-          //      String[] dataT = data[x].Split(',');
-         //       this.trees.Add(new Tree(float.Parse(dataT[1]), float.Parse(dataT[2]),x));
-        //    }
-        //}
-
     }
 }
