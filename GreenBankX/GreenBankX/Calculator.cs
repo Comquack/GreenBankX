@@ -63,8 +63,10 @@ namespace GreenBankX
                     }
                 }
                 totals[i, 0] = sizeClass;
-                totals[i, 1] = LOGLEN * Math.PI * Math.Pow(rH / 100, 2) * value;
-                totals[i, 2] = LOGLEN * Math.PI * Math.Pow(rH / 100, 2);
+               // totals[i, 1] = LOGLEN * Math.PI * Math.Pow(rH / 100, 2) * value;
+               // totals[i, 2] = LOGLEN * Math.PI * Math.Pow(rH / 100, 2);
+               totals[i, 1] = (0.33333)*LOGLEN * Math.PI *( Math.Pow(rH / 100, 2)+(rH / 100)*(rL / 100) + Math.Pow(rL / 100, 2)) * value;
+                totals[i, 2] = (0.33333) * LOGLEN * Math.PI * (Math.Pow(rH / 100, 2) + (rH / 100) * (rL / 100) + Math.Pow(rL / 100, 2));
                 totals[i, 3] = 2 * rH;
                 totals[i, 4] = taper;
 

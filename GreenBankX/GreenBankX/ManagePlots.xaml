@@ -9,8 +9,8 @@
         <ToolbarItem x:Name="ToolAddTree" Order="Primary"  Text="" Priority="1" Clicked="AddNewTree" />
         <ToolbarItem x:Name="ToolDeleteTree" Order="Primary"  Text="" Priority="2" Clicked="DelTree"/>
         <ToolbarItem x:Name="ToolAddMes" Order="Secondary"  Text="" Priority="3" Clicked="AddTreeMes"/>
-        <ToolbarItem x:Name="ToolPricing" Order="Secondary"  Text="Change Pricing" Priority="4" Clicked="ChangePrice"/>
-        <ToolbarItem x:Name="ToolSave" Order="Secondary"  Text="" Priority="4" Clicked="Save"/>
+        <ToolbarItem x:Name="ToolPricing" Order="Secondary"  Text="Change Pricing" Priority="4" Clicked="ChangePricing"/>
+        <ToolbarItem x:Name="ToolSave" Order="Secondary"  Text="Save" Priority="4" Clicked="Save"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
 
@@ -25,19 +25,56 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
+            <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
+                    SelectedIndexChanged="ShowGraphpick"
+                        TextColor="Black">
+                <Picker.Items>
+                    <x:String>Data of trees</x:String>
+                    <x:String>Data by Log classes</x:String>
+                    <x:String>Averages </x:String>
+                    <x:String>Over Time</x:String>
+                </Picker.Items>
+
+            </Picker>
             <Grid x:Name="Graphgrid"
                 IsVisible="True"
+                  Margin="0, 0, 0, 0"
                   MinimumHeightRequest="100">
-                <Label x:Name="ListOfTree" 
-                Text="Manage Plots"
+                <Label x:Name="PlotTitle" 
+                Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
-                       Grid.Row="0"/>
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"
+                       Margin="0"/>
+                <Label x:Name="ListOfTree" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="1"
+                       Grid.Column="0"/>
+                <Label x:Name="GirthOT" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="1"
+                       Grid.Column="1"/>
+                <Label x:Name="HeightOT" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="1"
+                       Grid.Column="2"/>
+
 
                 <oxy:PlotView
                 x:Name="Oxy"
                 IsVisible="False"
-                Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                Grid.Row="2"
+                    HeightRequest="200"
+                    
                 />
                 <Button
                     Text="{local:TranslateExtension Earlier}"
@@ -45,22 +82,38 @@
                     Clicked="Earlier_Clicked"
                 IsVisible="False"
                     HorizontalOptions="Start"
-                    Margin="0"
-                    Grid.Row="2"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                     Margin="0, 0, 0, 0"
                     />
                 <Button
                     x:Name="Later"
                     Text="{local:TranslateExtension Later}"
                     Clicked="Later_Clicked"
                 IsVisible="False"
-                    Grid.Row="2"
+                     Margin="0, 0, 0, 0"
+                    Grid.Row="3"
+                    Grid.Column="2"
                     HorizontalOptions="End"
                     />
+                <Button x:Name="AddMes"
+                    Text="Add new Mesurement"
+                    Clicked="AddTreeMes"
+                    IsVisible="False"
+                        Grid.Row="3"
+                        Grid.Column="1"/>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="20*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="40*" />
                     <RowDefinition Height="70*" />
                     <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="30*" />
+                </Grid.ColumnDefinitions>
             </Grid>
             <Picker x:Name="pickTree" Title="{local:TranslateExtension SelectaTree}"
                     SelectedIndexChanged="SelectTree"
@@ -68,16 +121,13 @@
                     IsVisible="False">
                 <Picker.Items>
                 </Picker.Items>
-
             </Picker>
+
             <Button x:Name="AddTree"
                     Text="{local:TranslateExtension AddTree}"
                     Clicked="AddNewTree"
                     IsVisible="False"/>
-            <Button x:Name="AddMes"
-                    Text="Add new Mesurement"
-                    Clicked="AddTreeMes"
-                    IsVisible="False"/>
+
             <Button x:Name="DeleteTree"
                     Text="Delete Tree"
                     Clicked="DelTree"

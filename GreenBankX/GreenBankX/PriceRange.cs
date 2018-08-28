@@ -28,11 +28,12 @@ namespace GreenBankX
         {
             return PriceBrack;
         }
-
+        //set value of all Price brackets
         public void SetBrack(SortedList<double, double> newBrack)
         {
             PriceBrack = newBrack;
         }
+        //Add new Entry to Price brackets
         public Boolean addBrack(double dia, double price)
         {
             try { PriceBrack.Add(dia, price); }catch{

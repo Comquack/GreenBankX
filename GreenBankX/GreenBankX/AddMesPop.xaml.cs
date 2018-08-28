@@ -27,9 +27,9 @@ namespace GreenBankX
             InitializeComponent();
         }
         public async void Done() {
-            if (MHeight.Text != null && double.Parse(MHeight.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1 && Application.Current.Properties["TCounter"] != null && (int)Application.Current.Properties["TCounter"] > -1)
+            if (MHeight.Text != null && double.Parse(MHeight.Text) > 0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && Application.Current.Properties["TCounter"] != null && (int)Application.Current.Properties["TCounter"] > -1 && DateMes.Date <= DateTime.Now)
             {
-               
+
                 counter = (int)Application.Current.Properties["Counter"];
                 int tCounter = (int)Application.Current.Properties["TCounter"];
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ContainsKey(DateMes.Date))
@@ -47,7 +47,15 @@ namespace GreenBankX
                     await PopupNavigation.Instance.PopAsync();
                 }
             }
-            else {
+            else if (DateMes.Date > DateTime.Now)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("Date is in future", "Please input valid date", "OK");
+                });
+            }
+            else
+            {
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     DisplayAlert("input is invalid", "price is input", "OK");

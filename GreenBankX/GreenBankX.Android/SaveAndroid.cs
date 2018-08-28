@@ -12,7 +12,9 @@ using System.Threading.Tasks;
 class SaveAndroid: ISave
     {
         //Method to save document as a file in Android and view the saved document
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public async Task SaveAndView(string fileName, String contentType, MemoryStream stream)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             string root = null;
             //Get the root path in android device.

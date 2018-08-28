@@ -27,18 +27,25 @@ namespace GreenBankX
             InitializeComponent();
         }
         public async void Done() {
-            if (MHeight.Text != null && double.Parse(MHeight.Text)>0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"]!=null && (int)Application.Current.Properties["Counter"]>-1)
+            if (MHeight.Text != null && double.Parse(MHeight.Text) > 0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
             {
                 counter = (int)Application.Current.Properties["Counter"];
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(float.Parse(Diameter.Text), float.Parse(MHeight.Text), ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count,DateMes.Date));
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(float.Parse(Diameter.Text), float.Parse(MHeight.Text), ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count, DateMes.Date));
                 Application.Current.Properties["Counter"] = -1;
                 MessagingCenter.Send<AddTreePop>(this, "Add");
-                await PopupNavigation.Instance.PopAsync();   
+                await PopupNavigation.Instance.PopAsync();
             }
-            else {
+            else if (DateMes.Date > DateTime.Now) {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", "price is input", "OK");
+                    DisplayAlert("Date is in future", "Please input valid date", "OK");
+                });
+            }
+            else
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("input is invalid", "input is invalid", "OK");
                 });
             }
 
@@ -52,8 +59,6 @@ namespace GreenBankX
         {
             base.OnDisappearing();
         }
-
-        // ### Methods for supporting animations in your popup page ###
 
         // Invoked before an animation appearing
         protected override void OnAppearingAnimationBegin()

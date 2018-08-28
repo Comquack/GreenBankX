@@ -222,4 +222,7 @@
   <data name="SizeExists" xml:space="preserve">
     <value>Size already exists</value>
   </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>Show a Graph</value>
+  </data>
 </root>

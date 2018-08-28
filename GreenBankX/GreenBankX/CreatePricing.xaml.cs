@@ -117,8 +117,8 @@ namespace GreenBankX
                 logs = AppResource.ResourceManager.GetString("minimumdiameter")+"\n ";
                 for (int x = 0; x < brack.Count(); x++)
                 {
-                    prices = prices +  brack.ElementAt(x).Key +"\n";
-                    logs = logs + brack.ElementAt(x).Value + "\n";
+                    prices = prices +  brack.ElementAt(x).Value +"\n";
+                    logs = logs + brack.ElementAt(x).Key + "\n";
                 }
                 NameOfPrices.Text = AppResource.ResourceManager.GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 ListOfPrices.Text = prices;
@@ -194,7 +194,7 @@ namespace GreenBankX
                 //SavePrice();
 
             });
-            await PopupNavigation.PushAsync(DeleteConfirm.GetInstance());
+            await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
             
         }
         void SaveTest() {

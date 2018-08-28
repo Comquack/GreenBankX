@@ -331,6 +331,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show a Graph.
+        /// </summary>
+        public static string ShowGraph {
+            get {
+                return ResourceManager.GetString("ShowGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Size already exists.
         /// </summary>
         public static string SizeExists {

@@ -44,7 +44,6 @@ namespace GreenBankX
                     workbook.Worksheets.Create(thisPrice.GetName());
                     IWorksheet worksheet = workbook.Worksheets[y + 1];
 
-
                     worksheet.SetValue(1, 1, "Name");
                     worksheet.SetValue(2, 1, "Log Size");
                     worksheet.SetValue(1, 2, thisPrice.GetName());
@@ -57,8 +56,9 @@ namespace GreenBankX
                         worksheet.SetValue(4 + x, 1, thisPrice.GetBrack().ElementAt(x).Key.ToString());
                         worksheet.SetValue(4 + x, 2, thisPrice.GetBrack().ElementAt(x).Value.ToString());
                     }
+                    worksheet.Range["A1:A3"].CellStyle.Locked = true;
+                    worksheet.Range[3,2].CellStyle.Locked = true;
                 }
-
                 workbook.Worksheets[0].Remove();
                 //Save the workbook to stream in xlsx format. 
                 MemoryStream stream = new MemoryStream();
@@ -73,53 +73,56 @@ namespace GreenBankX
         }
         public void SavePlots()
         {
-
-            using (ExcelEngine excelEngine = new ExcelEngine())
-            {
-
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
-
-                for (int y = 0; y < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); y++)
+                using (ExcelEngine excelEngine = new ExcelEngine())
                 {
-                    Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(y);
-                    workbook.Worksheets.Create(thisPlot.GetName());
-                    IWorksheet worksheet = workbook.Worksheets[y + 1];
 
+                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+                    IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                    worksheet.SetValue(1, 1, "Name");
-                    worksheet.SetValue(2, 1, "Co-ordinates");
-                    worksheet.SetValue(1, 2, thisPlot.GetName());
-                    worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
-                    worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
-                    worksheet.SetValue(3, 1, "Pricing Name");
-                    worksheet.SetValue(3, 2, thisPlot.GetRange().GetName());
-                    worksheet.SetValue(3, 3, thisPlot.GetPolygon().Count.ToString());
-                    worksheet.SetValue(4, 1, "Border Co-ordinates");
-                    for (int x = 0; x < thisPlot.GetPolygon().Count; x++)
+                    for (int y = 0; y < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); y++)
                     {
-                        worksheet.SetValue(5 + x, 1, thisPlot.GetPolygon().ElementAt(x).Latitude.ToString());
-                        worksheet.SetValue(5 + x, 2, thisPlot.GetPolygon().ElementAt(x).Longitude.ToString());
-                    }
-                }
+                        Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(y);
+                        workbook.Worksheets.Create(thisPlot.GetName());
+                        IWorksheet worksheet = workbook.Worksheets[y + 1];
 
-                workbook.Worksheets[0].Remove();
-                MemoryStream stream = new MemoryStream();
-                workbook.SaveAs(stream);
-                workbook.Close();
-                Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xlsx", "application/msexcel", stream);
-            }
+
+                        worksheet.SetValue(1, 1, "Name");
+                        worksheet.SetValue(2, 1, "Co-ordinates");
+                        worksheet.SetValue(1, 2, thisPlot.GetName());
+                        worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
+                        worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
+                        worksheet.SetValue(3, 1, "Pricing Name");
+                        worksheet.SetValue(3, 2, thisPlot.GetRange().GetName());
+                        worksheet.SetValue(3, 3, thisPlot.GetPolygon().Count.ToString());
+                        worksheet.SetValue(4, 1, "Border Co-ordinates");
+                        for (int x = 0; x < thisPlot.GetPolygon().Count; x++)
+                        {
+                            worksheet.SetValue(5 + x, 1, thisPlot.GetPolygon().ElementAt(x).Latitude.ToString());
+                            worksheet.SetValue(5 + x, 2, thisPlot.GetPolygon().ElementAt(x).Longitude.ToString());
+                        }
+                    }
+
+                    workbook.Worksheets[0].Remove();
+                    MemoryStream stream = new MemoryStream();
+                    workbook.SaveAs(stream);
+                    workbook.Close();
+                    Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xlsx", "application/msexcel", stream);
+                }
+            
         }
-        public void SaveTrees()
+        
+        public void SaveTrees(int all, List<Plot> names)
         {
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
             {
+                Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                if (all == 1||names.Contains(thisPlot) || !File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName() + ".xlsx")) { 
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
-                    Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                    
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
-                   List<Tree> TreeList = thisPlot.getTrees();
+                    List<Tree> TreeList = thisPlot.getTrees();
                     for (int y = 0; y < TreeList.Count; y++)
                     {
                         Tree thisTree = TreeList.ElementAt(y);
@@ -140,27 +143,47 @@ namespace GreenBankX
                             worksheet.SetValue(3 + z, 3, thisTree.GetHistory().ElementAt(z).Value.Item2.ToString());
                         }
                     }
-                    if (workbook.Worksheets.Count>1) {workbook.Worksheets[0].Remove();}
-                    
+                    if (workbook.Worksheets.Count > 1) { workbook.Worksheets[0].Remove(); }
+
 
                     MemoryStream stream = new MemoryStream();
                     workbook.SaveAs(stream);
                     workbook.Close();
-                    Xamarin.Forms.DependencyService.Get<ISave>().Save(thisPlot.GetName()+".xlsx", "application/msexcel", stream);
+                    Xamarin.Forms.DependencyService.Get<ISave>().Save(thisPlot.GetName() + ".xlsx", "application/msexcel", stream);
                 }
 
-
+            }
             }
 
         }
         public void DeletePlot(string name) {
             bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xlsx");
-            if (doesExist) {
+            if (doesExist)
+            {
                 try
                 {
                     File.Delete(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xlsx");
                 }
                 catch { }
+            }
+                doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xlsx");
+                if (doesExist)
+            {
+                ExcelEngine excelEngine = new ExcelEngine();
+                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Plots.xlsx", FileMode.Open);
+                IApplication application = excelEngine.Excel;
+                IWorkbook workbook = application.Workbooks.Open(inputStream);
+                for (int x = 0; x < workbook.Worksheets.Count; x++)
+                {
+                    if (workbook.Worksheets.ElementAt(x).Name == name) {
+                        workbook.Worksheets.Remove(x);
+                    }
+                }
+                MemoryStream stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                workbook.Close();
+                Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xlsx", "application/msexcel", stream);
+
             }
         }
     }

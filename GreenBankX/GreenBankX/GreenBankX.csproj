@@ -28,6 +28,9 @@
     <Compile Update="AddMesPop.xaml.cs">
       <DependentUpon>AddMesPop.xaml</DependentUpon>
     </Compile>
+    <Compile Update="ChangePrice.xaml.cs">
+      <DependentUpon>ChangePrice.xaml</DependentUpon>
+    </Compile>
     <Compile Update="DeleteConfirm.xaml.cs">
       <DependentUpon>DeleteConfirm.xaml</DependentUpon>
     </Compile>
