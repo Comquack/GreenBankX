@@ -28,11 +28,11 @@ namespace GreenBankX
         }
         void LoadPriceFiles()
         {
-            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Pricings.xlsx");
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Pricings.xls");
             if (doesExist)
             {
                 ExcelEngine excelEngine = new ExcelEngine();
-                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Pricings.xlsx", FileMode.Open);
+                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Pricings.xls", FileMode.Open);
                 IApplication application = excelEngine.Excel;
                 IWorkbook workbook = application.Workbooks.Open(inputStream);
                 for (int x = 0; x < workbook.Worksheets.Count; x++) {
@@ -55,11 +55,11 @@ namespace GreenBankX
         }
         void LoadPlotFiles()
         {
-            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xlsx");
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls");
             if (doesExist)
             {
                 ExcelEngine excelEngine = new ExcelEngine();
-                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Plots.xlsx", FileMode.Open);
+                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls", FileMode.Open);
                 IApplication application = excelEngine.Excel;
                 IWorkbook workbook = application.Workbooks.Open(inputStream);
                 for (int x = 0; x < workbook.Worksheets.Count; x++)
@@ -96,11 +96,11 @@ namespace GreenBankX
         {
             for (int z = 0; z < ((List<Plot>)Application.Current.Properties["Plots"]).Count; z++) {
                 Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(z);
-            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/"+ thisPlot.GetName()+".xlsx");
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/"+ thisPlot.GetName()+".xls");
             if (doesExist)
             {
                 ExcelEngine excelEngine = new ExcelEngine();
-                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName()+".xlsx", FileMode.Open);
+                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName()+".xls", FileMode.Open);
                 IApplication application = excelEngine.Excel;
                 IWorkbook workbook = application.Workbooks.Open(inputStream);
                 for (int x = 0; x < workbook.Worksheets.Count; x++)
@@ -115,6 +115,7 @@ namespace GreenBankX
                         Tree newTree = new Tree(float.Parse(sheet.GetValueRowCol(3, 2).ToString()), float.Parse(sheet.GetValueRowCol(3, 3).ToString()), int.Parse(sheet.GetValueRowCol(1, 2).ToString()),DateTime.Parse((sheet.GetValueRowCol(3, 1).ToString())));
                         for (int y = 1; y < int.Parse(sheet.GetValueRowCol(1, 3).ToString()); y++)
                         {
+                                float.Parse(sheet.GetValueRowCol(3 + y, 2).ToString());
                                 newTree.AddToHistory(float.Parse(sheet.GetValueRowCol(3+y, 2).ToString()), float.Parse(sheet.GetValueRowCol(3+y, 3).ToString()), DateTime.Parse((sheet.GetValueRowCol(3+y, 1).ToString())));
                         }
                             ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(z).AddTree(newTree);

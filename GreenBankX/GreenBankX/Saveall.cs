@@ -33,9 +33,7 @@ namespace GreenBankX
 
                 //Create a workbook with a worksheet
                 IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
-
-                //Access first worksheet from the workbook instance.
-                //IWorksheet worksheet = workbook.Worksheets[0];
+                workbook.Version = ExcelVersion.Excel97to2003;
 
                 //Adding text to a cell
                 for (int y = 0; y < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); y++)
@@ -67,7 +65,7 @@ namespace GreenBankX
                 workbook.Close();
 
                 //Save the stream as a file in the device and invoke it for viewing
-                Xamarin.Forms.DependencyService.Get<ISave>().Save("Pricings.xlsx", "application/msexcel", stream);
+                Xamarin.Forms.DependencyService.Get<ISave>().Save("Pricings.xls", "application/msexcel", stream);
             }
 
         }
@@ -78,8 +76,9 @@ namespace GreenBankX
 
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+                workbook.Version = ExcelVersion.Excel97to2003;
 
-                    for (int y = 0; y < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); y++)
+                for (int y = 0; y < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); y++)
                     {
                         Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(y);
                         workbook.Worksheets.Create(thisPlot.GetName());
@@ -106,7 +105,7 @@ namespace GreenBankX
                     MemoryStream stream = new MemoryStream();
                     workbook.SaveAs(stream);
                     workbook.Close();
-                    Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xlsx", "application/msexcel", stream);
+                    Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xls", "application/msexcel", stream);
                 }
             
         }
@@ -116,12 +115,13 @@ namespace GreenBankX
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
             {
                 Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
-                if (all == 1||names.Contains(thisPlot) || !File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName() + ".xlsx")) { 
+                if (all == 1||names.Contains(thisPlot) || !File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName() + ".xls")) { 
                 using (ExcelEngine excelEngine = new ExcelEngine())
                 {
                     
                     excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
                     IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+                    workbook.Version = ExcelVersion.Excel97to2003;
                     List<Tree> TreeList = thisPlot.getTrees();
                     for (int y = 0; y < TreeList.Count; y++)
                     {
@@ -149,7 +149,7 @@ namespace GreenBankX
                     MemoryStream stream = new MemoryStream();
                     workbook.SaveAs(stream);
                     workbook.Close();
-                    Xamarin.Forms.DependencyService.Get<ISave>().Save(thisPlot.GetName() + ".xlsx", "application/msexcel", stream);
+                    Xamarin.Forms.DependencyService.Get<ISave>().Save(thisPlot.GetName() + ".xls", "application/msexcel", stream);
                 }
 
             }
@@ -157,22 +157,23 @@ namespace GreenBankX
 
         }
         public void DeletePlot(string name) {
-            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xlsx");
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xls");
             if (doesExist)
             {
                 try
                 {
-                    File.Delete(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xlsx");
+                    File.Delete(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xls");
                 }
                 catch { }
             }
-                doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xlsx");
+                doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls");
                 if (doesExist)
             {
                 ExcelEngine excelEngine = new ExcelEngine();
-                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Plots.xlsx", FileMode.Open);
+                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls", FileMode.Open);
                 IApplication application = excelEngine.Excel;
                 IWorkbook workbook = application.Workbooks.Open(inputStream);
+                workbook.Version = ExcelVersion.Excel97to2003;
                 for (int x = 0; x < workbook.Worksheets.Count; x++)
                 {
                     if (workbook.Worksheets.ElementAt(x).Name == name) {
@@ -182,7 +183,7 @@ namespace GreenBankX
                 MemoryStream stream = new MemoryStream();
                 workbook.SaveAs(stream);
                 workbook.Close();
-                Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xlsx", "application/msexcel", stream);
+                Xamarin.Forms.DependencyService.Get<ISave>().Save("Plots.xls", "application/msexcel", stream);
 
             }
         }

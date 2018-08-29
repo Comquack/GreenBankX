@@ -691,11 +691,74 @@ namespace GreenBankX
                 Calculator Calc = new Calculator();
                 Calc.SetPrices(thisRange);
                 List<double> heightOtime = new List<double>();
-                List<int> years = new List<int>();
                 if (pickTree.SelectedIndex == -1)
                 {
+                    GirthOT.Text = "";
 
-                    return;
+                    List<OxyPlot.DataPoint> ItemsSource = new List<OxyPlot.DataPoint>();
+                    SortedList<int, List<double>> dates = new SortedList<int, List<double>>();
+                    //SortedList<(int,int), (double, double)> data= new SortedList<(int,int), (double, double)>();
+                    for (int x = 0; x < ThisPlot.getTrees().Count; x++)
+                    {
+                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
+                        try { dates.Add(thisHistory.First().Key.Year, new List<double>());}
+                        catch { }
+                        try { dates.Add(thisHistory.Last().Key.Year, new List<double>()); }
+                        catch { }
+                    }
+                    for (int y = dates.First().Key; y <= dates.Last().Key; y++)
+                    {
+                        try { dates.Add(y, new List<double>()); }
+                        catch { }
+                    }
+                    for (int x = 0; x < ThisPlot.getTrees().Count; x++)
+                    {
+                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
+                        for (int y = dates.First().Key; y <= dates.Last().Key; y++)
+                        {
+                            //GirthOT.Text += y.ToString();
+                            if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year) {
+                                ((List<double>)dates[y]).Add(thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2);
+                            }
+                        }
+                    }
+                    double previous = 0;
+                    for (int y = dates.First().Key; y <= dates.Last().Key; y++)
+                    {
+                        try
+                        {
+                            previous = ((List<double>)dates[y]).Sum() / ((List<double>)dates[y]).Count;
+                        }
+                        catch { }
+                        ItemsSource.Add(new OxyPlot.DataPoint(y, previous));
+                    }
+                    Oxy.Model = new OxyPlot.PlotModel
+                    {
+                        Title = "Mean growth over time"
+                    };
+                    Oxy.MinimumHeightRequest = 1000;
+                    var LineSeries = new LineSeries
+                    {
+                        ItemsSource = ItemsSource
+
+                    };
+                    LinearAxis newAxis = new LinearAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        Key = "Year",
+                    };
+                    newAxis.IsZoomEnabled = false;
+                    newAxis.IsPanEnabled = false;
+                    Oxy.Model.Axes.Add(newAxis);
+                    var linearAxis1 = new LinearAxis
+                    {
+                        Position = AxisPosition.Left,
+                    };
+                    Oxy.Model.Series.Add(LineSeries);
+                    linearAxis1.IsZoomEnabled = false;
+                    linearAxis1.IsPanEnabled = false;
+                    Oxy.Model.Axes.Add(linearAxis1);
+                    Oxy.IsVisible = true;
 
                 }
                 else {
@@ -707,11 +770,7 @@ namespace GreenBankX
                     HeightOT.Text = yearmin.ToString() + " to " + yearmax.ToString(); 
                     for (int y = yearmin; y <= yearmax; y++)
                     {
-                        //years.Add(y);
-                       // heightOtime.Add(thisHistory.Where(z => z.Key < DateTime.ParseExact((y+1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2);
                         ItemsSource.Add(new OxyPlot.DataPoint(y, thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2));
-                        //GirthOT.Text += "g"+thisHistory.Where(z => z.Key < DateTime.ParseExact((y+1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2.ToString();
-                        //GirthOT.Text += DateTime.ParseExact((y+1).ToString(), "yyyy", CultureInfo.InvariantCulture).ToString() + "\n";
                     }
                     Oxy.Model = new OxyPlot.PlotModel
                     {
