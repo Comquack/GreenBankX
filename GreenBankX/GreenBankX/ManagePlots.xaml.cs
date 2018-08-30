@@ -59,8 +59,8 @@ namespace GreenBankX
                 {
                     ThisTree = TreeList.ElementAt(x);
                     IDs += ThisTree.ID.ToString() + "\n";
-                    girths += ThisTree.GetDia().ToString() + "\n";
-                    heights += ThisTree.Merch.ToString() + "\n";
+                    girths += Math.Round(ThisTree.GetDia(),2).ToString() + "\n";
+                    heights += Math.Round(ThisTree.Merch,2).ToString() + "\n";
                     pickTree.Items.Add(ThisTree.ID.ToString());
                 }
 
@@ -83,10 +83,6 @@ namespace GreenBankX
         //activates when index for tree picker is changed
         public void SelectTree() {
             string trees = "";
-            string girthtext = "";
-            string stuff = "";
-            string IDs = "ID: ";
-
             string girths = AppResource.ResourceManager.GetString("Girth") + "\n";
             string heights = AppResource.ResourceManager.GetString("Height") + "\n";
             if (pickTree.SelectedIndex > -1&& pickPlot.SelectedIndex > -1) {
@@ -107,13 +103,13 @@ namespace GreenBankX
                     ThisTree = TreeList.ElementAt(x);
                     trees += "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "\n";
                 }
-
+                ListOfTree.Text = trees;
             }
 
             ToolDeleteTree.Text = AppResource.ResourceManager.GetString("DeleteTree");
             ToolAddMes.Text = AppResource.ResourceManager.GetString("AddMeasurement");
             AddMes.IsVisible = true;
-            ListOfTree.Text = trees;
+            
         }
 
         public async void DelPlot() {
@@ -350,10 +346,6 @@ namespace GreenBankX
 
         private void Earlier_Clicked(object sender, EventArgs e)
         {
-            string trees = "";
-            string girthtext = "";
-            string stuff = "";
-            double totVol = 0;
             if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1)
             {    
                 if (GraphNo > 0)
