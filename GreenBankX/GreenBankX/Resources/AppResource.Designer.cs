@@ -214,6 +214,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Log Class.
+        /// </summary>
+        public static string LogClass {
+            get {
+                return ResourceManager.GetString("LogClass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log Length(m).
         /// </summary>
         public static string LogLength {

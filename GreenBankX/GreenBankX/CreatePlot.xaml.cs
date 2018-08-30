@@ -49,7 +49,7 @@ namespace GreenBankX
                 
                 setpoly = -1;
                 AddPlot.Text = "New Plot";
-                StartMap();
+                StartMap(false);
                 PolyMap();
                 return;
             }
@@ -61,9 +61,9 @@ namespace GreenBankX
                 geo[0] = Pins.ElementAt(Pins.Count - 1).Position.Latitude;
                 geo[1] = Pins.ElementAt(Pins.Count - 1).Position.Longitude;
                 Application.Current.Properties["ThisLocation"] = geo;
-                await PopupNavigation.PushAsync(new Popup());
+                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
                 CanAdd = true;
-                StartMap();
+                StartMap(false);
                 PolyMap();
             }
   
@@ -112,23 +112,27 @@ namespace GreenBankX
                 MyMap.Pins = Pins;
                 CanAdd = false;
             }
+            CancelButton.IsVisible = true; ;
         }
         public void MapReady() {
-            StartMap();
+            StartMap(true);
             PolyMap();
         }
-            public async void StartMap() {
+            public async void StartMap(bool first) {
             //renders map, centres on user, creates pins from plots
             try
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.High);
-                var location = await Geolocation.GetLocationAsync(request);
-
-                if (location != null)
+                if (first)
                 {
-                    MyMap.MoveToMapRegion(
-                        MapSpan.FromCenterAndRadius(
-                        new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
+                    var request = new GeolocationRequest(GeolocationAccuracy.High);
+                    var location = await Geolocation.GetLocationAsync(request);
+
+                    if (location != null)
+                    {
+                        MyMap.MoveToMapRegion(
+                            MapSpan.FromCenterAndRadius(
+                            new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
+                    }
                 }
                 Pins = new List<TKCustomMapPin>();
                 int num = ((List<Plot>)Application.Current.Properties["Plots"]).Count();
@@ -160,6 +164,11 @@ namespace GreenBankX
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++) {
                if (e.Value.Title == ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName())
                {
+                    if (setpoly > -1) {
+                        StartMap(false);
+                        PolyMap();
+                    }
+                    CanAdd = true;
                     e.Value.DefaultPinColor = Color.Aqua;
                     setpoly = x;
                     CancelButton.IsVisible = true;
@@ -174,10 +183,12 @@ namespace GreenBankX
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetPolygon().Count > 0)
                 {
-                    TKPolygon newpoly = new TKPolygon();
-                    newpoly.Coordinates = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetPolygon();
-                    newpoly.Color = Color.LightGray;
-                    newpoly.StrokeColor = Color.LightGreen;
+                    TKPolygon newpoly = new TKPolygon
+                    {
+                        Coordinates = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetPolygon(),
+                        Color = Color.LightGray,
+                        StrokeColor = Color.LightGreen
+                    };
                     polylist.Add(newpoly);
                 }
                     }
@@ -187,17 +198,20 @@ namespace GreenBankX
         //unselects pin
         public void Cancel() {
             if (setpoly > -1) {
-              
+                        MyMap.Pins.ElementAt(setpoly).DefaultPinColor = Color.Red;
                         setpoly = -1;
                         CancelButton.IsVisible = false;
                         newpolygon = new List<Position>();
-                        StartMap();
+                        StartMap(false);
                         PolyMap();
-                        MyMap.SelectedPin.DefaultPinColor = Color.Red;
+                        
                         MyMap.SelectedPin = null;
                         return;
 
             }
+            StartMap(false);
+            PolyMap();
+            CancelButton.IsVisible = false;
         }
         public void SavePlots() {
             SaveAll.GetInstance().SavePlots();

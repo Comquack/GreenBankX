@@ -41,7 +41,7 @@ namespace GreenBankX
                 }
                 else
                 {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(float.Parse(Diameter.Text), float.Parse(MHeight.Text), DateMes.Date);
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(double.Parse(Diameter.Text), double.Parse(MHeight.Text), DateMes.Date);
                     Application.Current.Properties["Counter"] = -1;
                     MessagingCenter.Send<AddMesPop>(this, "Append");
                     await PopupNavigation.Instance.PopAsync();

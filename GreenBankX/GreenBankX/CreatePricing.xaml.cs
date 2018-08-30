@@ -100,12 +100,12 @@ namespace GreenBankX
             if (pickPrice.SelectedIndex > -1)
             {
                 selector = pickPrice.SelectedIndex;
-                popList(selector);
+                PopList(selector);
                 AddPrice.IsVisible = true;
             }
         }
 
-        private void popList(int select) {
+        private void PopList(int select) {
             //Fills list of prices
             string prices = "";
             string logs = "";
@@ -136,7 +136,7 @@ namespace GreenBankX
                     });
                 }
                 else {
-                    popList(selector);
+                    PopList(selector);
                     maxDiam.Text = null;
                     price.Text = null;
                    // SavePrice();

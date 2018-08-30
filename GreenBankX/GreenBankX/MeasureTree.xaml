@@ -18,7 +18,7 @@
 
             <Picker x:Name="pickMeasurement" Title="Select a Unit"
                         TextColor="Black"
-                    SelectedIndexChanged="pickMeasurement_SelectedIndexChanged">
+                    SelectedIndexChanged="PickMeasurement_SelectedIndexChanged">
                 <Picker.Items>
                     <x:String>cm/m</x:String>
                     <x:String>inches</x:String>

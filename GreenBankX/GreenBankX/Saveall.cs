@@ -21,7 +21,7 @@ namespace GreenBankX
         }
         private SaveAll()
         {
-
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
         }
         public void SavePricing()
         {

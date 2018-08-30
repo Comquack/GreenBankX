@@ -11,7 +11,17 @@ namespace GreenBankX
 {
     public partial class Popup : Rg.Plugins.Popup.Pages.PopupPage
     {
-        public Popup()
+        public static Popup instance = new Popup();
+        public static Popup GetInstance()
+        {
+            if (instance == null)
+            {
+                return new Popup();
+            }
+            return instance;
+        }
+       
+        private Popup()
         {
             
             InitializeComponent();

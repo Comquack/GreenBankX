@@ -12,16 +12,18 @@ namespace GreenBankX
         private int id;
         private SortedList<DateTime, (double,double)> History;
         // constructor
-        public Tree(float diam, float merch, int ID, DateTime date)
+        public Tree(double diam, double merch, int ID, DateTime date)
         {
 
             diameter = diam;
             merchHeight = merch;
             id = ID;
-            History = new SortedList<DateTime, (double, double)>();
-            History.Add(date, (diam, merch));
+            History = new SortedList<DateTime, (double, double)>
+            {
+                { date, (diam, merch) }
+            };
         }
-        public void AddToHistory(float diam, float merch, DateTime date) {
+        public void AddToHistory(double diam, double merch, DateTime date) {
             History.Add(date, (diam, merch));
         }
         public Boolean RemoveFromHistory(DateTime date)

@@ -34,7 +34,6 @@ namespace GreenBankX
                 string resText1 = "Price\n";
                 string resText2 = "Volume\n";
                 SortedList<double, double> brack = calc.GetPrices().GetBrack();
-                double total = 0;
                 string[] unitcm = { "cm", "in" };
                 string[] unitm = { "m", "yards" };
                 string[] unitm3 = { "m3", "y3" };
@@ -62,11 +61,11 @@ namespace GreenBankX
         public void RunAdd() {
             if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
                 int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((float)(double.Parse(girth.Text)*Math.Pow(2.54, pickMeasurement.SelectedIndex)), (float)(double.Parse(height.Text) * Math.Pow(0.914, pickMeasurement.SelectedIndex)), ID, DateTime.Now));
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double)(double.Parse(girth.Text)*Math.Pow(2.54, pickMeasurement.SelectedIndex)), (double)(double.Parse(height.Text) * Math.Pow(0.914, pickMeasurement.SelectedIndex)), ID, DateTime.Now));
             }
         }
 
-        private void pickMeasurement_SelectedIndexChanged(object sender, EventArgs e)
+        private void PickMeasurement_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (pickMeasurement.SelectedIndex == 0)
             {
