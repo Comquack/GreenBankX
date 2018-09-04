@@ -47,6 +47,23 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="3"
                        Margin="0"/>
+                <ListView
+                x:Name="DetailsList"
+                    Grid.Row="1"
+                    ItemTapped="DetailsList_ItemSelected"
+                    Grid.ColumnSpan="3">
+                    <ListView.Header>
+                        <Label x:Name="ListTitle" Text=""/>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                             x:Name="DetailArray">
+                        </x:Array>
+                    </ListView.ItemsSource>
+
+                </ListView>
+
                 <Label x:Name="ListOfTree" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
@@ -97,7 +114,7 @@
                     HorizontalOptions="End"
                     />
                 <Button x:Name="AddMes"
-                    Text="Add new Mesurement"
+                    Text="{local:TranslateExtension AddMeasurement}"
                     Clicked="AddTreeMes"
                     IsVisible="False"
                         Grid.Row="3"

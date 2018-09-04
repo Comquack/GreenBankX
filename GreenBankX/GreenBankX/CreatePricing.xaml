@@ -3,6 +3,10 @@
              xmlns:local="clr-namespace:GreenBankX"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenBankX.CreatePricing">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="SaveTool" Order="Primary"  Text="Save" Priority="0" Clicked="SaveTest"/>
+
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Button x:Name="AddNew"
@@ -64,13 +68,27 @@
                    
                 </Grid.RowDefinitions>
             </Grid>
+            <ListView
+                x:Name="PriceList"
+                ItemSelected="PriceList_ItemSelected">
+                <ListView.Header>
+                    <Label x:Name="ListTitle" Text=""/>
+                </ListView.Header>
+                <ListView.ItemsSource>
+                    
+                    <x:Array Type="{x:Type x:String}"
+                             x:Name="PriceArray">
+                    </x:Array>
+                </ListView.ItemsSource>
+                
+            </ListView>
             <Button x:Name="Delete"
                     Text="Delete Pricing scheme"
                     Clicked="DelPrice"
                     />
-            <Button x:Name="Bttn5"
-                    Text="Save?????"
-                    Clicked="SaveTest"
+            <Button x:Name="Change"
+                    Text="Edit Entry"
+                    Clicked="Change_Clicked"
                     />
         </StackLayout>
     </ContentPage.Content>

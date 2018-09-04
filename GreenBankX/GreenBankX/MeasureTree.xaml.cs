@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using GreenBankX.Resources;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,24 +15,26 @@ namespace GreenBankX
 		public MeasureTree ()
 		{
             InitializeComponent();
-            pickMeasurement.SelectedIndex = 0;
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+                
             }
-             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
+            pickPrice.Items.Add(AppResource.ResourceManager.GetString("NewPrice"));
+            for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
                 pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
-             }  
-		}
+             }
+            pickPlot.Items.Add(AppResource.ResourceManager.GetString("NewPlot"));
+        }
         public void RunCalc() {
             Calculator calc = new Calculator();
             if (pickPrice.SelectedIndex > -1)
             {
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
                 double[,] result = calc.Calcs(double.Parse(girth.Text), double.Parse(height.Text));
-                string resText0 = "Log Size\n";
-                string resText1 = "Price\n";
-                string resText2 = "Volume\n";
+                string resText0 = AppResource.ResourceManager.GetString("LogClass") + "\n";
+                string resText1 = AppResource.ResourceManager.GetString("Price") + "\n";
+                string resText2 = AppResource.ResourceManager.GetString("Volume") + "\n";
                 SortedList<double, double> brack = calc.GetPrices().GetBrack();
                 string[] unitcm = { "cm", "in" };
                 string[] unitm = { "m", "yards" };
@@ -41,10 +43,10 @@ namespace GreenBankX
                 {
                     if (result[i, 0] == -1)
                     {
-                        resText0 = resText0 + "Log is too small\n";
+                        resText0 = resText0 + AppResource.ResourceManager.GetString("TooSmall") + "\n";
                     }
                     else if (result[i, 0]==brack.Count-1) {
-                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + unitcm[pickPrice.SelectedIndex] + " or larger\n";
+                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + unitcm[pickPrice.SelectedIndex] + AppResource.ResourceManager.GetString("OrLarger") + "\n";
                     }
                     else {
                         resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + "-" + brack.ElementAt((int)result[i, 0]+1).Key + unitcm[pickPrice.SelectedIndex] + "\n";
@@ -61,20 +63,39 @@ namespace GreenBankX
         public void RunAdd() {
             if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
                 int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double)(double.Parse(girth.Text)*Math.Pow(2.54, pickMeasurement.SelectedIndex)), (double)(double.Parse(height.Text) * Math.Pow(0.914, pickMeasurement.SelectedIndex)), ID, DateTime.Now));
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateTime.Now));
             }
         }
 
-        private void PickMeasurement_SelectedIndexChanged(object sender, EventArgs e)
+        private async void pickPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (pickMeasurement.SelectedIndex == 0)
-            {
-                girth.Placeholder = "Girth (cm)";
-                height.Placeholder = "Height (m)";
+            if (pickPrice.SelectedIndex == ((List<PriceRange>)Application.Current.Properties["Prices"]).Count) {
+                await Navigation.PushAsync(new CreatePricing());
             }
-            else {
-                girth.Placeholder = "Girth (inch)";
-                height.Placeholder = "Height (yards)";
+        }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            pickPrice.Items.Clear();
+            for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
+            {
+                pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+
+            }
+            pickPrice.Items.Add("New Pricing");
+            pickPlot.Items.Clear();
+            for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
+            {
+                pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
+            }
+            pickPlot.Items.Add("New Plot");
+        }
+
+        private async void pickPlot_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (pickPlot.SelectedIndex == ((List<Plot>)Application.Current.Properties["Plots"]).Count)
+            {
+                await Navigation.PushAsync(new CreatePlot());
             }
         }
     }

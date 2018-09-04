@@ -151,6 +151,24 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date exists.
+        /// </summary>
+        public static string DateExists {
+            get {
+                return ResourceManager.GetString("DateExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Measurement exists for this date.
+        /// </summary>
+        public static string DateExistsB {
+            get {
+                return ResourceManager.GetString("DateExistsB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Plot.
         /// </summary>
         public static string DeletePlot {
@@ -201,6 +219,15 @@ namespace GreenBankX.Resources {
         public static string Height {
             get {
                 return ResourceManager.GetString("Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  is invalid.
+        /// </summary>
+        public static string IsInvalid {
+            get {
+                return ResourceManager.GetString("IsInvalid", resourceCulture);
             }
         }
         
@@ -282,6 +309,33 @@ namespace GreenBankX.Resources {
         public static string NameInUse {
             get {
                 return ResourceManager.GetString("NameInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Plot.
+        /// </summary>
+        public static string NewPlot {
+            get {
+                return ResourceManager.GetString("NewPlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add New Pricing Scheme.
+        /// </summary>
+        public static string NewPrice {
+            get {
+                return ResourceManager.GetString("NewPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  or larger.
+        /// </summary>
+        public static string OrLarger {
+            get {
+                return ResourceManager.GetString("OrLarger", resourceCulture);
             }
         }
         
@@ -390,6 +444,15 @@ namespace GreenBankX.Resources {
         public static string TreeID {
             get {
                 return ResourceManager.GetString("TreeID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volume.
+        /// </summary>
+        public static string Volume {
+            get {
+                return ResourceManager.GetString("Volume", resourceCulture);
             }
         }
     }

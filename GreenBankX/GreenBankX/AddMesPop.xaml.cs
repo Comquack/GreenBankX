@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -36,7 +37,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Date exists", "Measurement exists for this date", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetString("DateExists"), AppResource.ResourceManager.GetString("DateExistsB"), "OK");
                     });
                 }
                 else
@@ -58,7 +59,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", "price is input", "OK");
+                    DisplayAlert("input is invalid", "input" + AppResource.ResourceManager.GetString("IsInvalid"), "OK");
                 });
             }
 

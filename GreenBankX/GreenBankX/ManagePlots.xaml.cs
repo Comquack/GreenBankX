@@ -21,6 +21,7 @@ namespace GreenBankX
         int GraphNo = -1;
         bool saveplot = false;
         bool savetree = false;
+        string doubletap = "";
         int year = DateTime.Now.Year;
 		public ManagePlots ()
 		{
@@ -43,6 +44,7 @@ namespace GreenBankX
         //activates when index is changed in the plot picker
         public void SelectPlot()
         { string trees = "";
+            List<string> Detail = new List<string>();
             string IDs = "ID\n";
             string girths = AppResource.ResourceManager.GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetString("Height") + "\n";
@@ -62,11 +64,14 @@ namespace GreenBankX
                     girths += Math.Round(ThisTree.GetDia(),2).ToString() + "\n";
                     heights += Math.Round(ThisTree.Merch,2).ToString() + "\n";
                     pickTree.Items.Add(ThisTree.ID.ToString());
+                    Detail.Add("ID: " + ThisTree.ID.ToString() + "\t" + AppResource.ResourceManager.GetString("Girth") + ": " + Math.Round(ThisTree.GetDia(), 2).ToString() + "cm\t" + AppResource.ResourceManager.GetString("Height") + ": " + Math.Round(ThisTree.Merch, 2).ToString()+"m");
                 }
+                DetailsList.IsVisible = true;
+                // ListOfTree.Text = IDs;
+                //GirthOT.Text = girths;
+                //HeightOT.Text = heights;
 
-                ListOfTree.Text = IDs;
-                GirthOT.Text = girths;
-                HeightOT.Text = heights;
+                DetailsList.ItemsSource = Detail.ToArray();
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
                 Graphgrid.RowDefinitions.ElementAt(0).Height = new GridLength(10, GridUnitType.Auto);
@@ -295,7 +300,7 @@ namespace GreenBankX
                         }
                         else if (x == thisRange.GetBrack().Count - 1)
                         {
-                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm or larger");
+                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm" +AppResource.ResourceManager.GetString("OrLarger") + ":\n");
                         }
                         else
                         {
@@ -331,7 +336,7 @@ namespace GreenBankX
                         Later.IsVisible = false;
                     }
                     stuff = AppResource.ResourceManager.GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetString("Height") + ": " + Math.Round(high, 2).ToString();
-                    girthtext = "Total logs: " + result.GetLength(0) + "\n" + "Total Price: " + Math.Round(total, 2) + "k\n";
+                    girthtext = AppResource.ResourceManager.GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k\n";
                     trees = "Tree ID:" + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
                     GirthOT.Text = girthtext;
                     ListOfTree.Text = stuff;
@@ -445,9 +450,9 @@ namespace GreenBankX
                 double total = 0;
                 List<string> Lablels = new List<string>();
                 List<BarItem> ItemsSource = new List<BarItem>();
-                string logclasses = AppResource.ResourceManager.GetString("Log Classes")+"\n";
+                string logclasses = AppResource.ResourceManager.GetString("LogClass")+"\n";
                 String volumes = "total Volume\n";
-                String worth = "total worth\n";
+                String worth = AppResource.ResourceManager.GetString("TotalPrice") + "\n";
                 for (int x = -1; x < thisRange.GetBrack().Count; x++)
                 {
                     ItemsSource.Add(new BarItem { CategoryIndex = x });
@@ -458,8 +463,8 @@ namespace GreenBankX
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
-                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm or larger");
-                        logclasses += thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm or larger:\n";
+                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm"+ AppResource.ResourceManager.GetString("OrLarger") + ":\n");
+                        logclasses += thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm" + AppResource.ResourceManager.GetString("OrLarger")+":\n";
                     }
                     else
                     {
@@ -522,7 +527,7 @@ namespace GreenBankX
                     CategoryAxis newAxis = new CategoryAxis
                     {
                         Position = AxisPosition.Left,
-                        Key = AppResource.ResourceManager.GetString("Log Classes"),
+                        Key = AppResource.ResourceManager.GetString("LogClass"),
                         ItemsSource = Lablels
                     };
                     newAxis.IsZoomEnabled = false;
@@ -699,7 +704,7 @@ namespace GreenBankX
             CategoryAxis newAxis = new CategoryAxis
             {
                 Position = AxisPosition.Left,
-                Key = AppResource.ResourceManager.GetString("Log Classes"),
+                Key = AppResource.ResourceManager.GetString("LogClass"),
                 ItemsSource = Lablels
             };
             newAxis.IsZoomEnabled = false;
@@ -713,6 +718,21 @@ namespace GreenBankX
             linearAxis1.IsPanEnabled = false;
             Oxy.Model.Axes.Add(linearAxis1);
             Oxy.IsVisible = true;
+        }
+
+        private void DetailsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (doubletap == DetailsList.SelectedItem.ToString())
+            {
+                doubletap = "";
+               // PlotTitle.Text = Array.IndexOf((Array)DetailsList.ItemsSource, DetailsList.SelectedItem).ToString();
+                pickTree.SelectedIndex = Array.IndexOf((Array)DetailsList.ItemsSource, DetailsList.SelectedItem);
+                DetailsList.IsVisible = false;
+            }
+            else {
+                doubletap = DetailsList.SelectedItem.ToString();
+                PlotTitle.Text = doubletap;
+            }
         }
     }
 }

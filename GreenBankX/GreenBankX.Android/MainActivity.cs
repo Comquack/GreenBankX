@@ -30,12 +30,19 @@ namespace GreenBankX.Droid
             TKGoogleMaps.Init(this, bundle);
             LoadApplication(new App());
         }
-        protected override void OnStart()
+        protected override void OnResume()
         {
             const string permission = Manifest.Permission.AccessFineLocation;
             const string persimmon = Manifest.Permission.WriteExternalStorage;
-            base.OnStart();
-
+            base.OnResume();
+            if (ContextCompat.CheckSelfPermission(this, persimmon) != Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.WriteExternalStorage }, 0);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
+            }
             if (ContextCompat.CheckSelfPermission(this, permission) != Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation }, 0);
@@ -45,14 +52,7 @@ namespace GreenBankX.Droid
                 System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
             }
 
-            if (ContextCompat.CheckSelfPermission(this, persimmon) != Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.WriteExternalStorage }, 0);
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
-            }
+       
         }
 
     }

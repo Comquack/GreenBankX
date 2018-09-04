@@ -18,12 +18,25 @@ namespace GreenBankX
 			InitializeComponent();
             Application.Current.Properties["Plots"] = new List<Plot>();
             Application.Current.Properties["Prices"] = new List<PriceRange>();
-            LoadPriceFiles();
-            LoadPlotFiles();
-            LoadTreeFiles();
         }
+
         async void OpenMenu(object sender, EventArgs e)
         {
+            try
+            {
+                if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count ==0) {
+                    LoadPriceFiles();
+                }
+               if (((List<Plot>)Application.Current.Properties["Plots"]).Count == 0)
+                {
+                    LoadPlotFiles();
+                    LoadTreeFiles();
+                }
+            }
+            catch
+            {
+
+            }
             await Navigation.PushAsync(new MenuPage());
         }
         //loads data from .xls files. prices. data for plots is stored in Pricings.xls

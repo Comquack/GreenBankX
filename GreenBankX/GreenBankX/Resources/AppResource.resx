@@ -228,4 +228,25 @@
   <data name="LogClass" xml:space="preserve">
     <value>Log Class</value>
   </data>
+  <data name="DateExists" xml:space="preserve">
+    <value>Date exists</value>
+  </data>
+  <data name="DateExistsB" xml:space="preserve">
+    <value>Measurement exists for this date</value>
+  </data>
+  <data name="IsInvalid" xml:space="preserve">
+    <value> is invalid</value>
+  </data>
+  <data name="NewPlot" xml:space="preserve">
+    <value>Add New Plot</value>
+  </data>
+  <data name="NewPrice" xml:space="preserve">
+    <value>Add New Pricing Scheme</value>
+  </data>
+  <data name="OrLarger" xml:space="preserve">
+    <value> or larger</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
 </root>
