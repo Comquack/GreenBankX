@@ -7,10 +7,10 @@ namespace GreenBankX
 {
     public class Tree
     {
-        private double diameter;
-        private double merchHeight;
-        private int id;
-        private SortedList<DateTime, (double,double)> History;
+        public double diameter { get;}
+        public double merchHeight { get; }
+        public int id { get; }
+        private SortedList<DateTime, (double, double)> History;
         // constructor
         public Tree(double diam, double merch, int ID, DateTime date)
         {
@@ -35,7 +35,6 @@ namespace GreenBankX
                 return false;
             }
         }
-
 
         public double GetDia()
         { return this.History.ElementAt(this.History.Count-1).Value.Item1;

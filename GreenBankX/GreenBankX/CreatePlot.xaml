@@ -3,6 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:customMap="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              x:Class="GreenBankX.CreatePlot">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolSave" Order="Primary"  Text="Save" Priority="0" Clicked="SavePlots"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Grid>
@@ -51,18 +54,6 @@
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
             </Grid>
-            <Button
-                x:Name="Save"
-               Text="Save????"
-               HorizontalOptions="EndAndExpand"
-               IsVisible="true"
-               FontSize="Large"
-               FontAttributes="Bold"
-                BackgroundColor="LightGray"
-               TextColor="Green"
-                Clicked="SavePlots"
-                />
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -19,15 +20,14 @@ namespace GreenBankX
 	{
         List<Plot> changedPlot;
         int GraphNo = -1;
+        int Listhadler = -1;
         bool saveplot = false;
         bool savetree = false;
-        string doubletap = "";
+        DetailsGraph doubletap = null;
+        Tree doubletapTree;
         int year = DateTime.Now.Year;
 		public ManagePlots ()
 		{
-
-
-            
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
             InitializeComponent();
             changedPlot = new List<Plot>();
@@ -44,7 +44,8 @@ namespace GreenBankX
         //activates when index is changed in the plot picker
         public void SelectPlot()
         { string trees = "";
-            List<string> Detail = new List<string>();
+            Listhadler = 0;
+            ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
             string IDs = "ID\n";
             string girths = AppResource.ResourceManager.GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetString("Height") + "\n";
@@ -59,19 +60,20 @@ namespace GreenBankX
                 pickTree.Items.Clear();
                 for (int x = 0; x < TreeList.Count; x++)
                 {
+                    
                     ThisTree = TreeList.ElementAt(x);
+                    TreeTails.Add(ThisTree);
                     IDs += ThisTree.ID.ToString() + "\n";
                     girths += Math.Round(ThisTree.GetDia(),2).ToString() + "\n";
                     heights += Math.Round(ThisTree.Merch,2).ToString() + "\n";
-                    pickTree.Items.Add(ThisTree.ID.ToString());
-                    Detail.Add("ID: " + ThisTree.ID.ToString() + "\t" + AppResource.ResourceManager.GetString("Girth") + ": " + Math.Round(ThisTree.GetDia(), 2).ToString() + "cm\t" + AppResource.ResourceManager.GetString("Height") + ": " + Math.Round(ThisTree.Merch, 2).ToString()+"m");
+                    pickTree.Items.Add(ThisTree.ID.ToString()); 
                 }
                 DetailsList.IsVisible = true;
-                // ListOfTree.Text = IDs;
-                //GirthOT.Text = girths;
-                //HeightOT.Text = heights;
-
-                DetailsList.ItemsSource = Detail.ToArray();
+                LogClassList.IsVisible = false;
+                ListOfTree.Text = "";
+                GirthOT.Text = "";
+                HeightOT.Text = "";
+                DetailsList.ItemsSource = TreeTails;
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
                 Graphgrid.RowDefinitions.ElementAt(0).Height = new GridLength(10, GridUnitType.Auto);
@@ -221,6 +223,8 @@ namespace GreenBankX
                     ListOfTree.Text = IDs;
                     GirthOT.Text = girths;
                     HeightOT.Text = heights;
+                    DetailsList.IsVisible = false;
+                    LogClassList.IsVisible = false;
                     savetree = true;
                     changedPlot.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex));
                 });
@@ -267,13 +271,15 @@ namespace GreenBankX
 
             }
         }
-
+        //Renders tree informaition
         private void LatEar()
         {
             string trees = "";
             string girthtext = "";
             string stuff = "";
             double totVol = 0;
+            DetailsList.IsVisible = false;
+            LogClassList.IsVisible = false;
             if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1)
             {
                 Tree ThisTree = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(pickTree.SelectedIndex);
@@ -304,7 +310,7 @@ namespace GreenBankX
                         }
                         else
                         {
-                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm");
+                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x+1).Key.ToString() + "cm");
                         }
                     }
                     int[] logs = new int[thisRange.GetBrack().Count + 1];
@@ -431,16 +437,25 @@ namespace GreenBankX
         {
 
         }
-
+        //dat displaed changes when selection is changed
         private void ShowGraphpick()
         {
+            if (ShowGraph.SelectedIndex > -1) {
+                DetailsList.IsVisible = false;
+                LogClassList.IsVisible = false;
+            }
+            //show regular data for each tree
             if (ShowGraph.SelectedIndex == 0) {
                 SelectPlot();
                 Earlier.IsVisible = false;
                 Later.IsVisible = false;
             }
-            if (ShowGraph.SelectedIndex == 1 || ShowGraph.SelectedIndex == 2)
+            // averages and data by log class
+           else if (ShowGraph.SelectedIndex == 1 || ShowGraph.SelectedIndex == 2)
             {
+                
+                //List<string> Detail = new List<string>();
+                ObservableCollection<DetailsGraph> Detail = new ObservableCollection<DetailsGraph>();
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 PriceRange thisRange = ThisPlot.GetRange();
                 Calculator Calc = new Calculator();
@@ -463,13 +478,11 @@ namespace GreenBankX
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
-                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm"+ AppResource.ResourceManager.GetString("OrLarger") + ":\n");
-                        logclasses += thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm" + AppResource.ResourceManager.GetString("OrLarger")+":\n";
+                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm"+ AppResource.ResourceManager.GetString("OrLarger") + ":\n"); 
                     }
                     else
                     {
-                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm");
-                        logclasses += thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm:\n";
+                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x+1).Key.ToString() + "cm");  
                     }
                 }
 
@@ -501,10 +514,10 @@ namespace GreenBankX
                     } catch { }
                    
                 }
-
+                // data by log class
                 if (ShowGraph.SelectedIndex == 1)
                 {
-
+                    Listhadler = 1;
                     for (int x = 0; x < thisRange.GetBrack().Count + 1; x++)
                     {
                         ItemsSource.ElementAt(x).Value = logs[x];
@@ -512,44 +525,17 @@ namespace GreenBankX
                     string title = "Total Logs for Plot (year:"+year.ToString()+ "):";
 
 
-                    Oxy.Model = new OxyPlot.PlotModel
-                    {
-                        Title = title
-                    };
-                    var barSeries = new BarSeries
-                    {
-                        ItemsSource = ItemsSource,
-                        LabelPlacement = LabelPlacement.Inside,
-                        LabelFormatString = "{0}"
-                    };
-
-                    Oxy.Model.Series.Add(barSeries);
-                    CategoryAxis newAxis = new CategoryAxis
-                    {
-                        Position = AxisPosition.Left,
-                        Key = AppResource.ResourceManager.GetString("LogClass"),
-                        ItemsSource = Lablels
-                    };
-                    newAxis.IsZoomEnabled = false;
-                    newAxis.IsPanEnabled = false;
-                    Oxy.Model.Axes.Add(newAxis);
-                    var linearAxis1 = new LinearAxis
-                    {
-                        Position = AxisPosition.Bottom,
-                    };
-                    linearAxis1.IsZoomEnabled = false;
-                    linearAxis1.IsPanEnabled = false;
-                    Oxy.Model.Axes.Add(linearAxis1);
-                    Oxy.IsVisible = true;
+                    OxyBar(title, Lablels, ItemsSource);
                     for (int x = 1; x < thisRange.GetBrack().Count + 1; x++)
                     {
-                        volumes += Math.Round(vols[x], 4).ToString() + "m3\n";
-                        worth += Math.Round(vals[x], 4) + "k\n";
-
+                        Detail.Add(new DetailsGraph { label = Lablels.ElementAt(x), volume = Math.Round(vols[x], 4), price = Math.Round(vals[x], 4) });
                     }
-                    ListOfTree.Text = logclasses;
-                    GirthOT.Text = volumes;
-                    HeightOT.Text = worth;
+                    DetailsList.IsVisible = false;
+                    LogClassList.IsVisible = true;
+                    ListOfTree.Text = "";
+                    GirthOT.Text = "";
+                    HeightOT.Text = "";
+                    LogClassList.ItemsSource = Detail;
                 }
                 else
                 {
@@ -565,7 +551,7 @@ namespace GreenBankX
                 Later.IsVisible = true;
                 Earlier.IsVisible = true;
 
-            }
+            }//plot over time
             else if (ShowGraph.SelectedIndex == 3) {
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 PriceRange thisRange = ThisPlot.GetRange();
@@ -686,7 +672,7 @@ namespace GreenBankX
                    
                 }
         }
-
+        //Render  a OxyPlot Graph containing a bar chart
         private void OxyBar(string title, List<string> Lablels, List<BarItem> ItemsSource) {
 
             Oxy.Model = new OxyPlot.PlotModel
@@ -722,17 +708,90 @@ namespace GreenBankX
 
         private void DetailsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (doubletap == DetailsList.SelectedItem.ToString())
+            if (doubletapTree == e.SelectedItem)
             {
-                doubletap = "";
-               // PlotTitle.Text = Array.IndexOf((Array)DetailsList.ItemsSource, DetailsList.SelectedItem).ToString();
-                pickTree.SelectedIndex = Array.IndexOf((Array)DetailsList.ItemsSource, DetailsList.SelectedItem);
-                DetailsList.IsVisible = false;
+                
+                if (Listhadler == 0)
+                {
+                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+                    pickTree.SelectedIndex = ThisPlot.getTrees().IndexOf(doubletapTree);
+                    
+                    DetailsList.IsVisible = false;
+                    LogClassList.IsVisible = false;
+                    Listhadler = -1;
+                    doubletapTree = null;
+                }
+                else if (Listhadler == 10) {  
+                    LogClassInfoPlot(Array.IndexOf((Array)DetailsList.ItemsSource, DetailsList.SelectedItem));
+                    Listhadler = -1;
+                }
+               
             }
             else {
-                doubletap = DetailsList.SelectedItem.ToString();
-                PlotTitle.Text = doubletap;
+               doubletapTree = (Tree)e.SelectedItem; 
             }
         }
+        private void LogClassInfoPlot(int bracNo)
+        {
+            PlotTitle.Text = "";
+            Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+            List<string> Detail = new List<string>();
+            Calculator Calc = new Calculator();
+            Calc.SetPrices(ThisPlot.GetRange());
+            for (int y = 0; y < ThisPlot.getTrees().Count; y++)
+            {
+                Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
+                SortedList<DateTime, (double, double)> Thistory = ThisTree.GetHistory();
+                try
+                {
+                    
+                    (double, double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
+                    double[,] result = Calc.Calcs(measure.Item1, measure.Item2);
+                    for (int x = 0; x < result.GetLength(0); x++)
+                    {
+                        if ((int)result[x, 0] == bracNo)
+                        {
+                            
+                            Detail.Add("Tree ID: "+ThisTree.ID.ToString() +"\tDiameter: " + Math.Round(result[x, 3],2).ToString() + "cm \tVolume: " + Math.Round(result[x, 2], 2).ToString() + "m3 \tPrice: " + Math.Round(result[x, 1], 2).ToString() + "k");
+                        }
+                    }
+                }
+
+                catch { }
+            }
+            DetailsList.ItemsSource = Detail.ToArray();
+            DetailsList.IsVisible = true;
+            LogClassList.IsVisible = false;
+            ListOfTree.Text = "";
+           
+            GirthOT.Text = "";
+            HeightOT.Text = "";
+        }
+
+        private void LogClassList_ItemTapped(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (doubletap == e.SelectedItem)
+            {
+
+                if (Listhadler == 1)
+                {
+                    LogClassInfoPlot(((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).IndexOf((DetailsGraph)e.SelectedItem));
+                    Listhadler = -1;
+                }
+
+            }
+            else
+            {
+                doubletap = (DetailsGraph)e.SelectedItem;
+            }
+        }
+    }
+
+    public class DetailsGraph {
+        public double volume { get; set; }
+        public double price { get; set; }
+        public string label { get; set; }
+        public DetailsGraph()
+        { }
     }
 }
