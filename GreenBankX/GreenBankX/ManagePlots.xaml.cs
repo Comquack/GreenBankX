@@ -70,6 +70,7 @@ namespace GreenBankX
                 }
                 DetailsList.IsVisible = true;
                 LogClassList.IsVisible = false;
+                LogList.IsVisible = false;
                 ListOfTree.Text = "";
                 GirthOT.Text = "";
                 HeightOT.Text = "";
@@ -225,6 +226,7 @@ namespace GreenBankX
                     HeightOT.Text = heights;
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = false;
+                    LogList.IsVisible = false;
                     savetree = true;
                     changedPlot.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex));
                 });
@@ -280,6 +282,7 @@ namespace GreenBankX
             double totVol = 0;
             DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
+            LogList.IsVisible = false;
             if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1)
             {
                 Tree ThisTree = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(pickTree.SelectedIndex);
@@ -443,6 +446,7 @@ namespace GreenBankX
             if (ShowGraph.SelectedIndex > -1) {
                 DetailsList.IsVisible = false;
                 LogClassList.IsVisible = false;
+                LogList.IsVisible = false;
             }
             //show regular data for each tree
             if (ShowGraph.SelectedIndex == 0) {
@@ -532,6 +536,7 @@ namespace GreenBankX
                     }
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = true;
+                    LogList.IsVisible = false;
                     ListOfTree.Text = "";
                     GirthOT.Text = "";
                     HeightOT.Text = "";
@@ -718,6 +723,7 @@ namespace GreenBankX
                     
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = false;
+                    LogList.IsVisible = false;
                     Listhadler = -1;
                     doubletapTree = null;
                 }
@@ -735,7 +741,7 @@ namespace GreenBankX
         {
             PlotTitle.Text = "";
             Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-            List<string> Detail = new List<string>();
+            ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
             Calculator Calc = new Calculator();
             Calc.SetPrices(ThisPlot.GetRange());
             for (int y = 0; y < ThisPlot.getTrees().Count; y++)
@@ -751,17 +757,19 @@ namespace GreenBankX
                     {
                         if ((int)result[x, 0] == bracNo)
                         {
-                            
-                            Detail.Add("Tree ID: "+ThisTree.ID.ToString() +"\tDiameter: " + Math.Round(result[x, 3],2).ToString() + "cm \tVolume: " + Math.Round(result[x, 2], 2).ToString() + "m3 \tPrice: " + Math.Round(result[x, 1], 2).ToString() + "k");
+
+                            Detail.Add(new DetailsGraph2 { ID = ThisTree.ID, girth = Math.Round(result[x, 3] * Math.PI, 2), price = Math.Round(result[x, 1], 2), volume = Math.Round(result[x, 2], 2) });
                         }
                     }
                 }
 
                 catch { }
             }
-            DetailsList.ItemsSource = Detail.ToArray();
+            LogList.ItemsSource = Detail;
             DetailsList.IsVisible = true;
             LogClassList.IsVisible = false;
+            LogList.IsVisible = false;
+            LogList.IsVisible = true;
             ListOfTree.Text = "";
            
             GirthOT.Text = "";
@@ -775,7 +783,12 @@ namespace GreenBankX
 
                 if (Listhadler == 1)
                 {
-                    LogClassInfoPlot(((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).IndexOf((DetailsGraph)e.SelectedItem));
+                    for (int x = 0; x < ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).Count; x++) {
+                        if (LogClassList.SelectedItem.ToString() == ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).ElementAt(x).ToString()) {
+                            LogClassInfoPlot(x);
+                        }
+                    }
+                    
                     Listhadler = -1;
                 }
 
@@ -792,6 +805,21 @@ namespace GreenBankX
         public double price { get; set; }
         public string label { get; set; }
         public DetailsGraph()
+        { }
+
+        public override string ToString()
+        {
+            return label;
+        }
+    }
+
+    public class DetailsGraph2
+    {
+        public double volume { get; set; }
+        public double price { get; set; }
+        public int ID { get; set; }
+        public double girth { get; set; }
+        public DetailsGraph2()
         { }
     }
 }
