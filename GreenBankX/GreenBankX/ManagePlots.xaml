@@ -149,6 +149,64 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
+                <ListView
+                    IsVisible="false"
+                x:Name="LogList"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3">
+                    <ListView.Header>
+                        <Grid>
+                            <Label
+                                Text="ID"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="Girth"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            <Label
+                                Text="Total Volume"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                            <Label
+                                Text="Total Price"
+                                TextColor="Black"
+                                        Grid.Column="3"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                            >
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label
+                                Text="{Binding ID}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                    <Label
+                                Text="{Binding girth}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                    <Label
+                                Text="{Binding volume}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    <Label
+                                Text="{Binding price}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
                 <Label x:Name="ListOfTree" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 

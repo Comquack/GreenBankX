@@ -36,9 +36,9 @@ namespace GreenBankX
                 string resText1 = AppResource.ResourceManager.GetString("Price") + "\n";
                 string resText2 = AppResource.ResourceManager.GetString("Volume") + "\n";
                 SortedList<double, double> brack = calc.GetPrices().GetBrack();
-                string[] unitcm = { "cm", "in" };
-                string[] unitm = { "m", "yards" };
-                string[] unitm3 = { "m3", "y3" };
+                string[] unitcm = { "cm"};
+                string[] unitm = { "m"};
+                string[] unitm3 = { "m3"};
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
                     if (result[i, 0] == -1)
@@ -46,10 +46,10 @@ namespace GreenBankX
                         resText0 = resText0 + AppResource.ResourceManager.GetString("TooSmall") + "\n";
                     }
                     else if (result[i, 0]==brack.Count-1) {
-                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + unitcm[pickPrice.SelectedIndex] + AppResource.ResourceManager.GetString("OrLarger") + "\n";
+                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + unitcm[0] + AppResource.ResourceManager.GetString("OrLarger") + "\n";
                     }
                     else {
-                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + "-" + brack.ElementAt((int)result[i, 0]+1).Key + unitcm[pickPrice.SelectedIndex] + "\n";
+                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + "-" + brack.ElementAt((int)result[i, 0]+1).Key + unitcm[0] + "\n";
                     }
                     resText1 = resText1 + Math.Round(result[i, 1], 2) + " kip\n";
                     resText2 = resText2 + Math.Round(result[i, 2], 4) + "m3\n";

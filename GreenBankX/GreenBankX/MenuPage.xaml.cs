@@ -29,7 +29,7 @@ namespace GreenBankX
                 if (((List<Plot>)Application.Current.Properties["Plots"]).Count == 0)
                 {
                     LoadPlotFiles();
-                    LoadTreeFiles();
+                    LoadTreeFiles2();
                 }
             }
             catch
@@ -162,6 +162,50 @@ namespace GreenBankX
                 }
 
             }
+        }
+        //loads data from .xls files populates plots with trees. data for trees is stored in <PlotName>.xls
+        void LoadTreeFiles2()
+        {
+            int treecounter = -1;
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/trees.xls");
+            if (doesExist)
+            {
+                ExcelEngine excelEngine = new ExcelEngine();
+                FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/trees.xls", FileMode.Open);
+                IApplication application = excelEngine.Excel;
+                IWorkbook workbook = application.Workbooks.Open(inputStream);
+                IWorksheet sheet = workbook.Worksheets[0];
+                Plot Thisplot;
+                if (sheet.GetValueRowCol(1, 1).ToString() == "Tree ID")
+                {
+                    for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 7).ToString()); y++)
+                    {
+                        for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++) {
+                            if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName() == sheet.GetValueRowCol(2 + y, 2).ToString()) {
+                                Thisplot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                                for (int z = 0; z < Thisplot.getTrees().Count; z++)
+                                {
+                                    if (Thisplot.getTrees().ElementAt(z).id.ToString() == sheet.GetValueRowCol(2 + y, 1).ToString())
+                                    {
+                                        treecounter = z;
+                                    }
+                                }
+                                if (treecounter > -1)
+                                {
+                                    Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()));
+                                }
+                                else {
+                                    Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString())));
+                                }
+                                treecounter = -1;
+                                x = ((List<Plot>)Application.Current.Properties["Plots"]).Count+1;
+                            }
+                        }
+                      }
+                }
+
+            }
+
         }
     }
 

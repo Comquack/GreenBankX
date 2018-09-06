@@ -7,8 +7,8 @@ namespace GreenBankX
 {
     public class Tree
     {
-        public double diameter { get;}
-        public double merchHeight { get; }
+        public double diameter { get; set;}
+        public double merchHeight { get; set;}
         public int id { get; }
         private SortedList<DateTime, (double, double)> History;
         // constructor
@@ -25,6 +25,8 @@ namespace GreenBankX
         }
         public void AddToHistory(double diam, double merch, DateTime date) {
             History.Add(date, (diam, merch));
+            diameter = History.Last().Value.Item1;
+            merchHeight = History.Last().Value.Item2;
         }
         public Boolean RemoveFromHistory(DateTime date)
         {

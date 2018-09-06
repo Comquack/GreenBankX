@@ -91,7 +91,9 @@ namespace GreenBankX
                         worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
                         worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
                         worksheet.SetValue(3, 1, "Pricing Name");
-                        worksheet.SetValue(3, 2, thisPlot.GetRange().GetName());
+                        if (thisPlot.GetRange() != null){
+                            worksheet.SetValue(3, 2, thisPlot.GetRange().GetName());
+                        }
                         worksheet.SetValue(3, 3, thisPlot.GetPolygon().Count.ToString());
                         worksheet.SetValue(4, 1, "Border Co-ordinates");
                         for (int x = 0; x < thisPlot.GetPolygon().Count; x++)
@@ -153,6 +155,51 @@ namespace GreenBankX
                 }
 
             }
+            }
+
+        }
+
+        public void SaveTrees2()
+        {
+            int count = 0;
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+                workbook.Version = ExcelVersion.Excel97to2003;
+                IWorksheet worksheet = workbook.Worksheets[0];
+                worksheet.SetValue(1, 1, "Tree ID");
+                worksheet.SetValue(1, 2, "Plot");
+                worksheet.SetValue(1, 3, "Date");
+                worksheet.SetValue(1, 4, "Girth");
+                worksheet.SetValue(1, 5, "Merchantable Height");
+
+                for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
+            {
+                Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                        List<Tree> TreeList = thisPlot.getTrees();
+                        for (int y = 0; y < TreeList.Count; y++)
+                        {
+                            
+                            Tree thisTree = TreeList.ElementAt(y);
+                            for (int z = 0; z < thisTree.GetHistory().Count; z++)
+                            {
+                                
+                                worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
+                                worksheet.SetValue(2 +count, 2, thisPlot.GetName().ToString());
+                                worksheet.SetValue(2 + count, 3, thisTree.GetHistory().ElementAt(z).Key.ToString());
+                                worksheet.SetValue(2 + count, 4, thisTree.GetHistory().ElementAt(z).Value.Item1.ToString());
+                                worksheet.SetValue(2+count, 5, thisTree.GetHistory().ElementAt(z).Value.Item2.ToString());
+                                count++;
+                        }
+                        }
+                }
+                worksheet.SetValue(1, 7, count.ToString());
+                MemoryStream stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                workbook.Close();
+                Xamarin.Forms.DependencyService.Get<ISave>().Save("trees.xls", "application/msexcel", stream);
             }
 
         }
