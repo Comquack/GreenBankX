@@ -14,6 +14,9 @@ namespace GreenBankX
         List<Tree> trees;
         List<Position> polygon;
         PriceRange PlotPrice;
+        public string Owner { get; set;}
+        public int YearPlanted { get; set; }
+        public string NearestTown { get; set; }
         public Plot(String name)
         {
             this.name = name;

@@ -87,7 +87,21 @@ namespace GreenBankX
 
                         worksheet.SetValue(1, 1, "Name");
                         worksheet.SetValue(2, 1, "Co-ordinates");
-                        worksheet.SetValue(1, 2, thisPlot.GetName());
+                    worksheet.SetValue(1, 4, "Owner");
+                    worksheet.SetValue(2, 4, "Nearest Town");
+                    worksheet.SetValue(3, 4, "Year Planted");
+                    if (thisPlot.Owner != null) {
+                        worksheet.SetValue(1, 5, thisPlot.Owner);
+                    }
+                    if (thisPlot.NearestTown != null)
+                    {
+                        worksheet.SetValue(2, 5, thisPlot.NearestTown);
+                    }
+                    if (thisPlot.YearPlanted != null)
+                    {
+                        worksheet.SetValue(3, 5, thisPlot.YearPlanted.ToString());
+                    }
+                    worksheet.SetValue(1, 2, thisPlot.GetName());
                         worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
                         worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
                         worksheet.SetValue(3, 1, "Pricing Name");
@@ -95,8 +109,10 @@ namespace GreenBankX
                             worksheet.SetValue(3, 2, thisPlot.GetRange().GetName());
                         }
                         worksheet.SetValue(3, 3, thisPlot.GetPolygon().Count.ToString());
+
                         worksheet.SetValue(4, 1, "Border Co-ordinates");
-                        for (int x = 0; x < thisPlot.GetPolygon().Count; x++)
+                    worksheet.Range["$A$4:$B$4"].Merge();
+                    for (int x = 0; x < thisPlot.GetPolygon().Count; x++)
                         {
                             worksheet.SetValue(5 + x, 1, thisPlot.GetPolygon().ElementAt(x).Latitude.ToString());
                             worksheet.SetValue(5 + x, 2, thisPlot.GetPolygon().ElementAt(x).Longitude.ToString());
@@ -112,53 +128,6 @@ namespace GreenBankX
             
         }
         
-        public void SaveTrees(int all, List<Plot> names)
-        {
-            for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
-            {
-                Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
-                if (all == 1||names.Contains(thisPlot) || !File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName() + ".xls")) { 
-                using (ExcelEngine excelEngine = new ExcelEngine())
-                {
-                    
-                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-                    IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
-                    workbook.Version = ExcelVersion.Excel97to2003;
-                    List<Tree> TreeList = thisPlot.getTrees();
-                    for (int y = 0; y < TreeList.Count; y++)
-                    {
-                        Tree thisTree = TreeList.ElementAt(y);
-                        workbook.Worksheets.Create(thisTree.ID.ToString());
-                        IWorksheet worksheet = workbook.Worksheets[y + 1];
-
-
-                        worksheet.SetValue(1, 1, "ID");
-                        worksheet.SetValue(1, 2, thisTree.ID.ToString());
-                        worksheet.SetValue(1, 3, thisTree.GetHistory().Count.ToString());
-                        worksheet.SetValue(2, 1, "Date");
-                        worksheet.SetValue(2, 2, "Girth");
-                        worksheet.SetValue(2, 1, "Mercjantable Height");
-                        for (int z = 0; z < thisTree.GetHistory().Count; z++)
-                        {
-                            worksheet.SetValue(3 + z, 1, thisTree.GetHistory().ElementAt(z).Key.ToString());
-                            worksheet.SetValue(3 + z, 2, thisTree.GetHistory().ElementAt(z).Value.Item1.ToString());
-                            worksheet.SetValue(3 + z, 3, thisTree.GetHistory().ElementAt(z).Value.Item2.ToString());
-                        }
-                    }
-                    if (workbook.Worksheets.Count > 1) { workbook.Worksheets[0].Remove(); }
-
-
-                    MemoryStream stream = new MemoryStream();
-                    workbook.SaveAs(stream);
-                    workbook.Close();
-                    Xamarin.Forms.DependencyService.Get<ISave>().Save(thisPlot.GetName() + ".xls", "application/msexcel", stream);
-                }
-
-            }
-            }
-
-        }
-
         public void SaveTrees2()
         {
             int count = 0;
@@ -174,6 +143,9 @@ namespace GreenBankX
                 worksheet.SetValue(1, 3, "Date");
                 worksheet.SetValue(1, 4, "Girth");
                 worksheet.SetValue(1, 5, "Merchantable Height");
+                worksheet.SetValue(1, 6, "Logs");
+                worksheet.SetValue(1, 7, "Volume");
+                worksheet.SetValue(1, 8, "Price");
 
                 for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
             {
@@ -185,8 +157,31 @@ namespace GreenBankX
                             Tree thisTree = TreeList.ElementAt(y);
                             for (int z = 0; z < thisTree.GetHistory().Count; z++)
                             {
-                                
-                                worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
+
+
+                            if (thisPlot.GetRange() != null)
+                            {
+                                PriceRange thisRange = thisPlot.GetRange();
+                                Calculator Calc = new Calculator();
+                                Calc.SetPrices(thisRange);
+                                double[,] result = Calc.Calcs(thisTree.GetHistory().ElementAt(z).Value.Item1, thisTree.GetHistory().ElementAt(z).Value.Item2);
+                                double total = 0;
+                                double totVol = 0;
+
+                                for (int w = 0; w < result.GetLength(0); w++)
+                                {
+                                    total = +result[w, 1];
+                                    totVol += result[w, 2];
+                                }
+
+                               worksheet.SetValue(2+count, 6, result.GetLength(0).ToString());
+                                worksheet.SetValue(2 + count, 7, Math.Round(totVol, 4).ToString());
+                                worksheet.SetValue(2 + count, 8, Math.Round(total, 2).ToString());
+                             }
+
+
+
+                            worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
                                 worksheet.SetValue(2 +count, 2, thisPlot.GetName().ToString());
                                 worksheet.SetValue(2 + count, 3, thisTree.GetHistory().ElementAt(z).Key.ToString());
                                 worksheet.SetValue(2 + count, 4, thisTree.GetHistory().ElementAt(z).Value.Item1.ToString());
@@ -195,7 +190,7 @@ namespace GreenBankX
                         }
                         }
                 }
-                worksheet.SetValue(1, 7, count.ToString());
+                worksheet.SetValue(1, 10, count.ToString());
                 MemoryStream stream = new MemoryStream();
                 workbook.SaveAs(stream);
                 workbook.Close();
@@ -204,16 +199,7 @@ namespace GreenBankX
 
         }
         public void DeletePlot(string name) {
-            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xls");
-            if (doesExist)
-            {
-                try
-                {
-                    File.Delete(DependencyService.Get<ISave>().GetFileName() + "/" + name + ".xls");
-                }
-                catch { }
-            }
-                doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls");
+               bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls");
                 if (doesExist)
             {
                 ExcelEngine excelEngine = new ExcelEngine();

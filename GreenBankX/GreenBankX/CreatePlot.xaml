@@ -34,6 +34,18 @@
                 Grid.Row="1"
                 />
                 <Button
+                x:Name="AtLocationButton"
+               Text="Pin Here"
+               HorizontalOptions="CenterAndExpand"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="PinHere"
+                Grid.Row="1"
+                />
+                <Button
                 x:Name="CancelButton"
                Text="Cancel"
                HorizontalOptions="EndAndExpand"

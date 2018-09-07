@@ -424,7 +424,7 @@ namespace GreenBankX
             }
             if (savetree)
             {
-                SaveAll.GetInstance().SaveTrees(0, changedPlot);
+                SaveAll.GetInstance().SaveTrees2();
             }
         }
         async public void ChangePricing()
@@ -458,7 +458,6 @@ namespace GreenBankX
            else if (ShowGraph.SelectedIndex == 1 || ShowGraph.SelectedIndex == 2)
             {
                 
-                //List<string> Detail = new List<string>();
                 ObservableCollection<DetailsGraph> Detail = new ObservableCollection<DetailsGraph>();
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 PriceRange thisRange = ThisPlot.GetRange();
@@ -469,16 +468,12 @@ namespace GreenBankX
                 double total = 0;
                 List<string> Lablels = new List<string>();
                 List<BarItem> ItemsSource = new List<BarItem>();
-                string logclasses = AppResource.ResourceManager.GetString("LogClass")+"\n";
-                String volumes = "total Volume\n";
-                String worth = AppResource.ResourceManager.GetString("TotalPrice") + "\n";
                 for (int x = -1; x < thisRange.GetBrack().Count; x++)
                 {
                     ItemsSource.Add(new BarItem { CategoryIndex = x });
                     if (x == -1)
                     {
                         Lablels.Add("Too Small");
-                        //logclasses += "Too Small:\n";
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
@@ -569,7 +564,6 @@ namespace GreenBankX
 
                     List<OxyPlot.DataPoint> ItemsSource = new List<OxyPlot.DataPoint>();
                     SortedList<int, List<double>> dates = new SortedList<int, List<double>>();
-                    //SortedList<(int,int), (double, double)> data= new SortedList<(int,int), (double, double)>();
                     for (int x = 0; x < ThisPlot.getTrees().Count; x++)
                     {
                         SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
@@ -588,7 +582,6 @@ namespace GreenBankX
                         SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
                         for (int y = dates.First().Key; y <= dates.Last().Key; y++)
                         {
-                            //GirthOT.Text += y.ToString();
                             if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year) {
                                 ((List<double>)dates[y]).Add(thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2);
                             }
@@ -819,6 +812,7 @@ namespace GreenBankX
         public double price { get; set; }
         public int ID { get; set; }
         public double girth { get; set; }
+        public string label { get; set; }
         public DetailsGraph2()
         { }
     }

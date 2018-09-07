@@ -152,6 +152,10 @@ namespace GreenBankX
             }
             catch
             {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("map load error", "map load error", "OK");
+                });
             }
         }
 
@@ -215,6 +219,73 @@ namespace GreenBankX
         }
         public void SavePlots() {
             SaveAll.GetInstance().SavePlots();
+        }
+
+        public async void PinHere()
+        {
+            Position position = new Position();
+            try
+            {
+                var request = new GeolocationRequest(GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync(request);
+
+                if (location != null)
+                {
+
+                    position = new Position(location.Latitude, location.Longitude);
+                }
+
+                //If setpoly not = -1 (pin selected) multiple pins can be placed to form polygon
+                if (setpoly > -1)
+                {
+                    MyMap.Pins = new List<TKCustomMapPin>();
+                    showName.IsVisible = false;
+                    Pins.Add(new TKCustomMapPin
+                    {
+                        Position = position,
+                        Title = "TestPlot",
+                        IsVisible = true,
+                        ShowCallout = false,
+                        DefaultPinColor = Color.Green
+
+                    });
+                    newpolygon.Add(position);
+
+                    MyMap.Pins = Pins;
+                }
+                else
+                {
+                    // setpoly = -1 (no pin selected) one pin can be placed at a time
+                    if (CanAdd)
+                    {
+
+                    }
+                    else
+                    {
+                        Pins.RemoveAt(Pins.Count - 1);
+                    }
+                    MyMap.Pins = new List<TKCustomMapPin>();
+                    showName.IsVisible = false;
+                    Pins.Add(new TKCustomMapPin
+                    {
+                        Position = position,
+                        Title = "TestPlot",
+                        IsVisible = true,
+                        ShowCallout = false,
+
+                    });
+                    MyMap.Pins = Pins;
+                    CanAdd = false;
+                }
+                CancelButton.IsVisible = true; ;
+            }
+            catch
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("pin here error", "pin here error", "OK");
+                });
+            }
         }
     }
 }

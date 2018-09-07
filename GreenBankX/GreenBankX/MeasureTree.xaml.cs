@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace GreenBankX
             Calculator calc = new Calculator();
             if (pickPrice.SelectedIndex > -1)
             {
+                ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
                 double[,] result = calc.Calcs(double.Parse(girth.Text), double.Parse(height.Text));
                 string resText0 = AppResource.ResourceManager.GetString("LogClass") + "\n";
@@ -41,22 +43,22 @@ namespace GreenBankX
                 string[] unitm3 = { "m3"};
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
+                    DetailsGraph2 answer = new DetailsGraph2 {volume = Math.Round(result[i, 2], 4) , price = Math.Round(result[i, 1], 2) };
                     if (result[i, 0] == -1)
                     {
-                        resText0 = resText0 + AppResource.ResourceManager.GetString("TooSmall") + "\n";
+                        answer.label = AppResource.ResourceManager.GetString("TooSmall");
                     }
                     else if (result[i, 0]==brack.Count-1) {
-                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + unitcm[0] + AppResource.ResourceManager.GetString("OrLarger") + "\n";
+                        answer.label = (brack.ElementAt((int)result[i, 0]).Key+ unitcm[0] + AppResource.ResourceManager.GetString("OrLarger"));
                     }
                     else {
-                        resText0 = resText0 + (brack.ElementAt((int)result[i, 0]).Key * Math.Pow(0.3937, pickPrice.SelectedIndex)) + "-" + brack.ElementAt((int)result[i, 0]+1).Key + unitcm[0] + "\n";
+                        answer.label = (brack.ElementAt((int)result[i, 0]).Key) + "-" + brack.ElementAt((int)result[i, 0] + 1).Key + unitcm[0];
+                      
                     }
-                    resText1 = resText1 + Math.Round(result[i, 1], 2) + " kip\n";
-                    resText2 = resText2 + Math.Round(result[i, 2], 4) + "m3\n";
+                    Detail.Add(answer);
                 }
-                Result0.Text = resText0;
-                Result1.Text = resText1;
-                Result2.Text = resText2;
+                LogList.ItemsSource = Detail;
+                LogList.IsVisible = true;
             }
         }
 

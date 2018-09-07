@@ -7,13 +7,14 @@ namespace GreenBankX
 {
     class Calculator
     {
-        private static readonly double A = 0.0022;
-        private static readonly double B = -0.0202;
-        private static readonly double C = 0.5441;
+
+        private static readonly double A2 = 0.59256;
+        private static readonly double B2 = 0.63308;
+        private static readonly double C2 = 0.5441;
         private static double LOGLEN = 2.3;
-        private static double BHEIGHT = 1.2;
+        private static double BHEIGHT = 1.3;
         private static double STUMP = .15;
-        private static double BARK = .9;
+        private static double BARK = 1.04;
         private PriceRange prices;
         public Calculator() {
         }
@@ -37,19 +38,16 @@ namespace GreenBankX
             double rL = 0;
             double breastDiameter = breastGirth / (Math.PI);
             double value = 0;
+            double height = 0;
             double sizeClass = 0;
+            height = STUMP;
             for (int i = 0; i < noLogs; i++)
             {
-                if (i == 0)
-                {
-                    taper = A * Math.Pow((breastDiameter - 2 * BARK), 2) + B * (breastDiameter - 2 * BARK) + C;
-                    rH = ((breastDiameter - 2 * BARK) - (LOGLEN - BHEIGHT + STUMP) * taper) / 2;
-                }
-                else
-                {
-                    taper = A * Math.Pow(2 * rL, 2) + B * 2 * rL + C;
-                    rH = (2 * rL - LOGLEN * taper) / 2;
-                }
+                height += LOGLEN;
+                    rH = (merchHeight - height) * ((A2 * merchHeight * (Math.Pow(B2, 2)) * (BHEIGHT - height)) / ((1 + B2 * (height)) * (1 + B2 * BHEIGHT) * (1 + B2 * merchHeight)) + ((0.77715 / merchHeight + 0.01239 * ((breastDiameter - BARK) / 10) + -0.0027653 * Math.Pow(((breastDiameter - BARK) / 10), 2)) * (height - BHEIGHT)) + ((breastDiameter - BARK) / (merchHeight - BHEIGHT)));
+                    rH = rH / 2;
+                
+
                 value = 0;
                 sizeClass = -1;
                 for (int a = 0; a < brack.Count; a++)
@@ -65,8 +63,6 @@ namespace GreenBankX
                 totals[i, 0] = sizeClass;
                 totals[i, 1] = LOGLEN * Math.PI * Math.Pow(rH / 100, 2) * value;
                 totals[i, 2] = LOGLEN * Math.PI * Math.Pow(rH / 100, 2);
-               //totals[i, 1] = (0.33333)*LOGLEN * Math.PI *( Math.Pow(rH / 100, 2)+(rH / 100)*(rL / 100) + Math.Pow(rL / 100, 2)) * value;
-                //totals[i, 2] = (0.33333) * LOGLEN * Math.PI * (Math.Pow(rH / 100, 2) + (rH / 100) * (rL / 100) + Math.Pow(rL / 100, 2));
                 totals[i, 3] = 2 * rH;
                 totals[i, 4] = taper;
 

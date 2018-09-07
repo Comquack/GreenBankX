@@ -128,42 +128,6 @@ namespace GreenBankX
             }
         }
         //loads data from .xls files populates plots with trees. data for trees is stored in <PlotName>.xls
-        void LoadTreeFiles()
-        {
-            for (int z = 0; z < ((List<Plot>)Application.Current.Properties["Plots"]).Count; z++)
-            {
-                Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(z);
-                bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName() + ".xls");
-                if (doesExist)
-                {
-                    ExcelEngine excelEngine = new ExcelEngine();
-                    FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/" + thisPlot.GetName() + ".xls", FileMode.Open);
-                    IApplication application = excelEngine.Excel;
-                    IWorkbook workbook = application.Workbooks.Open(inputStream);
-                    for (int x = 0; x < workbook.Worksheets.Count; x++)
-                    {
-
-                        IWorksheet sheet = workbook.Worksheets[x];
-                        if (sheet.GetValueRowCol(1, 1).ToString() == "ID")
-                        {
-                            string ID = sheet.GetValueRowCol(1, 2).ToString();
-                            SortedList<DateTime, (double, double)> History = new SortedList<DateTime, (double, double)>();
-
-                            Tree newTree = new Tree(double.Parse(sheet.GetValueRowCol(3, 2).ToString()), double.Parse(sheet.GetValueRowCol(3, 3).ToString()), int.Parse(sheet.GetValueRowCol(1, 2).ToString()), DateTime.Parse((sheet.GetValueRowCol(3, 1).ToString())));
-                            for (int y = 1; y < int.Parse(sheet.GetValueRowCol(1, 3).ToString()); y++)
-                            {
-                                double.Parse(sheet.GetValueRowCol(3 + y, 2).ToString());
-                                newTree.AddToHistory(double.Parse(sheet.GetValueRowCol(3 + y, 2).ToString()), double.Parse(sheet.GetValueRowCol(3 + y, 3).ToString()), DateTime.Parse((sheet.GetValueRowCol(3 + y, 1).ToString())));
-                            }
-                                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(z).AddTree(newTree);
-                        }
-                    }
-
-                }
-
-            }
-        }
-        //loads data from .xls files populates plots with trees. data for trees is stored in <PlotName>.xls
         void LoadTreeFiles2()
         {
             int treecounter = -1;
@@ -178,7 +142,7 @@ namespace GreenBankX
                 Plot Thisplot;
                 if (sheet.GetValueRowCol(1, 1).ToString() == "Tree ID")
                 {
-                    for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 7).ToString()); y++)
+                    for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 10).ToString()); y++)
                     {
                         for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++) {
                             if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName() == sheet.GetValueRowCol(2 + y, 2).ToString()) {

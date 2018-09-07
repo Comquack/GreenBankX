@@ -116,21 +116,13 @@ namespace GreenBankX
                 List<string> ArrayList = new List<string>();
                 PriceRange ThisPrice = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(select);
                 SortedList<double, double> brack = ThisPrice.GetBrack();
-                prices = AppResource.ResourceManager.GetString("Price") + "/m3\n";
-                logs = AppResource.ResourceManager.GetString("minimumdiameter")+"\n ";
-
                 for (int x = 0; x < brack.Count(); x++)
                 {
                     ArrayList.Add(AppResource.ResourceManager.GetString("minimumdiameter") + ": " + brack.ElementAt(x).Key + "\t\t\t\t" + AppResource.ResourceManager.GetString("Price") + ": " + brack.ElementAt(x).Value);
-                    prices = prices +  brack.ElementAt(x).Value +"\n";
-                    logs = logs + brack.ElementAt(x).Key + "\n";
                 }
                 NameOfPrices.Text =AppResource.ResourceManager.GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 PriceArray = ArrayList.ToArray();
                 PriceList.ItemsSource = PriceArray;
-               // ListTitle.Text = AppResource.ResourceManager.GetString("minimumdiameter") + "\t\t\t\t" + AppResource.ResourceManager.GetString("Price") + "/m3\n";
-                //ListOfPrices.Text = prices;
-                // LogSizes.Text = logs;
             }
         }
         private void AddPrice_Clicked(object sender, EventArgs e)

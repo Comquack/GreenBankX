@@ -54,26 +54,57 @@
                 Grid.Column="1"
                 Grid.Row="4"
                 Clicked="RunAdd"/>
+            <ListView
+                    IsVisible="false"
+                x:Name="LogList"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3">
+                <ListView.Header>
+                    <Grid>
 
-            <Grid>
-                <Label
-                x:Name="Result0"
-                Grid.Column="0"/>
-                <Label
-                x:Name="Result1"
-                Grid.Column="1"/>
-                <Label
-                x:Name="Result2"
-                Grid.Column="2"/>
-                <Label
-                x:Name="Result"/>
+                        <Label
+                                Text="Log Class"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                        <Label
+                                Text="Total Volume"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                        <Label
+                                Text="Total Price"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemsSource>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="33*" />
-                    <ColumnDefinition Width="33*" />
-                    <ColumnDefinition Width="33*" />
-                </Grid.ColumnDefinitions>
-            </Grid>
+                    <x:Array Type="{x:Type x:String}"
+                            >
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+
+                                <Label
+                                Text="{Binding label}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                <Label
+                                Text="{Binding volume}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                <Label
+                                Text="{Binding price}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                            </Grid>
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
         </ContentPage.Content>
         <ContentPage.BackgroundColor>
