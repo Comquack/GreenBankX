@@ -11,6 +11,6 @@
 	<uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<application android:label="GreenBankX.Android" android:icon="@mipmap/launcher_foreground">
-		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAahit8cNKk8EJylsApWJkVX0NgTOpAdJk" />
+		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB7X3Ro62OQEySQtwQ5MInuwej0cVCaGAM" />
 	</application>
 </manifest>

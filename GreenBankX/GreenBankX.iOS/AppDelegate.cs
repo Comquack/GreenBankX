@@ -26,7 +26,7 @@ namespace GreenBankX.iOS
             OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
             LoadApplication(new App());
             Rg.Plugins.Popup.Popup.Init();
-            Xamarin.FormsMaps.Init();
+            //Xamarin.FormsMaps.Init();
             return base.FinishedLaunching(app, options);
         }
     }

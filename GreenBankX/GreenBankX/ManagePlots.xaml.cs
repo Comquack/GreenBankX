@@ -418,6 +418,7 @@ namespace GreenBankX
         }
         public void Save()
         {
+         //   SaveAll.GetInstance().uploadAll();
             if (saveplot)
             {
                 SaveAll.GetInstance().SavePlots();
@@ -540,9 +541,9 @@ namespace GreenBankX
                 else
                 {
                     Oxy.Model = new OxyPlot.PlotModel();
-                    ListOfTree.Text = "Year: \nMean Diameter : \n Mean Volume: \n Mean Value: \n";
+                    ListOfTree.Text = "Year: \nMean Diameter : \n Mean Volume: \n Mean Value: \nTotal Volume: \n Total Value: \n";
                     HeightOT.Text = "";
-                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "\n" + Math.Round((totalvol / (double)count), 4).ToString() + "\n" + Math.Round((total / (double)count), 4).ToString() + "\n";
+                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "\n" + Math.Round((totalvol / (double)count), 4).ToString() + "\n" + Math.Round((total / (double)count), 4).ToString() + "\n" + "\n" + Math.Round((totalvol), 4).ToString() + "\n" + Math.Round((total), 4).ToString() + "\n";
                 }
                 if (GraphNo <= 0)
                 {
@@ -759,7 +760,7 @@ namespace GreenBankX
                 catch { }
             }
             LogList.ItemsSource = Detail;
-            DetailsList.IsVisible = true;
+            DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
             LogList.IsVisible = false;
             LogList.IsVisible = true;

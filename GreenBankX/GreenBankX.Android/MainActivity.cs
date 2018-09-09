@@ -27,6 +27,7 @@ namespace GreenBankX.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
+            global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             TKGoogleMaps.Init(this, bundle);
             LoadApplication(new App());
         }
@@ -39,17 +40,10 @@ namespace GreenBankX.Droid
             {
                 ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.WriteExternalStorage, Manifest.Permission.WriteExternalStorage }, 0);
             }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
-            }
+
             if (ContextCompat.CheckSelfPermission(this, permission) != Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation }, 0);
-            }
-            else
-            {
-                System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
             }
 
        

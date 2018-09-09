@@ -1,15 +1,26 @@
-﻿using Syncfusion.XlsIO;
+﻿using Android.Gms.Common.Apis;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Flows;
+using Google.Apis.Auth.OAuth2.Responses;
+using Google.Apis.Drive.v3;
+using Google.Apis.Services;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Xamarin.Auth;
 using Xamarin.Forms;
 
 namespace GreenBankX
 {
+    
     class SaveAll
     {
+        Account account;
+        AccountStore store;
         public static SaveAll instance = new SaveAll();
         public static SaveAll GetInstance()
         {
@@ -19,9 +30,33 @@ namespace GreenBankX
             }
             return instance;
         }
+
         private SaveAll()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
+            store = AccountStore.Create();
+            account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
+  
+        }
+        public void uploadAll() {
+            UserCredential credentials;
+            User user = (User)Application.Current.Properties["User"];
+            //var secrets = new ClientSecrets() { ClientId = "263109938909 - v6r1cu813081jujunosjadmhc3nr67kk.apps.googleusercontent.com", ClientSecret = Client };
+           var initializer = new GoogleAuthorizationCodeFlow.Initializer();
+           var flow = new GoogleAuthorizationCodeFlow(initializer);
+
+            // Refresh token can be obtained with the following curl commands: 
+            // http://stackoverflow.com/questions/5850287/youtube-api-single-user-scenario-with-oauth-uploading     videos/8876027#8876027
+            // You should be able to achieve the same via Xamarin.Auth
+           var token = new TokenResponse { RefreshToken = account.Properties["refresh_token"] };
+
+          credentials = new UserCredential(flow, "user", token);
+
+           DriveService Service = new DriveService(new BaseClientService.Initializer()
+                    {
+                        HttpClientInitializer = credentials,
+                        ApplicationName = "com.companyname.GreenBankX",
+                    });
         }
         public void SavePricing()
         {
@@ -90,6 +125,14 @@ namespace GreenBankX
                     worksheet.SetValue(1, 4, "Owner");
                     worksheet.SetValue(2, 4, "Nearest Town");
                     worksheet.SetValue(3, 4, "Year Planted");
+
+                    if ((User)Application.Current.Properties["User"] != null) {
+                        worksheet.SetValue(1, 5, ((User)Application.Current.Properties["User"]).Name);
+                       // for (int c = 0; c < account.Properties.Count; c ++) {
+                        //    worksheet.SetValue(1, 6+c, account.Properties.ElementAt(c).Key+" | "+ account.Properties.ElementAt(c).Value);
+                       // }
+                        //worksheet.SetValue(1, 6, (string)(Application.Current.Properties["JSON"]));
+                    }
                     if (thisPlot.Owner != null) {
                         worksheet.SetValue(1, 5, thisPlot.Owner);
                     }
@@ -97,10 +140,7 @@ namespace GreenBankX
                     {
                         worksheet.SetValue(2, 5, thisPlot.NearestTown);
                     }
-                    if (thisPlot.YearPlanted != null)
-                    {
                         worksheet.SetValue(3, 5, thisPlot.YearPlanted.ToString());
-                    }
                     worksheet.SetValue(1, 2, thisPlot.GetName());
                         worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
                         worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
@@ -131,6 +171,7 @@ namespace GreenBankX
         public void SaveTrees2()
         {
             int count = 0;
+            int countyear = 0;
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
 
@@ -146,39 +187,53 @@ namespace GreenBankX
                 worksheet.SetValue(1, 6, "Logs");
                 worksheet.SetValue(1, 7, "Volume");
                 worksheet.SetValue(1, 8, "Price");
+                worksheet.SetValue(2, 10, "Totals by Plot and Year");
+                worksheet.SetValue(3, 10, "Plot");
+                worksheet.SetValue(3, 11, "Year");
+                worksheet.SetValue(3, 12, "Volume");
+                worksheet.SetValue(3, 13, "Price");
+
+
 
                 for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
             {
-                Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
-                        List<Tree> TreeList = thisPlot.getTrees();
+                    int minyear=0;
+                    int maxyear=0;
+                    Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                    PriceRange thisRange = thisPlot.GetRange();
+                    Calculator Calc = new Calculator();
+                    Calc.SetPrices(thisRange);
+                    List<Tree> TreeList = thisPlot.getTrees();
                         for (int y = 0; y < TreeList.Count; y++)
                         {
-                            
                             Tree thisTree = TreeList.ElementAt(y);
                             for (int z = 0; z < thisTree.GetHistory().Count; z++)
                             {
-
-
+                            if (minyear == 0)
+                            {
+                                minyear = thisTree.GetHistory().ElementAt(z).Key.Year;
+                            }
+                            else {
+                                minyear = Math.Min(minyear, thisTree.GetHistory().ElementAt(z).Key.Year);
+                            }
+                            maxyear = Math.Max(maxyear, thisTree.GetHistory().ElementAt(z).Key.Year);
                             if (thisPlot.GetRange() != null)
                             {
-                                PriceRange thisRange = thisPlot.GetRange();
-                                Calculator Calc = new Calculator();
-                                Calc.SetPrices(thisRange);
+                                
                                 double[,] result = Calc.Calcs(thisTree.GetHistory().ElementAt(z).Value.Item1, thisTree.GetHistory().ElementAt(z).Value.Item2);
                                 double total = 0;
                                 double totVol = 0;
 
                                 for (int w = 0; w < result.GetLength(0); w++)
                                 {
-                                    total = +result[w, 1];
-                                    totVol += result[w, 2];
+                                    total =total+ result[w, 1];
+                                    totVol = totVol+ result[w, 2];
                                 }
 
-                               worksheet.SetValue(2+count, 6, result.GetLength(0).ToString());
+                               worksheet.SetValue(2 +count, 6, result.GetLength(0).ToString());
                                 worksheet.SetValue(2 + count, 7, Math.Round(totVol, 4).ToString());
-                                worksheet.SetValue(2 + count, 8, Math.Round(total, 2).ToString());
+                                worksheet.SetValue(2 + count, 8, Math.Round(total,2).ToString());
                              }
-
 
 
                             worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
@@ -189,6 +244,33 @@ namespace GreenBankX
                                 count++;
                         }
                         }
+                    worksheet.SetValue(4 + countyear, 10, thisPlot.GetName());
+                    for (int y = minyear; y <= maxyear; y++)
+                    {
+                        double totalplotyear=0;
+                        double totVolplotyear=0;
+                        for (int w = 0; w < TreeList.Count; w++)
+                        {
+                            SortedList<DateTime, (double, double)> thisHistory = thisPlot.getTrees().ElementAt(w).GetHistory();
+                            if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year)
+                            {
+                                double girth = thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item1;
+                                double height = thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2;
+                                double[,] result = Calc.Calcs(girth, height);
+                                for (int i = 0; i < result.GetLength(0); i++)
+                                {
+                                    totalplotyear = totalplotyear + result[i, 1];
+                                    totVolplotyear = totVolplotyear + result[i, 2];
+                                }
+
+                            }
+                        }
+                        worksheet.SetValue(4 + countyear, 11, y.ToString());
+                        worksheet.SetValue(4 + countyear, 12, Math.Round(totVolplotyear,4).ToString());
+                        worksheet.SetValue(4 + countyear, 13, Math.Round(totalplotyear,2).ToString());
+                        countyear++;
+                    }
+                    
                 }
                 worksheet.SetValue(1, 10, count.ToString());
                 MemoryStream stream = new MemoryStream();

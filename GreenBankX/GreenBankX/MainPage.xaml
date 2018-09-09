@@ -17,10 +17,11 @@
                >
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
-                Tapped="OpenMenu"
+                Tapped="OnLoginClicked"
                 NumberOfTapsRequired="1" />
             </Image.GestureRecognizers>
         </Image>
+        <Button Text="Skip login" Clicked="OpenMenu" />
     </StackLayout>
     <ContentPage.BackgroundColor>
         <Color>
