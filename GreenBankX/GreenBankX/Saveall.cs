@@ -38,25 +38,56 @@ namespace GreenBankX
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
   
         }
+
+
+
         public void uploadAll() {
-            UserCredential credentials;
-            User user = (User)Application.Current.Properties["User"];
-            //var secrets = new ClientSecrets() { ClientId = "263109938909 - v6r1cu813081jujunosjadmhc3nr67kk.apps.googleusercontent.com", ClientSecret = Client };
-           var initializer = new GoogleAuthorizationCodeFlow.Initializer();
-           var flow = new GoogleAuthorizationCodeFlow(initializer);
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    return;
 
-            // Refresh token can be obtained with the following curl commands: 
-            // http://stackoverflow.com/questions/5850287/youtube-api-single-user-scenario-with-oauth-uploading     videos/8876027#8876027
-            // You should be able to achieve the same via Xamarin.Auth
-           var token = new TokenResponse { RefreshToken = account.Properties["refresh_token"] };
+                case Device.Android:
+                    User user = (User)Application.Current.Properties["User"];
 
-          credentials = new UserCredential(flow, "user", token);
+                    // Refresh token can be obtained with the following curl commands: 
+                    // http://stackoverflow.com/questions/5850287/youtube-api-single-user-scenario-with-oauth-uploading     videos/8876027#8876027
+                    // You should be able to achieve the same via Xamarin.Auth
+                    var token = new TokenResponse { RefreshToken = account.Properties["refresh_token"] };
+                    GoogleCredential credential = GoogleCredential.FromAccessToken(token.ToString());
+                    
+                    //credentials = new UserCredential(flow, "user", token);
 
-           DriveService Service = new DriveService(new BaseClientService.Initializer()
+                    DriveService Service = new DriveService(new BaseClientService.Initializer()
                     {
-                        HttpClientInitializer = credentials,
+                        HttpClientInitializer = credential,
                         ApplicationName = "com.companyname.GreenBankX",
+                       
                     });
+                    //try
+                   // {
+                        Google.Apis.Drive.v3.Data.File file = new Google.Apis.Drive.v3.Data.File();
+                        file.Name = "Tree.xls";
+                    file.Description = "A test document";
+                    file.MimeType = "application/vnd.ms-excel";
+
+                        int treecounter = -1;
+                        bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/trees.xls");
+                    if (doesExist)
+                    {
+                        ExcelEngine excelEngine = new ExcelEngine();
+                        FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/trees.xls", FileMode.Open);
+                        FilesResource.CreateMediaUpload request = Service.Files.Create(file, inputStream, "application/vnd.ms-excel");
+                        //FilesResource.CreateMediaUpload request = Service.Files.Create;
+                        request.Upload();
+                    }
+
+                    //}
+                    //catch (Exception e)
+                    //{
+                    //}            
+            return;
+            }
         }
         public void SavePricing()
         {

@@ -418,7 +418,7 @@ namespace GreenBankX
         }
         public void Save()
         {
-         //   SaveAll.GetInstance().uploadAll();
+            SaveAll.GetInstance().uploadAll();
             if (saveplot)
             {
                 SaveAll.GetInstance().SavePlots();
