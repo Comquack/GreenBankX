@@ -36,9 +36,12 @@ namespace GreenBankX.Droid
             // [START configure_signin]
             // Configure sign-in to request the user's ID, email address, and basic
             // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
-                    .RequestEmail()
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)    
+                .RequestEmail()
+                .RequestScopes(new Scope(Constants.scopes))
+                .RequestIdToken(Constants.AndroidClientId)
                     .Build();
+            
             // [END configure_signin]
 
             // [START build_client]
@@ -106,6 +109,7 @@ namespace GreenBankX.Droid
                 // Signed in successfully, show authenticated UI.
                 var acct = result.SignInAccount;
                 GoogleInfo.GetInstance().Acount = acct;
+                
 
             }
         }
