@@ -7,5 +7,6 @@ public interface ILogin
     ILogin GetInstance();
     bool SignIn();
     string AccountName();
+    void SignOut();
 }
 

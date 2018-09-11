@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Gms.Auth.Api.SignIn;
+using Android.Gms.Common.Apis;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -21,6 +22,7 @@ namespace GreenBankX.Droid
         public MainActivity bom;
         public static GoogleInfo instance;
         public GoogleSignInAccount Acount{ get; set;}
+        public GoogleApiClient SignInApi { get; set; }
         public static GoogleInfo GetInstance(MainActivity bob)
         {
             if (instance == null)

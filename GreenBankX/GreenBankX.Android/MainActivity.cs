@@ -15,6 +15,7 @@ using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Auth.Api;
 using Android.Gms.Common;
 using Android.Content;
+using Android.Gms.Drive;
 
 namespace GreenBankX.Droid
 {
@@ -39,7 +40,6 @@ namespace GreenBankX.Droid
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)    
                 .RequestEmail()
                 .RequestScopes(new Scope(Constants.scopes))
-                .RequestIdToken(Constants.AndroidClientId)
                     .Build();
             
             // [END configure_signin]
@@ -50,6 +50,7 @@ namespace GreenBankX.Droid
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .EnableAutoManage(this /* FragmentActivity */, OnConnectionFailed /* OnConnectionFailedListener */)
                     .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .AddApi(DriveClass.API)
                     .Build();
             // [END build_client]
             global::Xamarin.Forms.Forms.Init(this, bundle);
@@ -57,6 +58,7 @@ namespace GreenBankX.Droid
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             TKGoogleMaps.Init(this, bundle);
             GoogleInfo.GetInstance(this);
+            GoogleInfo.GetInstance().SignInApi = mGoogleApiClient;
             LoadApplication(new App());
         }
         protected override void OnResume()
@@ -120,7 +122,7 @@ namespace GreenBankX.Droid
             StartActivityForResult(signInIntent, RC_SIGN_IN);
         }
 
-        void SignOut()
+        public void SignOut()
         {
             Auth.GoogleSignInApi.SignOut(mGoogleApiClient);
         }

@@ -44,7 +44,7 @@ namespace GreenBankX
 
 
 
-        public void uploadAll() {
+        public void UploadAll() {
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
@@ -70,11 +70,11 @@ namespace GreenBankX
                  
                     });
 
-                    FilesResource.ListRequest request = Service.Files.List();
-                    FileList files = request.Execute();
-                    response = files.Files.Count;
+                    //FilesResource.ListRequest request = Service.Files.List();
+                    //FileList files = request.Execute();
+                    //response = files.Files.Count;
                            
-                            return;
+                           return;
 
             }
         }

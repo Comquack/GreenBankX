@@ -55,7 +55,7 @@ namespace GreenBankX
                     break;
             }
         }
-            void OnLoginClicked()
+        void OnLoginClicked()
         {
             string clientId = null;
             string redirectUri = null;
@@ -68,14 +68,13 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    clientId = Constants.AndroidClientId;
-                    redirectUri = Constants.AndroidRedirectUrl;
-                    Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
+                    clientId = "263109938909-j0429onqh5ru0640oaesamlt9uc5afm8.apps.googleusercontent.com";
+                    redirectUri = "com.googleusercontent.apps.263109938909-j0429onqh5ru0640oaesamlt9uc5afm8:/oauth2redirect";
                     break;
             }
             var authenticator = new OAuth2Authenticator(
                 clientId,
-                null,
+                "HfdBeOjn9q43t9YjlXDQfTfz ",
                 Constants.scopes,
                 new Uri(Constants.AuthorizeUrl),
                 new Uri(redirectUri),
@@ -87,8 +86,8 @@ namespace GreenBankX
             authenticator.Error += OnAuthError;
 
             AuthenticationState.Authenticator = authenticator;
-           var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-           presenter.Login(authenticator);
+            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+            presenter.Login(authenticator);
         }
         async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {

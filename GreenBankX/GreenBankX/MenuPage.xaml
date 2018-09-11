@@ -3,6 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:GreenBankX"
              x:Class="GreenBankX.MenuPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolIn" Order="Primary"  Text="Login" Priority="0" Clicked="OnLoginTest"/>
+        <ToolbarItem x:Name="Toolout" Order="Primary"  Text="LogOut" Priority="1" Clicked="Signot"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Label

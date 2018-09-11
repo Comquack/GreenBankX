@@ -39,6 +39,32 @@ namespace GreenBankX
                 
             }
         }
+        public void Signot() {
+            Xamarin.Forms.DependencyService.Get<ILogin>().SignOut();
+        }
+        void OnLoginTest()
+        {
+            string clientId = null;
+            string redirectUri = null;
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    clientId = Constants.iOSClientId;
+                    redirectUri = Constants.iOSRedirectUrl;
+                    break;
+
+                case Device.Android:
+                    clientId = Constants.AndroidClientId;
+                    redirectUri = Constants.AndroidRedirectUrl;
+                    bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
+                    while (wait != true) { }
+                    try { boffo.Text = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    catch { }
+                    
+                    break;
+            }
+        }
         async void OpenMeasure(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new MeasureTree());
@@ -55,10 +81,9 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new CreatePricing());
         }
-       
 
-        //loads data from .xls files. prices. data for plots is stored in Pricings.xls
-        void LoadPriceFiles()
+            //loads data from .xls files. prices. data for plots is stored in Pricings.xls
+            void LoadPriceFiles()
         {
             bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Pricings.xls");
             if (doesExist)
