@@ -11,6 +11,7 @@ using Xamarin.Forms.Xaml;
 using Syncfusion.XlsIO;
 using System.IO;
 using TK.CustomMap;
+using Xamarin.Auth;
 
 namespace GreenBankX
 {
@@ -20,6 +21,7 @@ namespace GreenBankX
         public MenuPage ()
 		{
 			InitializeComponent ();
+            
             try
             {
                 if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count == 0)

@@ -3,7 +3,9 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Drive.v3;
+using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
+using Google.Apis.Upload;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,7 @@ namespace GreenBankX
     
     class SaveAll
     {
+        int response;
         Account account;
         AccountStore store;
         public static SaveAll instance = new SaveAll();
@@ -55,40 +58,27 @@ namespace GreenBankX
                     // You should be able to achieve the same via Xamarin.Auth
                     var token = new TokenResponse { RefreshToken = account.Properties["refresh_token"] };
                     GoogleCredential credential = GoogleCredential.FromAccessToken(token.ToString());
-                    
+                    credential.CreateScoped(Constants.scopearray);
+
                     //credentials = new UserCredential(flow, "user", token);
 
                     DriveService Service = new DriveService(new BaseClientService.Initializer()
                     {
                         HttpClientInitializer = credential,
                         ApplicationName = "com.companyname.GreenBankX",
-                       
+                       ApiKey = "AIzaSyB7X3Ro62OQEySQtwQ5MInuwej0cVCaGAM"
+                 
                     });
-                    //try
-                   // {
-                        Google.Apis.Drive.v3.Data.File file = new Google.Apis.Drive.v3.Data.File();
-                        file.Name = "Tree.xls";
-                    file.Description = "A test document";
-                    file.MimeType = "application/vnd.ms-excel";
 
-                        int treecounter = -1;
-                        bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/trees.xls");
-                    if (doesExist)
-                    {
-                        ExcelEngine excelEngine = new ExcelEngine();
-                        FileStream inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/trees.xls", FileMode.Open);
-                        FilesResource.CreateMediaUpload request = Service.Files.Create(file, inputStream, "application/vnd.ms-excel");
-                        //FilesResource.CreateMediaUpload request = Service.Files.Create;
-                        request.Upload();
-                    }
+                    FilesResource.ListRequest request = Service.Files.List();
+                    FileList files = request.Execute();
+                    response = files.Files.Count;
+                           
+                            return;
 
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //}            
-            return;
             }
         }
+
         public void SavePricing()
         {
             //Create an instance of ExcelEngine.
@@ -159,10 +149,10 @@ namespace GreenBankX
 
                     if ((User)Application.Current.Properties["User"] != null) {
                         worksheet.SetValue(1, 5, ((User)Application.Current.Properties["User"]).Name);
-                       // for (int c = 0; c < account.Properties.Count; c ++) {
-                        //    worksheet.SetValue(1, 6+c, account.Properties.ElementAt(c).Key+" | "+ account.Properties.ElementAt(c).Value);
-                       // }
-                        //worksheet.SetValue(1, 6, (string)(Application.Current.Properties["JSON"]));
+
+                           worksheet.SetValue(1, 6, response.ToString());
+
+
                     }
                     if (thisPlot.Owner != null) {
                         worksheet.SetValue(1, 5, thisPlot.Owner);
@@ -312,7 +302,7 @@ namespace GreenBankX
 
         }
         public void DeletePlot(string name) {
-               bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls");
+               bool doesExist = System.IO.File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Plots.xls");
                 if (doesExist)
             {
                 ExcelEngine excelEngine = new ExcelEngine();

@@ -7,7 +7,7 @@ using System.IO;
 
 
 using Xamarin.Forms;
-using GettingStarted.iOS;
+using GreenBankX.iOS;
 using UIKit;
 using QuickLook;
 

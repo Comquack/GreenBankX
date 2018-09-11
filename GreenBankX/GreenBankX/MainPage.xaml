@@ -17,7 +17,7 @@
                >
             <Image.GestureRecognizers>
                 <TapGestureRecognizer
-                Tapped="OnLoginClicked"
+                Tapped="OnLoginTest"
                 NumberOfTapsRequired="1" />
             </Image.GestureRecognizers>
         </Image>

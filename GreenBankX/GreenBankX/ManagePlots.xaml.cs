@@ -419,10 +419,10 @@ namespace GreenBankX
         public void Save()
         {
             SaveAll.GetInstance().uploadAll();
-            if (saveplot)
-            {
+            //if (saveplot)
+            //{
                 SaveAll.GetInstance().SavePlots();
-            }
+            //}
             if (savetree)
             {
                 SaveAll.GetInstance().SaveTrees2();
