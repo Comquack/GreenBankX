@@ -40,7 +40,8 @@ namespace GreenBankX.Droid
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)    
                 .RequestEmail()
                 .RequestScopes(new Scope(Constants.scopes))
-                    .Build();
+                .RequestScopes(DriveClass.ScopeFile)
+                 .Build();
             
             // [END configure_signin]
 
@@ -48,12 +49,16 @@ namespace GreenBankX.Droid
             // Build a GoogleApiClient with access to the Google Sign-In API and the
             // options specified by gso.
             mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .EnableAutoManage(this /* FragmentActivity */, OnConnectionFailed /* OnConnectionFailedListener */)
-                    .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .AddApi(Auth.GOOGLE_SIGN_IN_API,gso)
                     .AddApi(DriveClass.API)
+                   //.AddScope(DriveClass.ScopeFile)
+                  .AddOnConnectionFailedListener(OnConnectionFailed)
                     .Build();
-            // [END build_client]
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            if (!mGoogleApiClient.IsConnected) { 
+                mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
+         }
+        // [END build_client]
+        global::Xamarin.Forms.Forms.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             TKGoogleMaps.Init(this, bundle);
@@ -82,11 +87,11 @@ namespace GreenBankX.Droid
         {
             base.OnStart();
 
-            var opr = Auth.GoogleSignInApi.SilentSignIn(mGoogleApiClient);
+           var opr = Auth.GoogleSignInApi.SilentSignIn(mGoogleApiClient);
             if (opr.IsDone)
             {
-                // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-                // and the GoogleSignInResult will be available instantly.
+           //      If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+           //      and the GoogleSignInResult will be available instantly.
                 var result = opr.Get() as GoogleSignInResult;
                 HandleSignInResult(result);
             }
@@ -111,8 +116,15 @@ namespace GreenBankX.Droid
                 // Signed in successfully, show authenticated UI.
                 var acct = result.SignInAccount;
                 GoogleInfo.GetInstance().Acount = acct;
-                
+                GoogleInfo.GetInstance().SignInApi = mGoogleApiClient;
+                if (!mGoogleApiClient.IsConnected)
+                {
+                    mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
+                }
 
+            }
+            else {
+                GoogleInfo.GetInstance().Result = result.Status.ToString(); ;
             }
         }
 
@@ -124,7 +136,7 @@ namespace GreenBankX.Droid
 
         public void SignOut()
         {
-            Auth.GoogleSignInApi.SignOut(mGoogleApiClient);
+           Auth.GoogleSignInApi.SignOut(mGoogleApiClient);
         }
 
         void RevokeAccess()

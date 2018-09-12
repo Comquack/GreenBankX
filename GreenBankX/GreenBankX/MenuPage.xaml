@@ -6,6 +6,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ToolIn" Order="Primary"  Text="Login" Priority="0" Clicked="OnLoginTest"/>
         <ToolbarItem x:Name="Toolout" Order="Primary"  Text="LogOut" Priority="1" Clicked="Signot"/>
+        <ToolbarItem x:Name="ToolDrive" Order="Primary"  Text="LogDrive" Priority="1" Clicked="Driv3r"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>

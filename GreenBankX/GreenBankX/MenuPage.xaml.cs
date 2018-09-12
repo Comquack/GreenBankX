@@ -42,7 +42,15 @@ namespace GreenBankX
         public void Signot() {
             Xamarin.Forms.DependencyService.Get<ILogin>().SignOut();
         }
-        void OnLoginTest()
+        void Driv3r()
+        {
+            if (Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive())
+            {
+                boffo.Text = "horray";
+            }
+            else { boffo.Text = "boo"; }
+        }
+            void OnLoginTest()
         {
             string clientId = null;
             string redirectUri = null;
@@ -55,12 +63,15 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    clientId = Constants.AndroidClientId;
+                    try { boffo.Text = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    catch
+                    {
+                        clientId = Constants.AndroidClientId;
                     redirectUri = Constants.AndroidRedirectUrl;
                     bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
-                    while (wait != true) { }
-                    try { boffo.Text = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
-                    catch { }
+                        try { boffo.Text = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                        catch { }
+                    }
                     
                     break;
             }

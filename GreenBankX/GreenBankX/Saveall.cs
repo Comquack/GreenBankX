@@ -51,31 +51,8 @@ namespace GreenBankX
                     return;
 
                 case Device.Android:
-                    User user = (User)Application.Current.Properties["User"];
-
-                    // Refresh token can be obtained with the following curl commands: 
-                    // http://stackoverflow.com/questions/5850287/youtube-api-single-user-scenario-with-oauth-uploading     videos/8876027#8876027
-                    // You should be able to achieve the same via Xamarin.Auth
-                    var token = new TokenResponse { RefreshToken = account.Properties["refresh_token"] };
-                    GoogleCredential credential = GoogleCredential.FromAccessToken(token.ToString());
-                    credential.CreateScoped(Constants.scopearray);
-
-                    //credentials = new UserCredential(flow, "user", token);
-
-                    DriveService Service = new DriveService(new BaseClientService.Initializer()
-                    {
-                        HttpClientInitializer = credential,
-                        ApplicationName = "com.companyname.GreenBankX",
-                       ApiKey = "AIzaSyB7X3Ro62OQEySQtwQ5MInuwej0cVCaGAM"
-                 
-                    });
-
-                    //FilesResource.ListRequest request = Service.Files.List();
-                    //FileList files = request.Execute();
-                    //response = files.Files.Count;
-                           
-                           return;
-
+                    Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive();
+                    break;
             }
         }
 
@@ -147,12 +124,10 @@ namespace GreenBankX
                     worksheet.SetValue(2, 4, "Nearest Town");
                     worksheet.SetValue(3, 4, "Year Planted");
 
-                    if ((User)Application.Current.Properties["User"] != null) {
-                        worksheet.SetValue(1, 5, ((User)Application.Current.Properties["User"]).Name);
-
-                           worksheet.SetValue(1, 6, response.ToString());
-
-
+                    try { worksheet.SetValue(1, 5, Xamarin.Forms.DependencyService.Get<ILogin>().AccountName()); }
+                    catch
+                    {
+                        worksheet.SetValue(1, 5, "Failure");
                     }
                     if (thisPlot.Owner != null) {
                         worksheet.SetValue(1, 5, thisPlot.Owner);

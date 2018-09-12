@@ -22,6 +22,7 @@ namespace GreenBankX.Droid
         public MainActivity bom;
         public static GoogleInfo instance;
         public GoogleSignInAccount Acount{ get; set;}
+        public string Result { get; set; }
         public GoogleApiClient SignInApi { get; set; }
         public static GoogleInfo GetInstance(MainActivity bob)
         {

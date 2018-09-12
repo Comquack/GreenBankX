@@ -17,7 +17,7 @@ namespace GreenBankX
         // These values do not need changing
         public static string scopes = "https://www.googleapis.com/auth/userinfo.email "+DriveService.Scope.Drive+" "+DriveService.Scope.DriveFile+" "+DriveService.Scope.DriveMetadata;
         public static string[] scopearray = new string[] {"https://www.googleapis.com/auth/userinfo.email"  ,DriveService.Scope.Drive,
-        DriveService.Scope.DriveFile};
+        DriveService.Scope.DriveFile, DriveService.Scope.DriveMetadata};
         public static string AuthorizeUrl = "https://accounts.google.com/o/oauth2/auth";
         public static string AccessTokenUrl = "https://www.googleapis.com/oauth2/v4/token";
         public static string UserInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";

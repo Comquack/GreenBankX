@@ -34,22 +34,27 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         GoogleInfo.GetInstance().bom.SignOut();
     }
     public string AccountName() {
+        if (GoogleInfo.GetInstance().Acount.DisplayName == null) {
+            return GoogleInfo.GetInstance().Acount.ToString();
+        }
         return GoogleInfo.GetInstance().Acount.DisplayName;
         
     }
-    //public void UseDrive()
-    //{
-    //    DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi);
-    //}
+    public bool UseDrive()
+    {    
+        DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
+       return GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API);
+    }
     void IResultCallback.OnResult(Java.Lang.Object result)
     {
         var contentResults = (result).JavaCast<IDriveApiDriveContentsResult>();
         if (!contentResults.Status.IsSuccess) // handle the error
             return;
+ 
         Task.Run(() =>
         {
             var writer = new OutputStreamWriter(contentResults.DriveContents.OutputStream);
-            writer.Write("Stack Overflow");
+            writer.Write("St00ck Overflow");
             writer.Close();
             MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                    .SetTitle("New Text File")
