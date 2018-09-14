@@ -12,16 +12,16 @@ using Syncfusion.XlsIO;
 using System.IO;
 using TK.CustomMap;
 using Xamarin.Auth;
+using System.ComponentModel;
 
 namespace GreenBankX
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MenuPage : ContentPage
-	{
-        public MenuPage ()
-		{
-			InitializeComponent ();
-            
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MenuPage : ContentPage
+    {
+        public MenuPage()
+        {
+            InitializeComponent();
             try
             {
                 if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count == 0)
@@ -36,21 +36,36 @@ namespace GreenBankX
             }
             catch
             {
-                
+
+            }
+
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+
+                    break;
+
+                case Device.Android:
+                    try { var nu = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    catch
+                    {
+                        ToolDrive.Text = "";
+                        ToolDown.Text = "";
+                    }
+
+                    break;
             }
         }
-        public void Signot() {
+        public void Signot()
+        {
             Xamarin.Forms.DependencyService.Get<ILogin>().SignOut();
         }
         void Driv3r()
         {
-            if (Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive())
-            {
-                boffo.Text = "horray";
-            }
-            else { boffo.Text = "boo"; }
+            string nu = (Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive(-1));
+
         }
-            void OnLoginTest()
+        void OnLoginTest()
         {
             string clientId = null;
             string redirectUri = null;
@@ -63,16 +78,18 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    try { boffo.Text = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    try { var nu  =  Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
                     catch
                     {
                         clientId = Constants.AndroidClientId;
-                    redirectUri = Constants.AndroidRedirectUrl;
-                    bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
-                        try { boffo.Text = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                        redirectUri = Constants.AndroidRedirectUrl;
+                        bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
+                        try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
                         catch { }
+                        ToolDrive.Text = "Upload";
+                        ToolDown.Text = "Download";
                     }
-                    
+
                     break;
             }
         }
@@ -93,8 +110,8 @@ namespace GreenBankX
             await Navigation.PushAsync(new CreatePricing());
         }
 
-            //loads data from .xls files. prices. data for plots is stored in Pricings.xls
-            void LoadPriceFiles()
+        //loads data from .xls files. prices. data for plots is stored in Pricings.xls
+        void LoadPriceFiles()
         {
             bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/Pricings.xls");
             if (doesExist)
@@ -120,7 +137,7 @@ namespace GreenBankX
                     ((List<PriceRange>)Application.Current.Properties["Prices"]).Add(new PriceRange(name, "yew", bracket, loglen));
                     }
                 }
-
+                inputStream.Dispose();
             }
 
         }
@@ -162,7 +179,7 @@ namespace GreenBankX
                         ((List<Plot>)Application.Current.Properties["Plots"]).Add(newPlot);
                     }
                 }
-
+                inputStream.Dispose();
             }
         }
         //loads data from .xls files populates plots with trees. data for trees is stored in <PlotName>.xls
@@ -182,8 +199,10 @@ namespace GreenBankX
                 {
                     for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 10).ToString()); y++)
                     {
-                        for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++) {
-                            if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName() == sheet.GetValueRowCol(2 + y, 2).ToString()) {
+                        for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++)
+                        {
+                            if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName() == sheet.GetValueRowCol(2 + y, 2).ToString())
+                            {
                                 Thisplot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
                                 for (int z = 0; z < Thisplot.getTrees().Count; z++)
                                 {
@@ -196,19 +215,62 @@ namespace GreenBankX
                                 {
                                     Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()));
                                 }
-                                else {
+                                else
+                                {
                                     Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString())));
                                 }
                                 treecounter = -1;
-                                x = ((List<Plot>)Application.Current.Properties["Plots"]).Count+1;
+                                x = ((List<Plot>)Application.Current.Properties["Plots"]).Count + 1;
                             }
                         }
-                      }
+                    }
                 }
-
+                inputStream.Dispose();
             }
 
         }
-    }
 
+        private void ToolDown_Clicked(object sender, EventArgs e)
+        {
+            var nu = (Xamarin.Forms.DependencyService.Get<ILogin>().Download(-1));
+        }
+
+    }
+    class ClockViewModel : INotifyPropertyChanged
+    {
+        String dateTime;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public ClockViewModel()
+        {
+            this.DateTime = (string)Application.Current.Properties["Boff"];
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                this.DateTime = (string)Application.Current.Properties["Boff"];
+                return true;
+            });
+        }
+
+        public String DateTime
+        {
+            set
+            {
+                if (dateTime != value)
+                {
+                    dateTime = value;
+
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("DateTime"));
+                    }
+                }
+            }
+            get
+            {
+                return dateTime;
+            }
+        }
+    }
 }

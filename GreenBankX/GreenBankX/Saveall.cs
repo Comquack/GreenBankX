@@ -51,7 +51,7 @@ namespace GreenBankX
                     return;
 
                 case Device.Android:
-                    Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive();
+                    //Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive();
                     break;
             }
         }

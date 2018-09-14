@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Common.Apis;
+using Android.Gms.Drive;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -19,12 +21,22 @@ namespace GreenBankX.Droid
     }
     class GoogleInfo
     {
+        public int Trees { get;  set; }
+        public int Plots { get;  set; }
+        public int Pricings { get; set; }
+        public List<(string, DriveId)> Files { get; set; }
+        public int Count { get; set; }
         public MainActivity bom;
         public static GoogleInfo instance;
+        public string FileName { get; set; }
         public GoogleSignInAccount Acount{ get; set;}
         public string Result { get; set; }
         public GoogleApiClient SignInApi { get; set; }
-        public static GoogleInfo GetInstance(MainActivity bob)
+        public bool Upload { get; set; }
+        public int Up { get; set; }
+
+
+        public static GoogleInfo GetInstance(MainActivity bob)  
         {
             if (instance == null)
             {
@@ -42,6 +54,11 @@ namespace GreenBankX.Droid
         }
         private GoogleInfo(MainActivity bob) {
             bom = bob;
+            Count = -1;
+            Files = new List<(string,DriveId)>();
+            Trees = -1;
+            Plots = -1;
+            Pricings = -1;
         }
 
     }

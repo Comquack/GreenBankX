@@ -24,7 +24,7 @@ namespace GreenBankX
 			InitializeComponent();
             Application.Current.Properties["Plots"] = new List<Plot>();
             Application.Current.Properties["Prices"] = new List<PriceRange>();
-
+            Application.Current.Properties["Boff"] = " ";
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }

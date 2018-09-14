@@ -10,12 +10,15 @@ using Android.Gms.Drive;
 using Android.App;
 using Android.Gms.Common.Apis;
 using Android.Runtime;
+using Google.Apis.Drive.v3;
+using System.Linq;
 
 [assembly: Dependency(typeof(LoginAndroid))]
 
 class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveContentsResult
 // class LoginAndroid : Java.Lang.Object, ILogin
 {
+    FileStream inputStream;
     public static LoginAndroid instance = new LoginAndroid();
     public ILogin GetInstance()
     {
@@ -40,30 +43,192 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         return GoogleInfo.GetInstance().Acount.DisplayName;
         
     }
-    public bool UseDrive()
-    {    
+    public string UseDrive(int select)
+    {
+        string Load = "";
+        GoogleInfo.GetInstance().Upload = true;
+        switch (select)
+        {
+            case -1:
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Test";
+                GoogleInfo.GetInstance().Count = -1;
+                break;
+            case 0:
+                GoogleInfo.GetInstance().FileName = "Pricings.xls";
+                break;
+            case 1:
+                GoogleInfo.GetInstance().FileName = "Plots.xls";
+                break;
+            case 2:
+                GoogleInfo.GetInstance().FileName = "trees.xls";
+                break;
+            case 3:
+                GoogleInfo.GetInstance().Count = -1;
+                return "Finished";
+        }
+        if (inputStream != null)
+        {
+            inputStream.Dispose();
+        }
         DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
-       return GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API);
+        if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API))
+        {
+            Xamarin.Forms.Application.Current.Properties["Boff"] = "Loading";
+            Load = "Loading";
+        }
+        else
+        {
+            Load = "Error";
+        }
+        return Load;
+    }
+    public string Download(int select)
+    {
+        GoogleInfo.GetInstance().Upload = false;
+        string Load="";
+        switch (select)
+        {
+            case -1:
+                GoogleInfo.GetInstance().Count = -1;
+                break;
+            case 0:
+                GoogleInfo.GetInstance().FileName = "Pricings.xls";
+                break;
+            case 1:
+                GoogleInfo.GetInstance().FileName = "Plots.xls";
+                break;
+            case 2:
+                GoogleInfo.GetInstance().FileName = "trees.xls";
+                break;
+            case 3:
+                GoogleInfo.GetInstance().Count = -1;
+                Xamarin.Forms.Application.Current.Properties["Boff"]= "Finished";
+                return "Finished";
+                
+        }
+        if (inputStream != null)
+        {
+            inputStream.Dispose();
+        }
+        DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
+        if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API)) {
+            Xamarin.Forms.Application.Current.Properties["Boff"] = "Loading";
+            Load = "Loading";
+        }
+        else {
+            Xamarin.Forms.Application.Current.Properties["Boff"] = "Error";
+           Load = "Error";
+        }
+       return Load;
     }
     void IResultCallback.OnResult(Java.Lang.Object result)
     {
         var contentResults = (result).JavaCast<IDriveApiDriveContentsResult>();
         if (!contentResults.Status.IsSuccess) // handle the error
             return;
- 
-        Task.Run(() =>
+        if (GoogleInfo.GetInstance().Count == -1)
         {
-            var writer = new OutputStreamWriter(contentResults.DriveContents.OutputStream);
-            writer.Write("St00ck Overflow");
-            writer.Close();
-            MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
-                   .SetTitle("New Text File")
-                   .SetMimeType("text/plain")
-                   .Build();
-            DriveClass.DriveApi
-                      .GetRootFolder(GoogleInfo.GetInstance().SignInApi)
-                      .CreateFile(GoogleInfo.GetInstance().SignInApi, changeSet, contentResults.DriveContents);
-        });
+            GoogleInfo.GetInstance().Files.Clear();
+            GoogleInfo.GetInstance().Plots = -1;
+            GoogleInfo.GetInstance().Pricings = -1;
+            GoogleInfo.GetInstance().Trees = -1;
+            Task.Run(async () =>
+            {
+            async void GetFolderMetaData(IDriveFolder folder, int depth)
+                {
+                    DriveClass.DriveApi.RequestSync(GoogleInfo.GetInstance().SignInApi).Await();      
+                    var folderMetaData = await DriveClass.DriveApi.GetRootFolder(GoogleInfo.GetInstance().SignInApi).ListChildrenAsync(GoogleInfo.GetInstance().SignInApi);
+                    foreach (var driveItem in folderMetaData.MetadataBuffer)
+                    {
+                        if (driveItem.Title == "trees.xls" && GoogleInfo.GetInstance().Trees == -1 && !driveItem.IsTrashed)
+                        {
+                            GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId));
+                            GoogleInfo.GetInstance().Trees++;
+                        }
+                        if (driveItem.Title == "Plots.xls" && GoogleInfo.GetInstance().Plots == -1 && !driveItem.IsTrashed)
+                        {
+                            GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId));
+                            GoogleInfo.GetInstance().Plots++;
+                        }
+                        if (driveItem.Title == "Pricings.xls" && GoogleInfo.GetInstance().Pricings == -1 && !driveItem.IsTrashed)
+                        {
+                            GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId));
+                            GoogleInfo.GetInstance().Pricings++;
+                        }
+                        if (driveItem.IsFolder)
+                        GetFolderMetaData(driveItem.DriveId.AsDriveFolder(), depth + 1);
+                }
+                }
+                GetFolderMetaData(DriveClass.DriveApi.GetAppFolder(GoogleInfo.GetInstance().SignInApi), 0);
+            });
+            GoogleInfo.GetInstance().Count = 0;
+            if (GoogleInfo.GetInstance().Upload)
+            {
+                UseDrive(GoogleInfo.GetInstance().Count);
+            }
+            else {
+                Download(GoogleInfo.GetInstance().Count);
+            }
+            return;
+        }
+        if (GoogleInfo.GetInstance().Upload)
+        {
+            bool doesExist = System.IO.File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + GoogleInfo.GetInstance().FileName);
+            if (doesExist)
+            {
+                inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/" + GoogleInfo.GetInstance().FileName, FileMode.Open);
+                Task.Run(() =>
+                {
+                    try
+                    {
+                        IDriveFile repeat = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2.AsDriveFile();
+                        repeat.Delete(GoogleInfo.GetInstance().SignInApi);
+                    }
+                    catch { }
+
+                    var writer = new OutputStreamAdapter(contentResults.DriveContents.OutputStream);
+                    for (int x = 0; x < inputStream.Length; x++)
+                    {
+                        writer.Write(inputStream.ReadByte());
+                    }
+                    writer.Close();
+                    MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+                           .SetTitle(GoogleInfo.GetInstance().FileName)
+                           .SetMimeType("application/vnd.ms-excel")
+                           .Build();
+                    DriveClass.DriveApi
+                              .GetRootFolder(GoogleInfo.GetInstance().SignInApi)
+                              .CreateFile(GoogleInfo.GetInstance().SignInApi, changeSet, contentResults.DriveContents);
+                    GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Uploaded: " + GoogleInfo.GetInstance().FileName;
+                    UseDrive(GoogleInfo.GetInstance().Count);
+                });
+            }
+        }
+        else {
+           // try
+           // {
+                IDriveFile repeat = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2.AsDriveFile();
+                Java.Lang.Object Open = repeat.Open(GoogleInfo.GetInstance().SignInApi, DriveFile.ModeReadOnly, null).Await();
+                IDriveContents bob = Open.JavaCast<IDriveContents>();
+                byte[] buffer = new byte[16 * 1024];
+                int read;
+                MemoryStream output = new MemoryStream();
+                while ((read = bob.InputStream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    output.Write(buffer, 0, read);
+                }
+                
+                Xamarin.Forms.DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
+
+
+           // }
+           // catch { }
+        }
+    }
+
+        public int count() {
+        return GoogleInfo.GetInstance().Count;
     }
     public IDriveContents DriveContents
     {
@@ -81,5 +246,10 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         }
     }
 
+
+    public bool ListFiles() {
+        GoogleInfo.GetInstance().Count = -1;
+        return true;
+    } 
 
 }

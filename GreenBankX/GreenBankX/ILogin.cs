@@ -7,7 +7,10 @@ public interface ILogin
     ILogin GetInstance();
     bool SignIn();
     string AccountName();
-    bool UseDrive();
+    string UseDrive(int select);
+    string Download(int select);
     void SignOut();
+    int count();
+    bool ListFiles();
 }
 

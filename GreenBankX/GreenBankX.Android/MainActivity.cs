@@ -120,8 +120,9 @@ namespace GreenBankX.Droid
                 if (!mGoogleApiClient.IsConnected)
                 {
                     mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
-                }
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
 
+                }
             }
             else {
                 GoogleInfo.GetInstance().Result = result.Status.ToString(); ;
