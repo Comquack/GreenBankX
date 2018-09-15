@@ -21,10 +21,11 @@ namespace GreenBankX.Droid
     }
     class GoogleInfo
     {
+        public Android.Content.Res.AssetManager assets;
         public int Trees { get;  set; }
         public int Plots { get;  set; }
         public int Pricings { get; set; }
-        public List<(string, DriveId)> Files { get; set; }
+        public List<(string, DriveId, string)> Files { get; set; }
         public int Count { get; set; }
         public MainActivity bom;
         public static GoogleInfo instance;
@@ -55,7 +56,7 @@ namespace GreenBankX.Droid
         private GoogleInfo(MainActivity bob) {
             bom = bob;
             Count = -1;
-            Files = new List<(string,DriveId)>();
+            Files = new List<(string,DriveId,string)>();
             Trees = -1;
             Plots = -1;
             Pricings = -1;

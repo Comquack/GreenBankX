@@ -16,6 +16,12 @@ using Android.Gms.Auth.Api;
 using Android.Gms.Common;
 using Android.Content;
 using Android.Gms.Drive;
+using Android.Content.Res;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Drive.v3;
+using System.Threading;
+using Google.Apis.Util.Store;
+using System.IO;
 
 namespace GreenBankX.Droid
 {
@@ -41,6 +47,7 @@ namespace GreenBankX.Droid
                 .RequestEmail()
                 .RequestScopes(new Scope(Constants.scopes))
                 .RequestScopes(DriveClass.ScopeFile)
+                .RequestScopes(DriveClass.ScopeAppfolder)
                  .Build();
             
             // [END configure_signin]
@@ -51,7 +58,6 @@ namespace GreenBankX.Droid
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .AddApi(Auth.GOOGLE_SIGN_IN_API,gso)
                     .AddApi(DriveClass.API)
-                   //.AddScope(DriveClass.ScopeFile)
                   .AddOnConnectionFailedListener(OnConnectionFailed)
                     .Build();
             if (!mGoogleApiClient.IsConnected) { 
