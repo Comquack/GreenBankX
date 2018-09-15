@@ -151,7 +151,8 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                     {
                       //  if (driveItem.Title == "trees.xls" && GoogleInfo.GetInstance().Trees == -1 && !driveItem.IsTrashed)
                        // {
-                            GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId, driveItem.EmbedLink));
+                       
+                            GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId, driveItem.AlternateLink));
                             GoogleInfo.GetInstance().Trees++;
                        // }
                        // if (driveItem.Title == "Plots.xls" && GoogleInfo.GetInstance().Plots == -1 && !driveItem.IsTrashed)
@@ -221,21 +222,40 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
 
             try { Xamarin.Forms.Application.Current.Properties["Boff"] = "Downloading: "+ GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item3.ToString(); }
             catch { Xamarin.Forms.Application.Current.Properties["Boff"] = "Fail"; }
-            TestV3();
+             var floop = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2;
+           //IDriveFile bob =  DriveClass.DriveApi.GetFile(GoogleInfo.GetInstance().SignInApi, floop);
+            IDriveFile file = DriveClass.DriveApi.GetFile(GoogleInfo.GetInstance().SignInApi, floop);
+            file.GetMetadata(GoogleInfo.GetInstance().SignInApi).SetResultCallback(metadataRetrievedCallback());
+            Task.Run(() =>
+            {
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "shoop";
+                var driveContentsResult = file.Open(GoogleInfo.GetInstance().SignInApi,
+                    DriveFile.ModeReadOnly, null).Await();
+                Xamarin.Forms.Application.Current.Properties["Boff"] = driveContentsResult.ToString();
+                IDriveContents driveContents = driveContentsResult.JavaCast<IDriveApiDriveContentsResult>().DriveContents;
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Adoop";
+                Stream inputstream = driveContents.InputStream;
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Finito";
+                byte[] buffer = new byte[16 * 1024];
+                int read;
+                MemoryStream output = new MemoryStream();
+               
+                while ((read = inputstream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    output.Write(buffer, 0, read);
+                }
+                Xamarin.Forms.Application.Current.Properties["Boff"] = output.Length.ToString();
+                Xamarin.Forms.DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
+                GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Downloaded: " + GoogleInfo.GetInstance().FileName;
+                Download(GoogleInfo.GetInstance().Count);
+            });
 
 
-               //byte[] buffer = new byte[16 * 1024];
-               //int read;
-               //MemoryStream output = new MemoryStream();
-               //Xamarin.Forms.Application.Current.Properties["Boff"] = open.DriveContents.InputStream.Length.ToString();
-               //while ((read = open.DriveContents.InputStream.Read(buffer, 0, buffer.Length)) > 0)
-               //{
-               //    output.Write(buffer, 0, read);
-               //}
-               //Xamarin.Forms.Application.Current.Properties["Boff"] = output.Length.ToString();
-               //await Xamarin.Forms.DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
-               //});
-        }
+
+
+
+    }
     }
 
     public int count() {
@@ -268,54 +288,18 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
     {
         //Xamarin.Forms.Application.Current.Properties["Boff"] = bytesDownloaded.ToString() + "out of " + bytesExpected.ToString();
     }
-
-    public void TestV3() {
-        UserCredential credential;
-        string[] Scopes = { DriveService.Scope.DriveReadonly };
-        string ApplicationName = "com.companyname.GreenBankX";
-        using (var stream =
-       GoogleInfo.GetInstance().bom.Assets.Open("credentials.json"))
+    private IResultCallback metadataRetrievedCallback()
+    {
+        void onResult(IDriveApiMetadataBufferResult result)
         {
-            string credPath = "token.json";
-            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                GoogleClientSecrets.Load(stream).Secrets,
-                Scopes,
-                "user",
-                CancellationToken.None,
-                new FileDataStore(credPath)
-                ).Result;
-            System.Console.WriteLine("Credential file saved to: " + credPath);
-        }
-
-        // Create Drive API service.
-        var service = new DriveService(new BaseClientService.Initializer()
-        {
-            HttpClientInitializer = credential,
-            ApplicationName = ApplicationName,
-        });
-
-        // Define parameters of request.
-        FilesResource.ListRequest listRequest = service.Files.List();
-        listRequest.PageSize = 10;
-        listRequest.Fields = "nextPageToken, files(id, name)";
-
-        // List files.
-        IList<Google.Apis.Drive.v3.Data.File> files = listRequest.Execute()
-            .Files;
-        System.Console.WriteLine("Files:");
-        if (files != null && files.Count > 0)
-        {
-            foreach (var file in files)
+            if (!result.Status.IsSuccess)
             {
-                System.Console.WriteLine("{0} ({1})", file.Name, file.Id);
+                return ;
             }
-        }
-        else
-        {
-            System.Console.WriteLine("No files found.");
-        }
-        System.Console.Read();
+            //metadata = result.getMetadata();
 
+        }
+        return null;
     }
 }
 
