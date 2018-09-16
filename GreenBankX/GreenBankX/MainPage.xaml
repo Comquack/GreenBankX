@@ -21,7 +21,7 @@
                 NumberOfTapsRequired="1" />
             </Image.GestureRecognizers>
         </Image>
-        <Button Text="Skip login" />
+        <Button Text="Skip login" Clicked="OpenMenu"/>
     </StackLayout>
     <ContentPage.BackgroundColor>
         <Color>

@@ -57,85 +57,24 @@ namespace GreenBankX
         }
         void OnLoginClicked()
         {
-            string clientId = null;
-            string redirectUri = null;
-
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    clientId = Constants.iOSClientId;
-                    redirectUri = Constants.iOSRedirectUrl;
                     break;
 
                 case Device.Android:
-                    clientId = "263109938909-j0429onqh5ru0640oaesamlt9uc5afm8.apps.googleusercontent.com";
-                    redirectUri = "com.googleusercontent.apps.263109938909-j0429onqh5ru0640oaesamlt9uc5afm8:/oauth2redirect";
+                    try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    catch
+                    {
+                        bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
+                        try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                        catch { }
+
+                    }
                     break;
             }
-            var authenticator = new OAuth2Authenticator(
-                clientId,
-                "HfdBeOjn9q43t9YjlXDQfTfz ",
-                Constants.scopes,
-                new Uri(Constants.AuthorizeUrl),
-                new Uri(redirectUri),
-                new Uri(Constants.AccessTokenUrl),
-                null,
-                true);
 
-            authenticator.Completed += OnAuthCompleted;
-            authenticator.Error += OnAuthError;
-
-            AuthenticationState.Authenticator = authenticator;
-            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-            presenter.Login(authenticator);
-        }
-        async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            var authenticator = sender as OAuth2Authenticator;
-            if (authenticator != null)
-            {
-                authenticator.Completed -= OnAuthCompleted;
-                authenticator.Error -= OnAuthError;
-            }
-
-            User user = null;
-            if (e.IsAuthenticated)
-            {
-                // UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
-                var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, e.Account);
-                var response = await request.GetResponseAsync();
-                if (response != null)
-                {
-                    string userJson = await response.GetResponseTextAsync();
-                   // Application.Current.Properties["JSON"] = userJson;
-                    user = JsonConvert.DeserializeObject<User>(userJson);
-                }
-
-                if (account != null)
-                {
-                    store.Delete(account, Constants.AppName);
-                }
-                Application.Current.Properties["User"] = user;
-                
-                await store.SaveAsync(account = e.Account, Constants.AppName);
-                await DisplayAlert("Hello", user.Name, "OK");
-                await Navigation.PushAsync(new MenuPage());
-            }
         }
 
-        void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
-        {
-            var authenticator = sender as OAuth2Authenticator;
-            if (authenticator != null)
-            {
-                authenticator.Completed -= OnAuthCompleted;
-                authenticator.Error -= OnAuthError;
-            }
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                DisplayAlert("Error", "Error", "OK");
-            });
-            Debug.WriteLine("Authentication error: " + e.Message);
-        }
     }
 }

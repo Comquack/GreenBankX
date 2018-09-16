@@ -32,7 +32,6 @@ namespace GreenBankX.Droid
 
         const int RC_SIGN_IN = 9001;
         GoogleApiClient mGoogleApiClient;
-        ProgressDialog mProgressDialog;
         protected override void OnCreate(Bundle bundle)
         {
             Rg.Plugins.Popup.Popup.Init(this, bundle);
@@ -129,6 +128,9 @@ namespace GreenBankX.Droid
                     Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
 
                 }
+                else {
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
+                }
             }
             else {
                 GoogleInfo.GetInstance().Result = result.Status.ToString(); ;
@@ -143,7 +145,7 @@ namespace GreenBankX.Droid
 
         public void SignOut()
         {
-           Auth.GoogleSignInApi.SignOut(mGoogleApiClient);
+           mGoogleApiClient.Disconnect();
         }
 
         void RevokeAccess()
@@ -166,10 +168,10 @@ namespace GreenBankX.Droid
 
         public void HideProgressDialog()
         {
-            if (mProgressDialog != null && mProgressDialog.IsShowing)
-            {
-                mProgressDialog.Hide();
-            }
+            //if (mProgressDialog != null && mProgressDialog.IsShowing)
+           // {
+              //  mProgressDialog.Hide();
+            //}
         }
 
     }

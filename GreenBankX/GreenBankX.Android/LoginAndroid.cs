@@ -1,29 +1,16 @@
 using System;
 using System.IO;
-//using GettingStarted.Droid;
-using Android.Content;
-using Java.IO;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using GreenBankX.Droid;
 using Android.Gms.Drive;
-using Android.App;
 using Android.Gms.Common.Apis;
 using Android.Runtime;
-using Google.Apis.Drive.v3;
-using System.Linq;
-using Google.Apis.Download;
-using Google.Apis.Drive.v3.Data;
-using Google.Apis.Auth.OAuth2;
-using System.Threading;
-using Google.Apis.Util.Store;
-using Google.Apis.Services;
-using System.Collections.Generic;
+
 
 [assembly: Dependency(typeof(LoginAndroid))]
 
 class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveContentsResult, IDriveFileDownloadProgressListener
-// class LoginAndroid : Java.Lang.Object, ILogin
 {
     FileStream inputStream;
     public static LoginAndroid instance = new LoginAndroid();
@@ -122,11 +109,11 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         }
         DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
         if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API)) {
-            Xamarin.Forms.Application.Current.Properties["Boff"] = "Loading";
+            Application.Current.Properties["Boff"] = "Loading";
             Load = "Loading";
         }
         else {
-            Xamarin.Forms.Application.Current.Properties["Boff"] = "Error";
+            Application.Current.Properties["Boff"] = "Error";
            Load = "Error";
         }
        return Load;
@@ -144,27 +131,13 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
             Task.Run(async () =>
             {
             async Task GetFolderMetaData(IDriveFolder folder, int depth)
-                {
-                    //DriveClass.DriveApi.RequestSync(GoogleInfo.GetInstance().SignInApi).Await();      
+                {   
                     var folderMetaData = await DriveClass.DriveApi.GetRootFolder(GoogleInfo.GetInstance().SignInApi).ListChildrenAsync(GoogleInfo.GetInstance().SignInApi);
                     foreach (var driveItem in folderMetaData.MetadataBuffer)
                     {
-                      //  if (driveItem.Title == "trees.xls" && GoogleInfo.GetInstance().Trees == -1 && !driveItem.IsTrashed)
-                       // {
-                       
                             GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId, driveItem.AlternateLink));
                             GoogleInfo.GetInstance().Trees++;
-                       // }
-                       // if (driveItem.Title == "Plots.xls" && GoogleInfo.GetInstance().Plots == -1 && !driveItem.IsTrashed)
-                       // {
-                         //   GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId));
-                          //  GoogleInfo.GetInstance().Plots++;
-                       // }
-                       // if (driveItem.Title == "Pricings.xls" && GoogleInfo.GetInstance().Pricings == -1 && !driveItem.IsTrashed)
-                       // {
-                         //   GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId));
-                           // GoogleInfo.GetInstance().Pricings++;
-                        //}
+
                         if (driveItem.IsFolder)
                         await GetFolderMetaData(driveItem.DriveId.AsDriveFolder(), depth + 1);
                 }
@@ -209,33 +182,33 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                               .GetRootFolder(GoogleInfo.GetInstance().SignInApi)
                               .CreateFile(GoogleInfo.GetInstance().SignInApi, changeSet, contentResults.DriveContents);
                     GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
-                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Uploaded: " + GoogleInfo.GetInstance().FileName;
+                    Application.Current.Properties["Boff"] = "Uploaded: " + GoogleInfo.GetInstance().FileName;
+                    if (GoogleInfo.GetInstance().Count == 3) {
+
+                    }
                     UseDrive(GoogleInfo.GetInstance().Count);
                 });
             }
             else {
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Not Found: " + GoogleInfo.GetInstance().FileName;
+                Application.Current.Properties["Boff"] = "Not Found: " + GoogleInfo.GetInstance().FileName;
                 UseDrive(GoogleInfo.GetInstance().Count);
             }
         }
         else {
 
-            try { Xamarin.Forms.Application.Current.Properties["Boff"] = "Downloading: "+ GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item3.ToString(); }
-            catch { Xamarin.Forms.Application.Current.Properties["Boff"] = "Fail"; }
+            try { Application.Current.Properties["Boff"] = "Downloading: "+ GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1; }
+            catch {Application.Current.Properties["Boff"] = "Fail"; }
              var floop = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2;
-           //IDriveFile bob =  DriveClass.DriveApi.GetFile(GoogleInfo.GetInstance().SignInApi, floop);
             IDriveFile file = DriveClass.DriveApi.GetFile(GoogleInfo.GetInstance().SignInApi, floop);
             file.GetMetadata(GoogleInfo.GetInstance().SignInApi).SetResultCallback(metadataRetrievedCallback());
             Task.Run(() =>
             {
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "shoop";
                 var driveContentsResult = file.Open(GoogleInfo.GetInstance().SignInApi,
                     DriveFile.ModeReadOnly, null).Await();
-                Xamarin.Forms.Application.Current.Properties["Boff"] = driveContentsResult.ToString();
                 IDriveContents driveContents = driveContentsResult.JavaCast<IDriveApiDriveContentsResult>().DriveContents;
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Adoop";
+               Application.Current.Properties["Boff"] = "Recieved " + GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1;
                 Stream inputstream = driveContents.InputStream;
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Finito";
+                Application.Current.Properties["Boff"] = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1+ " Finished";
                 byte[] buffer = new byte[16 * 1024];
                 int read;
                 MemoryStream output = new MemoryStream();
@@ -244,18 +217,14 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 {
                     output.Write(buffer, 0, read);
                 }
-                Xamarin.Forms.Application.Current.Properties["Boff"] = output.Length.ToString();
-                Xamarin.Forms.DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
+               Application.Current.Properties["Boff"] = output.Length.ToString();
+                DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
                 GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Downloaded: " + GoogleInfo.GetInstance().FileName;
+                Application.Current.Properties["Boff"] = "Downloaded: " + GoogleInfo.GetInstance().FileName;
                 Download(GoogleInfo.GetInstance().Count);
             });
 
-
-
-
-
-    }
+         }
     }
 
     public int count() {
@@ -286,19 +255,9 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
 
     void IDriveFileDownloadProgressListener.OnProgress(long bytesDownloaded, long bytesExpected)
     {
-        //Xamarin.Forms.Application.Current.Properties["Boff"] = bytesDownloaded.ToString() + "out of " + bytesExpected.ToString();
     }
     private IResultCallback metadataRetrievedCallback()
     {
-        void onResult(IDriveApiMetadataBufferResult result)
-        {
-            if (!result.Status.IsSuccess)
-            {
-                return ;
-            }
-            //metadata = result.getMetadata();
-
-        }
         return null;
     }
 }
