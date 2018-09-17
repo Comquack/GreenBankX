@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -9,8 +8,7 @@ using Xamarin.Forms.Xaml;
 using TK.CustomMap;
 using Rg.Plugins.Popup.Services;
 using TK.CustomMap.Overlays;
-using Syncfusion.XlsIO;
-using System.IO;
+
 
 namespace GreenBankX
 {
@@ -54,7 +52,7 @@ namespace GreenBankX
                 return;
             }
             // setpoly = -1 (no pin selected) adds placed pin into list of plots
-            if (CanAdd == false)
+            if (!CanAdd)
             {
                 double[] geo = new double[2];
                 Application.Current.Properties["ThisLocation"] = new double[2];
@@ -91,11 +89,7 @@ namespace GreenBankX
             else
             {
                 // setpoly = -1 (no pin selected) one pin can be placed at a time
-                if (CanAdd)
-                {
-
-                }
-                else
+                if (!CanAdd)
                 {
                     Pins.RemoveAt(Pins.Count - 1);
                 }
@@ -231,7 +225,6 @@ namespace GreenBankX
 
                 if (location != null)
                 {
-
                     position = new Position(location.Latitude, location.Longitude);
                 }
 
@@ -256,12 +249,7 @@ namespace GreenBankX
                 else
                 {
                     // setpoly = -1 (no pin selected) one pin can be placed at a time
-                    if (CanAdd)
-                    {
-
-                    }
-                    else
-                    {
+                    if (!CanAdd) {
                         Pins.RemoveAt(Pins.Count - 1);
                     }
                     MyMap.Pins = new List<TKCustomMapPin>();

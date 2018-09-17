@@ -6,12 +6,6 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-
-using Syncfusion.XlsIO;
-using System.IO;
-using TK.CustomMap;
-using Xamarin.Auth;
 using System.ComponentModel;
 
 namespace GreenBankX
@@ -112,6 +106,12 @@ namespace GreenBankX
             var nu = (Xamarin.Forms.DependencyService.Get<ILogin>().Download(-1));
         }
 
+        private void boffo_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (boffo.Text == "Finished" && (bool)Application.Current.Properties["Load"]) {
+                SaveAll.GetInstance().LoadAll();
+            }
+        }
     }
     class ClockViewModel : INotifyPropertyChanged
     {
@@ -141,6 +141,7 @@ namespace GreenBankX
                     if (PropertyChanged != null)
                     {
                         PropertyChanged(this, new PropertyChangedEventArgs("DateTime"));
+
                     }
                 }
             }

@@ -41,7 +41,6 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
     {
         string Load = "";
         GoogleInfo.GetInstance().Upload = true;
-        GoogleInfo.GetInstance().Up = 0;
         switch (select)
         {
             case -1:
@@ -68,7 +67,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
         if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API))
         {
-            Xamarin.Forms.Application.Current.Properties["Boff"] = "Loading";
+            Application.Current.Properties["Boff"] = "Loading";
             Load = "Loading";
         }
         else
@@ -81,7 +80,6 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
     {
         GoogleInfo.GetInstance().Upload = false;
         string Load="";
-        GoogleInfo.GetInstance().Up = 0;
         switch (select)
         {
             case -1:
@@ -99,7 +97,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 break;
             case 3:
                 GoogleInfo.GetInstance().Count = -1;
-                Xamarin.Forms.Application.Current.Properties["Boff"]= "Finished";
+                Application.Current.Properties["Boff"]= "Finished";
                 return "Finished";
                 
         }
@@ -155,7 +153,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
             });
         }else if (GoogleInfo.GetInstance().Upload)
         {
-            bool doesExist = System.IO.File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + GoogleInfo.GetInstance().FileName);
+            bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + GoogleInfo.GetInstance().FileName);
             if (doesExist)
             {
                 inputStream = new FileStream(DependencyService.Get<ISave>().GetFileName() + "/" + GoogleInfo.GetInstance().FileName, FileMode.Open);
@@ -183,14 +181,13 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                               .CreateFile(GoogleInfo.GetInstance().SignInApi, changeSet, contentResults.DriveContents);
                     GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
                     Application.Current.Properties["Boff"] = "Uploaded: " + GoogleInfo.GetInstance().FileName;
-                    if (GoogleInfo.GetInstance().Count == 3) {
 
-                    }
                     UseDrive(GoogleInfo.GetInstance().Count);
                 });
             }
             else {
                 Application.Current.Properties["Boff"] = "Not Found: " + GoogleInfo.GetInstance().FileName;
+                GoogleInfo.GetInstance().Count++;
                 UseDrive(GoogleInfo.GetInstance().Count);
             }
         }
@@ -200,7 +197,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
             catch {Application.Current.Properties["Boff"] = "Fail"; }
              var floop = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2;
             IDriveFile file = DriveClass.DriveApi.GetFile(GoogleInfo.GetInstance().SignInApi, floop);
-            file.GetMetadata(GoogleInfo.GetInstance().SignInApi).SetResultCallback(metadataRetrievedCallback());
+            file.GetMetadata(GoogleInfo.GetInstance().SignInApi).SetResultCallback(MetadataRetrievedCallback());
             Task.Run(() =>
             {
                 var driveContentsResult = file.Open(GoogleInfo.GetInstance().SignInApi,
@@ -221,45 +218,28 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
                 GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
                 Application.Current.Properties["Boff"] = "Downloaded: " + GoogleInfo.GetInstance().FileName;
+                if (GoogleInfo.GetInstance().Count == 3)
+                {
+                    Application.Current.Properties["Load"] = true;
+                }
                 Download(GoogleInfo.GetInstance().Count);
             });
 
          }
     }
 
-    public int count() {
-        return GoogleInfo.GetInstance().Count;
-    }
     public IDriveContents DriveContents
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
+    { get {throw new NotImplementedException();}}
 
     public Statuses Status
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
+    { get {throw new NotImplementedException();}}
 
     public GoogleApiClient GapiClient { get; private set; }
 
-    public bool ListFiles() {
-        GoogleInfo.GetInstance().Count = -1;
-        return true;
-    }
-
     void IDriveFileDownloadProgressListener.OnProgress(long bytesDownloaded, long bytesExpected)
-    {
-    }
-    private IResultCallback metadataRetrievedCallback()
-    {
-        return null;
-    }
+    { }
+    private IResultCallback MetadataRetrievedCallback()
+    { return null;}
 }
 
 

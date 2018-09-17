@@ -10,11 +10,10 @@ namespace GreenBankX
 
         private static readonly double A2 = 0.59256;
         private static readonly double B2 = 0.63308;
-        private static readonly double C2 = 0.5441;
         private static double LOGLEN = 2.3;
-        private static double BHEIGHT = 1.3;
-        private static double STUMP = .15;
-        private static double BARK = 1.04;
+        private static readonly double BHEIGHT = 1.3;
+        private static readonly double STUMP = .15;
+        private static readonly double BARK = 1.04;
         private PriceRange prices;
         public Calculator() {
         }
@@ -47,17 +46,14 @@ namespace GreenBankX
                     rH = (merchHeight - height) * ((A2 * merchHeight * (Math.Pow(B2, 2)) * (BHEIGHT - height)) / ((1 + B2 * (height)) * (1 + B2 * BHEIGHT) * (1 + B2 * merchHeight)) + ((0.77715 / merchHeight + 0.01239 * ((breastDiameter - BARK) / 10) + -0.0027653 * Math.Pow(((breastDiameter - BARK) / 10), 2)) * (height - BHEIGHT)) + ((breastDiameter - BARK) / (merchHeight - BHEIGHT)));
                     rH = rH / 2;
                 
-
                 value = 0;
                 sizeClass = -1;
                 for (int a = 0; a < brack.Count; a++)
                 {
-                    
                     if (2 * rH > brack.ElementAt(a).Key)
                     {
                         value = brack.ElementAt(a).Value;
                         sizeClass = a;
-
                     }
                 }
                 totals[i, 0] = sizeClass;

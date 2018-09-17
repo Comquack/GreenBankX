@@ -22,6 +22,7 @@ namespace GreenBankX
         public MainPage()
 		{
 			InitializeComponent();
+            Application.Current.Properties["Load"] = false;
             Application.Current.Properties["Plots"] = new List<Plot>();
             Application.Current.Properties["Prices"] = new List<PriceRange>();
             Application.Current.Properties["Boff"] = " ";

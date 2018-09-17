@@ -14,6 +14,7 @@
             <Label
                     x:Name="boffo"
                     Text="{Binding DateTime}"
+                PropertyChanged="boffo_PropertyChanged"
                     HorizontalOptions="CenterAndExpand">
             <Label.BindingContext>
                     <local:ClockViewModel  />

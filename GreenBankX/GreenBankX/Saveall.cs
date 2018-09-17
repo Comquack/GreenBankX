@@ -15,9 +15,6 @@ namespace GreenBankX
     
     class SaveAll
     {
-        int response;
-        Account account;
-        AccountStore store;
         public static SaveAll instance = new SaveAll();
         public static SaveAll GetInstance()
         {
@@ -31,25 +28,13 @@ namespace GreenBankX
         private SaveAll()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
-            store = AccountStore.Create();
-            account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
-  
         }
 
-
-
-        public void UploadAll() {
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    return;
-
-                case Device.Android:
-                    //Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive();
-                    break;
-            }
+        public void SaveEvery() {
+            SavePlots();
+            SavePricing();
+            SaveTrees2();
         }
-
         public void SavePricing()
         {
             //Create an instance of ExcelEngine.
@@ -224,8 +209,6 @@ namespace GreenBankX
                                 worksheet.SetValue(2 + count, 7, Math.Round(totVol, 4).ToString());
                                 worksheet.SetValue(2 + count, 8, Math.Round(total,2).ToString());
                              }
-
-
                             worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
                                 worksheet.SetValue(2 +count, 2, thisPlot.GetName().ToString());
                                 worksheet.SetValue(2 + count, 3, thisTree.GetHistory().ElementAt(z).Key.ToString());
@@ -252,7 +235,6 @@ namespace GreenBankX
                                     totalplotyear = totalplotyear + result[i, 1];
                                     totVolplotyear = totVolplotyear + result[i, 2];
                                 }
-
                             }
                         }
                         worksheet.SetValue(4 + countyear, 11, y.ToString());
@@ -414,6 +396,8 @@ namespace GreenBankX
         }
 
         public void LoadAll() {
+            ((List<PriceRange>)Application.Current.Properties["Prices"]).Clear();
+            ((List<Plot>)Application.Current.Properties["Plots"]).Clear();
             LoadPriceFiles();
             LoadPlotFiles();
             LoadTreeFiles2();

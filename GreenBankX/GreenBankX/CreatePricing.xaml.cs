@@ -77,7 +77,6 @@ namespace GreenBankX
                 maxDiam.IsVisible = true;
                 price.IsVisible = true;
                 AddPrice.IsVisible = true;
-                //SavePrice();
 
             }
             else if (Name.Text == null || Name.Text == "")
@@ -109,8 +108,6 @@ namespace GreenBankX
 
         private void PopList(int select) {
             //Fills list of prices
-            string prices = "";
-            string logs = "";
             if (select > -1)
             {
                 List<string> ArrayList = new List<string>();
@@ -139,7 +136,6 @@ namespace GreenBankX
                     PopList(selector);
                     maxDiam.Text = null;
                     price.Text = null;
-                   // SavePrice();
                 };
 
             } else if (maxDiam.Text == null || double.Parse(maxDiam.Text)<= 0)
@@ -239,7 +235,6 @@ namespace GreenBankX
                         PopList(selector);
                         maxDiam.Text = null;
                         price.Text = null;
-                        // SavePrice();
                     };
 
                 }

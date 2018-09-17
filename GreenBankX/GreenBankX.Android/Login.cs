@@ -21,7 +21,6 @@ namespace GreenBankX.Droid
     }
     class GoogleInfo
     {
-        public Android.Content.Res.AssetManager assets;
         public int Trees { get;  set; }
         public int Plots { get;  set; }
         public int Pricings { get; set; }
@@ -34,8 +33,6 @@ namespace GreenBankX.Droid
         public string Result { get; set; }
         public GoogleApiClient SignInApi { get; set; }
         public bool Upload { get; set; }
-        public int Up { get; set; }
-
 
         public static GoogleInfo GetInstance(MainActivity bob)  
         {

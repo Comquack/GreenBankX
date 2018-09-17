@@ -10,7 +10,5 @@ public interface ILogin
     string UseDrive(int select);
     string Download(int select);
     void SignOut();
-    int count();
-    bool ListFiles();
 }
 
