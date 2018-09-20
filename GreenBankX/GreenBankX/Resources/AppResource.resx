@@ -249,4 +249,37 @@
   <data name="Volume" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Please Enter Name</value>
+  </data>
+  <data name="EnterVDate" xml:space="preserve">
+    <value>Please Enter Valid Date</value>
+  </data>
+  <data name="MeanD" xml:space="preserve">
+    <value>Mean Diameter:</value>
+  </data>
+  <data name="MeanG" xml:space="preserve">
+    <value>Mean growth over time</value>
+  </data>
+  <data name="MeanP" xml:space="preserve">
+    <value>Mean Price:</value>
+  </data>
+  <data name="MeanV" xml:space="preserve">
+    <value>Mean Voume:</value>
+  </data>
+  <data name="PinHere" xml:space="preserve">
+    <value>Pin Here</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="TotalVol" xml:space="preserve">
+    <value>Total Volume</value>
+  </data>
+  <data name="NumberTrees" xml:space="preserve">
+    <value>Number of Trees</value>
+  </data>
+  <data name="YPlant" xml:space="preserve">
+    <value>Year Planted</value>
+  </data>
 </root>

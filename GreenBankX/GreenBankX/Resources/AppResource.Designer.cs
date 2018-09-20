@@ -205,6 +205,24 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please Enter Name.
+        /// </summary>
+        public static string EnterName {
+            get {
+                return ResourceManager.GetString("EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Enter Valid Date.
+        /// </summary>
+        public static string EnterVDate {
+            get {
+                return ResourceManager.GetString("EnterVDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Girth(cm).
         /// </summary>
         public static string Girth {
@@ -264,6 +282,42 @@ namespace GreenBankX.Resources {
         public static string ManagePlots {
             get {
                 return ResourceManager.GetString("ManagePlots", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mean Diameter:.
+        /// </summary>
+        public static string MeanD {
+            get {
+                return ResourceManager.GetString("MeanD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mean growth over time.
+        /// </summary>
+        public static string MeanG {
+            get {
+                return ResourceManager.GetString("MeanG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mean Price:.
+        /// </summary>
+        public static string MeanP {
+            get {
+                return ResourceManager.GetString("MeanP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mean Voume:.
+        /// </summary>
+        public static string MeanV {
+            get {
+                return ResourceManager.GetString("MeanV", resourceCulture);
             }
         }
         
@@ -331,11 +385,29 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of Trees.
+        /// </summary>
+        public static string NumberTrees {
+            get {
+                return ResourceManager.GetString("NumberTrees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  or larger.
         /// </summary>
         public static string OrLarger {
             get {
                 return ResourceManager.GetString("OrLarger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Here.
+        /// </summary>
+        public static string PinHere {
+            get {
+                return ResourceManager.GetString("PinHere", resourceCulture);
             }
         }
         
@@ -363,6 +435,15 @@ namespace GreenBankX.Resources {
         public static string Pricings {
             get {
                 return ResourceManager.GetString("Pricings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -439,6 +520,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total Volume.
+        /// </summary>
+        public static string TotalVol {
+            get {
+                return ResourceManager.GetString("TotalVol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tree ID.
         /// </summary>
         public static string TreeID {
@@ -453,6 +543,15 @@ namespace GreenBankX.Resources {
         public static string Volume {
             get {
                 return ResourceManager.GetString("Volume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year Planted.
+        /// </summary>
+        public static string YPlant {
+            get {
+                return ResourceManager.GetString("YPlant", resourceCulture);
             }
         }
     }

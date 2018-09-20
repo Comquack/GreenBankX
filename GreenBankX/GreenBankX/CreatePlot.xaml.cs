@@ -37,6 +37,7 @@ namespace GreenBankX
                 Plot thisPLot = (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly));
                 if (thisPLot.GetTag()[0] > lat.Min() && thisPLot.GetTag()[1] > lon.Min() && thisPLot.GetTag()[0] < lat.Max() && thisPLot.GetTag()[1] < lon.Max()) {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly).AddPolygon(newpolygon);
+                    SaveAll.GetInstance().SavePlots();
                 }
                 else {
                     Device.BeginInvokeOnMainThread(() =>
@@ -46,7 +47,6 @@ namespace GreenBankX
                 }
                 
                 setpoly = -1;
-                AddPlot.Text = "New Plot";
                 StartMap(false);
                 PolyMap();
                 return;
@@ -59,10 +59,14 @@ namespace GreenBankX
                 geo[0] = Pins.ElementAt(Pins.Count - 1).Position.Latitude;
                 geo[1] = Pins.ElementAt(Pins.Count - 1).Position.Longitude;
                 Application.Current.Properties["ThisLocation"] = geo;
-                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
+                MessagingCenter.Subscribe<Popup>(this, "Add", (sender) =>
+                {
                 CanAdd = true;
                 StartMap(false);
                 PolyMap();
+                });
+                    await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
+
             }
   
         }

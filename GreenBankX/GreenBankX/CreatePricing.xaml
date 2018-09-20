@@ -21,7 +21,8 @@
                 x:Name="Len"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension Name}"/>
+                   Placeholder="{local:TranslateExtension Name}"
+                MaxLength="2"/>
             
             <Button x:Name="AddName"
                     Text="{local:TranslateExtension AddPricing}"
@@ -37,7 +38,8 @@
                 x:Name="maxDiam"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension minimumdiameter}"/>
+                   Placeholder="{local:TranslateExtension minimumdiameter}"
+                MaxLength="3"/>
             <Entry 
                 x:Name="price"
                    TextColor="Black"

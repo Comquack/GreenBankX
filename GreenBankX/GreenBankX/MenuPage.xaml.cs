@@ -37,11 +37,12 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    try { var nu = "Hello: " + Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+
+                    }
                     catch
                     {
-                        ToolDrive.Text = "";
-                        ToolDown.Text = "";
+
                     }
 
                     break;
@@ -50,6 +51,15 @@ namespace GreenBankX
         public void Signot()
         {
             Xamarin.Forms.DependencyService.Get<ILogin>().SignOut();
+            try
+            {
+                var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+
+            }
+            catch
+            {
+
+            }
         }
         void Driv3r()
         {
@@ -69,16 +79,19 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    try { var nu  =  Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                    try { var nu  =  Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+
+                    }
                     catch
                     {
                         clientId = Constants.AndroidClientId;
                         redirectUri = Constants.AndroidRedirectUrl;
-                        bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
-                        try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
+                       bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
+                        try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+
+                        }
                         catch { }
-                        ToolDrive.Text = "Upload";
-                        ToolDown.Text = "Download";
+
                     }
                     break;
             }
@@ -110,8 +123,21 @@ namespace GreenBankX
         {
             if (boffo.Text == "Finished" && (bool)Application.Current.Properties["Load"]) {
                 SaveAll.GetInstance().LoadAll();
+            } else if((bool)Xamarin.Forms.Application.Current.Properties["Signed"]) {
+                ToolDrive.Text = "Upload";
+                ToolDown.Text = "Download";
+                Toolout.Text = "Log Out";
+                ToolIn.Text = "";
+            }
+            else if (!(bool)Xamarin.Forms.Application.Current.Properties["Signed"])
+            {
+                ToolDrive.Text = "";
+                ToolDown.Text = "";
+                Toolout.Text = "";
+                ToolIn.Text = "Log In";
             }
         }
+       
     }
     class ClockViewModel : INotifyPropertyChanged
     {
@@ -141,7 +167,6 @@ namespace GreenBankX
                     if (PropertyChanged != null)
                     {
                         PropertyChanged(this, new PropertyChangedEventArgs("DateTime"));
-
                     }
                 }
             }

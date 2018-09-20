@@ -17,8 +17,6 @@ using Android.Gms.Common;
 using Android.Content;
 using Android.Gms.Drive;
 using Android.Content.Res;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Drive.v3;
 using System.Threading;
 using Google.Apis.Util.Store;
 using System.IO;
@@ -126,10 +124,18 @@ namespace GreenBankX.Droid
                 {
                     mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
                     Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
+                    Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
+                    Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
+                    Xamarin.Forms.Application.Current.Properties["Signed"] = true;
+
+
 
                 }
                 else {
                     Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
+                    Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
+                    Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
+                    Xamarin.Forms.Application.Current.Properties["Signed"] = true;
                 }
             }
             else {
@@ -146,6 +152,9 @@ namespace GreenBankX.Droid
         public void SignOut()
         {
            mGoogleApiClient.Disconnect();
+            GoogleInfo.GetInstance().Acount = null;
+            Xamarin.Forms.Application.Current.Properties["Signed"] = false;
+            Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello! Welcome to GreenBank\n Please log In with a Google Account";
         }
 
         void RevokeAccess()

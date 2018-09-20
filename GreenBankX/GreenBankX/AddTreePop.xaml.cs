@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -38,7 +39,14 @@ namespace GreenBankX
             else if (DateMes.Date > DateTime.Now) {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Date is in future", "Please input valid date", "OK");
+                    DisplayAlert("Date is in future", AppResource.ResourceManager.GetString("EnterVDate"), "OK");
+                });
+            }
+            else if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).YearPlanted >= DateMes.Date.Year)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("Date is Before Plot is Planted", AppResource.ResourceManager.GetString("EnterVDate"), "OK");
                 });
             }
             else

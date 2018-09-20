@@ -1,4 +1,5 @@
 ﻿
+using GreenBankX.Resources;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
@@ -227,8 +228,8 @@ namespace GreenBankX
                             SortedList<DateTime, (double, double)> thisHistory = thisPlot.getTrees().ElementAt(w).GetHistory();
                             if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year)
                             {
-                                double girth = thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item1;
-                                double height = thisHistory.Where(z => z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value.Item2;
+                                double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((y - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;
+                                double height = thisHistory.Where(z => (z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((y - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item2;
                                 double[,] result = Calc.Calcs(girth, height);
                                 for (int i = 0; i < result.GetLength(0); i++)
                                 {
@@ -401,6 +402,75 @@ namespace GreenBankX
             LoadPriceFiles();
             LoadPlotFiles();
             LoadTreeFiles2();
+        }
+
+        public void Kamel() {
+            string output = "<?xml version =\"1.0\" encoding=\"UTF-8\"?>\n<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n<Document>";
+            for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++)
+            {
+                Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                output += "\n<Placemark>\n<name>"+ ThisPlot.GetName()+ "</name>\n";
+                double[] tag =  ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetTag();
+                output += "<description>\n";
+                if (ThisPlot.YearPlanted > 0) {
+                    output += AppResource.ResourceManager.GetString("YPlant") + ": " + ThisPlot.YearPlanted.ToString()+"\n";
+                }
+                if (ThisPlot.GetRange() == null)
+                {
+                    output += AppResource.ResourceManager.GetString("NumberTrees") + ": " + ThisPlot.getTrees().Count.ToString() + "\n";
+                }
+                List<Tree> TreeList = ThisPlot.getTrees();
+                int year = DateTime.Now.Year;
+                    double totalplotyear = 0;
+                    double totVolplotyear = 0;
+                if (ThisPlot.GetRange() != null)
+                {
+                    int treecount = 0;
+                    Calculator calc = new Calculator();
+                    calc.SetPrices(ThisPlot.GetRange());
+                    for (int w = 0; w < TreeList.Count; w++)
+                    {
+                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(w).GetHistory();
+                        if (year >= thisHistory.First().Key.Year && year <= thisHistory.Last().Key.Year)
+                        {
+                            double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;
+                            double height = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item2;
+                            double[,] result = calc.Calcs(girth, height);
+                            for (int i = 0; i < result.GetLength(0); i++)
+                            {
+                                totalplotyear = totalplotyear + result[i, 1];
+                                totVolplotyear = totVolplotyear + result[i, 2];
+                                
+                            }
+                            treecount++;
+                        }
+                    }
+                    output += AppResource.ResourceManager.GetString("NumberTrees") + ": " + treecount.ToString() + "\n";
+                    output += AppResource.ResourceManager.GetString("TotalVol") + ": " + Math.Round(totVolplotyear,4).ToString() + "m3\n";
+                    output += AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(totalplotyear,2).ToString() + "k\n";
+                }
+                output +="</description>";
+                   output += "<Point>\n<coordinates>"+tag[1].ToString()+","+tag[0].ToString()+"</coordinates>\n </Point>\n";
+                if (ThisPlot.GetPolygon().Count > 0)
+                {
+                    output += "<Polygon><outerBoundaryIs><LinearRing><coordinates>\n";
+                    for (int y = 0; y < ThisPlot.GetPolygon().Count; y++)
+                    {
+                        output += ThisPlot.GetPolygon().ElementAt(y).Longitude.ToString() + ", " + ThisPlot.GetPolygon().ElementAt(y).Latitude + ", 0.\n";
+                    }
+                    output += "  </coordinates></LinearRing></outerBoundaryIs></Polygon>\n<Style><PolyStyle><color>#a00000ff</color><outline>0</outline></PolyStyle></Style>\n</Placemark>";
+                }
+                else {
+                    output += "</Placemark>";
+                }
+            }      
+        
+            output += "\n</Document>\n</kml>";
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(output);
+            MemoryStream stream = new MemoryStream(byteArray);
+            Xamarin.Forms.DependencyService.Get<ISave>().Save("map.kml", "text/plain", stream);
+            
         }
 
     }

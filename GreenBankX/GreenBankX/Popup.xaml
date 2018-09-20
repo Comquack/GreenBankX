@@ -33,9 +33,21 @@
                    TextColor="Black"
                    Placeholder="{local:TranslateExtension Name}"
             BackgroundColor="LightSeaGreen"/>
+        <Entry 
+                x:Name="PlotYear"
+                   TextColor="Black"
+                   Placeholder="Year Planted"
+            Keyboard="Numeric"
+            BackgroundColor="LightSeaGreen"
+            MaxLength="4"
+            />
+
+
         <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
-                BackgroundColor="LightGray">
+                BackgroundColor="LightGray"
+                SelectedIndexChanged="pickPrice_SelectedIndexChanged"
+                >
             <Picker.Items>
             </Picker.Items>
         </Picker>

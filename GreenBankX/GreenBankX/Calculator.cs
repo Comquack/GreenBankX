@@ -27,7 +27,7 @@ namespace GreenBankX
 
 
         public double[,] Calcs(double breastGirth, double merchHeight)
-        {
+        {   
             LOGLEN = prices.GetLength();
             SortedList<double, double> brack = prices.GetBrack();
             int noLogs = (int)Math.Floor((merchHeight) / LOGLEN);

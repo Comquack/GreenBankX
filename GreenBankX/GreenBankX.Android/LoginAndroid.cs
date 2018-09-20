@@ -32,7 +32,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
     }
     public string AccountName() {
         if (GoogleInfo.GetInstance().Acount.DisplayName == null) {
-            return GoogleInfo.GetInstance().Acount.ToString();
+            throw new Exception();
         }
         return GoogleInfo.GetInstance().Acount.DisplayName;
         

@@ -6,7 +6,6 @@
              x:Class="GreenBankX.ManagePlots">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ToolDelete" Order="Primary"  Text="" Priority="0" Clicked="DelPlot"/>
-        <ToolbarItem x:Name="ToolAddTree" Order="Primary"  Text="" Priority="1" Clicked="AddNewTree" />
         <ToolbarItem x:Name="ToolDeleteTree" Order="Primary"  Text="" Priority="2" Clicked="DelTree"/>
         <ToolbarItem x:Name="ToolAddMes" Order="Secondary"  Text="" Priority="3" Clicked="AddTreeMes"/>
         <ToolbarItem x:Name="ToolPricing" Order="Secondary"  Text="Change Pricing" Priority="4" Clicked="ChangePricing"/>
@@ -69,6 +68,12 @@
                                         Grid.Column="2"></Label>
                         </Grid>
                     </ListView.Header>
+                    <ListView.Footer>
+                        <Button x:Name="New"
+                                Text="Add New Tree"
+                                Clicked="AddNewTree"/>
+
+                    </ListView.Footer>
                     <ListView.ItemsSource>
 
                         <x:Array Type="{x:Type x:String}"

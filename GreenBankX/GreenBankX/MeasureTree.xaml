@@ -10,12 +10,15 @@
                 x:Name="girth"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension Girth}"/>
+                   Placeholder="{local:TranslateExtension Girth}"
+				MaxLength="3"
+				/>
             <Entry 
                 x:Name="height"
                    TextColor="Black"
                     Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension Height}"/>
+                   Placeholder="{local:TranslateExtension Height}"
+			MaxLength="2"/>
 
             <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
@@ -63,15 +66,15 @@
                     <Grid>
 
                         <Label
-                                Text="Log Class"
+                                Text="{local:TranslateExtension LogClass}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                         <Label
-                                Text="Total Volume"
+                                Text="{local:TranslateExtension TotalVol}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                         <Label
-                                Text="Total Price"
+                                Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                     </Grid>

@@ -25,20 +25,22 @@
         Padding="20, 20, 20, 20">
         <Label
             x:Name="TreeLabel"
-            Text="Add a New Tree"
+            Text="{local:TranslateExtension AddNewTree}"
             BackgroundColor="LightSeaGreen"/>
         <Entry 
                 x:Name="Diameter"
                    TextColor="Black"
                    Placeholder="{local:TranslateExtension Girth}"
             BackgroundColor="LightSeaGreen"
-            Keyboard="Numeric"/>
+            Keyboard="Numeric"
+            MaxLength="3"/>
         <Entry 
                 x:Name="MHeight"
                    TextColor="Black"
                    Placeholder="{local:TranslateExtension MerchHeight}"
             BackgroundColor="LightSeaGreen"
-            Keyboard="Numeric"/>
+            Keyboard="Numeric"
+            MaxLength="2"/>
 
         <DatePicker
             x:Name="DateMes"
