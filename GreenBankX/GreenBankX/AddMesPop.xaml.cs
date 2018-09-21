@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace GreenBankX
     public partial class AddMesPop : Rg.Plugins.Popup.Pages.PopupPage
     {
         int counter;
+        int tCounter;
+        int hist;
         public static AddMesPop instance = new AddMesPop();
         public static AddMesPop GetInstance()
         {
@@ -28,12 +31,13 @@ namespace GreenBankX
             InitializeComponent();
         }
         public async void Done() {
+            counter = (int)Application.Current.Properties["Counter"];
+            tCounter = (int)Application.Current.Properties["TCounter"];
+            hist = (int)Application.Current.Properties["HCounter"];
             if (MHeight.Text != null && double.Parse(MHeight.Text) > 0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && Application.Current.Properties["TCounter"] != null && (int)Application.Current.Properties["TCounter"] > -1 && DateMes.Date <= DateTime.Now)
             {
-
-                counter = (int)Application.Current.Properties["Counter"];
-                int tCounter = (int)Application.Current.Properties["TCounter"];
-                if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ContainsKey(DateMes.Date))
+                bool editor = (DateMes.Date == ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ElementAt(hist).Key) && Edit.IsToggled;
+                if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ContainsKey(DateMes.Date)&&!editor)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -42,9 +46,19 @@ namespace GreenBankX
                 }
                 else
                 {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(double.Parse(Diameter.Text), double.Parse(MHeight.Text), DateMes.Date);
-                    Application.Current.Properties["Counter"] = -1;
-                    MessagingCenter.Send<AddMesPop>(this, "Append");
+                    if (Edit.IsToggled)
+                    {
+                        ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().RemoveAt(hist);
+                        ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(double.Parse(Diameter.Text), double.Parse(MHeight.Text), DateMes.Date);
+                         MessagingCenter.Send<AddMesPop>(this, "Alter");
+                    }
+                    else
+                    {
+                        ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).AddToHistory(double.Parse(Diameter.Text), double.Parse(MHeight.Text), DateMes.Date);
+                        MessagingCenter.Send<AddMesPop>(this, "Append");
+                    }
+                    
+                    
                     await PopupNavigation.Instance.PopAsync();
                 }
             }
@@ -134,6 +148,26 @@ namespace GreenBankX
         {
             // Return false if you don't want to close this popup page when a background of the popup page is clicked
             return base.OnBackgroundClicked();
+        }
+
+        private void Edit_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (Edit.IsToggled)
+            {
+                TreeBut.Text = "Edit Measurement";
+                counter = (int)Application.Current.Properties["Counter"];
+                tCounter = (int)Application.Current.Properties["TCounter"];
+                hist = (int)Application.Current.Properties["HCounter"];
+                DateMes.Date = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ElementAt(hist).Key;
+                Diameter.Text = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ElementAt(hist).Value.Item1.ToString();
+                MHeight.Text = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ElementAt(hist).Value.Item2.ToString();
+            }
+            else {
+                TreeBut.Text = "Add Measurement";
+                DateMes.Date = DateTime.Now;
+                Diameter.Text = "";
+                MHeight.Text = "";
+            }
         }
     }
 }

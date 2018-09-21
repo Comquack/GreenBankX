@@ -19,7 +19,9 @@
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension Height}"
 			MaxLength="2"/>
-
+            <DatePicker
+            x:Name="DateMes" 
+            />
             <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                     SelectedIndexChanged="pickPrice_SelectedIndexChanged">

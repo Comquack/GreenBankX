@@ -45,6 +45,19 @@
         <DatePicker
             x:Name="DateMes"
             />
+        <Grid>
+            <Label
+                Text="Edit Measurement?"/>
+            <Switch
+            x:Name="Edit"
+            Grid.Column="1"
+                PropertyChanged="Edit_PropertyChanged"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80*" />
+                <ColumnDefinition Width="20*" />
+
+            </Grid.ColumnDefinitions>
+        </Grid>
         <Button
                    x:Name="TreeBut"
                Text="{local:TranslateExtension AddMeasurement}"

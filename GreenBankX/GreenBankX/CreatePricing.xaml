@@ -21,7 +21,7 @@
                 x:Name="Len"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension Name}"
+                   Placeholder="{local:TranslateExtension LogLength}"
                 MaxLength="2"/>
             
             <Button x:Name="AddName"

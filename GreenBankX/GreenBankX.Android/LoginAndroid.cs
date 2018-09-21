@@ -45,6 +45,8 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         {
             case -1:
                 Xamarin.Forms.Application.Current.Properties["Boff"] = "Test";
+               
+                GoogleInfo.GetInstance().Files.Clear();
                 GoogleInfo.GetInstance().Count = -1;
                 break;
             case 0:
@@ -57,7 +59,11 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 GoogleInfo.GetInstance().FileName = "trees.xls";
                 break;
             case 3:
+                GoogleInfo.GetInstance().FileName = "map.kml";
+                break;
+            case 4:
                 GoogleInfo.GetInstance().Count = -1;
+                Application.Current.Properties["Boff"] = "Finished";
                 return "Finished";
         }
         if (inputStream != null)
@@ -67,6 +73,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
         if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API))
         {
+            DriveClass.DriveApi.RequestSync(GoogleInfo.GetInstance().SignInApi);
             Application.Current.Properties["Boff"] = "Loading";
             Load = "Loading";
         }
@@ -171,10 +178,14 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                     {
                         writer.Write(inputStream.ReadByte());
                     }
+                    string mime = "application/vnd.ms-excel";
+                    if (GoogleInfo.GetInstance().Count == 3) {
+                        mime = "text/plain";
+                    }
                     writer.Close();
                     MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
                            .SetTitle(GoogleInfo.GetInstance().FileName)
-                           .SetMimeType("application/vnd.ms-excel")
+                           .SetMimeType(mime)
                            .Build();
                     DriveClass.DriveApi
                               .GetRootFolder(GoogleInfo.GetInstance().SignInApi)

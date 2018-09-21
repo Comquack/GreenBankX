@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using GreenBankX.Resources;
@@ -25,6 +26,7 @@ namespace GreenBankX
         int year = DateTime.Now.Year;
 		public ManagePlots ()
 		{
+            
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
             InitializeComponent();
             changedPlot = new List<Plot>();
@@ -37,7 +39,7 @@ namespace GreenBankX
             string IDs = "ID\n";
             string girths = AppResource.ResourceManager.GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetString("Height") + "\n";
-            if (pickPlot.SelectedIndex == pickPlot.Items.Count-1) {
+            if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
                 await Navigation.PushAsync(new CreatePlot());
                 return;
             }
@@ -121,30 +123,33 @@ namespace GreenBankX
             {
                 MessagingCenter.Unsubscribe<DeleteConfirm>(this, "Delete");
                 MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
-                    string trees = "";
                     SaveAll.GetInstance().DeletePlot(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName());
                     ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
                     ToolDelete.Text = "";
                     ToolDeleteTree.Text = "";
                     ToolAddMes.Text = "";
                     DeleteTree.IsVisible = false;
-                    ListOfTree.Text = trees;
-                        pickPlot.Items.Clear();
+                    ListOfTree.Text = "";
+                    PlotTitle.Text = "";
+                    pickPlot.Items.Clear();
                     pickTree.Items.Clear();
                     pickTree.IsVisible = false;
                     AddTree.IsVisible = false;
                     AddMes.IsVisible = false;
                     ShowGraph.IsVisible = false;
+                    doubletap = null;
+                    DetailsList.IsVisible = false;
+                    LogClassList.IsVisible = false;
                     for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                     {
                         pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                         
                     }
                     pickPlot.Items.Add("Add Plot");
-                    ListOfTree.Text = trees;
                     pickPlot.SelectedIndex = pickPlot.SelectedIndex - 1;
                     SelectPlot();
-
+                    SaveAll.GetInstance().SavePlots();
+                    SaveAll.GetInstance().SaveTrees2();
 
                 });
                 await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -186,12 +191,20 @@ namespace GreenBankX
             {
                 Application.Current.Properties["Counter"] = pickPlot.SelectedIndex;
                 Application.Current.Properties["TCounter"] = pickTree.SelectedIndex;
+                Application.Current.Properties["TCounter"] = pickTree.SelectedIndex;
                 MessagingCenter.Unsubscribe<AddMesPop>(this, "Append");
 
                 MessagingCenter.Subscribe<AddMesPop>(this, "Append", (sender) =>
                 {
-                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    List<Tree> TreeList = ThisPlot.getTrees();
+                    LatEar();
+                    DetailsList.IsVisible = false;
+                    LogClassList.IsVisible = false;
+                    LogList.IsVisible = false;
+                    savetree = true;
+                });
+                MessagingCenter.Subscribe<AddMesPop>(this, "Alter", (sender) =>
+                {
+                    GraphNo = (int)Application.Current.Properties["HCounter"];
                     LatEar();
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = false;
@@ -249,6 +262,7 @@ namespace GreenBankX
 
                 double girth = ThisTree.GetHistory().ElementAt(GraphNo).Value.Item1;
                 double high = ThisTree.GetHistory().ElementAt(GraphNo).Value.Item2;
+                Application.Current.Properties["HCounter"] = GraphNo;
 
 
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange() != null)
@@ -661,7 +675,7 @@ namespace GreenBankX
 
         private void DetailsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (doubletapTree == e.SelectedItem)
+            if (doubletapTree == (Tree)DetailsList.SelectedItem)
             {
                 
                 if (Listhadler == 0)
@@ -677,7 +691,7 @@ namespace GreenBankX
                 }
             }
             else {
-               doubletapTree = (Tree)e.SelectedItem; 
+               doubletapTree = (Tree)DetailsList.SelectedItem;
             }
         }
         private void LogClassInfoPlot(int bracNo)
@@ -757,9 +771,11 @@ namespace GreenBankX
                 for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                 {
                     pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
+                pickPlot.SelectedIndex = -1;
                 }
                 pickPlot.Items.Add("Add Plot");
-                ShowGraph.IsVisible = false;
+            pickPlot.SelectedIndex = -1;
+            ShowGraph.IsVisible = false;
             }
     }
 

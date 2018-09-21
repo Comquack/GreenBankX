@@ -65,7 +65,20 @@ namespace GreenBankX
         public void RunAdd() {
             if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
                 int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateTime.Now));
+                if (DateMes.Date > DateTime.Now)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Date is in future", "Please input valid date", "OK");
+                    });
+                }
+                else if (DateMes.Date == null)
+                {
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateTime.Now));
+                }
+                else {
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateMes.Date));
+                }
             }
         }
 

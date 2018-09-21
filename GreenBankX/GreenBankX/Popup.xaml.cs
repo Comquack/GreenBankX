@@ -59,13 +59,13 @@ namespace GreenBankX
                 string lng = geo[1].ToString();
                 string baseurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
                 string requestUri = string.Format(baseurl, lat, lng, api);
-                Console.WriteLine(requestUri);
-                //using (WebClient wc = new WebClient())
+                Console.WriteLine("Hello: 8===D~~~~~"+ requestUri);
+               // using (WebClient wc = new WebClient())
                 //{
-                //    wc.DownloadStringCompleted +=
-                //      new DownloadStringCompletedEventHandler(wc_DownloadStringCompletedAsync);
-                //    wc.DownloadStringAsync(new Uri(requestUri));
-                //}
+                 //   wc.DownloadStringCompleted +=
+                  //    new DownloadStringCompletedEventHandler(Wc_DownloadStringCompletedAsync);
+                  //  wc.DownloadStringAsync(new Uri(requestUri));
+               // }
                 ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
                 MessagingCenter.Send<Popup>(this, "Add");
                 SaveAll.GetInstance().SavePlots();
@@ -84,7 +84,7 @@ namespace GreenBankX
 
 
 
-         async void wc_DownloadStringCompletedAsync(object sender,
+         async void Wc_DownloadStringCompletedAsync(object sender,
                        DownloadStringCompletedEventArgs e)
         {
             var xmlElm = XElement.Parse(e.Result);
