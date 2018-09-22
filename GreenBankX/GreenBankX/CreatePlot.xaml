@@ -20,6 +20,7 @@
                 Grid.Row="0"
                 MapReady="MapReady"
                 PinSelected="MyMap_PinSelected"
+                    
                 />
                 <Button
                    x:Name="AddPlot"

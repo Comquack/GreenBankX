@@ -47,7 +47,7 @@
             />
         <Grid>
             <Label
-                Text="Edit Measurement?"/>
+                Text="Edit Measurement"/>
             <Switch
             x:Name="Edit"
             Grid.Column="1"

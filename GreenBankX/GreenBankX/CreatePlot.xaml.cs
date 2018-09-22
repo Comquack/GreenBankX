@@ -8,7 +8,7 @@ using Xamarin.Forms.Xaml;
 using TK.CustomMap;
 using Rg.Plugins.Popup.Services;
 using TK.CustomMap.Overlays;
-
+using TK.CustomMap.Api.Google;
 
 namespace GreenBankX
 {
@@ -70,8 +70,13 @@ namespace GreenBankX
             }
   
         }
-        public void PlacePin(Position position)
+        public void PlacePin(object sender, TKGenericEventArgs<Position> e)
         {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                DisplayAlert("Pos", "Lat: "+e.Value.Latitude + "Long: " + e.Value.Longitude,"OK");
+          });
+        
             //If setpoly not = -1 (pin selected) multiple pins can be placed to form polygon
             if (setpoly > -1)
             {
@@ -79,14 +84,14 @@ namespace GreenBankX
                 showName.IsVisible = false;
                 Pins.Add(new TKCustomMapPin
                 {
-                    Position = position,
+                    Position = e.Value,
                     Title = "TestPlot",
                     IsVisible = true,
                     ShowCallout = false,
                     DefaultPinColor = Color.Green
 
                 });
-                newpolygon.Add(position);
+                newpolygon.Add(e.Value);
 
                 MyMap.Pins = Pins;
             }
@@ -101,7 +106,7 @@ namespace GreenBankX
                 showName.IsVisible = false;
                 Pins.Add(new TKCustomMapPin
                 {
-                    Position = position,
+                    Position = e.Value,
                     Title = "TestPlot",
                     IsVisible = true,
                     ShowCallout = false,
@@ -220,13 +225,13 @@ namespace GreenBankX
         }
 
         public async void PinHere()
-        {
+        { 
             Position position = new Position();
             try
             {
                 var request = new GeolocationRequest(GeolocationAccuracy.High);
                 var location = await Geolocation.GetLocationAsync(request);
-
+                
                 if (location != null)
                 {
                     position = new Position(location.Latitude, location.Longitude);
@@ -279,5 +284,6 @@ namespace GreenBankX
                 });
             }
         }
+        
     }
 }
