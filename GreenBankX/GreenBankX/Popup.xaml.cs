@@ -32,7 +32,7 @@ namespace GreenBankX
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
             }
-            pickPrice.Items.Add("Add New Pricing");
+            pickPrice.Items.Add(AppResource.ResourceManager.GetString("AddPricing"));
         }
         public async void Done()
         {
@@ -59,7 +59,7 @@ namespace GreenBankX
                 string lng = geo[1].ToString();
                 string baseurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
                 string requestUri = string.Format(baseurl, lat, lng, api);
-                Console.WriteLine("Hello: 8===D~~~~~"+ requestUri);
+                Console.WriteLine("Hello:"+ requestUri);
                // using (WebClient wc = new WebClient())
                 //{
                  //   wc.DownloadStringCompleted +=

@@ -69,15 +69,17 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Date is in future", "Please input valid date", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetString("DFute"), AppResource.ResourceManager.GetString("EnterVDate"), "OK");
                     });
                 }
                 else if (DateMes.Date == null)
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateTime.Now));
+                    SaveAll.GetInstance().SaveTrees2();
                 }
                 else {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateMes.Date));
+                    SaveAll.GetInstance().SaveTrees2();
                 }
             }
         }

@@ -39,7 +39,7 @@ namespace GreenBankX
             else if (DateMes.Date > DateTime.Now) {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Date is in future", AppResource.ResourceManager.GetString("EnterVDate"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetString("DFute"), AppResource.ResourceManager.GetString("EnterVDate"), "OK");
                 });
             }
             else if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).YearPlanted >= DateMes.Date.Year)

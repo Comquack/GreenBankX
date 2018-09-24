@@ -282,4 +282,34 @@
   <data name="YPlant" xml:space="preserve">
     <value>Year Planted</value>
   </data>
+  <data name="Apin" xml:space="preserve">
+    <value>Area not near pin</value>
+  </data>
+  <data name="DelConf" xml:space="preserve">
+    <value>Are You Sure you want to delete?</value>
+  </data>
+  <data name="DelPrice" xml:space="preserve">
+    <value>Delete Pricing Scheme</value>
+  </data>
+  <data name="DFute" xml:space="preserve">
+    <value>Date is in future</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="EMes" xml:space="preserve">
+    <value>Edit Measurement</value>
+  </data>
+  <data name="SetArea" xml:space="preserve">
+    <value>Set Area</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
 </root>

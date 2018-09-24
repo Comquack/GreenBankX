@@ -4,13 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenBankX.CreatePricing">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="SaveTool" Order="Primary"  Text="Save" Priority="0" Clicked="SaveTest"/>
+        <ToolbarItem x:Name="SaveTool" Order="Primary"  Text="{local:TranslateExtension Save}" Priority="0" Clicked="SaveTest"/>
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Button x:Name="AddNew"
-                    Text="New Pricing scheme"
+                    Text="{local:TranslateExtension NewPrice}"
                     Clicked="NewPrice"
                     />
             <Entry  
@@ -85,7 +85,7 @@
                 
             </ListView>
             <Button x:Name="Delete"
-                    Text="Delete Pricing scheme"
+                    Text="{local:TranslateExtension DelPrice}"
                     Clicked="DelPrice"
                     />
             <Button x:Name="Change"

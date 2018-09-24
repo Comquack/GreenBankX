@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.ComponentModel;
+using GreenBankX.Resources;
 
 namespace GreenBankX
 {
@@ -124,9 +125,9 @@ namespace GreenBankX
             if (boffo.Text == "Finished" && (bool)Application.Current.Properties["Load"]) {
                 SaveAll.GetInstance().LoadAll();
             } else if((bool)Xamarin.Forms.Application.Current.Properties["Signed"]) {
-                ToolDrive.Text = "Upload";
-                ToolDown.Text = "Download";
-                Toolout.Text = "Log Out";
+                ToolDrive.Text = AppResource.ResourceManager.GetString("Upload");
+                ToolDown.Text = AppResource.ResourceManager.GetString("Download");
+                Toolout.Text = AppResource.ResourceManager.GetString("SignOut");
                 ToolIn.Text = "";
             }
             else if (!(bool)Xamarin.Forms.Application.Current.Properties["Signed"])
@@ -134,7 +135,7 @@ namespace GreenBankX
                 ToolDrive.Text = "";
                 ToolDown.Text = "";
                 Toolout.Text = "";
-                ToolIn.Text = "Log In";
+                ToolIn.Text = AppResource.ResourceManager.GetString("SignIn");
             }
         }
        

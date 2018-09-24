@@ -115,6 +115,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Area not near pin.
+        /// </summary>
+        public static string Apin {
+            get {
+                return ResourceManager.GetString("Apin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area.
         /// </summary>
         public static string Area {
@@ -169,6 +178,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are You Sure you want to delete?.
+        /// </summary>
+        public static string DelConf {
+            get {
+                return ResourceManager.GetString("DelConf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Plot.
         /// </summary>
         public static string DeletePlot {
@@ -187,6 +205,24 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Pricing Scheme.
+        /// </summary>
+        public static string DelPrice {
+            get {
+                return ResourceManager.GetString("DelPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date is in future.
+        /// </summary>
+        public static string DFute {
+            get {
+                return ResourceManager.GetString("DFute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Diameter is invalid.
         /// </summary>
         public static string DiaInvalid {
@@ -196,11 +232,29 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string Download {
+            get {
+                return ResourceManager.GetString("Download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Earlier.
         /// </summary>
         public static string Earlier {
             get {
                 return ResourceManager.GetString("Earlier", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Measurement.
+        /// </summary>
+        public static string EMes {
+            get {
+                return ResourceManager.GetString("EMes", resourceCulture);
             }
         }
         
@@ -475,11 +529,38 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set Area.
+        /// </summary>
+        public static string SetArea {
+            get {
+                return ResourceManager.GetString("SetArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show a Graph.
         /// </summary>
         public static string ShowGraph {
             get {
                 return ResourceManager.GetString("ShowGraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign In.
+        /// </summary>
+        public static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
             }
         }
         
@@ -534,6 +615,15 @@ namespace GreenBankX.Resources {
         public static string TreeID {
             get {
                 return ResourceManager.GetString("TreeID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload.
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
             }
         }
         

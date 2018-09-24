@@ -9,6 +9,7 @@ using TK.CustomMap;
 using Rg.Plugins.Popup.Services;
 using TK.CustomMap.Overlays;
 using TK.CustomMap.Api.Google;
+using GreenBankX.Resources;
 
 namespace GreenBankX
 {
@@ -42,7 +43,7 @@ namespace GreenBankX
                 else {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Area not near pin", "Area not near pin", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetString("Apin"), AppResource.ResourceManager.GetString("Apin"), "OK");
                     });
                 }
                 
@@ -72,10 +73,6 @@ namespace GreenBankX
         }
         public void PlacePin(object sender, TKGenericEventArgs<Position> e)
         {
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                DisplayAlert("Pos", "Lat: "+e.Value.Latitude + "Long: " + e.Value.Longitude,"OK");
-          });
         
             //If setpoly not = -1 (pin selected) multiple pins can be placed to form polygon
             if (setpoly > -1)
@@ -181,7 +178,7 @@ namespace GreenBankX
                     CancelButton.IsVisible = true;
                 }
             }
-            AddPlot.Text = "Set Area";
+            AddPlot.Text = AppResource.ResourceManager.GetString("SetArea");
             newpolygon = new List<Position>();
         }
         //renders polygons(plot area)

@@ -57,26 +57,6 @@ namespace GreenBankX
                     break;
             }
         }
-        void OnLoginClicked()
-        {
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    break;
-
-                case Device.Android:
-                    try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
-                    catch
-                    {
-                        bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
-                        try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(); }
-                        catch { }
-
-                    }
-                    break;
-            }
-
-        }
 
     }
 }

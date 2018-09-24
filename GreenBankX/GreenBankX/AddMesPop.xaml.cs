@@ -66,7 +66,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Date is in future", "Please input valid date", "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetString("DFute"), AppResource.ResourceManager.GetString("EnterVDate"), "OK");
                 });
             }
             else
@@ -154,7 +154,7 @@ namespace GreenBankX
         {
             if (Edit.IsToggled)
             {
-                TreeBut.Text = "Edit Measurement";
+                TreeBut.Text = AppResource.ResourceManager.GetString("EMes");
                 counter = (int)Application.Current.Properties["Counter"];
                 tCounter = (int)Application.Current.Properties["TCounter"];
                 hist = (int)Application.Current.Properties["HCounter"];
@@ -163,7 +163,7 @@ namespace GreenBankX
                 MHeight.Text = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ElementAt(hist).Value.Item2.ToString();
             }
             else {
-                TreeBut.Text = "Add Measurement";
+                TreeBut.Text = AppResource.ResourceManager.GetString("AddMeasurement");
                 DateMes.Date = DateTime.Now;
                 Diameter.Text = "";
                 MHeight.Text = "";

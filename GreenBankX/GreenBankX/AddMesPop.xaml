@@ -47,7 +47,7 @@
             />
         <Grid>
             <Label
-                Text="Edit Measurement"/>
+                Text="{local:TranslateExtension EMes}"/>
             <Switch
             x:Name="Edit"
             Grid.Column="1"

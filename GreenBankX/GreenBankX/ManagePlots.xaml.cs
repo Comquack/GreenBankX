@@ -29,6 +29,7 @@ namespace GreenBankX
             
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
             InitializeComponent();
+            ToolPricing.Text = "";
             changedPlot = new List<Plot>();
         }
         //activates when index is changed in the plot picker
@@ -69,6 +70,7 @@ namespace GreenBankX
                 ListOfTree.Text = "";
                 GirthOT.Text = "";
                 HeightOT.Text = "";
+                ToolPricing.Text = "Change Pricing";
                 DetailsList.ItemsSource = TreeTails;
                 
                 PlotTitle.Text = trees;
@@ -80,7 +82,6 @@ namespace GreenBankX
                 ShowGraph.IsVisible = true;
                 ToolDelete.Text = AppResource.ResourceManager.GetString("DeletePlot");
                 ToolDeleteTree.Text = "";
-                ToolAddMes.Text = "";
             }
         }
         //activates when index for tree picker is changed
@@ -113,7 +114,6 @@ namespace GreenBankX
             }
 
             ToolDeleteTree.Text = AppResource.ResourceManager.GetString("DeleteTree");
-            ToolAddMes.Text = AppResource.ResourceManager.GetString("AddMeasurement");
             AddMes.IsVisible = true;
             
         }
@@ -127,7 +127,7 @@ namespace GreenBankX
                     ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
                     ToolDelete.Text = "";
                     ToolDeleteTree.Text = "";
-                    ToolAddMes.Text = "";
+                    ToolPricing.Text = "";
                     DeleteTree.IsVisible = false;
                     ListOfTree.Text = "";
                     PlotTitle.Text = "";
@@ -200,6 +200,7 @@ namespace GreenBankX
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = false;
                     LogList.IsVisible = false;
+                    SaveAll.GetInstance().SaveTrees2();
                     savetree = true;
                 });
                 MessagingCenter.Subscribe<AddMesPop>(this, "Alter", (sender) =>
@@ -209,6 +210,7 @@ namespace GreenBankX
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = false;
                     LogList.IsVisible = false;
+                    SaveAll.GetInstance().SaveTrees2();
                     savetree = true;
                 });
                 await PopupNavigation.Instance.PushAsync(AddMesPop.GetInstance());
@@ -238,7 +240,6 @@ namespace GreenBankX
                     AddMes.IsVisible = false;
                     pickTree.SelectedIndex = TreeList.Count - 1;
                     SelectTree();
-                    ToolAddMes.Text = "";
                     savetree = true;
                     SaveAll.GetInstance().SaveTrees2();
                 });
@@ -355,7 +356,12 @@ namespace GreenBankX
                     catch { }
                 }
                 year = Math.Max(year - 1, dates.First().Key);
+
                 ShowGraphpick();
+                if (year <= dates.First().Key)
+                {
+                    Earlier.IsVisible = false;
+                }
             }
             }
 
@@ -385,6 +391,10 @@ namespace GreenBankX
                     }
                 year = Math.Min(year+1, dates.Last().Key);
                 ShowGraphpick();
+                if (year >= dates.Last().Key)
+                {
+                    Later.IsVisible = false;
+                }
             }
 
         }
@@ -505,23 +515,27 @@ namespace GreenBankX
                     GirthOT.Text = "";
                     HeightOT.Text = "";
                     LogClassList.ItemsSource = Detail;
+                    Later.IsVisible = true;
+                Earlier.IsVisible = true;
                 }
                 else
                 {
+                    SelectPlot();
+                    DetailsList.IsVisible = false;
                     Oxy.Model = new OxyPlot.PlotModel();
                     ListOfTree.Text = "Year: \n" + AppResource.ResourceManager.GetString("MeanD") + " \n " + AppResource.ResourceManager.GetString("MeanV") + " \n" + AppResource.ResourceManager.GetString("MeanP") +  "\nTotal Volume: \n Total Value: \n";
                     HeightOT.Text = "";
-                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "\n" + Math.Round((totalvol / (double)count), 4).ToString() + "\n" + Math.Round((total / (double)count), 4).ToString() + "\n" + "\n" + Math.Round((totalvol), 4).ToString() + "\n" + Math.Round((total), 4).ToString() + "\n";
+                    Later.IsVisible = true;
+                    Earlier.IsVisible = true;
+                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "\n" + Math.Round((totalvol / (double)count), 4).ToString() + "\n" + Math.Round((total / (double)count), 4).ToString() + "\n" + Math.Round((totalvol), 4).ToString() + "\n" + Math.Round((total), 4).ToString() + "\n";
+                    Later.IsVisible = true;
+                    Earlier.IsVisible = true;
                 }
-                if (GraphNo <= 0)
-                {
-                    Later.IsVisible = false;
-                }
-                Later.IsVisible = true;
-                Earlier.IsVisible = true;
+
+
 
             }//plot over time
-            else if (ShowGraph.SelectedIndex == 3) {
+            else if (ShowGraph.SelectedIndex == 3 && ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count>0) {
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 PriceRange thisRange = ThisPlot.GetRange();
                 Calculator Calc = new Calculator();

@@ -41,4 +41,26 @@ using QuickLook;
 
             currentController.PresentViewController(qlPreview, true, null);
         }
+    public async Task Save(string filename, string contentType, MemoryStream stream)
+    {
+        //Get the root path in iOS device.
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        string filePath = Path.Combine(path, filename);
+
+        //Create a file and write the stream into it.
+        FileStream fileStream = File.Open(filePath, FileMode.Create);
+        stream.Position = 0;
+        stream.CopyTo(fileStream);
+        fileStream.Flush();
+        fileStream.Close();
+
     }
+    public string GetFileName()
+    {
+        //Get the root path in android device.
+        var directories = Directory.EnumerateDirectories("./");
+        string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+        //Create directory and file 
+        return path + "/GreenBankX";
+    }
+}
