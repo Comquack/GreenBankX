@@ -35,28 +35,5 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new MenuPage());
         }
-        async Task OnLoginTest()
-        {
-            string clientId = null;
-            string redirectUri = null;
-
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    clientId = Constants.iOSClientId;
-                    redirectUri = Constants.iOSRedirectUrl;
-                    break;
-
-                case Device.Android:
-                    clientId = Constants.AndroidClientId;
-                    redirectUri = Constants.AndroidRedirectUrl;
-                   bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
-                    while (wait != true) { }
-                    await DisplayAlert("Hello", Xamarin.Forms.DependencyService.Get<ILogin>().AccountName(), "OK");
-                    await Navigation.PushAsync(new MenuPage());
-                    break;
-            }
-        }
-
     }
 }

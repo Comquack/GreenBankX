@@ -58,9 +58,6 @@ namespace GreenBankX
                     
                     ThisTree = TreeList.ElementAt(x);
                     TreeTails.Add(ThisTree);
-                    IDs += ThisTree.ID.ToString() + "\n";
-                    girths += Math.Round(ThisTree.GetDia(),2).ToString() + "\n";
-                    heights += Math.Round(ThisTree.Merch,2).ToString() + "\n";
                     pickTree.Items.Add(ThisTree.ID.ToString()); 
                 }
                 pickTree.Items.Add("Add tree");
@@ -86,7 +83,6 @@ namespace GreenBankX
         }
         //activates when index for tree picker is changed
         public void SelectTree() {
-            string trees = "";
             string girths = AppResource.ResourceManager.GetString("Girth") + "\n";
             string heights = AppResource.ResourceManager.GetString("Height") + "\n";
             if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1 && pickTree.SelectedIndex < pickTree.Items.Count - 1) {
@@ -102,15 +98,8 @@ namespace GreenBankX
             }
             else if (pickTree.SelectedIndex == -1)
             {
-                Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                List<Tree> TreeList = ThisPlot.getTrees();
-                Tree ThisTree;
-                for (int x = 0; x < TreeList.Count; x++)
-                {
-                    ThisTree = TreeList.ElementAt(x);
-                    trees += "ID: " + ThisTree.ID.ToString() + AppResource.ResourceManager.GetString("Girth") + ": " + ThisTree.GetDia().ToString() + AppResource.ResourceManager.GetString("Height") + ": " + ThisTree.Merch.ToString() + "\n";
-                }
-                ListOfTree.Text = trees;
+                SelectPlot();
+                return;
             }
 
             ToolDeleteTree.Text = AppResource.ResourceManager.GetString("DeleteTree");
@@ -228,7 +217,7 @@ namespace GreenBankX
                     DeleteTree.IsVisible = false;
                     pickTree.Items.Clear();
                     Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    trees = AppResource.ResourceManager.GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetString("Area") + ": " + Math.Round(ThisPlot.GetArea(), 2) + "km2";
+                    trees = AppResource.ResourceManager.GetString("Name") + ": " + ThisPlot.GetName() +" "+ AppResource.ResourceManager.GetString("Area") + ": " + Math.Round(ThisPlot.GetArea(), 2) + "km2";
                     List<Tree> TreeList = ThisPlot.getTrees();
                     Tree ThisTree;
                     for (int x = 0; x < TreeList.Count; x++)
@@ -321,7 +310,7 @@ namespace GreenBankX
                     }
                     stuff = AppResource.ResourceManager.GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetString("Height") + ": " + Math.Round(high, 2).ToString();
                     girthtext = AppResource.ResourceManager.GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k\n";
-                    trees = "Tree ID:" + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
+                    trees = "Tree ID: " + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
                     GirthOT.Text = girthtext;
                     ListOfTree.Text = stuff;
                     PlotTitle.Text = trees;
@@ -338,7 +327,6 @@ namespace GreenBankX
                 if (GraphNo > 0)
                 {
                     GraphNo--;
-                    PlotTitle.Text = GraphNo.ToString();
                     LatEar();
                 }
 

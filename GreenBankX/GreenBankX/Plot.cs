@@ -59,7 +59,7 @@ namespace GreenBankX
             double area = 0;
             int m = GetPolygon().Count;
             for (int x = 0; x < m; x++) {
-                area = area + GetPolygon().ElementAt(x).Latitude* 111139* 111139* (GetPolygon().ElementAt((((x-1)%m)+m)%m).Longitude - GetPolygon().ElementAt((((x+1) % m) + m) % m).Longitude)/10000;
+                area = area + GetPolygon().ElementAt(x).Latitude* 111139* 111139* (GetPolygon().ElementAt((((x-1)%m)+m)%m).Longitude - GetPolygon().ElementAt((((x+1) % m) + m) % m).Longitude)/1000000;
             }
             return Math.Abs(area)*0.5;
         }

@@ -82,7 +82,7 @@ namespace GreenBankX
                 Pins.Add(new TKCustomMapPin
                 {
                     Position = e.Value,
-                    Title = "TestPlot",
+                    Title = "Area",
                     IsVisible = true,
                     ShowCallout = false,
                     DefaultPinColor = Color.Green
@@ -161,25 +161,41 @@ namespace GreenBankX
 
         private void MyMap_PinSelected(object sender, TKGenericEventArgs<TKCustomMapPin> e)
         {
-            if (e.Value.Title == "TestPlot") {
+            if (e.Value.Title == "TestPlot")
+            {
                 return;
             }
-            
-            for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++) {
-               if (e.Value.Title == ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName())
-               {
-                    if (setpoly > -1) {
-                        StartMap(false);
-                        PolyMap();
-                    }
-                    CanAdd = true;
-                    e.Value.DefaultPinColor = Color.Aqua;
-                    setpoly = x;
-                    CancelButton.IsVisible = true;
-                }
+            else if ((e.Value.Title == "Area"))
+            {
+                Pins.Remove(e.Value);
+                newpolygon.Remove(e.Value.Position);
+                StartMap(false);
+                PolyMap();
             }
-            AddPlot.Text = AppResource.ResourceManager.GetString("SetArea");
-            newpolygon = new List<Position>();
+            else
+            {
+                for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++)
+                {
+                    if (e.Value.Title == ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName())
+                    {
+                        if (setpoly > -1)
+                        {
+                            Cancel();
+                        }
+                        else
+                        {
+
+
+                            CanAdd = true;
+                            e.Value.DefaultPinColor = Color.Aqua;
+                            setpoly = x;
+                            CancelButton.IsVisible = true;
+                        }
+                    }
+                }
+                AddPlot.Text = AppResource.ResourceManager.GetString("SetArea");
+                newpolygon = new List<Position>();
+            }
         }
         //renders polygons(plot area)
         public void PolyMap() {
@@ -231,6 +247,7 @@ namespace GreenBankX
                 
                 if (location != null)
                 {
+                    
                     position = new Position(location.Latitude, location.Longitude);
                 }
 

@@ -163,19 +163,23 @@
                             <Label
                                 Text="ID"
                                 TextColor="Black"
-                                        Grid.Column="0"></Label>
+                                        Grid.Column="0"
+                                XAlign="Start"></Label>
                             <Label
                                 Text="Girth"
                                 TextColor="Black"
-                                        Grid.Column="1"></Label>
+                                        Grid.Column="1"
+                                XAlign="Start"></Label>
                             <Label
                                 Text="Total Volume"
                                 TextColor="Black"
-                                        Grid.Column="2"></Label>
+                                        Grid.Column="2"
+                                XAlign="Start"></Label>
                             <Label
                                 Text="Total Price"
                                 TextColor="Black"
-                                        Grid.Column="3"></Label>
+                                        Grid.Column="3"
+                                XAlign="Start"></Label>
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemsSource>

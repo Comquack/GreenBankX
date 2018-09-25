@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Google.SignIn;
 using UIKit;
 
 namespace GreenBankX.iOS
@@ -28,7 +29,27 @@ namespace GreenBankX.iOS
             LoadApplication(new App());
             Rg.Plugins.Popup.Popup.Init();
             //Xamarin.FormsMaps.Init();
+            var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
+            SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
+
             return base.FinishedLaunching(app, options);
         }
+        // For iOS 9 or newer
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            var openUrlOptions = new UIApplicationOpenUrlOptions(options);
+            return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
+        }
+
+        // For iOS 8 and older
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            return SignIn.SharedInstance.HandleUrl(url, sourceApplication, annotation);
+        }
+        public void DidSignIn(SignIn signIn, GoogleUser user, NSError error)
+        {
+            if (user != null && error == null) { }
+		// Disable the SignInButton
+}
     }
 }
