@@ -11,7 +11,7 @@
         <ToolbarItem x:Name="ToolSave" Order="Secondary"  Text="{local:TranslateExtension Save}" Priority="4" Clicked="Save"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
+
         <StackLayout>
             <Label Text="{local:TranslateExtension ManagePlots}"
                    x:Name="Titlename"
@@ -92,7 +92,7 @@
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                                     <Label
-                                Text="{Binding merchHeight}"  
+                                Text="{Binding merchHeight}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                                 </Grid>
@@ -156,7 +156,6 @@
                 <ListView
                     IsVisible="false"
                 x:Name="LogList"
-                  
                     Grid.Row="1"
                     Grid.ColumnSpan="3">
                     <ListView.Header>
@@ -200,15 +199,15 @@
                                     <Label
                                 Text="{Binding girth}"
                                 TextColor="Black"
-                                        Grid.Column="1"></Label>
+                                        Grid.Column="2"></Label>
                                     <Label
                                 Text="{Binding volume}"
                                 TextColor="Black"
-                                        Grid.Column="2"></Label>
+                                        Grid.Column="1"></Label>
                                     <Label
                                 Text="{Binding price}"
                                 TextColor="Black"
-                                        Grid.Column="3"></Label>
+                                        Grid.Column="2"></Label>
                                 </Grid>
 
                             </ViewCell>
@@ -242,7 +241,7 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
                 Grid.Row="2"
-                    HeightRequest="300"
+                    HeightRequest="200"
                     
                 />
                 <Button
@@ -272,11 +271,11 @@
                         Grid.Row="3"
                         Grid.Column="1"/>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="70*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30*" />
@@ -303,6 +302,5 @@
                     IsVisible="False"/>
 
         </StackLayout>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

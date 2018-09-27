@@ -8,7 +8,6 @@
 
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
         <StackLayout>
             <Button x:Name="AddNew"
                     Text="{local:TranslateExtension NewPrice}"
@@ -24,7 +23,7 @@
                    Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension LogLength}"
                 MaxLength="2"/>
-
+            
             <Button x:Name="AddName"
                     Text="{local:TranslateExtension AddPricing}"
                     Clicked="AddPriceName"
@@ -55,20 +54,20 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Grid>
-                <Label x:Name="LogSizes" 
+            <Label x:Name="LogSizes" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                    Grid.Column="0"/>
 
-                <Label x:Name="ListOfPrices" 
+            <Label x:Name="ListOfPrices" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                    Grid.Column="1"/>
 
                 <Grid.RowDefinitions>
-
+                   
                 </Grid.RowDefinitions>
             </Grid>
             <ListView
@@ -78,12 +77,12 @@
                     <Label x:Name="ListTitle" Text=""/>
                 </ListView.Header>
                 <ListView.ItemsSource>
-
+                    
                     <x:Array Type="{x:Type x:String}"
                              x:Name="PriceArray">
                     </x:Array>
                 </ListView.ItemsSource>
-
+                
             </ListView>
             <Button x:Name="Delete"
                     Text="{local:TranslateExtension DelPrice}"
@@ -94,6 +93,5 @@
                     Clicked="Change_Clicked"
                     />
         </StackLayout>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

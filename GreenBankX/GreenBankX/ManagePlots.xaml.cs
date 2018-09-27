@@ -19,6 +19,8 @@ namespace GreenBankX
         List<Plot> changedPlot;
         int GraphNo = -1;
         int Listhadler = -1;
+        bool saveplot = false;
+        bool savetree = false;
         DetailsGraph doubletap = null;
         Tree doubletapTree;
         int year = DateTime.Now.Year;
@@ -44,8 +46,7 @@ namespace GreenBankX
             }
             if (pickPlot.SelectedIndex > -1 )
             {
-
-                AddMes.IsVisible = false;
+                
                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 trees = AppResource.ResourceManager.GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2";
 
@@ -71,6 +72,9 @@ namespace GreenBankX
                 
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
+                Graphgrid.RowDefinitions.ElementAt(0).Height = new GridLength(10, GridUnitType.Auto);
+                Graphgrid.RowDefinitions.ElementAt(1).Height = new GridLength(90, GridUnitType.Auto);
+                Graphgrid.RowDefinitions.ElementAt(2).Height = new GridLength(0, GridUnitType.Auto);
                 Oxy.IsVisible = false;
                 ShowGraph.IsVisible = true;
                 ToolDelete.Text = AppResource.ResourceManager.GetString("DeletePlot");
@@ -162,6 +166,7 @@ namespace GreenBankX
                    pickTree.Items.Add("Add new Tree");
                    pickTree.SelectedIndex = ThisPlot.getTrees().Count - 1;
                    SelectTree();
+                   savetree = true;
                    SaveAll.GetInstance().SaveTrees2();
 
                });
@@ -185,6 +190,7 @@ namespace GreenBankX
                     LogClassList.IsVisible = false;
                     LogList.IsVisible = false;
                     SaveAll.GetInstance().SaveTrees2();
+                    savetree = true;
                 });
                 MessagingCenter.Subscribe<AddMesPop>(this, "Alter", (sender) =>
                 {
@@ -194,6 +200,7 @@ namespace GreenBankX
                     LogClassList.IsVisible = false;
                     LogList.IsVisible = false;
                     SaveAll.GetInstance().SaveTrees2();
+                    savetree = true;
                 });
                 await PopupNavigation.Instance.PushAsync(AddMesPop.GetInstance());
             }
@@ -222,6 +229,7 @@ namespace GreenBankX
                     AddMes.IsVisible = false;
                     pickTree.SelectedIndex = TreeList.Count - 1;
                     SelectTree();
+                    savetree = true;
                     SaveAll.GetInstance().SaveTrees2();
                 });
                 await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -301,12 +309,12 @@ namespace GreenBankX
                         Later.IsVisible = false;
                     }
                     stuff = AppResource.ResourceManager.GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetString("Height") + ": " + Math.Round(high, 2).ToString();
-                    girthtext = AppResource.ResourceManager.GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k";
+                    girthtext = AppResource.ResourceManager.GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k\n";
                     trees = "Tree ID: " + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
                     GirthOT.Text = girthtext;
                     ListOfTree.Text = stuff;
                     PlotTitle.Text = trees;
-                    HeightOT.Text = AppResource.ResourceManager.GetString("TotalVol") + ": " + Math.Round(totVol, 4);
+                    HeightOT.Text = AppResource.ResourceManager.GetString("NumberTrees") + ": " + Math.Round(totVol, 4);
 
                 }
             }
@@ -395,6 +403,7 @@ namespace GreenBankX
             if (pickPlot.SelectedIndex > -1)
             {
                 Application.Current.Properties["Counter"]= pickPlot.SelectedIndex;
+                saveplot = true;
                  await PopupNavigation.Instance.PushAsync(ChangePrice.GetInstance());
                 }
         }
@@ -421,6 +430,7 @@ namespace GreenBankX
                 PriceRange thisRange = ThisPlot.GetRange();
                 Calculator Calc = new Calculator();
                 Calc.SetPrices(thisRange);
+
 
                 double total = 0;
                 List<string> Lablels = new List<string>();
@@ -627,7 +637,6 @@ namespace GreenBankX
                     Oxy.IsVisible = true;
 
 
-
                 }
                    
                 }
@@ -750,6 +759,8 @@ namespace GreenBankX
             base.OnAppearing();
              GraphNo = -1;
              Listhadler = -1;
+             saveplot = false;
+             savetree = false;
              doubletap = null;
             pickTree.IsVisible = false;
             DetailsList.IsVisible = false;

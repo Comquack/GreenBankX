@@ -26,7 +26,7 @@ namespace GreenBankX
         public void AddToHistory(double diam, double merch, DateTime date) {
             History.Add(date, (diam, merch));
             diameter = History.Last().Value.Item1;
-            merchHeight = Math.Round(History.Last().Value.Item2,2);
+            merchHeight = History.Last().Value.Item2;
         }
         public Boolean RemoveFromHistory(DateTime date)
         {
@@ -39,10 +39,9 @@ namespace GreenBankX
         }
 
         public double GetDia()
-        {
-            return Math.Round(this.History.ElementAt(this.History.Count-1).Value.Item1,2);
+        { return this.History.ElementAt(this.History.Count-1).Value.Item1;
         }
-        public double Merch => Math.Round(this.History.ElementAt(this.History.Count - 1).Value.Item2,2);
+        public double Merch => this.History.ElementAt(this.History.Count - 1).Value.Item2;
         public int ID => this.id;
         public SortedList<DateTime, (double, double)> GetHistory() {
             return this.History;
