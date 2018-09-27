@@ -20,11 +20,18 @@
     <!-- You can also set colorControlNormal, colorControlActivated
          colorControlHighlight and colorSwitchThumbNormal. -->
     <item name="windowActionModeOverlay">true</item>
-
+ <item name="android:buttonStyle">@style/noPaddingButtonStyle</item>
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
 
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF4081</item>
+  </style>
+
+  <style name="noPaddingButtonStyle" parent="android:Widget.Material.Button">
+    <item name="android:paddingLeft">0dp</item>
+    <item name="android:paddingRight">0dp</item>
+  <item name="android:paddingBottom">0dp</item>
+    <item name="android:paddingTop">0dp</item>
   </style>
 </resources>

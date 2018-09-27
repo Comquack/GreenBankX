@@ -10,7 +10,8 @@
         <ToolbarItem x:Name="ToolDown" Order="Primary"  Text="Download" Priority="1" Clicked="ToolDown_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
+        <ScrollView>
+            <StackLayout>
             <Label
                     x:Name="boffo"
                     Text="{Binding DateTime}"
@@ -32,6 +33,7 @@
                    TextColor="Green"
                     Grid.Column="1"
                     Grid.Row="3"
+                    
                     Clicked="OpenMeasure"/>
                     <Button
                     x:Name="Bttn2"
@@ -76,7 +78,8 @@
                     <ColumnDefinition Width="20*" />
                 </Grid.ColumnDefinitions>
             </Grid>
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     <ContentPage.BackgroundColor>
         <Color>
