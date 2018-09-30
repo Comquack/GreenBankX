@@ -4,6 +4,7 @@
                           xmlns:local="clr-namespace:GreenBankX"
              x:Class="GreenBankX.MeasureTree">
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout>
             
                 <Entry  
@@ -111,7 +112,8 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-        </ContentPage.Content>
+        </ScrollView>
+    </ContentPage.Content>
         <ContentPage.BackgroundColor>
         <Color>
             #66ff99

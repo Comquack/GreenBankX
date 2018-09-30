@@ -5983,6 +5983,9 @@ namespace GreenBankX.Droid
 			// aapt resource value: 0x7f0e0191
 			public const int amu_ClusterIcon_TextAppearance = 2131624337;
 			
+			// aapt resource value: 0x7f0e0195
+			public const int noPaddingButtonStyle = 2131624341;
+			
 			static Style()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
