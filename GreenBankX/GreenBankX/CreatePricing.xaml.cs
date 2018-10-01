@@ -120,6 +120,7 @@ namespace GreenBankX
                 NameOfPrices.Text =AppResource.ResourceManager.GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 PriceArray = ArrayList.ToArray();
                 PriceList.ItemsSource = PriceArray;
+                PriceList.HeightRequest = (40 * PriceArray.Length) + (10 * PriceArray.Length);
             }
         }
         private void AddPrice_Clicked(object sender, EventArgs e)

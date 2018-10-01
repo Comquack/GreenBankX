@@ -59,7 +59,8 @@ namespace GreenBankX.Droid
                     .Build();
             if (!mGoogleApiClient.IsConnected) { 
                 mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
-         }
+                //mGoogleApiClient.Connect(GoogleApiClient.SignInModeRequired);
+            }
         // [END build_client]
         global::Xamarin.Forms.Forms.Init(this, bundle);
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
@@ -123,7 +124,7 @@ namespace GreenBankX.Droid
                 if (!mGoogleApiClient.IsConnected)
                 {
                     mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
-                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! \nWelcome to GreenBank";
                     Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
                     Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
                     Xamarin.Forms.Application.Current.Properties["Signed"] = true;
@@ -132,14 +133,15 @@ namespace GreenBankX.Droid
 
                 }
                 else {
-                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! Welcome to GreenBank";
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! \nWelcome to GreenBank";
                     Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
                     Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
                     Xamarin.Forms.Application.Current.Properties["Signed"] = true;
                 }
             }
             else {
-                GoogleInfo.GetInstance().Result = result.Status.ToString(); ;
+                GoogleInfo.GetInstance().Result = result.Status.ToString();
+                Xamarin.Forms.Application.Current.Properties["Boff"] = result.Status.ToString();
             }
         }
 

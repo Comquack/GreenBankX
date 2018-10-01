@@ -38,27 +38,39 @@ namespace GreenBankX
                 string resText1 = AppResource.ResourceManager.GetString("Price") + "\n";
                 string resText2 = AppResource.ResourceManager.GetString("Volume") + "\n";
                 SortedList<double, double> brack = calc.GetPrices().GetBrack();
-                string[] unitcm = { "cm"};
-                string[] unitm = { "m"};
-                string[] unitm3 = { "m3"};
+                string[] unitcm = { "cm" };
+                string[] unitm = { "m" };
+                string[] unitm3 = { "m3" };
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
-                    DetailsGraph2 answer = new DetailsGraph2 {volume = Math.Round(result[i, 2], 4) , price = Math.Round(result[i, 1], 2) };
+                    DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2) };
                     if (result[i, 0] == -1)
                     {
                         answer.label = AppResource.ResourceManager.GetString("TooSmall");
                     }
-                    else if (result[i, 0]==brack.Count-1) {
-                        answer.label = (brack.ElementAt((int)result[i, 0]).Key+ unitcm[0] + AppResource.ResourceManager.GetString("OrLarger"));
+                    else if (result[i, 0] == brack.Count - 1)
+                    {
+                        answer.label = (brack.ElementAt((int)result[i, 0]).Key + unitcm[0] + AppResource.ResourceManager.GetString("OrLarger"));
                     }
-                    else {
+                    else
+                    {
                         answer.label = (brack.ElementAt((int)result[i, 0]).Key) + "-" + brack.ElementAt((int)result[i, 0] + 1).Key + unitcm[0];
-                      
+
                     }
                     Detail.Add(answer);
                 }
                 LogList.ItemsSource = Detail;
                 LogList.IsVisible = true;
+            }
+            else {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool result = await DisplayAlert("Please select a price scheme", "Please select a price scheme", "OK", "Add Price Scheme");
+                    if (!result)
+                    {
+                        await Navigation.PushAsync(new CreatePricing());
+                    }
+                });
             }
         }
 

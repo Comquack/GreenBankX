@@ -68,7 +68,7 @@ namespace GreenBankX
                 HeightOT.Text = "";
                 ToolPricing.Text = "Change Pricing";
                 DetailsList.ItemsSource = TreeTails;
-                
+                DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count,5)) + (10 * Math.Min(TreeTails.Count, 5)) +60;
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
                 Oxy.IsVisible = false;
@@ -493,6 +493,7 @@ namespace GreenBankX
                     GirthOT.Text = "";
                     HeightOT.Text = "";
                     LogClassList.ItemsSource = Detail;
+                    LogClassList.HeightRequest = (40 * Detail.Count) + (10 * Detail.Count);
                     Later.IsVisible = true;
                 Earlier.IsVisible = true;
                 }
@@ -716,6 +717,7 @@ namespace GreenBankX
                 catch { }
             }
             LogList.ItemsSource = Detail;
+            LogList.HeightRequest = (40 * Detail.Count) + (10 * Detail.Count);
             DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
             LogList.IsVisible = false;
