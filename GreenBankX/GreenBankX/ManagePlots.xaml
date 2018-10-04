@@ -84,15 +84,15 @@
                             <ViewCell>
                                 <Grid>
                                     <Label
-                                Text="{Binding id}"
+                                Text="{Binding Id}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                                     <Label
-                                Text="{Binding diameter}"
+                                Text="{Binding Diameter}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                                     <Label
-                                Text="{Binding merchHeight}"  
+                                Text="{Binding MerchHeight}"  
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                                 </Grid>

@@ -9,7 +9,7 @@ namespace GreenBankX
 {
     class Plot
     {
-        String name;
+        string name;
         double[] geotag = { 0, 0 };
         List<Tree> trees;
         List<Position> polygon;
@@ -17,7 +17,7 @@ namespace GreenBankX
         public string Owner { get; set;}
         public int YearPlanted { get; set; }
         public string NearestTown { get; set; }
-        public Plot(String name)
+        public Plot(string name)
         {
             this.name = name;
             this.trees = new List<Tree>();

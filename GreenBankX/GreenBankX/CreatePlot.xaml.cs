@@ -23,6 +23,7 @@ namespace GreenBankX
         public CreatePlot ()
 		{
             InitializeComponent ();
+            CancelButton.IsVisible = false;
             }
         public async Task NewPlot() {
             //If setpoly not = -1 (pin selected) converts a set of placed pins into a polygon 
@@ -163,6 +164,7 @@ namespace GreenBankX
         {
             if (e.Value.Title == "TestPlot")
             {
+
                 return;
             }
             else if ((e.Value.Title == "Area"))
@@ -183,13 +185,16 @@ namespace GreenBankX
                             Cancel();
                         }
                         else
-                        {
-
-
+                        {  if (!CanAdd){
+                                Pins.RemoveAt(Pins.Count - 1);
+                            }
                             CanAdd = true;
                             e.Value.DefaultPinColor = Color.Aqua;
                             setpoly = x;
                             CancelButton.IsVisible = true;
+                            MyMap.Pins = new List<TKCustomMapPin>();
+                            MyMap.Pins = Pins;
+
                         }
                     }
                 }
@@ -232,6 +237,7 @@ namespace GreenBankX
             StartMap(false);
             PolyMap();
             CancelButton.IsVisible = false;
+            CancelButton.Text = "Add Plot";
         }
         public void SavePlots() {
             SaveAll.GetInstance().SavePlots();

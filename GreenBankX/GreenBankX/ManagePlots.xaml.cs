@@ -35,7 +35,6 @@ namespace GreenBankX
         { string trees = "";
             Listhadler = 0;
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
-            string IDs = "ID\n";
             string girths = AppResource.ResourceManager.GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetString("Height") + "\n";
             if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
@@ -255,21 +254,25 @@ namespace GreenBankX
                     double[,] result = Calc.Calcs(girth, high);
                     double total = 0;
                     List<string> Lablels = new List<string>();
-                    List<BarItem> ItemsSource = new List<BarItem>();
+                    List<string> ListLablels = new List<string>();
+                    List<ColumnItem> ItemsSource = new List<ColumnItem>();
                     for (int x = -1; x < thisRange.GetBrack().Count; x++)
                     {
-                        ItemsSource.Add(new BarItem { CategoryIndex = x+1 });
+                        ItemsSource.Add(new ColumnItem { CategoryIndex = x + 1 });
                         if (x == -1)
                         {
-                            Lablels.Add("Too Small");
+                            Lablels.Add("Too\n Small");
+                            ListLablels.Add("Too Small");
                         }
                         else if (x == thisRange.GetBrack().Count - 1)
                         {
-                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm" +AppResource.ResourceManager.GetString("OrLarger") + ":\n");
+                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm\n" + AppResource.ResourceManager.GetString("OrLarger"));
+                            ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm " + AppResource.ResourceManager.GetString("OrLarger"));
                         }
                         else
                         {
-                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x+1).Key.ToString() + "cm");
+                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm -\n" + thisRange.GetBrack().ElementAt(x + 1).Key.ToString() + "cm");
+                            ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x + 1).Key.ToString() + "cm");
                         }
                     }
                     int[] logs = new int[thisRange.GetBrack().Count + 1];
@@ -424,21 +427,25 @@ namespace GreenBankX
 
                 double total = 0;
                 List<string> Lablels = new List<string>();
-                List<BarItem> ItemsSource = new List<BarItem>();
+                List<string> ListLablels = new List<string>();
+                List<ColumnItem> ItemsSource = new List<ColumnItem>();
                 for (int x = -1; x < thisRange.GetBrack().Count; x++)
                 {
-                    ItemsSource.Add(new BarItem { CategoryIndex = x+1 });
+                    ItemsSource.Add(new ColumnItem { CategoryIndex = x+1 });
                     if (x == -1)
                     {
-                        Lablels.Add("Too Small");
+                        Lablels.Add("Too\n Small");
+                        ListLablels.Add("Too Small");
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
-                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm"+ AppResource.ResourceManager.GetString("OrLarger") + ":\n"); 
+                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm\n" + AppResource.ResourceManager.GetString("OrLarger"));
+                        ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm " + AppResource.ResourceManager.GetString("OrLarger"));
                     }
                     else
                     {
-                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x+1).Key.ToString() + "cm");  
+                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm -\n" + thisRange.GetBrack().ElementAt(x+1).Key.ToString() + "cm");
+                        ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm - " + thisRange.GetBrack().ElementAt(x + 1).Key.ToString() + "cm");
                     }
                 }
 
@@ -484,7 +491,7 @@ namespace GreenBankX
                     OxyBar(title, Lablels, ItemsSource);
                     for (int x = 1; x < thisRange.GetBrack().Count + 1; x++)
                     {
-                        Detail.Add(new DetailsGraph { label = Lablels.ElementAt(x), volume = Math.Round(vols[x], 4), price = Math.Round(vals[x], 4) });
+                        Detail.Add(new DetailsGraph { label = ListLablels.ElementAt(x), volume = Math.Round(vols[x], 4), price = Math.Round(vals[x], 4) });
                     }
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = true;
@@ -634,32 +641,33 @@ namespace GreenBankX
                 }
         }
         //Render  a OxyPlot Graph containing a bar chart
-        private void OxyBar(string title, List<string> Lablels, List<BarItem> ItemsSource) {
+        private void OxyBar(string title, List<string> Lablels, List<ColumnItem> ItemsSource) {
 
             Oxy.Model = new OxyPlot.PlotModel
             {
                 Title = title
             };
-            var barSeries = new BarSeries
+            var barSeries = new ColumnSeries
             {
                 ItemsSource = ItemsSource,
-                LabelPlacement = LabelPlacement.Inside,
+                LabelPlacement = LabelPlacement.Outside,
                 LabelFormatString = "{0}"
             };
 
             Oxy.Model.Series.Add(barSeries);
             CategoryAxis newAxis = new CategoryAxis
             {
-                Position = AxisPosition.Left,
+                Position = AxisPosition.Bottom,
                 Key = AppResource.ResourceManager.GetString("LogClass"),
-                ItemsSource = Lablels
+                ItemsSource = Lablels,
+                Angle = 20
             };
             newAxis.IsZoomEnabled = false;
             newAxis.IsPanEnabled = false;
             Oxy.Model.Axes.Add(newAxis);
             var linearAxis1 = new LinearAxis
             {
-                Position = AxisPosition.Bottom,
+                Position = AxisPosition.Left,
             };
             linearAxis1.IsZoomEnabled = false;
             linearAxis1.IsPanEnabled = false;

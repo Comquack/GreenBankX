@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.ComponentModel;
@@ -38,7 +34,7 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+                    try { var nu = DependencyService.Get<ILogin>().AccountName();
 
                     }
                     catch
@@ -51,10 +47,10 @@ namespace GreenBankX
         }
         public void Signot()
         {
-            Xamarin.Forms.DependencyService.Get<ILogin>().SignOut();
+            DependencyService.Get<ILogin>().SignOut();
             try
             {
-                var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+                var nu = DependencyService.Get<ILogin>().AccountName();
 
             }
             catch
@@ -64,7 +60,7 @@ namespace GreenBankX
         }
         void Driv3r()
         {
-            string nu = (Xamarin.Forms.DependencyService.Get<ILogin>().UseDrive(-1));
+            string nu = DependencyService.Get<ILogin>().UseDrive(-1);
 
         }
         void OnLoginTest()
@@ -80,15 +76,15 @@ namespace GreenBankX
                     break;
 
                 case Device.Android:
-                    try { var nu  =  Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+                    try { var nu  =  DependencyService.Get<ILogin>().AccountName();
 
                     }
                     catch
                     {
                         clientId = Constants.AndroidClientId;
                         redirectUri = Constants.AndroidRedirectUrl;
-                       bool wait = Xamarin.Forms.DependencyService.Get<ILogin>().SignIn();
-                        try { var nu = Xamarin.Forms.DependencyService.Get<ILogin>().AccountName();
+                       bool wait = DependencyService.Get<ILogin>().SignIn();
+                        try { var nu = DependencyService.Get<ILogin>().AccountName();
 
                         }
                         catch { }
@@ -117,14 +113,14 @@ namespace GreenBankX
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
-            var nu = (Xamarin.Forms.DependencyService.Get<ILogin>().Download(-1));
+            var nu = DependencyService.Get<ILogin>().Download(-1);
         }
 
         private void boffo_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (boffo.Text == "Finished" && (bool)Application.Current.Properties["Load"]) {
                 SaveAll.GetInstance().LoadAll();
-            } else if((bool)Xamarin.Forms.Application.Current.Properties["Signed"]) {
+            } else if((bool)Application.Current.Properties["Signed"]) {
                 ToolDrive.Text = AppResource.ResourceManager.GetString("Upload");
                 ToolDown.Text = AppResource.ResourceManager.GetString("Download");
                 Toolout.Text = AppResource.ResourceManager.GetString("SignOut");
@@ -142,22 +138,22 @@ namespace GreenBankX
     }
     class ClockViewModel : INotifyPropertyChanged
     {
-        String dateTime;
+        string dateTime;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ClockViewModel()
         {
-            this.DateTime = (string)Application.Current.Properties["Boff"];
+            DateTime = (string)Application.Current.Properties["Boff"];
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                this.DateTime = (string)Application.Current.Properties["Boff"];
+                DateTime = (string)Application.Current.Properties["Boff"];
                 return true;
             });
         }
 
-        public String DateTime
+        public string DateTime
         {
             set
             {

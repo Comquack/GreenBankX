@@ -7,17 +7,17 @@ namespace GreenBankX
 {
     public class Tree
     {
-        public double diameter { get; set;}
-        public double merchHeight { get; set;}
-        public int id { get; }
+        public double Diameter { get; set;}
+        public double MerchHeight { get; set;}
+        public int Id { get; }
         private SortedList<DateTime, (double, double)> History;
         // constructor
         public Tree(double diam, double merch, int ID, DateTime date)
         {
 
-            diameter = diam;
-            merchHeight = merch;
-            id = ID;
+            Diameter = diam;
+            MerchHeight = merch;
+            Id = ID;
             History = new SortedList<DateTime, (double, double)>
             {
                 { date, (diam, merch) }
@@ -25,8 +25,8 @@ namespace GreenBankX
         }
         public void AddToHistory(double diam, double merch, DateTime date) {
             History.Add(date, (diam, merch));
-            diameter = History.Last().Value.Item1;
-            merchHeight = Math.Round(History.Last().Value.Item2,2);
+            Diameter = History.Last().Value.Item1;
+            MerchHeight = Math.Round(History.Last().Value.Item2,2);
         }
         public Boolean RemoveFromHistory(DateTime date)
         {
@@ -43,13 +43,13 @@ namespace GreenBankX
             return Math.Round(this.History.ElementAt(this.History.Count-1).Value.Item1,2);
         }
         public double Merch => Math.Round(this.History.ElementAt(this.History.Count - 1).Value.Item2,2);
-        public int ID => this.id;
+        public int ID => this.Id;
         public SortedList<DateTime, (double, double)> GetHistory() {
             return this.History;
         }
         public string GetCSV()
         {
-            String result = id + "," + diameter.ToString() + "," + merchHeight.ToString() + ";";
+            String result = Id + "," + Diameter.ToString() + "," + MerchHeight.ToString() + ";";
             return result;
         }
 

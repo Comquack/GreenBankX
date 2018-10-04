@@ -2,9 +2,6 @@
 
 using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android.Gms.Common.Apis;
 using Android.Support.V4.Content;
@@ -16,10 +13,7 @@ using Android.Gms.Auth.Api;
 using Android.Gms.Common;
 using Android.Content;
 using Android.Gms.Drive;
-using Android.Content.Res;
-using System.Threading;
-using Google.Apis.Util.Store;
-using System.IO;
+
 
 namespace GreenBankX.Droid
 {
@@ -37,9 +31,6 @@ namespace GreenBankX.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
-            // [START configure_signin]
-            // Configure sign-in to request the user's ID, email address, and basic
-            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)    
                 .RequestEmail()
                 .RequestScopes(new Scope(Constants.scopes))
@@ -50,15 +41,13 @@ namespace GreenBankX.Droid
             // [END configure_signin]
 
             // [START build_client]
-            // Build a GoogleApiClient with access to the Google Sign-In API and the
-            // options specified by gso.
             mGoogleApiClient = new GoogleApiClient.Builder(this)
                     .AddApi(Auth.GOOGLE_SIGN_IN_API,gso)
                     .AddApi(DriveClass.API)
                   .AddOnConnectionFailedListener(OnConnectionFailed)
                     .Build();
             if (!mGoogleApiClient.IsConnected) { 
-                mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
+               mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
                 //mGoogleApiClient.Connect(GoogleApiClient.SignInModeRequired);
             }
         // [END build_client]
@@ -91,14 +80,14 @@ namespace GreenBankX.Droid
         {
             base.OnStart();
 
-           var opr = Auth.GoogleSignInApi.SilentSignIn(mGoogleApiClient);
-            if (opr.IsDone)
-            {
+           ////var opr = Auth.GoogleSignInApi.SilentSignIn(mGoogleApiClient);
+         //   if (opr.IsDone)
+          //  {
            //      If the user's cached credentials are valid, the OptionalPendingResult will be "done"
            //      and the GoogleSignInResult will be available instantly.
-                var result = opr.Get() as GoogleSignInResult;
-                HandleSignInResult(result);
-            }
+             //   var result = opr.Get() as GoogleSignInResult;
+             //   HandleSignInResult(result);
+          //  }
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -177,13 +166,7 @@ namespace GreenBankX.Droid
 
    
 
-        public void HideProgressDialog()
-        {
-            //if (mProgressDialog != null && mProgressDialog.IsShowing)
-           // {
-              //  mProgressDialog.Hide();
-            //}
-        }
+
 
     }
 }

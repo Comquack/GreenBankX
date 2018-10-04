@@ -372,7 +372,7 @@ namespace GreenBankX
                                 Thisplot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
                                 for (int z = 0; z < Thisplot.getTrees().Count; z++)
                                 {
-                                    if (Thisplot.getTrees().ElementAt(z).id.ToString() == sheet.GetValueRowCol(2 + y, 1).ToString())
+                                    if (Thisplot.getTrees().ElementAt(z).Id.ToString() == sheet.GetValueRowCol(2 + y, 1).ToString())
                                     {
                                         treecounter = z;
                                     }
