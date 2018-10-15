@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using GreenBankX.Resources;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -35,8 +36,8 @@ namespace GreenBankX
         { string trees = "";
             Listhadler = 0;
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
-            string girths = AppResource.ResourceManager.GetString("Girth")+"\n";
-            string heights = AppResource.ResourceManager.GetString("Height") + "\n";
+            string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth")+"\n";
+            string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
             if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
                 await Navigation.PushAsync(new CreatePlot());
                 return;
@@ -46,7 +47,7 @@ namespace GreenBankX
 
                 AddMes.IsVisible = false;
                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                trees = AppResource.ResourceManager.GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2";
+                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2";
 
                 List <Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;
@@ -72,14 +73,14 @@ namespace GreenBankX
                 pickTree.IsVisible = true;
                 Oxy.IsVisible = false;
                 ShowGraph.IsVisible = true;
-                ToolDelete.Text = AppResource.ResourceManager.GetString("DeletePlot");
+                ToolDelete.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DeletePlot");
                 ToolDeleteTree.Text = "";
             }
         }
         //activates when index for tree picker is changed
         public void SelectTree() {
-            string girths = AppResource.ResourceManager.GetString("Girth") + "\n";
-            string heights = AppResource.ResourceManager.GetString("Height") + "\n";
+            string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth") + "\n";
+            string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
             if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1 && pickTree.SelectedIndex < pickTree.Items.Count - 1) {
                 Tree ThisTree = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(pickTree.SelectedIndex);
                 GraphNo = ThisTree.GetHistory().Count - 1;
@@ -97,7 +98,7 @@ namespace GreenBankX
                 return;
             }
 
-            ToolDeleteTree.Text = AppResource.ResourceManager.GetString("DeleteTree");
+            ToolDeleteTree.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DeleteTree");
             AddMes.IsVisible = true;
             
         }
@@ -209,7 +210,7 @@ namespace GreenBankX
                     DeleteTree.IsVisible = false;
                     pickTree.Items.Clear();
                     Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    trees = AppResource.ResourceManager.GetString("Name") + ": " + ThisPlot.GetName() +" "+ AppResource.ResourceManager.GetString("Area") + ": " + Math.Round(ThisPlot.GetArea(), 2) + "km2";
+                    trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() +" "+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area") + ": " + Math.Round(ThisPlot.GetArea(), 2) + "km2";
                     List<Tree> TreeList = ThisPlot.getTrees();
                     Tree ThisTree;
                     for (int x = 0; x < TreeList.Count; x++)
@@ -266,8 +267,8 @@ namespace GreenBankX
                         }
                         else if (x == thisRange.GetBrack().Count - 1)
                         {
-                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm\n" + AppResource.ResourceManager.GetString("OrLarger"));
-                            ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm " + AppResource.ResourceManager.GetString("OrLarger"));
+                            Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                            ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
                         }
                         else
                         {
@@ -287,7 +288,7 @@ namespace GreenBankX
                     {
                         ItemsSource.ElementAt(x).Value = logs[x];
                     }
-                    string title = AppResource.ResourceManager.GetString("TreeID") + ": " + ThisTree.ID.ToString() + " " + AppResource.ResourceManager.GetString("Date") + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
+                    string title = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ThisTree.ID.ToString() + " " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Date") + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
 
                    
                     Later.IsVisible = true;
@@ -303,13 +304,13 @@ namespace GreenBankX
                     {
                         Later.IsVisible = false;
                     }
-                    stuff = AppResource.ResourceManager.GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetString("Height") + ": " + Math.Round(high, 2).ToString();
-                    girthtext = AppResource.ResourceManager.GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k";
+                    stuff = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + ": " + Math.Round(high, 2).ToString();
+                    girthtext = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k";
                     trees = "Tree ID: " + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
                     GirthOT.Text = girthtext;
                     ListOfTree.Text = stuff;
                     PlotTitle.Text = trees;
-                    HeightOT.Text = AppResource.ResourceManager.GetString("TotalVol") + ": " + Math.Round(totVol, 4);
+                    HeightOT.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": " + Math.Round(totVol, 4);
 
                 }
             }
@@ -439,8 +440,8 @@ namespace GreenBankX
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
-                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm\n" + AppResource.ResourceManager.GetString("OrLarger"));
-                        ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm " + AppResource.ResourceManager.GetString("OrLarger"));
+                        Lablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                        ListLablels.Add(thisRange.GetBrack().ElementAt(x).Key.ToString() + "cm " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
                     }
                     else
                     {
@@ -509,7 +510,7 @@ namespace GreenBankX
                     SelectPlot();
                     DetailsList.IsVisible = false;
                     Oxy.Model = new OxyPlot.PlotModel();
-                    ListOfTree.Text = "Year: \n" + AppResource.ResourceManager.GetString("MeanD") + " \n " + AppResource.ResourceManager.GetString("MeanV") + " \n" + AppResource.ResourceManager.GetString("MeanP") +  "\nTotal Volume: \n Total Value: \n";
+                    ListOfTree.Text = "Year: \n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + " \n " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanV") + " \n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanP") +  "\nTotal Volume: \n Total Value: \n";
                     HeightOT.Text = "";
                     Later.IsVisible = true;
                     Earlier.IsVisible = true;
@@ -568,7 +569,7 @@ namespace GreenBankX
                     }
                     Oxy.Model = new OxyPlot.PlotModel
                     {
-                        Title = AppResource.ResourceManager.GetString("MeanG")+" (year: " + year.ToString()+")"
+                        Title = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanG")+" (year: " + year.ToString()+")"
                     };
                     Oxy.MinimumHeightRequest = 1000;
                     var LineSeries = new LineSeries
@@ -658,7 +659,7 @@ namespace GreenBankX
             CategoryAxis newAxis = new CategoryAxis
             {
                 Position = AxisPosition.Bottom,
-                Key = AppResource.ResourceManager.GetString("LogClass"),
+                Key = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogClass"),
                 ItemsSource = Lablels,
                 Angle = 20
             };
@@ -725,7 +726,7 @@ namespace GreenBankX
                 catch { }
             }
             LogList.ItemsSource = Detail;
-            LogList.HeightRequest = (40 * Detail.Count) + (10 * Detail.Count);
+            LogList.HeightRequest = HeightRequest = (40 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5)) + (10 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5));
             DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
             LogList.IsVisible = false;
@@ -778,6 +779,32 @@ namespace GreenBankX
             pickPlot.SelectedIndex = -1;
             ShowGraph.IsVisible = false;
             }
+        protected override void OnSizeAllocated(double width, double height) {
+            base.OnSizeAllocated(width,height);
+            if (DetailsList.ItemsSource.GetType() == new ObservableCollection<Tree>().GetType())
+            {
+                if (width < height)
+                {
+                    DetailsList.HeightRequest = (height/14 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 5)) + (height / 56 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 5)) + height / 10;
+                }
+                else
+                {
+                    DetailsList.HeightRequest = (width / 14 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count) + (width / 60 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count) + width / 10;
+                }
+            }
+            if (LogList.ItemsSource.GetType() == new ObservableCollection<DetailsGraph2>().GetType())
+            {
+                if (width < height)
+                {
+                    LogList.HeightRequest = HeightRequest = (height / 14 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5)) + (height / 60 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5));
+                }
+                else
+                {
+                    LogList.HeightRequest = HeightRequest = (width / 14 * ((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count) + (width / 60 * ((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count);
+                }
+            }
+           
+        }
     }
 
     public class DetailsGraph {

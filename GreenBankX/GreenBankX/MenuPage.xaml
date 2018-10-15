@@ -72,8 +72,20 @@
                 Grid.Column="1"
                 Clicked="OpenPrice"
                 Grid.Row="6"/>
+                    <Button
+                    x:Name="Lang"
+                   Text="Language"
+                   VerticalOptions="Center"
+                   IsVisible="true"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                    BackgroundColor="LightGray"
+                   TextColor="Green"
+                    Grid.Column="1"
+                    Grid.Row="7"
+                    Clicked="ChangeLang"/>
 
-                <Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="60*" />
                     <ColumnDefinition Width="20*" />

@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using TK.CustomMap;
 using Xamarin.Auth;
 using Xamarin.Forms;
@@ -413,11 +414,11 @@ namespace GreenBankX
                 double[] tag =  ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetTag();
                 output += "<description>\n";
                 if (ThisPlot.YearPlanted > 0) {
-                    output += AppResource.ResourceManager.GetString("YPlant") + ": " + ThisPlot.YearPlanted.ToString()+"\n";
+                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("YPlant") + ": " + ThisPlot.YearPlanted.ToString()+"\n";
                 }
                 if (ThisPlot.GetRange() == null)
                 {
-                    output += AppResource.ResourceManager.GetString("NumberTrees") + ": " + ThisPlot.getTrees().Count.ToString() + "\n";
+                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumberTrees") + ": " + ThisPlot.getTrees().Count.ToString() + "\n";
                 }
                 List<Tree> TreeList = ThisPlot.getTrees();
                 int year = DateTime.Now.Year;
@@ -445,9 +446,9 @@ namespace GreenBankX
                             treecount++;
                         }
                     }
-                    output += AppResource.ResourceManager.GetString("NumberTrees") + ": " + treecount.ToString() + "\n";
-                    output += AppResource.ResourceManager.GetString("TotalVol") + ": " + Math.Round(totVolplotyear,4).ToString() + "m3\n";
-                    output += AppResource.ResourceManager.GetString("TotalPrice") + ": " + Math.Round(totalplotyear,2).ToString() + "k\n";
+                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumberTrees") + ": " + treecount.ToString() + "\n";
+                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": " + Math.Round(totVolplotyear,4).ToString() + "m3\n";
+                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(totalplotyear,2).ToString() + "k\n";
                 }
                 output +="</description>";
                    output += "<Point>\n<coordinates>"+tag[1].ToString()+","+tag[0].ToString()+"</coordinates>\n </Point>\n";

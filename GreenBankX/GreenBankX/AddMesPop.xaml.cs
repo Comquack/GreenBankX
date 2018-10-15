@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
@@ -41,7 +42,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert(AppResource.ResourceManager.GetString("DateExists"), AppResource.ResourceManager.GetString("DateExistsB"), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DateExists"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DateExistsB"), "OK");
                     });
                 }
                 else
@@ -66,14 +67,14 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert(AppResource.ResourceManager.GetString("DFute"), AppResource.ResourceManager.GetString("EnterVDate"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DFute"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
                 });
             }
             else
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", "input" + AppResource.ResourceManager.GetString("IsInvalid"), "OK");
+                    DisplayAlert("input is invalid", "input" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), "OK");
                 });
             }
 
@@ -154,7 +155,7 @@ namespace GreenBankX
         {
             if (Edit.IsToggled)
             {
-                TreeBut.Text = AppResource.ResourceManager.GetString("EMes");
+                TreeBut.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EMes");
                 counter = (int)Application.Current.Properties["Counter"];
                 tCounter = (int)Application.Current.Properties["TCounter"];
                 hist = (int)Application.Current.Properties["HCounter"];
@@ -163,7 +164,7 @@ namespace GreenBankX
                 MHeight.Text = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(tCounter).GetHistory().ElementAt(hist).Value.Item2.ToString();
             }
             else {
-                TreeBut.Text = AppResource.ResourceManager.GetString("AddMeasurement");
+                TreeBut.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddMeasurement");
                 DateMes.Date = DateTime.Now;
                 Diameter.Text = "";
                 MHeight.Text = "";

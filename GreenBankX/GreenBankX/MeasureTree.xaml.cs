@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GreenBankX.Resources;
 using Xamarin.Forms;
@@ -21,11 +22,11 @@ namespace GreenBankX
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
                 
             }
-            pickPrice.Items.Add(AppResource.ResourceManager.GetString("NewPrice"));
+            pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NewPrice"));
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
                 pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
              }
-            pickPlot.Items.Add(AppResource.ResourceManager.GetString("NewPlot"));
+            pickPlot.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NewPlot"));
         }
         public void RunCalc() {
             Calculator calc = new Calculator();
@@ -34,9 +35,9 @@ namespace GreenBankX
                 ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
                 double[,] result = calc.Calcs(double.Parse(girth.Text), double.Parse(height.Text));
-                string resText0 = AppResource.ResourceManager.GetString("LogClass") + "\n";
-                string resText1 = AppResource.ResourceManager.GetString("Price") + "\n";
-                string resText2 = AppResource.ResourceManager.GetString("Volume") + "\n";
+                string resText0 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogClass") + "\n";
+                string resText1 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "\n";
+                string resText2 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Volume") + "\n";
                 SortedList<double, double> brack = calc.GetPrices().GetBrack();
                 string[] unitcm = { "cm" };
                 string[] unitm = { "m" };
@@ -46,11 +47,11 @@ namespace GreenBankX
                     DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2) };
                     if (result[i, 0] == -1)
                     {
-                        answer.label = AppResource.ResourceManager.GetString("TooSmall");
+                        answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
                     }
                     else if (result[i, 0] == brack.Count - 1)
                     {
-                        answer.label = (brack.ElementAt((int)result[i, 0]).Key + unitcm[0] + AppResource.ResourceManager.GetString("OrLarger"));
+                        answer.label = (brack.ElementAt((int)result[i, 0]).Key + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
                     }
                     else
                     {
@@ -81,7 +82,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert(AppResource.ResourceManager.GetString("DFute"), AppResource.ResourceManager.GetString("EnterVDate"), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DFute"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
                     });
                 }
                 else if (DateMes.Date == null)

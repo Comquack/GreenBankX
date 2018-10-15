@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -55,13 +56,13 @@ namespace GreenBankX
                     if (((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(i).GetName() == Name.Text) {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert(AppResource.ResourceManager.GetString("NameInUse"), AppResource.ResourceManager.GetString("NameInUse"), "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NameInUse"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NameInUse"), "OK");
                         });
                         return;
                     }
                 }
                 ((List<PriceRange>)Application.Current.Properties["Prices"]).Add(new PriceRange(Name.Text, "Tree", new SortedList<double, double>(), double.Parse(Len.Text)));
-                NameOfPrices.Text = AppResource.ResourceManager.GetString("Girth")+": " + Name.Text + AppResource.ResourceManager.GetString("LogLength")+": " + Len.Text+"m";
+                NameOfPrices.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth")+": " + Name.Text + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength")+": " + Len.Text+"m";
                 ListOfPrices.Text = "";           
                 pickPrice.Items.Clear();
                 for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
@@ -83,13 +84,13 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert(AppResource.ResourceManager.GetString("Name") + AppResource.ResourceManager.GetString("IsInvalid"), AppResource.ResourceManager.GetString("Name")+ AppResource.ResourceManager.GetString("IsInvalid"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name")+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), "OK");
                 });
             }
             else {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Length"+ AppResource.ResourceManager.GetString("IsInvalid"), "Length" + AppResource.ResourceManager.GetString("IsInvalid"), "OK");
+                    DisplayAlert("Length"+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), "Length" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), "OK");
                 });
             }
         }
@@ -115,9 +116,9 @@ namespace GreenBankX
                 SortedList<double, double> brack = ThisPrice.GetBrack();
                 for (int x = 0; x < brack.Count(); x++)
                 {
-                    ArrayList.Add(AppResource.ResourceManager.GetString("minimumdiameter") + ": " + brack.ElementAt(x).Key + "\t\t\t\t" + AppResource.ResourceManager.GetString("Price") + ": " + brack.ElementAt(x).Value);
+                    ArrayList.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("minimumdiameter") + ": " + brack.ElementAt(x).Key + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
                 }
-                NameOfPrices.Text =AppResource.ResourceManager.GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
+                NameOfPrices.Text =AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 PriceArray = ArrayList.ToArray();
                 PriceList.ItemsSource = PriceArray;
                 PriceList.HeightRequest = (40 * PriceArray.Length) + (10 * PriceArray.Length);
@@ -130,7 +131,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert(AppResource.ResourceManager.GetString("SizeExists"), AppResource.ResourceManager.GetString("SizeExists"), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), "OK");
                     });
                 }
                 else {
@@ -143,14 +144,14 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert(AppResource.ResourceManager.GetString("DiaInvalid"), AppResource.ResourceManager.GetString("DiaInvalid"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), "OK");
                 });
             }
             else if (price.Text == null || double.Parse(price.Text) <= 0)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert(AppResource.ResourceManager.GetString("PriceInvalid"), AppResource.ResourceManager.GetString("PriceInvalid"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), "OK");
                 });
             }
         }
@@ -228,7 +229,7 @@ namespace GreenBankX
                         } catch { }
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert(AppResource.ResourceManager.GetString("SizeExists"), AppResource.ResourceManager.GetString("SizeExists"), "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), "OK");
                         });
                     }
                     else
@@ -243,14 +244,14 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert(AppResource.ResourceManager.GetString("DiaInvalid"), AppResource.ResourceManager.GetString("DiaInvalid"), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), "OK");
                     });
                 }
                 else if (price.Text == null || double.Parse(price.Text) <= 0)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert(AppResource.ResourceManager.GetString("PriceInvalid"), AppResource.ResourceManager.GetString("PriceInvalid"), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), "OK");
                     });
                 }
             }

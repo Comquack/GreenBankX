@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using GreenBankX.Resources;
@@ -32,7 +33,7 @@ namespace GreenBankX
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
             }
-            pickPrice.Items.Add(AppResource.ResourceManager.GetString("AddPricing"));
+            pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
         }
         public async void Done()
         {
@@ -73,11 +74,11 @@ namespace GreenBankX
             }
             else if (PlotName.Text == null)
             {
-                NameLabel.Text = AppResource.ResourceManager.GetString("EnterName");
+                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName");
             }
             else
             {
-                NameLabel.Text = AppResource.ResourceManager.GetString("EnterVDate");
+                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate");
             }
            
         }

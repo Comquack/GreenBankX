@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.ComponentModel;
 using GreenBankX.Resources;
+using System.Threading;
 
 namespace GreenBankX
 {
@@ -109,7 +110,28 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new CreatePricing());
         }
-
+        private void ChangeLang() {
+            System.Globalization.CultureInfo userSelectedCulture;
+            if (Thread.CurrentThread.CurrentCulture == new System.Globalization.CultureInfo("lo-LA"))
+            {
+                userSelectedCulture = new System.Globalization.CultureInfo("en-AU");
+                Thread.CurrentThread.CurrentCulture = userSelectedCulture;
+                Bttn1.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
+                Bttn2.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
+                Bttn3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
+                Bttn4.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
+            }
+            else
+            {
+                userSelectedCulture = new System.Globalization.CultureInfo("lo-LA");
+                Thread.CurrentThread.CurrentCulture = userSelectedCulture;
+                Bttn1.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
+                Bttn2.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
+                Bttn3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
+                Bttn4.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
+                //Lang.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Upload");
+            }
+        }
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
@@ -121,9 +143,9 @@ namespace GreenBankX
             if (boffo.Text == "Finished" && (bool)Application.Current.Properties["Load"]) {
                 SaveAll.GetInstance().LoadAll();
             } else if((bool)Application.Current.Properties["Signed"]) {
-                ToolDrive.Text = AppResource.ResourceManager.GetString("Upload");
-                ToolDown.Text = AppResource.ResourceManager.GetString("Download");
-                Toolout.Text = AppResource.ResourceManager.GetString("SignOut");
+                ToolDrive.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Upload");
+                ToolDown.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Download");
+                Toolout.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignOut");
                 ToolIn.Text = "";
             }
             else if (!(bool)Xamarin.Forms.Application.Current.Properties["Signed"])
@@ -131,7 +153,7 @@ namespace GreenBankX
                 ToolDrive.Text = "";
                 ToolDown.Text = "";
                 Toolout.Text = "";
-                ToolIn.Text = AppResource.ResourceManager.GetString("SignIn");
+                ToolIn.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignIn");
             }
         }
        

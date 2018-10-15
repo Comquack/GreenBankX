@@ -10,6 +10,7 @@ using Rg.Plugins.Popup.Services;
 using TK.CustomMap.Overlays;
 using TK.CustomMap.Api.Google;
 using GreenBankX.Resources;
+using System.Threading;
 
 namespace GreenBankX
 {
@@ -44,7 +45,7 @@ namespace GreenBankX
                 else {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert(AppResource.ResourceManager.GetString("Apin"), AppResource.ResourceManager.GetString("Apin"), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Apin"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Apin"), "OK");
                     });
                 }
                 
@@ -198,7 +199,7 @@ namespace GreenBankX
                         }
                     }
                 }
-                AddPlot.Text = AppResource.ResourceManager.GetString("SetArea");
+                AddPlot.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetArea");
                 newpolygon = new List<Position>();
             }
         }

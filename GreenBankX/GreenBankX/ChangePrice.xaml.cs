@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
@@ -135,14 +136,14 @@ namespace GreenBankX
             {
                 PriceRange ThisPrice = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex);
                 SortedList<double, double> brack = ThisPrice.GetBrack();
-                prices = AppResource.ResourceManager.GetString("Price") + "/m3\n";
-                logs = AppResource.ResourceManager.GetString("minimumdiameter") + "\n ";
+                prices = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "/m3\n";
+                logs = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("minimumdiameter") + "\n ";
                 for (int x = 0; x < brack.Count(); x++)
                 {
                     prices = prices + brack.ElementAt(x).Value + "\n";
                     logs = logs + brack.ElementAt(x).Key + "\n";
                 }
-                NameLabel.Text = AppResource.ResourceManager.GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
+                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 lab2.Text = prices;
                 lab1.Text = logs;
             }
