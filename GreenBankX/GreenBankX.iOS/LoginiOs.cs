@@ -1,84 +1,139 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
-using UIKit;
 using System.IO;
-using Xamarin.Forms;
 using System.Threading.Tasks;
-using Xamarin.Auth;
-using GreenBankX;
-using Newtonsoft.Json;
-using Google.Apis.Drive.v3.Data;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Drive.v3;
-using Google.Apis.Services;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Responses;
+using Foundation;
 using Google.SignIn;
+using UIKit;
 
-[assembly: Dependency(typeof(LoginiOs))]
-
-class LoginiOs : ILogin
+namespace GreenBankX.iOS
 {
-    OAuth2Authenticator authenticator;
-    FileStream inputStream;
-    Account accnt;
-    User user;
-    public static LoginiOs instance = new LoginiOs();
-    public ILogin GetInstance()
+    public class LoginiOS : NSObject, ILogin,  ISignInDelegate, ISignInUIDelegate
     {
-        if (instance == null)
+        public static LoginiOS instance = new LoginiOS();
+        private Action<GoogleUser, string> _onLoginComplete;
+        private UIViewController _viewController { get; set; }
+        public ILogin GetInstance()
         {
-            return new LoginiOs();
+            if (instance == null)
+            {
+                return new LoginiOS();
+            }
+            return instance;
         }
-        return instance;
-    }
-    public LoginiOs() {
-
-    }
-
-    private void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
-    {
-        if (e.IsAuthenticated)
+        public LoginiOS()
         {
-            accnt = e.Account;
-
+            Google.SignIn.SignIn.SharedInstance.UIDelegate = this;
+            Google.SignIn.SignIn.SharedInstance.Delegate = this;
         }
-        
-    }
 
-    public bool SignIn()
-    {
-        var SignInB = new SignInButton();
-        return true;
+        public void Login(Action<GoogleUser, string> OnLoginComplete)
+        {
+            _onLoginComplete = OnLoginComplete;
 
-    }
-    public void SignOut()
-    {
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var vc = window.RootViewController;
+            while (vc.PresentedViewController != null)
+            {
+                vc = vc.PresentedViewController;
+            }
 
-    }
-    public string AccountName()
-    {
-        if (accnt != null) {
-            return accnt.Username;
+            _viewController = vc;
+
+            Google.SignIn.SignIn.SharedInstance.SignInUser();
         }
-        return "Not Implemented";
+
+        public bool SignIn()
+        {
+            var window = UIApplication.SharedApplication.KeyWindow;
+            var vc = window.RootViewController;
+            while (vc.PresentedViewController != null)
+            {
+                vc = vc.PresentedViewController;
+            }
+
+            _viewController = vc;
+
+            Google.SignIn.SignIn.SharedInstance.SignInUser();
+            return true;
+        }
+
+        public void SignOut()
+        {
+            Google.SignIn.SignIn.SharedInstance.SignOutUser();
+        }
+
+        public void DidSignIn(SignIn signIn, Google.SignIn.GoogleUser user, NSError error)
+        {
+
+            if (user != null && error == null)
+                _onLoginComplete?.Invoke(new GoogleUser()
+                {
+                    Name = user.Profile.Name,
+                    Email = user.Profile.Email,
+                    Picture = user.Profile.HasImage ? new Uri(user.Profile.GetImageUrl(500).ToString()) : new Uri(string.Empty)
+                }, string.Empty);
+            else
+                _onLoginComplete?.Invoke(null, error.LocalizedDescription);
+        }
+
+        [Export("signIn:didDisconnectWithUser:withError:")]
+        public void DidDisconnect(SignIn signIn, GoogleUser user, NSError error)
+        {
+            // Perform any operations when the user disconnects from app here.
+        }
+
+        [Export("signInWillDispatch:error:")]
+        public void WillDispatch(SignIn signIn, NSError error)
+        {
+            //myActivityIndicator.StopAnimating();
+        }
+
+        [Export("signIn:presentViewController:")]
+        public void PresentViewController(SignIn signIn, UIViewController viewController)
+        {
+            _viewController?.PresentViewController(viewController, true, null);
+        }
+
+        [Export("signIn:dismissViewController:")]
+        public void DismissViewController(SignIn signIn, UIViewController viewController)
+        {
+            _viewController?.DismissViewController(true, null);
+        }
+
+        ILogin ILogin.GetInstance()
+        {
+            throw new NotImplementedException();
+        }
+
+        bool ILogin.SignIn()
+        {
+            throw new NotImplementedException();
+        }
+
+        string ILogin.AccountName()
+        {
+            throw new NotImplementedException();
+        }
+
+        string ILogin.UseDrive(int select)
+        {
+            throw new NotImplementedException();
+        }
+
+        string ILogin.Download(int select)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ILogin.SignOut()
+        {
+            throw new NotImplementedException();
+        }
     }
-    public string UseDrive(int select)
+    public class GoogleUser
     {
-
-        return "";
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public Uri Picture { get; set; }
     }
-
-
-
-    public string Download(int select)
-    {
-        return "";
-    }
-
-
-
+}

@@ -98,7 +98,6 @@
     <Compile Include="PreviewControllerDS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\GoogleService-Info.plist" />
-    <InterfaceDefinition Include="Resources\EmptyStoryboard1.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
