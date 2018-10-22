@@ -17,6 +17,7 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
+using Google.SignIn;
 
 [assembly: Dependency(typeof(LoginiOs))]
 
@@ -36,16 +37,7 @@ class LoginiOs : ILogin
         return instance;
     }
     public LoginiOs() {
-        var authenticator = new OAuth2Authenticator(
-    "263109938909-bts0mgt2859gv9btr2h9ep36fqtk31dh.apps.googleusercontent.com",
-    null,
-    Constants.scopes,
-    new Uri(Constants.AuthorizeUrl),
-    new Uri("com.googleusercontent.apps.263109938909-bts0mgt2859gv9btr2h9ep36fqtk31dh"),
-    new Uri(Constants.AccessTokenUrl),
-    null,
-    true);
-        authenticator.Completed += OnAuthCompleted;
+
     }
 
     private void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
@@ -60,8 +52,7 @@ class LoginiOs : ILogin
 
     public bool SignIn()
     {
-        var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-        presenter.Login(authenticator);
+        var SignInB = new SignInButton();
         return true;
 
     }
@@ -83,49 +74,11 @@ class LoginiOs : ILogin
     }
 
 
-    public async Task Request()
-    {
-        var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, accnt);
-        var response = await request.GetResponseAsync();
-        if (response != null)
-        {
-            string userJson = response.GetResponseText();
-            user = JsonConvert.DeserializeObject<User>(userJson);
-            AccountStore.Create().Save(accnt, Constants.AppName);
-        }
-        return;
-    }
+
     public string Download(int select)
     {
         return "";
     }
-    public void Authenticate()
-    {
-        // Register "Other" application in Google Console to get both clientId and clientSecret
-        var secrets = new ClientSecrets() { ClientId = "263109938909-bts0mgt2859gv9btr2h9ep36fqtk31dh.apps.googleusercontent.com", ClientSecret = null };
-        var initializer = new GoogleAuthorizationCodeFlow.Initializer { ClientSecrets = secrets };
-        var flow = new GoogleAuthorizationCodeFlow(initializer);
 
-        // Refresh token can be obtained with the following curl commands: 
-        // http://stackoverflow.com/questions/5850287/youtube-api-single-user-scenario-with-oauth-uploading     videos/8876027#8876027
-        // You should be able to achieve the same via Xamarin.Auth
-        var token = new TokenResponse { RefreshToken = accnt.Properties["refresh_token"]};
-
-        credentials = new UserCredential(flow, "user", token);
-    }
-    UserCredential credentials;
-
-    DriveService Service
-    {
-        get
-        {
-            return new DriveService(new BaseClientService.Initializer()
-            {
-                HttpClientInitializer = credentials,
-                ApplicationName = "<application.name>",
-            });
-        }
-    }
-}
 
 
