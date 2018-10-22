@@ -105,14 +105,9 @@ namespace GreenBankX.iOS
             throw new NotImplementedException();
         }
 
-        bool ILogin.SignIn()
-        {
-            throw new NotImplementedException();
-        }
-
         string ILogin.AccountName()
         {
-            throw new NotImplementedException();
+            return "testing";
         }
 
         string ILogin.UseDrive(int select)
