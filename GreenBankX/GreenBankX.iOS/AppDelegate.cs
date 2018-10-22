@@ -30,23 +30,23 @@ namespace GreenBankX.iOS
             // global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
             Rg.Plugins.Popup.Popup.Init();
             LoadApplication(new App());
-            //   var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
-            //   SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
+            var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
+            SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
 
             return base.FinishedLaunching(app, options);
         }
         // For iOS 9 or newer
-        //public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
-     //   {
-          //  var openUrlOptions = new UIApplicationOpenUrlOptions(options);
-        //    return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
-        //}
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            var openUrlOptions = new UIApplicationOpenUrlOptions(options);
+            return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
+        }
 
         // For iOS 8 and older
-       // public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
-        //{
-            //return SignIn.SharedInstance.HandleUrl(url, sourceApplication, annotation);
-       // }
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            return SignIn.SharedInstance.HandleUrl(url, sourceApplication, annotation);
+        }
         public void DidSignIn(SignIn signIn, GoogleUser user, NSError error)
         {
             if (user != null && error == null) { }
