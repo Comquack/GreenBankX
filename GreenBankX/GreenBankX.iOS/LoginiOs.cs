@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 using Foundation;
 using Google.SignIn;
 using UIKit;
-
-namespace GreenBankX.iOS
-{
-    public class LoginiOS : NSObject, ILogin,  ISignInDelegate, ISignInUIDelegate
+using Xamarin.Forms;
+[assembly: Dependency(typeof(LoginiOS))]
+public class LoginiOS : NSObject, ILogin,  ISignInDelegate, ISignInUIDelegate
     {
         public static LoginiOS instance = new LoginiOS();
         private Action<GoogleUser, string> _onLoginComplete;
@@ -131,4 +130,3 @@ namespace GreenBankX.iOS
         public string Email { get; set; }
         public Uri Picture { get; set; }
     }
-}
