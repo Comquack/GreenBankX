@@ -125,6 +125,7 @@
   </data>
   <data name="AddPlot" xml:space="preserve">
     <value>ສ້າງດິນຕອນ</value>
+    <comment>plot as in plot of land</comment>
   </data>
   <data name="AddtoPlot" xml:space="preserve">
     <value>ຕື່ມການດິນຕອນ</value>
@@ -134,6 +135,7 @@
   </data>
   <data name="Area" xml:space="preserve">
     <value>Area</value>
+    <comment>Area (measurement)</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -152,6 +154,7 @@
   </data>
   <data name="Earlier" xml:space="preserve">
     <value>Earlier</value>
+    <comment>finds previous record</comment>
   </data>
   <data name="Girth" xml:space="preserve">
     <value>ຈັກກະພານ</value>
@@ -161,6 +164,7 @@
   </data>
   <data name="Later" xml:space="preserve">
     <value>Later</value>
+    <comment>finds next record</comment>
   </data>
   <data name="ManagePlots" xml:space="preserve">
     <value>ການຄຸ້ມຄອງດິນຕອນ</value>
@@ -175,7 +179,7 @@
     <value>Name</value>
   </data>
   <data name="Pricings" xml:space="preserve">
-    <value>Pricings ()</value>
+    <value>Pricings</value>
   </data>
   <data name="SelectaPlot" xml:space="preserve">
     <value>Select a Plot</value>
@@ -188,6 +192,7 @@
   </data>
   <data name="TotalLogs" xml:space="preserve">
     <value>Total Logs</value>
+    <comment>Total number of logs</comment>
   </data>
   <data name="TotalPrice" xml:space="preserve">
     <value>Total Price</value>
@@ -197,6 +202,7 @@
   </data>
   <data name="Apin" xml:space="preserve">
     <value>Area not near pin</value>
+    <comment>area (of plot) not containing the map pin</comment>
   </data>
   <data name="DateExists" xml:space="preserve">
     <value>Date exists</value>
@@ -269,12 +275,15 @@
   </data>
   <data name="OrLarger" xml:space="preserve">
     <value> or larger</value>
+    <comment>eg 5cm "or larger"</comment>
   </data>
   <data name="PinHere" xml:space="preserve">
     <value>Pin Here</value>
+    <comment>Place pin at current location</comment>
   </data>
   <data name="Price" xml:space="preserve">
     <value>Price</value>
+    <comment>Price (sale)</comment>
   </data>
   <data name="PriceInvalid" xml:space="preserve">
     <value>Price is invalid</value>
@@ -293,23 +302,31 @@
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
+    <comment>sign in to google</comment>
   </data>
   <data name="SignOut" xml:space="preserve">
     <value>Sign Out</value>
+    <comment>sign out from google</comment>
   </data>
   <data name="SizeExists" xml:space="preserve">
     <value>Size already exists</value>
+    <comment>Size the user has chosen is already in use</comment>
   </data>
   <data name="TotalVol" xml:space="preserve">
     <value>Total Volume</value>
   </data>
   <data name="Upload" xml:space="preserve">
     <value>Upload</value>
+    <comment>Upload files</comment>
   </data>
   <data name="Volume" xml:space="preserve">
     <value>Volume</value>
   </data>
   <data name="YPlant" xml:space="preserve">
     <value>Year Planted</value>
+  </data>
+  <data name="ChangePricing" xml:space="preserve">
+    <value>Change Pricing</value>
+    <comment>Change the pricing sheme used for logs</comment>
   </data>
 </root>

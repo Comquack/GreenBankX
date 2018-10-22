@@ -66,7 +66,7 @@ namespace GreenBankX
                 ListOfTree.Text = "";
                 GirthOT.Text = "";
                 HeightOT.Text = "";
-                ToolPricing.Text = "Change Pricing";
+                ToolPricing.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ChangePricing"); ;
                 DetailsList.ItemsSource = TreeTails;
                 DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count,5)) + (10 * Math.Min(TreeTails.Count, 5)) +60;
                 PlotTitle.Text = trees;
@@ -159,7 +159,7 @@ namespace GreenBankX
                         ThisTree = TreeList.ElementAt(x);
                         pickTree.Items.Add(ThisTree.ID.ToString());
                     }
-                   pickTree.Items.Add("Add new Tree");
+                   pickTree.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddNewTree"));
                    pickTree.SelectedIndex = ThisPlot.getTrees().Count - 1;
                    SelectTree();
                    SaveAll.GetInstance().SaveTrees2();
@@ -218,7 +218,7 @@ namespace GreenBankX
                         ThisTree = TreeList.ElementAt(x);          
                         pickTree.Items.Add(ThisTree.ID.ToString());
                     }
-                    pickTree.Items.Add("Add new tree");
+                    pickTree.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddNewTree"));
                     AddMes.IsVisible = false;
                     pickTree.SelectedIndex = TreeList.Count - 1;
                     SelectTree();
@@ -263,7 +263,7 @@ namespace GreenBankX
                         if (x == -1)
                         {
                             Lablels.Add("Too\n Small");
-                            ListLablels.Add("Too Small");
+                            ListLablels.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall"));
                         }
                         else if (x == thisRange.GetBrack().Count - 1)
                         {
@@ -436,7 +436,7 @@ namespace GreenBankX
                     if (x == -1)
                     {
                         Lablels.Add("Too\n Small");
-                        ListLablels.Add("Too Small");
+                        ListLablels.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall"));
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
