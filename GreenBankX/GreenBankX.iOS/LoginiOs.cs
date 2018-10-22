@@ -77,7 +77,7 @@ namespace GreenBankX.iOS
         }
 
         [Export("signIn:didDisconnectWithUser:withError:")]
-        public void DidDisconnect(SignIn signIn, GoogleUser user, NSError error)
+        public void DidDisconnect(SignIn signIn, Google.SignIn.GoogleUser user, NSError error)
         {
             // Perform any operations when the user disconnects from app here.
         }
