@@ -30,9 +30,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
     <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
     <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64</AndroidSupportedAbis>
@@ -160,7 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreenBankX\GreenBankX.csproj">
-      <Project>{00E5FC5B-DA3F-4B04-85B9-81621956821E}</Project>
+      <Project>{11E73AE8-36D7-45C5-AAB1-744F6FD7A8C3}</Project>
       <Name>GreenBankX</Name>
     </ProjectReference>
   </ItemGroup>
