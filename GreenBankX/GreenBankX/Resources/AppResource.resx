@@ -312,4 +312,7 @@
   <data name="Upload" xml:space="preserve">
     <value>Upload</value>
   </data>
+  <data name="ChangePricing" xml:space="preserve">
+    <value>Change Pricing</value>
+  </data>
 </root>

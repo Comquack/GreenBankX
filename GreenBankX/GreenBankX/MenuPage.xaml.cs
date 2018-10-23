@@ -75,6 +75,22 @@ namespace GreenBankX
                 case Device.iOS:
                     clientId = Constants.iOSClientId;
                     redirectUri = Constants.iOSRedirectUrl;
+                    try
+                    {
+                        var nu = DependencyService.Get<ILogin>().AccountName();
+
+                    }
+                    catch
+                    {
+                        bool wait = DependencyService.Get<ILogin>().SignIn();
+                        try
+                        {
+                            var nu = DependencyService.Get<ILogin>().AccountName();
+
+                        }
+                        catch { }
+
+                    }
                     break;
 
                 case Device.Android:

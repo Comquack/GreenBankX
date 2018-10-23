@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
 using Google.SignIn;
 using UIKit;
+using TK.CustomMap;
+using TK.CustomMap.iOSUnified;
 
 namespace GreenBankX.iOS
 {
@@ -25,10 +26,10 @@ namespace GreenBankX.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
-            global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
-            LoadApplication(new App());
+            TKCustomMapRenderer.InitMapRenderer();
+            // global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
             Rg.Plugins.Popup.Popup.Init();
-            //Xamarin.FormsMaps.Init();
+            LoadApplication(new App());
             var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
             SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
 

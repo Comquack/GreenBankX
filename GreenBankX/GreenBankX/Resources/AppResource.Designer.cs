@@ -142,6 +142,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Pricing.
+        /// </summary>
+        public static string ChangePricing {
+            get {
+                return ResourceManager.GetString("ChangePricing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Plot.
         /// </summary>
         public static string CreatePlot {

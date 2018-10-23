@@ -97,6 +97,7 @@
     <None Include="Info.plist" />
     <Compile Include="PreviewControllerDS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
@@ -138,14 +139,11 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Images.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Images.imageset\leaf_logo.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\leaf_logo.imageset\leaf_logo.png">
       <Visible>false</Visible>
     </ImageAsset>
   </ItemGroup>
@@ -211,8 +209,12 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\GreenBankX\GreenBankX.csproj">
-      <Project>{00E5FC5B-DA3F-4B04-85B9-81621956821E}</Project>
+      <Project>{11E73AE8-36D7-45C5-AAB1-744F6FD7A8C3}</Project>
       <Name>GreenBankX</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\leaf_logo.png" />
   </ItemGroup>
 </Project>

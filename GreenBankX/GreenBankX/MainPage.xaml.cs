@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Auth;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using UIKit;
 
 namespace GreenBankX
 {
@@ -28,6 +29,16 @@ namespace GreenBankX
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
             store = AccountStore.Create();
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    //Logos.Source = "Reso";
+                    break;
+
+                case Device.Android:
+
+                    break;
+            }
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }
 
