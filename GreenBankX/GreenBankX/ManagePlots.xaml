@@ -24,6 +24,7 @@
                 </Picker.Items>
             </Picker>
             <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
+                    
                     SelectedIndexChanged="ShowGraphpick"
                         TextColor="Black">
                 <Picker.Items>
@@ -58,18 +59,18 @@
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                             <Label
-                                Text="Girth"
+                                Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                             <Label
-                                Text="Height"
+                                Text="{local:TranslateExtension Height}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                         </Grid>
                     </ListView.Header>
                     <ListView.Footer>
                         <Button x:Name="New"
-                                Text="Add New Tree"
+                                Text="{local:TranslateExtension AddNewTree}"
                                 Clicked="AddNewTree"/>
 
                     </ListView.Footer>
@@ -115,11 +116,11 @@
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                             <Label
-                                Text="Total Volume"
+                                Text="{local:TranslateExtension TotalVol}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                             <Label
-                                Text="Total Price"
+                                Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                         </Grid>
@@ -167,17 +168,17 @@
                                         Grid.Column="0"
                                 XAlign="Start"></Label>
                             <Label
-                                Text="Girth"
+                                Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"
                                 XAlign="Start"></Label>
                             <Label
-                                Text="Total Volume"
+                                Text="{local:TranslateExtension TotalVol}"
                                 TextColor="Black"
                                         Grid.Column="2"
                                 XAlign="Start"></Label>
                             <Label
-                                Text="Total Price"
+                                Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="3"
                                 XAlign="Start"></Label>

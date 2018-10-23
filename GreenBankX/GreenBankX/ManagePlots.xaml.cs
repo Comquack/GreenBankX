@@ -59,14 +59,14 @@ namespace GreenBankX
                     TreeTails.Add(ThisTree);
                     pickTree.Items.Add(ThisTree.ID.ToString()); 
                 }
-                pickTree.Items.Add("Add tree");
+                pickTree.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddTree"));
                 DetailsList.IsVisible = true;
                 LogClassList.IsVisible = false;
                 LogList.IsVisible = false;
                 ListOfTree.Text = "";
                 GirthOT.Text = "";
                 HeightOT.Text = "";
-                ToolPricing.Text = "Change Pricing";
+                ToolPricing.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CPrice");
                 DetailsList.ItemsSource = TreeTails;
                 DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count,5)) + (10 * Math.Min(TreeTails.Count, 5)) +60;
                 PlotTitle.Text = trees;
@@ -79,6 +79,9 @@ namespace GreenBankX
         }
         //activates when index for tree picker is changed
         public void SelectTree() {
+            ShowGraph.SelectedIndex=-1;
+            Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+            List<Tree> TreeList = ThisPlot.getTrees();
             string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth") + "\n";
             string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
             if (pickTree.SelectedIndex > -1 && pickPlot.SelectedIndex > -1 && pickTree.SelectedIndex < pickTree.Items.Count - 1) {
@@ -89,7 +92,6 @@ namespace GreenBankX
                 Graphgrid.RowDefinitions.ElementAt(2).Height = new GridLength(90, GridUnitType.Auto);
 
             } else if (pickTree.SelectedIndex == pickTree.Items.Count - 1) {
-                AddNewTree();
                 return;
             }
             else if (pickTree.SelectedIndex == -1)
@@ -785,22 +787,22 @@ namespace GreenBankX
             {
                 if (width < height)
                 {
-                    DetailsList.HeightRequest = (height/14 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 5)) + (height / 56 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 5)) + height / 10;
+                    DetailsList.HeightRequest = (height/14 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 5)) + height / 10;
                 }
                 else
                 {
-                    DetailsList.HeightRequest = (width / 14 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count) + (width / 60 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count) + width / 10;
+                    DetailsList.HeightRequest = (width / 14 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count)  + width / 10;
                 }
             }
             if (LogList.ItemsSource.GetType() == new ObservableCollection<DetailsGraph2>().GetType())
             {
                 if (width < height)
                 {
-                    LogList.HeightRequest = HeightRequest = (height / 14 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5)) + (height / 60 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5));
+                    LogList.HeightRequest = HeightRequest = (height / 14 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5));
                 }
                 else
                 {
-                    LogList.HeightRequest = HeightRequest = (width / 14 * ((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count) + (width / 60 * ((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count);
+                    LogList.HeightRequest = HeightRequest = (width / 14 * ((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count);
                 }
             }
            

@@ -4,10 +4,10 @@
              xmlns:local="clr-namespace:GreenBankX"
              x:Class="GreenBankX.MenuPage">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="ToolIn" Order="Primary"  Text="Login" Priority="0" Clicked="OnLoginTest"/>
-        <ToolbarItem x:Name="Toolout" Order="Primary"  Text="LogOut" Priority="1" Clicked="Signot"/>
-        <ToolbarItem x:Name="ToolDrive" Order="Primary"  Text="Upload" Priority="1" Clicked="Driv3r"/>
-        <ToolbarItem x:Name="ToolDown" Order="Primary"  Text="Download" Priority="1" Clicked="ToolDown_Clicked"/>
+        <ToolbarItem x:Name="ToolIn" Order="Primary"  Text="{local:TranslateExtension SignIn}" Priority="0" Clicked="OnLoginTest"/>
+        <ToolbarItem x:Name="Toolout" Order="Primary"  Text="{local:TranslateExtension SignOut}" Priority="1" Clicked="Signot"/>
+        <ToolbarItem x:Name="ToolDrive" Order="Primary"  Text="{local:TranslateExtension Upload}" Priority="1" Clicked="Driv3r"/>
+        <ToolbarItem x:Name="ToolDown" Order="Primary"  Text="{local:TranslateExtension Download}" Priority="1" Clicked="ToolDown_Clicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>

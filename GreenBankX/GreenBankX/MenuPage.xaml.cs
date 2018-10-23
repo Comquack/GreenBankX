@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using System.ComponentModel;
 using GreenBankX.Resources;
 using System.Threading;
+using Rg.Plugins.Popup.Services;
 
 namespace GreenBankX
 {
@@ -110,27 +111,15 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new CreatePricing());
         }
-        private void ChangeLang() {
-            System.Globalization.CultureInfo userSelectedCulture;
-            if (Thread.CurrentThread.CurrentCulture == new System.Globalization.CultureInfo("lo-LA"))
-            {
-                userSelectedCulture = new System.Globalization.CultureInfo("en-AU");
-                Thread.CurrentThread.CurrentCulture = userSelectedCulture;
+        private async System.Threading.Tasks.Task ChangeLang() {
+            MessagingCenter.Unsubscribe<LangPop>(this, "Done");
+            MessagingCenter.Subscribe<LangPop>(this, "Done", (sender) => {
                 Bttn1.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
                 Bttn2.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
                 Bttn3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                 Bttn4.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
-            }
-            else
-            {
-                userSelectedCulture = new System.Globalization.CultureInfo("lo-LA");
-                Thread.CurrentThread.CurrentCulture = userSelectedCulture;
-                Bttn1.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
-                Bttn2.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
-                Bttn3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
-                Bttn4.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
-                //Lang.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Upload");
-            }
+            });
+               await PopupNavigation.Instance.PushAsync(LangPop.GetInstance());
         }
 
         private void ToolDown_Clicked(object sender, EventArgs e)

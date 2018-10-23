@@ -305,6 +305,24 @@ namespace GreenBankX
                 });
             }
         }
-        
+        protected override void OnSizeAllocated(double width, double height)
+        {
+            base.OnSizeAllocated(width, height);
+                if (width < height)
+                {
+                AtLocationButton.WidthRequest = height / 5;
+                CancelButton.WidthRequest = height / 5;
+                AddPlot.WidthRequest = height / 5;
+
+            }
+                else
+                {
+                AtLocationButton.WidthRequest = width / 5;
+                CancelButton.WidthRequest = width / 5;
+                AddPlot.WidthRequest = width / 5;
+
+            }
+
+        }
     }
 }
