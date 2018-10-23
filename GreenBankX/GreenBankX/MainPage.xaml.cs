@@ -1,19 +1,11 @@
-﻿using Syncfusion.XlsIO;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Auth;
-using System.Diagnostics;
-using Newtonsoft.Json;
-using UIKit;
 
 namespace GreenBankX
 {
-	public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage
     {
         Account account;
         AccountStore store;
@@ -29,16 +21,6 @@ namespace GreenBankX
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
             store = AccountStore.Create();
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    //Logos.Source = "Reso";
-                    break;
-
-                case Device.Android:
-
-                    break;
-            }
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }
 
