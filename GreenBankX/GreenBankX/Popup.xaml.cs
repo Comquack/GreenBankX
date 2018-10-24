@@ -60,7 +60,6 @@ namespace GreenBankX
                 string lng = geo[1].ToString();
                 string baseurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
                 string requestUri = string.Format(baseurl, lat, lng, api);
-                Console.WriteLine("Hello:"+ requestUri);
                // using (WebClient wc = new WebClient())
                 //{
                  //   wc.DownloadStringCompleted +=
@@ -81,33 +80,6 @@ namespace GreenBankX
                 NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate");
             }
            
-        }
-
-
-
-         async void Wc_DownloadStringCompletedAsync(object sender,
-                       DownloadStringCompletedEventArgs e)
-        {
-            var xmlElm = XElement.Parse(e.Result);
-
-            var status = (from elm in xmlElm.Descendants()
-                          where elm.Name == "status"
-                          select elm).FirstOrDefault();
-            if (status.Value.ToLower() == "ok")
-            {
-                var res = (from elm in xmlElm.Descendants()
-                           where elm.Name == "formatted_address"
-                           select elm).FirstOrDefault();
-                Console.WriteLine(res.Value);
-
-            }
-            else
-            {
-                Console.WriteLine("No Address Found");
-            }
-            ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
-            MessagingCenter.Send<Popup>(this, "Add");
-            await PopupNavigation.Instance.PopAsync();
         }
 
 

@@ -83,7 +83,21 @@ namespace GreenBankX
         {
             base.OnAppearing();
         }
+        private void Diameter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                Diameter.Text = e.OldTextValue;
+            }
+        }
 
+        private void MHeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
+            {
+                MHeight.Text = e.OldTextValue;
+            }
+        }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();

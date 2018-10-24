@@ -33,7 +33,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     
                     Clicked="OpenMeasure"/>
                     <Button
@@ -46,7 +46,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="4"
+                    Grid.Row="3"
                         Clicked="OpenMap"/>
                     <Button
                     x:Name="Bttn3"

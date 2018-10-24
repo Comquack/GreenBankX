@@ -67,6 +67,7 @@ namespace GreenBankX
                 CanAdd = true;
                 StartMap(false);
                 PolyMap();
+                    SaveAll.GetInstance().SavePlots();
                 });
                     await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
 

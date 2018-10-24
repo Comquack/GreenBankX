@@ -157,28 +157,28 @@
     <value>Later</value>
   </data>
   <data name="ManagePlots" xml:space="preserve">
-    <value>Manage Plots</value>
+    <value>Manage lots</value>
   </data>
   <data name="MeasureTree" xml:space="preserve">
-    <value>Measure Tree</value>
+    <value>Measure tree</value>
   </data>
   <data name="Pricings" xml:space="preserve">
     <value>Pricings</value>
   </data>
   <data name="SelectaPlot" xml:space="preserve">
-    <value>Select a Plot</value>
+    <value>Select a plot</value>
   </data>
   <data name="SelectaTree" xml:space="preserve">
-    <value>Select a Tree</value>
+    <value>Select a tree</value>
   </data>
   <data name="TooSmall" xml:space="preserve">
-    <value>Too Small</value>
+    <value>Too small</value>
   </data>
   <data name="TotalLogs" xml:space="preserve">
-    <value>Total Logs</value>
+    <value>Total logs</value>
   </data>
   <data name="TotalPrice" xml:space="preserve">
-    <value>Total Price</value>
+    <value>Total price</value>
   </data>
   <data name="AddNewTree" xml:space="preserve">
     <value>Add a New Tree</value>
@@ -187,7 +187,7 @@
     <value>Date</value>
   </data>
   <data name="MerchHeight" xml:space="preserve">
-    <value>Merchantable Height(m)</value>
+    <value>Merchantable height(m)</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -202,7 +202,7 @@
     <value>Diameter is invalid</value>
   </data>
   <data name="LogLength" xml:space="preserve">
-    <value>Log Length(m)</value>
+    <value>Log length(m)</value>
   </data>
   <data name="minimumdiameter" xml:space="preserve">
     <value>minimum diameter (cm)</value>
@@ -217,16 +217,16 @@
     <value>Price is invalid</value>
   </data>
   <data name="SelectPricing" xml:space="preserve">
-    <value>Select A Pricing Scheme</value>
+    <value>Select a pricing scheme</value>
   </data>
   <data name="SizeExists" xml:space="preserve">
     <value>Size already exists</value>
   </data>
   <data name="ShowGraph" xml:space="preserve">
-    <value>Show a Graph</value>
+    <value>Show a graph</value>
   </data>
   <data name="LogClass" xml:space="preserve">
-    <value>Log Class</value>
+    <value>Log class</value>
   </data>
   <data name="DateExists" xml:space="preserve">
     <value>Date exists</value>
@@ -241,7 +241,7 @@
     <value>Add New Plot</value>
   </data>
   <data name="NewPrice" xml:space="preserve">
-    <value>Add New Pricing Scheme</value>
+    <value>Add new pricing scheme</value>
   </data>
   <data name="OrLarger" xml:space="preserve">
     <value> or larger</value>
@@ -250,22 +250,22 @@
     <value>Volume</value>
   </data>
   <data name="EnterName" xml:space="preserve">
-    <value>Please Enter Name</value>
+    <value>Please enter name</value>
   </data>
   <data name="EnterVDate" xml:space="preserve">
-    <value>Please Enter Valid Date</value>
+    <value>Please enter valid date</value>
   </data>
   <data name="MeanD" xml:space="preserve">
-    <value>Mean Diameter:</value>
+    <value>Mean diameter:</value>
   </data>
   <data name="MeanG" xml:space="preserve">
     <value>Mean growth over time</value>
   </data>
   <data name="MeanP" xml:space="preserve">
-    <value>Mean Price:</value>
+    <value>Mean price:</value>
   </data>
   <data name="MeanV" xml:space="preserve">
-    <value>Mean Voume:</value>
+    <value>Mean voume:</value>
   </data>
   <data name="PinHere" xml:space="preserve">
     <value>Pin Here</value>
@@ -274,13 +274,13 @@
     <value>Save</value>
   </data>
   <data name="TotalVol" xml:space="preserve">
-    <value>Total Volume</value>
+    <value>Total volume</value>
   </data>
   <data name="NumberTrees" xml:space="preserve">
-    <value>Number of Trees</value>
+    <value>Number of trees</value>
   </data>
   <data name="YPlant" xml:space="preserve">
-    <value>Year Planted</value>
+    <value>Year planted</value>
   </data>
   <data name="Apin" xml:space="preserve">
     <value>Area not near pin</value>
@@ -298,10 +298,10 @@
     <value>Download</value>
   </data>
   <data name="EMes" xml:space="preserve">
-    <value>Edit Measurement</value>
+    <value>Edit measurement</value>
   </data>
   <data name="SetArea" xml:space="preserve">
-    <value>Set Area</value>
+    <value>Set area</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>

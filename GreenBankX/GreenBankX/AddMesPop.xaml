@@ -33,14 +33,14 @@
                    Placeholder="{local:TranslateExtension Girth}"
             BackgroundColor="LightSeaGreen"
             Keyboard="Numeric"
-            MaxLength="3"/>
+            TextChanged="Diameter_TextChanged"/>
         <Entry 
                 x:Name="MHeight"
                    TextColor="Black"
                    Placeholder="{local:TranslateExtension MerchHeight}"
             BackgroundColor="LightSeaGreen"
             Keyboard="Numeric"
-            MaxLength="2"/>
+            TextChanged="MHeight_TextChanged"/>
 
         <DatePicker
             x:Name="DateMes"

@@ -12,14 +12,14 @@
                    TextColor="Black"
                    Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension Girth}"
-				MaxLength="3"
+                    TextChanged="girth_TextChanged"
 				/>
             <Entry 
                 x:Name="height"
                    TextColor="Black"
                     Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension Height}"
-			MaxLength="2"/>
+                   Placeholder="{local:TranslateExtension MerchHeight}"
+                TextChanged="height_TextChanged"/>
             <DatePicker
             x:Name="DateMes" 
             />

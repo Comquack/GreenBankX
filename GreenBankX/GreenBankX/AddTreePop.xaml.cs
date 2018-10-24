@@ -130,5 +130,21 @@ namespace GreenBankX
             // Return false if you don't want to close this popup page when a background of the popup page is clicked
             return base.OnBackgroundClicked();
         }
+
+        private void Diameter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                Diameter.Text = e.OldTextValue;
+            }
+        }
+
+        private void MHeight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
+            {
+                MHeight.Text = e.OldTextValue;
+            }
+        }
     }
 }

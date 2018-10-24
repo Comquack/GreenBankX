@@ -259,7 +259,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit Measurement.
+        ///   Looks up a localized string similar to Edit measurement.
         /// </summary>
         public static string EMes {
             get {
@@ -268,7 +268,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please Enter Name.
+        ///   Looks up a localized string similar to Please enter name.
         /// </summary>
         public static string EnterName {
             get {
@@ -277,7 +277,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please Enter Valid Date.
+        ///   Looks up a localized string similar to Please enter valid date.
         /// </summary>
         public static string EnterVDate {
             get {
@@ -322,7 +322,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Class.
+        ///   Looks up a localized string similar to Log class.
         /// </summary>
         public static string LogClass {
             get {
@@ -331,7 +331,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Length(m).
+        ///   Looks up a localized string similar to Log length(m).
         /// </summary>
         public static string LogLength {
             get {
@@ -340,7 +340,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage Plots.
+        ///   Looks up a localized string similar to Manage lots.
         /// </summary>
         public static string ManagePlots {
             get {
@@ -349,7 +349,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mean Diameter:.
+        ///   Looks up a localized string similar to Mean diameter:.
         /// </summary>
         public static string MeanD {
             get {
@@ -367,7 +367,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mean Price:.
+        ///   Looks up a localized string similar to Mean price:.
         /// </summary>
         public static string MeanP {
             get {
@@ -376,7 +376,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mean Voume:.
+        ///   Looks up a localized string similar to Mean voume:.
         /// </summary>
         public static string MeanV {
             get {
@@ -385,7 +385,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Measure Tree.
+        ///   Looks up a localized string similar to Measure tree.
         /// </summary>
         public static string MeasureTree {
             get {
@@ -394,7 +394,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Merchantable Height(m).
+        ///   Looks up a localized string similar to Merchantable height(m).
         /// </summary>
         public static string MerchHeight {
             get {
@@ -439,7 +439,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add New Pricing Scheme.
+        ///   Looks up a localized string similar to Add new pricing scheme.
         /// </summary>
         public static string NewPrice {
             get {
@@ -448,7 +448,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of Trees.
+        ///   Looks up a localized string similar to Number of trees.
         /// </summary>
         public static string NumberTrees {
             get {
@@ -511,7 +511,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a Plot.
+        ///   Looks up a localized string similar to Select a plot.
         /// </summary>
         public static string SelectaPlot {
             get {
@@ -520,7 +520,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a Tree.
+        ///   Looks up a localized string similar to Select a tree.
         /// </summary>
         public static string SelectaTree {
             get {
@@ -529,7 +529,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select A Pricing Scheme.
+        ///   Looks up a localized string similar to Select a pricing scheme.
         /// </summary>
         public static string SelectPricing {
             get {
@@ -538,7 +538,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Area.
+        ///   Looks up a localized string similar to Set area.
         /// </summary>
         public static string SetArea {
             get {
@@ -547,7 +547,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show a Graph.
+        ///   Looks up a localized string similar to Show a graph.
         /// </summary>
         public static string ShowGraph {
             get {
@@ -583,7 +583,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Too Small.
+        ///   Looks up a localized string similar to Too small.
         /// </summary>
         public static string TooSmall {
             get {
@@ -592,7 +592,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Logs.
+        ///   Looks up a localized string similar to Total logs.
         /// </summary>
         public static string TotalLogs {
             get {
@@ -601,7 +601,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Price.
+        ///   Looks up a localized string similar to Total price.
         /// </summary>
         public static string TotalPrice {
             get {
@@ -610,7 +610,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total Volume.
+        ///   Looks up a localized string similar to Total volume.
         /// </summary>
         public static string TotalVol {
             get {
@@ -646,7 +646,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Year Planted.
+        ///   Looks up a localized string similar to Year planted.
         /// </summary>
         public static string YPlant {
             get {

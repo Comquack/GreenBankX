@@ -128,5 +128,20 @@ namespace GreenBankX
                 await Navigation.PushAsync(new CreatePlot());
             }
         }
+
+        private void height_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue)>=100|| double.Parse(e.NewTextValue) < 0)) {
+                height.Text = e.OldTextValue;
+            }
+        }
+
+        private void girth_TextChanged(object sender, TextChangedEventArgs e)
+        { 
+            if (e.NewTextValue !=null&& e.NewTextValue !=""&& ( double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                girth.Text = e.OldTextValue;
+            }
+        }
     }
 }

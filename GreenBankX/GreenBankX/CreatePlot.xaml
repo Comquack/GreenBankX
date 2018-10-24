@@ -5,7 +5,6 @@
              xmlns:customMap="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              x:Class="GreenBankX.CreatePlot">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="ToolSave" Order="Primary"  Text="{local:TranslateExtension Save}" Priority="0" Clicked="SavePlots"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
