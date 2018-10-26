@@ -161,7 +161,22 @@ namespace GreenBankX
                 ToolIn.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignIn");
             }
         }
-       
+
+        private void Tute_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.Properties["Tutorial"] = true;
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+               bool res = await DisplayAlert("Tutorial", "Hello, welcome to the Greenbank, tutorial", "Continue", "Skip");
+                if (res)
+                {
+                    await DisplayAlert("Signing in to Google", "At the top of this page is the Sign in button. This will allow you yo sign in to your Google account, once this is done you can upload your files to Google Drive and download them to any other device.", "Next");
+                }
+                else {
+                    Application.Current.Properties["Tutorial"] = false;
+                }
+            });
+        }
     }
     class ClockViewModel : INotifyPropertyChanged
     {

@@ -55,17 +55,18 @@ namespace GreenBankX
                 {
                     NextPlot.YearPlanted = int.Parse(PlotYear.Text);
                 }
+                for (int i = 0; i < ((List<Plot>)Application.Current.Properties["Plots"]).Count ; i++){
+                    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text) {
+                        NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName");
+                        return;
+                    }
+                }
                 string api = "AIzaSyB7X3Ro62OQEySQtwQ5MInuwej0cVCaGAM";
-                string lat = geo[0].ToString();
-                string lng = geo[1].ToString();
-                string baseurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
-                string requestUri = string.Format(baseurl, lat, lng, api);
-               // using (WebClient wc = new WebClient())
-                //{
-                 //   wc.DownloadStringCompleted +=
-                  //    new DownloadStringCompletedEventHandler(Wc_DownloadStringCompletedAsync);
-                  //  wc.DownloadStringAsync(new Uri(requestUri));
-               // }
+               // string lat = geo[0].ToString();
+               // string lng = geo[1].ToString();
+               // string baseurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
+               // string requestUri = string.Format(baseurl, lat, lng, api);
+
                 ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
                 MessagingCenter.Send<Popup>(this, "Add");
                 SaveAll.GetInstance().SavePlots();

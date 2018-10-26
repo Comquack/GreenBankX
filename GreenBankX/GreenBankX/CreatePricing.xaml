@@ -23,7 +23,7 @@
                    TextColor="Black"
                    Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension LogLength}"
-                MaxLength="2"/>
+                TextChanged="Len_TextChanged"/>
 
             <Button x:Name="AddName"
                     Text="{local:TranslateExtension AddPricing}"
@@ -35,19 +35,34 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
+                <Grid>
             <Entry  
-                x:Name="maxDiam"
+                x:Name="minDiam"
                    TextColor="Black"
                    Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension minimumdiameter}"
-                MaxLength="3"/>
-            <Entry 
+                TextChanged="minDiam_TextChanged"
+                Grid.Column="0"/>
+                <Entry  
+                x:Name="maxDiam"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension maxdiameter}"
+                TextChanged="maxDiam_TextChanged"
+                    Grid.Column="1"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+                <Entry 
                 x:Name="price"
                    TextColor="Black"
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension Price}"/>
             <Button x:Name="AddPrice"
-                    Text="Add Price"
+                    Font="Bold"
+                    Text="Add New Price Bracket"
                     Clicked="AddPrice_Clicked" 
                     />
             <Label x:Name="NameOfPrices" 

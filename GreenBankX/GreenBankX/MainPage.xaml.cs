@@ -18,6 +18,11 @@ namespace GreenBankX
             Application.Current.Properties["Prices"] = new List<PriceRange>();
             Application.Current.Properties["First"] = null;
             Application.Current.Properties["Last"] = null;
+            Application.Current.Properties["Tutorial"] = false;
+            Application.Current.Properties["Tutmen"] = true;
+            Application.Current.Properties["Tutprice"] = true;
+            Application.Current.Properties["Tutplot"] = true;
+            Application.Current.Properties["Tutmanage"] = true;
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
             store = AccountStore.Create();

@@ -315,4 +315,7 @@
   <data name="ChangePricing" xml:space="preserve">
     <value>Change Pricing</value>
   </data>
+  <data name="maxdiameter" xml:space="preserve">
+    <value>maximum diameter(cm)</value>
+  </data>
 </root>

@@ -118,6 +118,23 @@ namespace GreenBankX
             CancelButton.IsVisible = true; ;
         }
         public void MapReady() {
+            if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutplot"])
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool res = await DisplayAlert("Plot", "This page allows you to mark the location of your plots", "Continue", "Skip");
+                    if (res)
+                    {
+                        await DisplayAlert("Plot", "A pin can be placed on the map by either pressing on the map at the location ou want or by pressing on the pin here button to place a pin at your location.", "Next");
+                        await DisplayAlert("Plot", "If you tap on the pin of a plot that already exists, you can then place pins that mark out the border of the plot.", "Next");
+                        Application.Current.Properties["Tutplot"] = false;
+                    }
+                    else
+                    {
+                        Application.Current.Properties["Tutplot"] = false;
+                    }
+                });
+            }
             StartMap(true);
             PolyMap();
         }

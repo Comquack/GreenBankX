@@ -85,6 +85,18 @@
                     Grid.Row="7"
                     Clicked="ChangeLang"/>
 
+                    <Button
+                    x:Name="Tute"
+                   Text="Tutorial"
+                   VerticalOptions="Center"
+                   IsVisible="true"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                    BackgroundColor="LightGray"
+                   TextColor="Green"
+                    Grid.Column="1"
+                    Grid.Row="8"
+                    Clicked="Tute_Clicked"/>
                     <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="60*" />

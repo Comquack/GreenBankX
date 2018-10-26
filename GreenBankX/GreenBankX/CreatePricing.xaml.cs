@@ -25,6 +25,7 @@ namespace GreenBankX
             InitializeComponent ();
             selector = -10;
             Change.IsVisible = false;
+ 
             if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count() == 0)
             {
                 Name.IsVisible = true;
@@ -32,6 +33,7 @@ namespace GreenBankX
                 AddName.IsVisible = true;
                 AddNew.IsVisible = false;
                 maxDiam.IsVisible = false;
+                minDiam.IsVisible = false;
                 price.IsVisible = false;
                 AddPrice.IsVisible = false;
             }
@@ -41,12 +43,35 @@ namespace GreenBankX
                 AddName.IsVisible = false;
                 AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
+                minDiam.IsVisible = true;
                 price.IsVisible = true;
                 AddPrice.IsVisible = true;
             }
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+            }
+            
+        }
+
+        public void DunLLoadin() {
+            if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutprice"])
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool res = await DisplayAlert("Pricing", "This page allows you to create price schemes for your logs", "Continue", "Skip");
+                    if (res)
+                    {
+                        await DisplayAlert("Prices", "A pricing scheme consists of a name a log length and price brackets.", "Next");
+                        await DisplayAlert("Prices", "Any logs smaller than the smallest bracket are worth nothing, any logs larger than the largest bracket will be priced the same as logs in the highest bracket.", "Next");
+                        await DisplayAlert("Prices", "If a price bracket is deleted, the bracket before it will expand to fill the gap.", "Next");
+                        Application.Current.Properties["Tutprice"] = false;
+                    }
+                    else
+                    {
+                        Application.Current.Properties["Tutprice"] = false;
+                    }
+                });
             }
         }
         public void AddPriceName() {
@@ -76,8 +101,10 @@ namespace GreenBankX
                 AddName.IsVisible = false;
                 AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
+                minDiam.IsVisible = true;
                 price.IsVisible = true;
                 AddPrice.IsVisible = true;
+                SaveAll.GetInstance().SavePricing();
 
             }
             else if (Name.Text == null || Name.Text == "")
@@ -116,8 +143,15 @@ namespace GreenBankX
                 SortedList<double, double> brack = ThisPrice.GetBrack();
                 for (int x = 0; x < brack.Count(); x++)
                 {
-                    ArrayList.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("minimumdiameter") + ": " + brack.ElementAt(x).Key + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
-                }
+                    if (x == brack.Count() - 1)
+                    {
+                        ArrayList.Add(brack.ElementAt(x).Key + "(cm) and larger" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
+                    }
+                    else
+                    {
+                        ArrayList.Add(brack.ElementAt(x).Key + "(cm) to" +  brack.ElementAt(x+1).Key+"(cm)" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
+                    }
+                    }
                 NameOfPrices.Text =AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
                 PriceArray = ArrayList.ToArray();
                 PriceList.ItemsSource = PriceArray;
@@ -126,8 +160,8 @@ namespace GreenBankX
         }
         private void AddPrice_Clicked(object sender, EventArgs e)
         {
-            if (selector>-1 && maxDiam.Text != null && price.Text != null && double.Parse(maxDiam.Text) > 0 && double.Parse(price.Text) > 0) {
-                if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(double.Parse(maxDiam.Text), double.Parse(price.Text)))
+            if (selector>-1 && minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0) {
+                if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(double.Parse(minDiam.Text), double.Parse(price.Text)))
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -136,11 +170,13 @@ namespace GreenBankX
                 }
                 else {
                     PopList(selector);
+                    minDiam.Text = maxDiam.Text;
                     maxDiam.Text = null;
                     price.Text = null;
+                    SaveAll.GetInstance().SavePricing();
                 };
 
-            } else if (maxDiam.Text == null || double.Parse(maxDiam.Text)<= 0)
+            } else if (minDiam.Text == null || double.Parse(minDiam.Text)<= 0||(maxDiam.Text != null&& double.Parse(minDiam.Text)> double.Parse(maxDiam.Text)))
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -161,6 +197,7 @@ namespace GreenBankX
             AddName.IsVisible = true;
             AddNew.IsVisible = false;
             maxDiam.IsVisible = false;
+            minDiam.IsVisible = true;
             price.IsVisible = false;
         }
         public async Task DelPrice()
@@ -187,6 +224,7 @@ namespace GreenBankX
                 AddName.IsVisible = false;
                 AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
+                minDiam.IsVisible = true;
                 price.IsVisible = true;
                 AddPrice.IsVisible = true;
                 //SavePrice();
@@ -195,8 +233,13 @@ namespace GreenBankX
             await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
             
         }
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            DunLLoadin();
+        }
         void SaveTest() {
-            SaveAll.GetInstance().SavePricing();
+            
         }
 
         private void PriceList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -207,7 +250,7 @@ namespace GreenBankX
             for (int x = 0; x < PriceArray.Length; x++) {
                 if (PriceArray.Cast<string>().ToList().ElementAt(x)== name) {
                     select2 = x;
-                    maxDiam.Text =((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Key.ToString();
+                    minDiam.Text =((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Key.ToString();
                     price.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Value.ToString();
                 }
             }
@@ -217,12 +260,12 @@ namespace GreenBankX
         {
             if (select2 > -1)
             {
-                if (selector > -1 && maxDiam.Text != null && price.Text != null && double.Parse(maxDiam.Text) > 0 && double.Parse(price.Text) > 0)
+                if (selector > -1 && minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0)
                 {
                    double key = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().ElementAt(select2).Key;
                     double value = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().ElementAt(select2).Value;
                     ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().RemoveAt(select2);
-                    if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(double.Parse(maxDiam.Text), double.Parse(price.Text)))
+                    if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(double.Parse(minDiam.Text), double.Parse(price.Text)))
                     {
                         try {
                             ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(key, value);
@@ -240,7 +283,7 @@ namespace GreenBankX
                     };
 
                 }
-                else if (maxDiam.Text == null || double.Parse(maxDiam.Text) <= 0)
+                else if (minDiam.Text == null || double.Parse(minDiam.Text) <= 0)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -254,6 +297,30 @@ namespace GreenBankX
                         DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), "OK");
                     });
                 }
+            }
+        }
+
+        private void Len_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
+            {
+                Len.Text = e.OldTextValue;
+            }
+
+        }
+
+        private void maxDiam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                maxDiam.Text = e.OldTextValue;
+            }
+        }
+        private void minDiam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                minDiam.Text = e.OldTextValue;
             }
         }
     }

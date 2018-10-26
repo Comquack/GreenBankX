@@ -349,6 +349,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to maximum diameter(cm).
+        /// </summary>
+        public static string maxdiameter {
+            get {
+                return ResourceManager.GetString("maxdiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mean diameter:.
         /// </summary>
         public static string MeanD {
