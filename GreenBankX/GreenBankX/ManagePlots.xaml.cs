@@ -79,6 +79,23 @@ namespace GreenBankX
         }
         //activates when index for tree picker is changed
         public void SelectTree() {
+            if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutmanage2"]&& (bool)Application.Current.Properties["Tutdt"])
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool res = await DisplayAlert("Tree information", "This page shows you information about the selected tree.", "Continue", "Skip");
+                    if (res)
+                    {
+                        await DisplayAlert("Tree information", "The \"Earlier\" and \"Later\" buttons change the data to the previous/next measurement that was made for that tree. The add measurement button allows you to add new measurement data for the tree.", "Next");
+                        await DisplayAlert("Tree information", "The first page show for a tree is always the most recent measurement.", "Next");
+                        Application.Current.Properties["Tutdt"] = false;
+                    }
+                    else
+                    {
+                        Application.Current.Properties["Tutdt"] = false;
+                    }
+                });
+            }
             ShowGraph.SelectedIndex=-1;
             Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
             List<Tree> TreeList = ThisPlot.getTrees();
@@ -103,6 +120,29 @@ namespace GreenBankX
             ToolDeleteTree.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DeleteTree");
             AddMes.IsVisible = true;
             
+        }
+
+        public void DunLLoadin()
+        {
+            if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutmanage"])
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool res = await DisplayAlert("Manage Plots", "This page allows you to manage the plots you have created.", "Continue", "Skip");
+                    if (res)
+                    {
+                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot. The  plot can be added to by pressing the add to plot button, or by going to the measure trees page", "Next");
+                        await DisplayAlert("View Trees", "If you tapp a tree in the list twice, you will be shown additional details.", "Next");
+                        await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.", "Next");
+                        Application.Current.Properties["Tutmanage"] = false;
+                        Application.Current.Properties["Tutmanage2"] = true;
+                    }
+                    else
+                    {
+                        Application.Current.Properties["Tutmanage"] = false;
+                    }
+                });
+            }
         }
 
         public async void DelPlot() {
@@ -761,7 +801,8 @@ namespace GreenBankX
 
         protected override void  OnAppearing() {
             base.OnAppearing();
-             GraphNo = -1;
+            DunLLoadin();
+            GraphNo = -1;
              Listhadler = -1;
              doubletap = null;
             pickTree.IsVisible = false;

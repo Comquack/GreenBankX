@@ -88,7 +88,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Pricing scheme.
+        ///   Looks up a localized string similar to Add pricing scheme.
         /// </summary>
         public static string AddPricing {
             get {
@@ -340,7 +340,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manage lots.
+        ///   Looks up a localized string similar to Manage Plots.
         /// </summary>
         public static string ManagePlots {
             get {
@@ -556,7 +556,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show a graph.
+        ///   Looks up a localized string similar to Plot data.
         /// </summary>
         public static string ShowGraph {
             get {

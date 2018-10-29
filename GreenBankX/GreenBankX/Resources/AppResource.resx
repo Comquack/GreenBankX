@@ -157,7 +157,7 @@
     <value>Later</value>
   </data>
   <data name="ManagePlots" xml:space="preserve">
-    <value>Manage lots</value>
+    <value>Manage Plots</value>
   </data>
   <data name="MeasureTree" xml:space="preserve">
     <value>Measure tree</value>
@@ -196,7 +196,7 @@
     <value>Tree ID</value>
   </data>
   <data name="AddPricing" xml:space="preserve">
-    <value>Add Pricing scheme</value>
+    <value>Add pricing scheme</value>
   </data>
   <data name="DiaInvalid" xml:space="preserve">
     <value>Diameter is invalid</value>
@@ -223,7 +223,7 @@
     <value>Size already exists</value>
   </data>
   <data name="ShowGraph" xml:space="preserve">
-    <value>Show a graph</value>
+    <value>Plot data</value>
   </data>
   <data name="LogClass" xml:space="preserve">
     <value>Log class</value>
