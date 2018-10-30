@@ -461,9 +461,30 @@ namespace GreenBankX
             // averages and data by log class
            else if (ShowGraph.SelectedIndex == 1 || ShowGraph.SelectedIndex == 2)
             {
+
                 
                 ObservableCollection<DetailsGraph> Detail = new ObservableCollection<DetailsGraph>();
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+                if (ThisPlot.getTrees().Count<=0)
+                {
+                    
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await DisplayAlert("Plot has no trees", "This plot contains no trees.", "OK");
+                            return;
+                        });
+                    
+                }
+                if (ThisPlot.GetRange() == null)
+                {
+
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await DisplayAlert("Plot has no prices", "This plot does not have a set price scheme.", "OK");
+                        return;
+                    });
+
+                }
                 PriceRange thisRange = ThisPlot.GetRange();
                 Calculator Calc = new Calculator();
                 Calc.SetPrices(thisRange);

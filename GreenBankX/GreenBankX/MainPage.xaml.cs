@@ -21,6 +21,7 @@ namespace GreenBankX
             Application.Current.Properties["Tutorial"] = false;
             Application.Current.Properties["Tutmen"] = true;
             Application.Current.Properties["Tutprice"] = true;
+            Application.Current.Properties["Tutmes"] = true;
             Application.Current.Properties["Tutplot"] = true;
             Application.Current.Properties["Tutmanage"] = true;
             Application.Current.Properties["Tutmanage2"] = false;

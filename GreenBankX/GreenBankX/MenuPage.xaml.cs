@@ -49,6 +49,10 @@ namespace GreenBankX
         }
         public void Signot()
         {
+            if (Toolout.Text == "")
+            {
+                return;
+            }
             DependencyService.Get<ILogin>().SignOut();
             try
             {
@@ -62,6 +66,10 @@ namespace GreenBankX
         }
         void Driv3r()
         {
+            if (ToolDrive.Text == "")
+            {
+                return;
+            }
             string nu = DependencyService.Get<ILogin>().UseDrive(-1);
 
         }
@@ -69,6 +77,10 @@ namespace GreenBankX
         {
             string clientId = null;
             string redirectUri = null;
+            if (ToolIn.Text == "")
+            {
+                return;
+            }
 
             switch (Device.RuntimePlatform)
             {
@@ -140,6 +152,9 @@ namespace GreenBankX
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
+            if (ToolDown.Text == "") {
+                return;
+            }
             var nu = DependencyService.Get<ILogin>().Download(-1);
         }
 

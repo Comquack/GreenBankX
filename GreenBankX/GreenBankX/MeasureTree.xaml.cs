@@ -34,7 +34,7 @@ namespace GreenBankX
             {
                 ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
-                double[,] result = calc.Calcs(double.Parse(girth.Text), double.Parse(height.Text));
+                double[,] result = calc.Calcs(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text));
                 string resText0 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogClass") + "\n";
                 string resText1 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "\n";
                 string resText2 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Volume") + "\n";
@@ -74,7 +74,26 @@ namespace GreenBankX
                 });
             }
         }
-
+        public void DunLLoadin()
+        {
+            if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutmes"])
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool res = await DisplayAlert("Measure trees", "This page allows you to input the measurements of trees and add them to your plots.", "Continue", "Skip");
+                    if (res)
+                    {
+                        await DisplayAlert("Measure trees", "If a pricing scheme is selected,  the measure button will show you how many logs the tree will produce and their worth.", "Next");
+                        Application.Current.Properties["Tutmes"] = false;
+                        
+                    }
+                    else
+                    {
+                        Application.Current.Properties["Tutmes"] = false;
+                    }
+                });
+            }
+        }
         public void RunAdd() {
             if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1) {
                 int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
@@ -87,11 +106,11 @@ namespace GreenBankX
                 }
                 else if (DateMes.Date == null)
                 {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateTime.Now));
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI:1)), (double.Parse(height.Text)), ID, DateTime.Now));
                     SaveAll.GetInstance().SaveTrees2();
                 }
                 else {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text)), (double.Parse(height.Text)), ID, DateMes.Date));
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI:1)), (double.Parse(height.Text)), ID, DateMes.Date));
                     SaveAll.GetInstance().SaveTrees2();
                 }
             }
@@ -106,6 +125,7 @@ namespace GreenBankX
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            DunLLoadin();
             pickPrice.Items.Clear();
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
@@ -141,6 +161,24 @@ namespace GreenBankX
             if (e.NewTextValue !=null&& e.NewTextValue !=""&& ( double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
             {
                 girth.Text = e.OldTextValue;
+            }
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                girth.Placeholder = "DBH (cm)";
+                if(girth.Text != null) {
+                girth.Text =(Math.Round(double.Parse(girth.Text)/Math.PI,3)).ToString();
+                }
+            }
+            else {
+                girth.Placeholder = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth");
+                if (girth.Text != null)
+                {
+                    girth.Text = (Math.Round(double.Parse(girth.Text) * Math.PI,3)).ToString();
+                }
             }
         }
     }

@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <ScrollView>
         <StackLayout>
-            
+
                 <Entry  
                 x:Name="girth"
                    TextColor="Black"
@@ -14,7 +14,15 @@
                    Placeholder="{local:TranslateExtension Girth}"
                     TextChanged="girth_TextChanged"
 				/>
-            <Entry 
+                <Label
+                    Text="Girth/DBH"
+                        Grid.Column="0"/>
+                <Switch
+                    x:Name="GirthDBH"
+                    Grid.Column="1"
+                    Toggled="Switch_Toggled"
+                    />
+                <Entry 
                 x:Name="height"
                    TextColor="Black"
                     Keyboard="Numeric"

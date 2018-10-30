@@ -8,7 +8,6 @@
         <ToolbarItem x:Name="ToolDelete" Order="Primary"  Text="" Priority="0" Clicked="DelPlot"/>
         <ToolbarItem x:Name="ToolDeleteTree" Order="Primary"  Text="" Priority="2" Clicked="DelTree"/>
         <ToolbarItem x:Name="ToolPricing" Order="Primary"  Text="Change Pricing" Priority="4" Clicked="ChangePricing"/>
-        <ToolbarItem x:Name="ToolSave" Order="Secondary"  Text="{local:TranslateExtension Save}" Priority="4" Clicked="Save"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
