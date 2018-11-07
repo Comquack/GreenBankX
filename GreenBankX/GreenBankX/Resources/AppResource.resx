@@ -318,4 +318,40 @@
   <data name="maxdiameter" xml:space="preserve">
     <value>maximum diameter(cm)</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="TuteMenu0" xml:space="preserve">
+    <value>Hello, welcome to the Greenbank, tutorial. As you continue through the app, tutorials will pop up to help you.</value>
+  </data>
+  <data name="TuteMenu1" xml:space="preserve">
+    <value>At the top of this page is the Sign in button. This will allow you to sign in to your Google account, once this is done you can upload your files to Google Drive and download them to any other device.</value>
+  </data>
+  <data name="TutePlot0" xml:space="preserve">
+    <value>This page allows you to mark the location of your plots</value>
+  </data>
+  <data name="TutePlot1" xml:space="preserve">
+    <value>A pin can be placed on the map by either pressing on the map at the location you want or by pressing on the pin here button to place a pin at your location. Deleting plots can be done on the Manage Plots Page.</value>
+  </data>
+  <data name="TutePlot2" xml:space="preserve">
+    <value>If you tap on the pin of a plot that already exists, you can then place pins that mark out the border of the plot.</value>
+  </data>
+  <data name="TutePrice0" xml:space="preserve">
+    <value>This page allows you to create price schemes for your logs</value>
+  </data>
+  <data name="TutePrice1" xml:space="preserve">
+    <value>A pricing scheme consists of a name a log length and price brackets.</value>
+  </data>
+  <data name="TutePrice2" xml:space="preserve">
+    <value>Any logs smaller than the smallest bracket are worth nothing, any logs larger than the largest bracket will be priced the same as logs in the highest bracket.</value>
+  </data>
+  <data name="TutePrice3" xml:space="preserve">
+    <value>If a price bracket is deleted, the bracket before it will expand to fill the gap.</value>
+  </data>
 </root>

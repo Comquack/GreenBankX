@@ -5,7 +5,7 @@
              x:Class="GreenBankX.MeasureTree">
     <ContentPage.Content>
         <ScrollView>
-        <StackLayout>
+            <StackLayout>
 
                 <Entry  
                 x:Name="girth"
@@ -28,23 +28,23 @@
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension MerchHeight}"
                 TextChanged="height_TextChanged"/>
-            <DatePicker
+                <DatePicker
             x:Name="DateMes" 
             />
-            <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
+                <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                     SelectedIndexChanged="pickPrice_SelectedIndexChanged">
-                <Picker.Items>
-                </Picker.Items>
-            </Picker>
-            <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
+                    <Picker.Items>
+                    </Picker.Items>
+                </Picker>
+                <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
                         TextColor="Black"
                     SelectedIndexChanged="pickPlot_SelectedIndexChanged">
-                <Picker.Items>
-                </Picker.Items>
-            </Picker>
+                    <Picker.Items>
+                    </Picker.Items>
+                </Picker>
 
-            <Button
+                <Button
                 x:Name="Estimate"
                Text="Measure"
                VerticalOptions="Center"
@@ -56,7 +56,7 @@
                 Grid.Column="1"
                 Grid.Row="4"
                 Clicked="RunCalc"/>
-            <Button
+                <Button
                 x:Name="Add"
                Text="{local:TranslateExtension AddtoPlot}"
                VerticalOptions="Center"
@@ -68,63 +68,58 @@
                 Grid.Column="1"
                 Grid.Row="4"
                 Clicked="RunAdd"/>
-            <ListView
+                <ListView
                     IsVisible="false"
                 x:Name="LogList"
                     Grid.Row="1"
                     Grid.ColumnSpan="3">
-                <ListView.Header>
-                    <Grid>
+                    <ListView.Header>
+                        <Grid>
 
-                        <Label
+                            <Label
                                 Text="{local:TranslateExtension LogClass}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                        <Label
+                            <Label
                                 Text="{local:TranslateExtension TotalVol}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                        <Label
+                            <Label
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                    </Grid>
-                </ListView.Header>
-                <ListView.ItemsSource>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
 
-                    <x:Array Type="{x:Type x:String}"
+                        <x:Array Type="{x:Type x:String}"
                             >
-                    </x:Array>
-                </ListView.ItemsSource>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid>
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
 
-                                <Label
+                                    <Label
                                 Text="{Binding label}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                                <Label
+                                    <Label
                                 Text="{Binding volume}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                                <Label
+                                    <Label
                                 Text="{Binding price}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                            </Grid>
+                                </Grid>
 
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
-        <ContentPage.BackgroundColor>
-        <Color>
-            #66ff99
-        </Color>
-    </ContentPage.BackgroundColor>
 </ContentPage>

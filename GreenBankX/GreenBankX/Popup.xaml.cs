@@ -9,12 +9,14 @@ using System.Xml.Linq;
 using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace GreenBankX
 {
     public partial class Popup : Rg.Plugins.Popup.Pages.PopupPage
     {
+        Geocoder Geoco;
         Plot NextPlot;
         public static Popup instance = new Popup();
         public static Popup GetInstance()
@@ -29,19 +31,39 @@ namespace GreenBankX
         private Popup()
         {
             InitializeComponent();
-            for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
+            if (Application.Current.Properties["ThisLocation"] == null)
+            {
+                Latent.IsVisible = true;
+                Longent.IsVisible = true;
+            }
+                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
             }
             pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
+
+
+
         }
         public async void Done()
         {
             if (PlotName.Text != null && int.Parse(PlotYear.Text) <= DateTime.Now.Year)
             {
-                double[] geo = (double[])Application.Current.Properties["ThisLocation"];
+                double[] geo;
+                if (Application.Current.Properties["ThisLocation"] == null && Latent.Text != null && Longent.Text != null)
+                {
+                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                }
+                else if (Application.Current.Properties["ThisLocation"] != null)
+                {
+                    geo = (double[])Application.Current.Properties["ThisLocation"];
+                }
+                else { return; }
                 NextPlot = new Plot(PlotName.Text);
                 NextPlot.SetTag(geo);
+                NextPlot.Describe = Comments.Text;
+                NextPlot.NearestTown = Location.Text;
+                NextPlot.Owner = Owner.Text;
                 if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
                 {
                     NextPlot.SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
@@ -61,12 +83,6 @@ namespace GreenBankX
                         return;
                     }
                 }
-                string api = "AIzaSyB7X3Ro62OQEySQtwQ5MInuwej0cVCaGAM";
-               // string lat = geo[0].ToString();
-               // string lng = geo[1].ToString();
-               // string baseurl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={0},{1}&key={2}";
-               // string requestUri = string.Format(baseurl, lat, lng, api);
-
                 ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
                 MessagingCenter.Send<Popup>(this, "Add");
                 SaveAll.GetInstance().SavePlots();
@@ -163,6 +179,50 @@ namespace GreenBankX
             {
                 await Navigation.PushAsync(new CreatePricing());
                 return;
+            }
+        }
+
+        private async void Expand_Clicked(object sender, EventArgs e)
+        {
+            double[] geo;
+            bool X = Expand.Text == "Less Details";
+            pickPrice.IsVisible = !X;
+            Location.IsVisible = !X;
+            Owner.IsVisible = !X;
+            Comments.IsVisible = !X;
+            Expand.Text = X? "Add More Detail" :"Less Details";
+            if (!X) {
+                if (Application.Current.Properties["ThisLocation"] != null)
+                {     
+                    geo = (double[])Application.Current.Properties["ThisLocation"];
+                    Geoco = new Geocoder();
+                    var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                    Location.Text = answ.First();
+                }
+                else if (Latent.Text != null && Longent.Text != null) {
+                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                    Geoco = new Geocoder();
+                    var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                    Location.Text = answ.First();
+                }  
+            }
+            if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {
+                Owner.Text = (string)Xamarin.Forms.Application.Current.Properties["First"] + " " + (string)Xamarin.Forms.Application.Current.Properties["Last"];
+            }
+        }
+
+        private void Latent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
+            {
+                Latent.Text = e.OldTextValue;
+            }
+        }
+        private void Longent_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= 0))
+            {
+                Longent.Text = e.OldTextValue;
             }
         }
     }

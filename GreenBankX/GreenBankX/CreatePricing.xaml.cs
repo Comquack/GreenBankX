@@ -59,12 +59,12 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Pricing", "This page allows you to create price schemes for your logs", "Continue", "Skip");
+                    bool res = await DisplayAlert("Pricing", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice0"), "Continue", "Skip");
                     if (res)
                     {
-                        await DisplayAlert("Prices", "A pricing scheme consists of a name a log length and price brackets.", "Next");
-                        await DisplayAlert("Prices", "Any logs smaller than the smallest bracket are worth nothing, any logs larger than the largest bracket will be priced the same as logs in the highest bracket.", "Next");
-                        await DisplayAlert("Prices", "If a price bracket is deleted, the bracket before it will expand to fill the gap.", "Next");
+                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice1"), "Next");
+                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice2"), "Next");
+                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice3"), "Next");
                         Application.Current.Properties["Tutprice"] = false;
                     }
                     else
@@ -131,6 +131,12 @@ namespace GreenBankX
                 selector = pickPrice.SelectedIndex;
                 PopList(selector);
                 AddPrice.IsVisible = true;
+                AddName.IsVisible = false;
+                Name.IsVisible = false;
+                Len.IsVisible = false;
+                minDiam.IsVisible = true;
+                maxDiam.IsVisible = true;
+
             }
         }
 
@@ -197,7 +203,7 @@ namespace GreenBankX
             AddName.IsVisible = true;
             AddNew.IsVisible = false;
             maxDiam.IsVisible = false;
-            minDiam.IsVisible = true;
+            minDiam.IsVisible = false;
             price.IsVisible = false;
         }
         public async Task DelPrice()
@@ -223,11 +229,11 @@ namespace GreenBankX
                 Len.IsVisible = false;
                 AddName.IsVisible = false;
                 AddNew.IsVisible = true;
-                maxDiam.IsVisible = true;
-                minDiam.IsVisible = true;
+                maxDiam.IsVisible = false;
+                minDiam.IsVisible = false;
                 price.IsVisible = true;
-                AddPrice.IsVisible = true;
-                //SavePrice();
+                AddPrice.IsVisible = false;
+                SaveAll.GetInstance().SavePricing();
 
             });
             await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -269,6 +275,8 @@ namespace GreenBankX
                     {
                         try {
                             ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(key, value);
+                            SaveAll.GetInstance().SavePricing();
+
                         } catch { }
                         Device.BeginInvokeOnMainThread(() =>
                         {

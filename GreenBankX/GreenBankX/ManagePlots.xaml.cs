@@ -47,8 +47,18 @@ namespace GreenBankX
 
                 AddMes.IsVisible = false;
                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2";
-
+                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2\n";
+                if (ThisPlot.Owner != null&& ThisPlot.Owner != "") {
+                    trees +="Owner: " + ThisPlot.Owner+" ";
+                }
+                if (ThisPlot.NearestTown != null&& ThisPlot.NearestTown != "")
+                {
+                    trees += "Location: " + ThisPlot.NearestTown + " ";
+                }
+                if (ThisPlot.Describe != null && ThisPlot.Describe != "")
+                {
+                    trees += "Comments: " + ThisPlot.Describe + " ";
+                }
                 List <Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;
                 pickTree.Items.Clear();
@@ -136,6 +146,7 @@ namespace GreenBankX
                         await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.", "Next");
                         Application.Current.Properties["Tutmanage"] = false;
                         Application.Current.Properties["Tutmanage2"] = true;
+                        Application.Current.Properties["TLogs"] = true;
                     }
                     else
                     {
@@ -544,6 +555,14 @@ namespace GreenBankX
                 // data by log class
                 if (ShowGraph.SelectedIndex == 1)
                 {
+                    if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["TLogs"])
+                    {
+                        Device.BeginInvokeOnMainThread(async () =>
+                        {
+                            await DisplayAlert("Logs", "This page shows you data about the logs produced by this plot. Double tapping a log size will show a list of every log in that catagory and which tree it would come from.", "Continue");
+                        });
+                        Application.Current.Properties["TLogs"] = false;
+                    }
                     Listhadler = 1;
                     for (int x = 0; x < thisRange.GetBrack().Count + 1; x++)
                     {

@@ -15,11 +15,10 @@
                 IsShowingUser="True"
                  MapType="Street"
                 MapLongPress="PlacePin"
-                IsClusteringEnabled="True"
+                IsClusteringEnabled="false"
                 Grid.Row="0"
                 MapReady="MapReady"
-                PinSelected="MyMap_PinSelected"
-                    
+                PinSelected="MyMap_PinSelected"    
                 />
                 <Button
                    x:Name="AddPlot"

@@ -55,6 +55,7 @@ namespace GreenBankX.Droid
             OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             TKGoogleMaps.Init(this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle);
             GoogleInfo.GetInstance(this);
             GoogleInfo.GetInstance().SignInApi = mGoogleApiClient;
             LoadApplication(new App());

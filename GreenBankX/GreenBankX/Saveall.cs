@@ -102,14 +102,9 @@ namespace GreenBankX
                         worksheet.SetValue(1, 1, "Name");
                         worksheet.SetValue(2, 1, "Co-ordinates");
                     worksheet.SetValue(1, 4, "Owner");
-                    worksheet.SetValue(2, 4, "Nearest Town");
+                    worksheet.SetValue(2, 4, "Location");
                     worksheet.SetValue(3, 4, "Year Planted");
-
-                    try { worksheet.SetValue(1, 5, Xamarin.Forms.DependencyService.Get<ILogin>().AccountName()); }
-                    catch
-                    {
-                        worksheet.SetValue(1, 5, "Failure");
-                    }
+                    worksheet.SetValue(4, 4, "Comments");
                     if (thisPlot.Owner != null) {
                         worksheet.SetValue(1, 5, thisPlot.Owner);
                     }
@@ -117,7 +112,11 @@ namespace GreenBankX
                     {
                         worksheet.SetValue(2, 5, thisPlot.NearestTown);
                     }
-                        worksheet.SetValue(3, 5, thisPlot.YearPlanted.ToString());
+                    if (thisPlot.Describe != null)
+                    {
+                        worksheet.SetValue(4, 5, thisPlot.Describe);
+                    }
+                    worksheet.SetValue(3, 5, thisPlot.YearPlanted.ToString());
                     worksheet.SetValue(1, 2, thisPlot.GetName());
                         worksheet.SetValue(2, 2, thisPlot.GetTag()[0].ToString());
                         worksheet.SetValue(2, 3, thisPlot.GetTag()[1].ToString());
@@ -330,6 +329,11 @@ namespace GreenBankX
 
                         Plot newPlot = new Plot(name);
                         newPlot.SetTag(geotag);
+                        newPlot.Owner = sheet.GetValueRowCol(1, 5).ToString();
+                        try { newPlot.YearPlanted = int.Parse(sheet.GetValueRowCol(3, 5).ToString()); } catch { };
+                        newPlot.NearestTown = sheet.GetValueRowCol(2, 5).ToString();
+                        newPlot.Owner = sheet.GetValueRowCol(1, 5).ToString();
+                        newPlot.Describe = sheet.GetValueRowCol(4, 5).ToString();
                         for (int y = 0; y < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count; y++)
                         {
                             if (((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(y).GetName() == sheet.GetValueRowCol(3, 2).ToString())

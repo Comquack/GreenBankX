@@ -16,6 +16,7 @@ namespace GreenBankX
         PriceRange PlotPrice;
         public string Owner { get; set;}
         public int YearPlanted { get; set; }
+        public string Describe { get; set; }
         public string NearestTown { get; set; }
         public Plot(string name)
         {

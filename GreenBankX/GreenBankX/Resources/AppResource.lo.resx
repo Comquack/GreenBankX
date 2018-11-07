@@ -329,4 +329,25 @@
     <value>Change Pricing</value>
     <comment>Change the pricing sheme used for logs</comment>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="TuteMenu0" xml:space="preserve">
+    <value>Hello, welcome to the Greenbank, tutorial.</value>
+  </data>
+  <data name="TuteMenu1" xml:space="preserve">
+    <value>At the top of this page is the Sign in button. This will allow you to sign in to your Google account, once this is done you can upload your files to Google Drive and download them to any other device.</value>
+  </data>
+  <data name="TutePrice0" xml:space="preserve">
+    <value>This page allows you to create price schemes for your logs</value>
+  </data>
+  <data name="TutePrice1" xml:space="preserve">
+    <value>A pricing scheme consists of a name a log length and price brackets.</value>
+  </data>
 </root>

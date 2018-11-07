@@ -26,6 +26,7 @@ namespace GreenBankX
             Application.Current.Properties["Tutmanage"] = true;
             Application.Current.Properties["Tutmanage2"] = false;
             Application.Current.Properties["Tutdt"] = true;
+            Application.Current.Properties["TLogs"] = false;
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
             store = AccountStore.Create();

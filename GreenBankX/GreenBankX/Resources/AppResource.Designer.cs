@@ -151,6 +151,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Plot.
         /// </summary>
         public static string CreatePlot {
@@ -457,6 +466,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of trees.
         /// </summary>
         public static string NumberTrees {
@@ -592,6 +610,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        public static string Skip {
+            get {
+                return ResourceManager.GetString("Skip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Too small.
         /// </summary>
         public static string TooSmall {
@@ -633,6 +660,87 @@ namespace GreenBankX.Resources {
         public static string TreeID {
             get {
                 return ResourceManager.GetString("TreeID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello, welcome to the Greenbank, tutorial. As you continue through the app, tutorials will pop up to help you..
+        /// </summary>
+        public static string TuteMenu0 {
+            get {
+                return ResourceManager.GetString("TuteMenu0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At the top of this page is the Sign in button. This will allow you to sign in to your Google account, once this is done you can upload your files to Google Drive and download them to any other device..
+        /// </summary>
+        public static string TuteMenu1 {
+            get {
+                return ResourceManager.GetString("TuteMenu1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This page allows you to mark the location of your plots.
+        /// </summary>
+        public static string TutePlot0 {
+            get {
+                return ResourceManager.GetString("TutePlot0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A pin can be placed on the map by either pressing on the map at the location you want or by pressing on the pin here button to place a pin at your location. Deleting plots can be done on the Manage Plots Page..
+        /// </summary>
+        public static string TutePlot1 {
+            get {
+                return ResourceManager.GetString("TutePlot1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you tap on the pin of a plot that already exists, you can then place pins that mark out the border of the plot..
+        /// </summary>
+        public static string TutePlot2 {
+            get {
+                return ResourceManager.GetString("TutePlot2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This page allows you to create price schemes for your logs.
+        /// </summary>
+        public static string TutePrice0 {
+            get {
+                return ResourceManager.GetString("TutePrice0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A pricing scheme consists of a name a log length and price brackets..
+        /// </summary>
+        public static string TutePrice1 {
+            get {
+                return ResourceManager.GetString("TutePrice1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any logs smaller than the smallest bracket are worth nothing, any logs larger than the largest bracket will be priced the same as logs in the highest bracket..
+        /// </summary>
+        public static string TutePrice2 {
+            get {
+                return ResourceManager.GetString("TutePrice2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If a price bracket is deleted, the bracket before it will expand to fill the gap..
+        /// </summary>
+        public static string TutePrice3 {
+            get {
+                return ResourceManager.GetString("TutePrice3", resourceCulture);
             }
         }
         

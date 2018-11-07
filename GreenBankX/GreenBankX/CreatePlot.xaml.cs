@@ -28,8 +28,9 @@ namespace GreenBankX
             }
         public async Task NewPlot() {
             //If setpoly not = -1 (pin selected) converts a set of placed pins into a polygon 
-           
-            if (setpoly > -1) {
+
+            if (setpoly > -1)
+            {
                 List<double> lat = new List<double>();
                 List<double> lon = new List<double>();
                 for (int x = 0; x < newpolygon.Count; x++)
@@ -38,24 +39,26 @@ namespace GreenBankX
                     lon.Add(newpolygon.ElementAt(x).Longitude);
                 }
                 Plot thisPLot = (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly));
-                if (thisPLot.GetTag()[0] > lat.Min() && thisPLot.GetTag()[1] > lon.Min() && thisPLot.GetTag()[0] < lat.Max() && thisPLot.GetTag()[1] < lon.Max()) {
+                if (thisPLot.GetTag()[0] > lat.Min() && thisPLot.GetTag()[1] > lon.Min() && thisPLot.GetTag()[0] < lat.Max() && thisPLot.GetTag()[1] < lon.Max())
+                {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(setpoly).AddPolygon(newpolygon);
                     SaveAll.GetInstance().SavePlots();
                 }
-                else {
+                else
+                {
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Apin"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Apin"), "OK");
                     });
                 }
-                
+
                 setpoly = -1;
                 StartMap(false);
                 PolyMap();
                 return;
             }
             // setpoly = -1 (no pin selected) adds placed pin into list of plots
-            if (!CanAdd)
+            else if (!CanAdd)
             {
                 double[] geo = new double[2];
                 Application.Current.Properties["ThisLocation"] = new double[2];
@@ -64,13 +67,23 @@ namespace GreenBankX
                 Application.Current.Properties["ThisLocation"] = geo;
                 MessagingCenter.Subscribe<Popup>(this, "Add", (sender) =>
                 {
-                CanAdd = true;
-                StartMap(false);
-                PolyMap();
+                    CanAdd = true;
+                    StartMap(false);
+                    PolyMap();
                     SaveAll.GetInstance().SavePlots();
                 });
-                    await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
-
+                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
+            }
+            else {
+                Application.Current.Properties["ThisLocation"] = null;
+                MessagingCenter.Subscribe<Popup>(this, "Add", (sender) =>
+                {
+                    CanAdd = true;
+                    StartMap(false);
+                    PolyMap();
+                    SaveAll.GetInstance().SavePlots();
+                });
+                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
             }
   
         }
@@ -122,11 +135,11 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Plot", "This page allows you to mark the location of your plots", "Continue", "Skip");
+                    bool res = await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot0"), "Continue", "Skip");
                     if (res)
                     {
-                        await DisplayAlert("Plot", "A pin can be placed on the map by either pressing on the map at the location ou want or by pressing on the pin here button to place a pin at your location.", "Next");
-                        await DisplayAlert("Plot", "If you tap on the pin of a plot that already exists, you can then place pins that mark out the border of the plot.", "Next");
+                        await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot1"), "Next");
+                        await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot2"), "Next");
                         Application.Current.Properties["Tutplot"] = false;
                     }
                     else
@@ -142,18 +155,7 @@ namespace GreenBankX
             //renders map, centres on user, creates pins from plots
             try
             {
-                if (first)
-                {
-                    var request = new GeolocationRequest(GeolocationAccuracy.High);
-                    var location = await Geolocation.GetLocationAsync(request);
-
-                    if (location != null)
-                    {
-                        MyMap.MoveToMapRegion(
-                            MapSpan.FromCenterAndRadius(
-                            new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
-                    }
-                }
+   
                 Pins = new List<TKCustomMapPin>();
                 int num = ((List<Plot>)Application.Current.Properties["Plots"]).Count();
                 for (int x=0; x < num; x++) {
@@ -169,6 +171,18 @@ namespace GreenBankX
                     });
                 }
                 MyMap.Pins = Pins;
+                if (first)
+                {
+                    var request = new GeolocationRequest(GeolocationAccuracy.High);
+                    var location = await Geolocation.GetLocationAsync(request);
+
+                    if (location != null)
+                    {
+                        MyMap.MoveToMapRegion(
+                            MapSpan.FromCenterAndRadius(
+                            new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
+                    }
+                }
             }
             catch
             {
@@ -180,10 +194,8 @@ namespace GreenBankX
         }
 
         private void MyMap_PinSelected(object sender, TKGenericEventArgs<TKCustomMapPin> e)
-        {
-            if (e.Value.Title == "TestPlot")
+        { if (e.Value.Title == "TestPlot")
             {
-
                 return;
             }
             else if ((e.Value.Title == "Area"))
@@ -202,10 +214,12 @@ namespace GreenBankX
                         if (setpoly > -1)
                         {
                             Cancel();
+                            return;
                         }
                         else
                         {  if (!CanAdd){
                                 Pins.RemoveAt(Pins.Count - 1);
+                                return;
                             }
                             CanAdd = true;
                             e.Value.DefaultPinColor = Color.Aqua;
@@ -242,21 +256,20 @@ namespace GreenBankX
         //unselects pin
         public void Cancel() {
             if (setpoly > -1) {
-                        MyMap.Pins.ElementAt(setpoly).DefaultPinColor = Color.Red;
+                        //MyMap.Pins.ElementAt(setpoly).DefaultPinColor = Color.Red;
                         setpoly = -1;
                         CancelButton.IsVisible = false;
                         newpolygon = new List<Position>();
                         StartMap(false);
                         PolyMap();
-                        
                         MyMap.SelectedPin = null;
                         return;
-
             }
+            setpoly = -1;
+            CanAdd = true;
             StartMap(false);
             PolyMap();
             CancelButton.IsVisible = false;
-            CancelButton.Text = "Add Plot";
         }
         public void SavePlots() {
             SaveAll.GetInstance().SavePlots();

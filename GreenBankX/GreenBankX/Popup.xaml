@@ -41,9 +41,22 @@
             BackgroundColor="LightSeaGreen"
             MaxLength="4"
             />
+        <Grid>
 
+            <Entry
+            x:Name="Latent"
+            Placeholder="Latitude"
+            IsVisible="False"
+                Grid.Column="0"
+                TextChanged="Latent_TextChanged"/>
+            <Entry
+            x:Name="Longent"
+            Placeholder="Longitude"
+            IsVisible="False"
+                Grid.Column="1"/>
+        </Grid>
 
-        <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
+            <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                 BackgroundColor="LightGray"
                 SelectedIndexChanged="pickPrice_SelectedIndexChanged"
@@ -52,6 +65,30 @@
             <Picker.Items>
             </Picker.Items>
         </Picker>
+
+        <Entry
+            x:Name="Location"
+            Placeholder="Nearest Town"
+            IsVisible="False"/>
+        <Entry
+            x:Name="Owner"
+            Placeholder="Owner's Name"
+            IsVisible="False"/>
+        <Entry
+            x:Name="Comments"
+            Placeholder="Other Comments"
+            IsVisible="False"/>
+        <Button
+                   x:Name="Expand"
+               Text="Add more details"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Expand_Clicked"
+                />
         <Button
                    x:Name="NamedPlot"
                Text="{local:TranslateExtension AddPlot}"

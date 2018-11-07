@@ -12,18 +12,18 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-            <Label
+                <Label
                     x:Name="boffo"
                     Text="{Binding DateTime}"
                 PropertyChanged="boffo_PropertyChanged"
                     HorizontalOptions="CenterAndExpand"
                 FontSize="Medium">
-            <Label.BindingContext>
-                    <local:ClockViewModel  />
-            </Label.BindingContext>
-            </Label>
-            <Grid>
-                <Button
+                    <Label.BindingContext>
+                        <local:ClockViewModel  />
+                    </Label.BindingContext>
+                </Label>
+                <Grid>
+                    <Button
                     x:Name="Bttn1"
                    Text="{local:TranslateExtension MeasureTree}"
                    VerticalOptions="Center"
@@ -60,7 +60,7 @@
                     Grid.Column="1"
                          Clicked="OpenManager"
                         Grid.Row="5"/>
-            <Button
+                    <Button
                 x:Name="Bttn4"
                Text="{local:TranslateExtension Pricings}"
                VerticalOptions="Center"
@@ -98,18 +98,12 @@
                     Grid.Row="8"
                     Clicked="Tute_Clicked"/>
                     <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="20*" />
-                    <ColumnDefinition Width="60*" />
-                    <ColumnDefinition Width="20*" />
-                </Grid.ColumnDefinitions>
-            </Grid>
+                        <ColumnDefinition Width="20*" />
+                        <ColumnDefinition Width="60*" />
+                        <ColumnDefinition Width="20*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
-    <ContentPage.BackgroundColor>
-        <Color>
-            #00cc00
-        </Color>
-    </ContentPage.BackgroundColor>
-
 </ContentPage>
