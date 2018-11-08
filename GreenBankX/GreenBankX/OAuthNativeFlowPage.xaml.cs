@@ -86,9 +86,14 @@ namespace GreenBankX
                     store.Delete(account, Constants.AppName);
                 }
 
-               // await store.SaveAsync(account = e.Account, Constants.AppName);
-                await DisplayAlert("Email address", user.Email, "OK");
-                Application.Current.Properties["Boff"] ="Hello " +user.GivenName+ " "+ user.FamilyName;
+                try { await store.SaveAsync(account = e.Account, Constants.AppName); }
+                catch{ await DisplayAlert("Email address", "keychain", "OK"); }
+                
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + user.Name + "! \nWelcome to GreenBank";
+                Xamarin.Forms.Application.Current.Properties["First"] = user.GivenName;
+                Xamarin.Forms.Application.Current.Properties["Last"] = user.FamilyName;
+                Xamarin.Forms.Application.Current.Properties["Signed"] = true;
+                Application.Current.Properties["Account"] = e.Account;
             }
         }
 

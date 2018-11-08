@@ -29,6 +29,7 @@ namespace GreenBankX
             Application.Current.Properties["TLogs"] = false;
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
+            Application.Current.Properties["Account"] = null;
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }

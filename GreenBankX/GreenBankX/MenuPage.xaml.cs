@@ -6,6 +6,7 @@ using System.ComponentModel;
 using GreenBankX.Resources;
 using System.Threading;
 using Rg.Plugins.Popup.Services;
+using Xamarin.Auth;
 
 namespace GreenBankX
 {
@@ -146,10 +147,20 @@ namespace GreenBankX
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
-            if (ToolDown.Text == "") {
-                return;
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    Account Iosacc = (Account)Application.Current.Properties["Account"];
+
+                    break;
+                case Device.Android:
+                    if (ToolDown.Text == "")
+                    {
+                        return;
+                    }
+                    var nu = DependencyService.Get<ILogin>().Download(-1);
+                    break;
             }
-            var nu = DependencyService.Get<ILogin>().Download(-1);
         }
 
         private void boffo_PropertyChanged(object sender, PropertyChangedEventArgs e)

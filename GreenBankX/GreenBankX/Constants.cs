@@ -25,5 +25,6 @@ namespace GreenBankX
         // Set these to reversed iOS/Android client ids, with :/oauth2redirect appended
         public static string iOSRedirectUrl = "com.googleusercontent.apps.263109938909-bts0mgt2859gv9btr2h9ep36fqtk31dh:/oauth2redirect";
         public static string AndroidRedirectUrl = "com.googleusercontent.apps.263109938909-v6r1cu813081jujunosjadmhc3nr67kk:/oauth2redirect";
+        internal static string iOSClientSecret;
     }
 }
