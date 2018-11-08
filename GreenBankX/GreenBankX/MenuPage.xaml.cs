@@ -89,20 +89,12 @@ namespace GreenBankX
                     redirectUri = Constants.iOSRedirectUrl;
                     try
                     {
-                        //var nu = DependencyService.Get<ILogin>().AccountName();
                         await Navigation.PushAsync(new OAuthNativeFlowPage());
 
                     }
                     catch
                     {
                         await Navigation.PushAsync(new OAuthNativeFlowPage());
-                        //bool wait = DependencyService.Get<ILogin>().SignIn();
-                        //try
-                        //{
-                        // var nu = DependencyService.Get<ILogin>().AccountName();
-
-                        // }
-                        // catch { }
 
                     }
                     break;

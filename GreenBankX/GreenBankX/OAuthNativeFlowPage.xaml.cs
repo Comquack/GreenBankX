@@ -86,8 +86,9 @@ namespace GreenBankX
                     store.Delete(account, Constants.AppName);
                 }
 
-                await store.SaveAsync(account = e.Account, Constants.AppName);
+               // await store.SaveAsync(account = e.Account, Constants.AppName);
                 await DisplayAlert("Email address", user.Email, "OK");
+                Application.Current.Properties["Boff"] ="Hello " +user.GivenName+ " "+ user.FamilyName;
             }
         }
 
