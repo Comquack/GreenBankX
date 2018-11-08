@@ -48,11 +48,14 @@
             Placeholder="Latitude"
             IsVisible="False"
                 Grid.Column="0"
+                Keyboard="Numeric"
                 TextChanged="Latent_TextChanged"/>
             <Entry
             x:Name="Longent"
             Placeholder="Longitude"
             IsVisible="False"
+                Keyboard="Numeric"
+                TextChanged="Longent_TextChanged"
                 Grid.Column="1"/>
         </Grid>
 

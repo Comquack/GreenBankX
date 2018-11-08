@@ -213,14 +213,18 @@ namespace GreenBankX
 
         private void Latent_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
+            double ans;
+            if (e.NewTextValue != null&&!double.TryParse(e.NewTextValue, out ans)) { }
+           else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
             {
                 Latent.Text = e.OldTextValue;
             }
         }
         private void Longent_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= 0))
+            double ans;
+            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
+            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= 0))
             {
                 Longent.Text = e.OldTextValue;
             }
