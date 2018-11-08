@@ -37,18 +37,29 @@ namespace GreenBankX.iOS
 
             return base.FinishedLaunching(app, options);
         }
-        // For iOS 9 or newer
+
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
-            var openUrlOptions = new UIApplicationOpenUrlOptions(options);
-            return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
-        }
+            // Convert NSUrl to Uri
+            var uri = new Uri(url.AbsoluteString);
 
-        // For iOS 8 and older
-        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
-        {
-            return SignIn.SharedInstance.HandleUrl(url, sourceApplication, annotation);
+            // Load redirectUrl page
+            AuthenticationState.Authenticator.OnPageLoading(uri);
+
+            return true;
         }
+        // For iOS 9 or newer
+        //public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        //{
+        //    var openUrlOptions = new UIApplicationOpenUrlOptions(options);
+        //    return SignIn.SharedInstance.HandleUrl(url, openUrlOptions.SourceApplication, openUrlOptions.Annotation);
+        //}
+
+        //// For iOS 8 and older
+        //public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        //{
+        //    return SignIn.SharedInstance.HandleUrl(url, sourceApplication, annotation);
+        //}
         public void DidSignIn(SignIn signIn, GoogleUser user, NSError error)
         {
             if (user != null && error == null) { }

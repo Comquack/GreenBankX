@@ -73,7 +73,7 @@ namespace GreenBankX
             string nu = DependencyService.Get<ILogin>().UseDrive(-1);
 
         }
-        void OnLoginTest()
+        async void OnLoginTest()
         {
             string clientId = null;
             string redirectUri = null;
@@ -89,18 +89,20 @@ namespace GreenBankX
                     redirectUri = Constants.iOSRedirectUrl;
                     try
                     {
-                        var nu = DependencyService.Get<ILogin>().AccountName();
+                        //var nu = DependencyService.Get<ILogin>().AccountName();
+                        await Navigation.PushAsync(new OAuthNativeFlowPage());
 
                     }
                     catch
                     {
-                        bool wait = DependencyService.Get<ILogin>().SignIn();
-                        try
-                        {
-                            var nu = DependencyService.Get<ILogin>().AccountName();
+                        await Navigation.PushAsync(new OAuthNativeFlowPage());
+                        //bool wait = DependencyService.Get<ILogin>().SignIn();
+                        //try
+                        //{
+                        // var nu = DependencyService.Get<ILogin>().AccountName();
 
-                        }
-                        catch { }
+                        // }
+                        // catch { }
 
                     }
                     break;
