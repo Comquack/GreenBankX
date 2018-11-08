@@ -11,7 +11,7 @@ namespace GreenBankX
 
         // OAuth
         // For Google login, configure at https://console.developers.google.com/
-        public static string iOSClientId = "<insert IOS client ID here>";
+        public static string iOSClientId = "263109938909-bts0mgt2859gv9btr2h9ep36fqtk31dh.apps.googleusercontent.com";
         public static string AndroidClientId = "189021053893-9ag4ogqenm1qsliouip4lmqgthr42bnm.apps.googleusercontent.com";
 
         // These values do not need changing
@@ -23,7 +23,7 @@ namespace GreenBankX
         public static string UserInfoUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
 
         // Set these to reversed iOS/Android client ids, with :/oauth2redirect appended
-        public static string iOSRedirectUrl = "<insert IOS redirect URL here>:/oauth2redirect";
+        public static string iOSRedirectUrl = "xamarin-auth://localhost";
         public static string AndroidRedirectUrl = "com.googleusercontent.apps.263109938909-v6r1cu813081jujunosjadmhc3nr67kk:/oauth2redirect";
     }
 }
