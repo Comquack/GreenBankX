@@ -25,11 +25,13 @@ namespace GreenBankX.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            global::Xamarin.FormsMaps.Init();
             OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
             TKCustomMapRenderer.InitMapRenderer();
-            // global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
+            global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
             Rg.Plugins.Popup.Popup.Init();
             LoadApplication(new App());
+
             var googleServiceDictionary = NSDictionary.FromFile("GoogleService-Info.plist");
             SignIn.SharedInstance.ClientID = googleServiceDictionary["CLIENT_ID"].ToString();
 
@@ -50,7 +52,7 @@ namespace GreenBankX.iOS
         public void DidSignIn(SignIn signIn, GoogleUser user, NSError error)
         {
             if (user != null && error == null) { }
-		// Disable the SignInButton
-}
+            Xamarin.Forms.Application.Current.Properties["Boff"] = "Is it working";
+        }
     }
 }
