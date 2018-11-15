@@ -13,6 +13,7 @@ using Android.Runtime;
 class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveContentsResult, IDriveFileDownloadProgressListener
 {
     FileStream inputStream;
+    bool[] work = new bool[] { false, false, false};
     public static LoginAndroid instance = new LoginAndroid();
     public ILogin GetInstance()
     {
@@ -104,7 +105,13 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 break;
             case 3:
                 GoogleInfo.GetInstance().Count = -1;
-                Application.Current.Properties["Boff"]= "Finished";
+                if (work[0] && work[1] && work[2])
+                {
+                    Application.Current.Properties["Boff"] = "Finished";
+                }
+                else {
+                    Application.Current.Properties["Boff"] = "Failed to load: " +(work[0]?"": "Pricings.xls, ") + (work[1] ? "" : "Plots.xls, ") + (work[2] ? "" : "trees.xls, ");
+                }
                 return "Finished";
                 
         }
@@ -135,30 +142,32 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
             GoogleInfo.GetInstance().Trees = -1;
             Task.Run(async () =>
             {
-            async Task GetFolderMetaData(IDriveFolder folder, int depth)
-                {   
+                async Task GetFolderMetaData(IDriveFolder folder, int depth)
+                {
                     var folderMetaData = await DriveClass.DriveApi.GetRootFolder(GoogleInfo.GetInstance().SignInApi).ListChildrenAsync(GoogleInfo.GetInstance().SignInApi);
                     foreach (var driveItem in folderMetaData.MetadataBuffer)
                     {
-                            GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId, driveItem.AlternateLink));
-                            GoogleInfo.GetInstance().Trees++;
+                        GoogleInfo.GetInstance().Files.Add((driveItem.Title, driveItem.DriveId, driveItem.AlternateLink));
+                        GoogleInfo.GetInstance().Trees++;
 
                         if (driveItem.IsFolder)
-                        await GetFolderMetaData(driveItem.DriveId.AsDriveFolder(), depth + 1);
-                }
+                            await GetFolderMetaData(driveItem.DriveId.AsDriveFolder(), depth + 1);
+                    }
                 }
                 await GetFolderMetaData(DriveClass.DriveApi.GetAppFolder(GoogleInfo.GetInstance().SignInApi), 0);
-            
-            GoogleInfo.GetInstance().Count = 0;
-            if (GoogleInfo.GetInstance().Upload)
-            {
-                UseDrive(GoogleInfo.GetInstance().Count);
-            }
-            else {
-                Download(GoogleInfo.GetInstance().Count);
-            }
+
+                GoogleInfo.GetInstance().Count = 0;
+                if (GoogleInfo.GetInstance().Upload)
+                {
+                    UseDrive(GoogleInfo.GetInstance().Count);
+                }
+                else
+                {
+                    Download(GoogleInfo.GetInstance().Count);
+                }
             });
-        }else if (GoogleInfo.GetInstance().Upload)
+        }
+        else if (GoogleInfo.GetInstance().Upload)
         {
             bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/" + GoogleInfo.GetInstance().FileName);
             if (doesExist)
@@ -179,7 +188,8 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                         writer.Write(inputStream.ReadByte());
                     }
                     string mime = "application/vnd.ms-excel";
-                    if (GoogleInfo.GetInstance().Count == 3) {
+                    if (GoogleInfo.GetInstance().Count == 3)
+                    {
                         mime = "text/plain";
                     }
                     writer.Close();
@@ -196,17 +206,18 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                     UseDrive(GoogleInfo.GetInstance().Count);
                 });
             }
-            else {
+            else
+            {
                 Application.Current.Properties["Boff"] = "Not Found: " + GoogleInfo.GetInstance().FileName;
                 GoogleInfo.GetInstance().Count++;
                 UseDrive(GoogleInfo.GetInstance().Count);
             }
         }
-        else {
+        else
+        {
 
-            try { Application.Current.Properties["Boff"] = "Downloading: "+ GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1; }
-            catch {Application.Current.Properties["Boff"] = "Fail"; }
-             var floop = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2;
+            try { Application.Current.Properties["Boff"] = "Downloading: " + GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1;
+            var floop = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item2;
             IDriveFile file = DriveClass.DriveApi.GetFile(GoogleInfo.GetInstance().SignInApi, floop);
             file.GetMetadata(GoogleInfo.GetInstance().SignInApi).SetResultCallback(MetadataRetrievedCallback());
             Task.Run(() =>
@@ -214,29 +225,48 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 var driveContentsResult = file.Open(GoogleInfo.GetInstance().SignInApi,
                     DriveFile.ModeReadOnly, null).Await();
                 IDriveContents driveContents = driveContentsResult.JavaCast<IDriveApiDriveContentsResult>().DriveContents;
-               Application.Current.Properties["Boff"] = "Recieved " + GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1;
+                Application.Current.Properties["Boff"] = "Recieved " + GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1;
                 Stream inputstream = driveContents.InputStream;
-                Application.Current.Properties["Boff"] = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1+ " Finished";
+                Application.Current.Properties["Boff"] = GoogleInfo.GetInstance().Files.Find(m => m.Item1 == GoogleInfo.GetInstance().FileName).Item1 + " Finished";
                 byte[] buffer = new byte[16 * 1024];
                 int read;
                 MemoryStream output = new MemoryStream();
-               
+
                 while ((read = inputstream.Read(buffer, 0, buffer.Length)) > 0)
                 {
                     output.Write(buffer, 0, read);
                 }
-               Application.Current.Properties["Boff"] = output.Length.ToString();
+                Application.Current.Properties["Boff"] = output.Length.ToString();
                 DependencyService.Get<ISave>().Save(GoogleInfo.GetInstance().FileName, "application/msexcel", output);
+
                 GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
                 Application.Current.Properties["Boff"] = "Downloaded: " + GoogleInfo.GetInstance().FileName;
+
+                if (GoogleInfo.GetInstance().Count == 3)
+                {
+                    Application.Current.Properties["Load"] = true;
+                }
+                else {
+                    work[GoogleInfo.GetInstance().Count] = true;
+                }
+                Download(GoogleInfo.GetInstance().Count);
+            });
+            }
+            catch
+            {
+                Task.Run(() =>
+                {
+                    Application.Current.Properties["Boff"] = "Fail";
+                GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
+                Application.Current.Properties["Boff"] = "Failed to Load: " + GoogleInfo.GetInstance().FileName;   
                 if (GoogleInfo.GetInstance().Count == 3)
                 {
                     Application.Current.Properties["Load"] = true;
                 }
                 Download(GoogleInfo.GetInstance().Count);
-            });
-
-         }
+                });
+            }
+        }
     }
 
     public IDriveContents DriveContents

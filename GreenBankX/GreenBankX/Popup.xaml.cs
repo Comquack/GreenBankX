@@ -203,14 +203,22 @@ namespace GreenBankX
                 {     
                     geo = (double[])Application.Current.Properties["ThisLocation"];
                     Geoco = new Geocoder();
-                    var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
-                    Location.Text = answ.First();
+                    try
+                    {
+                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                        Location.Text = answ.First();
+                    }
+                    catch { Location.Text = "Error"; }
                 }
                 else if (Latent.Text != null && Longent.Text != null) {
                     geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
                     Geoco = new Geocoder();
-                    var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
-                    Location.Text = answ.First();
+                    try
+                    {
+                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                        Location.Text = answ.First();
+                    }
+                    catch { Location.Text = "Error"; }
                 }  
             }
             if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {

@@ -502,7 +502,20 @@ namespace GreenBankX
                         await DisplayAlert("Plot has no prices", "This plot does not have a set price scheme.", "OK");
                         return;
                     });
+                    return;
 
+                }
+                try
+                {
+                    int spangle = ThisPlot.GetRange().GetBrack().Count;
+                }
+                catch
+                {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await DisplayAlert("Plot has no prices", "This plot does not have a set price scheme.", "OK");
+                    });
+                    return;
                 }
                 PriceRange thisRange = ThisPlot.GetRange();
                 Calculator Calc = new Calculator();
