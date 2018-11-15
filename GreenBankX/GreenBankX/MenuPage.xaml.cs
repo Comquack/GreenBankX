@@ -6,6 +6,7 @@ using System.ComponentModel;
 using GreenBankX.Resources;
 using System.Threading;
 using Rg.Plugins.Popup.Services;
+using Xamarin.Auth;
 
 namespace GreenBankX
 {
@@ -73,7 +74,7 @@ namespace GreenBankX
             string nu = DependencyService.Get<ILogin>().UseDrive(-1);
 
         }
-        void OnLoginTest()
+        async void OnLoginTest()
         {
             string clientId = null;
             string redirectUri = null;
@@ -89,18 +90,12 @@ namespace GreenBankX
                     redirectUri = Constants.iOSRedirectUrl;
                     try
                     {
-                        var nu = DependencyService.Get<ILogin>().AccountName();
+                        await Navigation.PushAsync(new OAuthNativeFlowPage());
 
                     }
                     catch
                     {
-                        bool wait = DependencyService.Get<ILogin>().SignIn();
-                        try
-                        {
-                            var nu = DependencyService.Get<ILogin>().AccountName();
-
-                        }
-                        catch { }
+                        await Navigation.PushAsync(new OAuthNativeFlowPage());
 
                     }
                     break;
@@ -152,10 +147,20 @@ namespace GreenBankX
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
-            if (ToolDown.Text == "") {
-                return;
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    Account Iosacc = (Account)Application.Current.Properties["Account"];
+
+                    break;
+                case Device.Android:
+                    if (ToolDown.Text == "")
+                    {
+                        return;
+                    }
+                    var nu = DependencyService.Get<ILogin>().Download(-1);
+                    break;
             }
-            var nu = DependencyService.Get<ILogin>().Download(-1);
         }
 
         private void boffo_PropertyChanged(object sender, PropertyChangedEventArgs e)
