@@ -302,10 +302,18 @@ namespace GreenBankX
 
                 if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange() != null)
                 {
+                    
                     PriceRange thisRange = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange();
                     Calculator Calc = new Calculator();
                     Calc.SetPrices(thisRange);
-                    double[,] result = Calc.Calcs(girth, high);
+                    double[,] result;
+                    if (ThisTree.ActualMerchHeight == -1)
+                    {
+                        result = Calc.Calcs(girth, high);
+                    }
+                    else {
+                        result = Calc.Calcs(girth, high, ThisTree.ActualMerchHeight);
+                    }
                     double total = 0;
                     List<string> Lablels = new List<string>();
                     List<string> ListLablels = new List<string>();
@@ -386,7 +394,7 @@ namespace GreenBankX
                 SortedList<int, List<double>> dates = new SortedList<int, List<double>>();
                 for (int x = 0; x < ThisPlot.getTrees().Count; x++)
                 {
-                    SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
+                    SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
                     try { dates.Add(thisHistory.First().Key.Year, new List<double>()); }
                     catch { }
                     try { dates.Add(thisHistory.Last().Key.Year, new List<double>()); }
@@ -420,7 +428,7 @@ namespace GreenBankX
                 SortedList<int, List<double>> dates = new SortedList<int, List<double>>();
                 for (int x = 0; x < ThisPlot.getTrees().Count; x++)
                     {
-                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
+                        SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
                         try { dates.Add(thisHistory.First().Key.Year, new List<double>());}
                         catch { }
                         try { dates.Add(thisHistory.Last().Key.Year, new List<double>()); }
@@ -535,9 +543,9 @@ namespace GreenBankX
                 {
 
                     Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
-                    SortedList<DateTime, (double, double)> Thistory = ThisTree.GetHistory();
+                    SortedList<DateTime, (double, double,double)> Thistory = ThisTree.GetHistory();
                     try {
-                        (double, double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
+                        (double, double,double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
                         double[,] result = Calc.Calcs(measure.Item1, measure.Item2);
                     for (int x = 0; x < result.GetLength(0); x++)
                     {
@@ -618,7 +626,7 @@ namespace GreenBankX
                     SortedList<int, List<double>> dates = new SortedList<int, List<double>>();
                     for (int x = 0; x < ThisPlot.getTrees().Count; x++)
                     {
-                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
+                        SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
                         try { dates.Add(thisHistory.First().Key.Year, new List<double>());}
                         catch { }
                         try { dates.Add(thisHistory.Last().Key.Year, new List<double>()); }
@@ -631,7 +639,7 @@ namespace GreenBankX
                     }
                     for (int x = 0; x < ThisPlot.getTrees().Count; x++)
                     {
-                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
+                        SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(x).GetHistory();
                         for (int y = dates.First().Key; y <= dates.Last().Key; y++)
                         {
                             if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year) {
@@ -680,7 +688,7 @@ namespace GreenBankX
                 }
                 else {
                     GirthOT.Text = "";
-                    SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(pickTree.SelectedIndex).GetHistory();
+                    SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(pickTree.SelectedIndex).GetHistory();
                     int yearmin = thisHistory.First().Key.Year;
                     int yearmax = thisHistory.Last().Key.Year;
                     List<OxyPlot.DataPoint> ItemsSource = new List<OxyPlot.DataPoint>();
@@ -789,11 +797,11 @@ namespace GreenBankX
             for (int y = 0; y < ThisPlot.getTrees().Count; y++)
             {
                 Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
-                SortedList<DateTime, (double, double)> Thistory = ThisTree.GetHistory();
+                SortedList<DateTime, (double, double,double)> Thistory = ThisTree.GetHistory();
                 try
                 {
                     
-                    (double, double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
+                    (double, double,double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
                     double[,] result = Calc.Calcs(measure.Item1, measure.Item2);
                     for (int x = 0; x < result.GetLength(0); x++)
                     {

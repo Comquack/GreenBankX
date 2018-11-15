@@ -159,15 +159,16 @@ namespace GreenBankX
                 worksheet.SetValue(1, 2, "Plot");
                 worksheet.SetValue(1, 3, "Date");
                 worksheet.SetValue(1, 4, "Girth");
-                worksheet.SetValue(1, 5, "Merchantable Height");
-                worksheet.SetValue(1, 6, "Logs");
-                worksheet.SetValue(1, 7, "Volume");
-                worksheet.SetValue(1, 8, "Price");
-                worksheet.SetValue(2, 10, "Totals by Plot and Year");
-                worksheet.SetValue(3, 10, "Plot");
-                worksheet.SetValue(3, 11, "Year");
-                worksheet.SetValue(3, 12, "Volume");
-                worksheet.SetValue(3, 13, "Price");
+                worksheet.SetValue(1, 5, "Height");
+                worksheet.SetValue(1, 6, "Merchantable Height");
+                worksheet.SetValue(1, 7, "Logs");
+                worksheet.SetValue(1, 8, "Volume");
+                worksheet.SetValue(1, 9, "Price");
+                worksheet.SetValue(2, 11, "Totals by Plot and Year");
+                worksheet.SetValue(3, 11, "Plot");
+                worksheet.SetValue(3, 12, "Year");
+                worksheet.SetValue(3, 13, "Volume");
+                worksheet.SetValue(3, 14, "Price");
 
 
 
@@ -206,26 +207,27 @@ namespace GreenBankX
                                     totVol = totVol+ result[w, 2];
                                 }
 
-                               worksheet.SetValue(2 +count, 6, result.GetLength(0).ToString());
-                                worksheet.SetValue(2 + count, 7, Math.Round(totVol, 4).ToString());
-                                worksheet.SetValue(2 + count, 8, Math.Round(total,2).ToString());
+                               worksheet.SetValue(2 +count, 7, result.GetLength(0).ToString());
+                                worksheet.SetValue(2 + count, 8, Math.Round(totVol, 4).ToString());
+                                worksheet.SetValue(2 + count, 9, Math.Round(total,2).ToString());
                              }
                             worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
                                 worksheet.SetValue(2 +count, 2, thisPlot.GetName().ToString());
                                 worksheet.SetValue(2 + count, 3, thisTree.GetHistory().ElementAt(z).Key.ToString());
                                 worksheet.SetValue(2 + count, 4, thisTree.GetHistory().ElementAt(z).Value.Item1.ToString());
-                                worksheet.SetValue(2+count, 5, thisTree.GetHistory().ElementAt(z).Value.Item2.ToString());
+                            worksheet.SetValue(2 + count, 5, thisTree.GetHistory().ElementAt(z).Value.Item2.ToString());
+                            worksheet.SetValue(2+count, 6, thisTree.GetHistory().ElementAt(z).Value.Item3.ToString());
                                 count++;
                         }
                         }
-                    worksheet.SetValue(4 + countyear, 10, thisPlot.GetName());
+                    worksheet.SetValue(4 + countyear, 11, thisPlot.GetName());
                     for (int y = minyear; y <= maxyear; y++)
                     {
                         double totalplotyear=0;
                         double totVolplotyear=0;
                         for (int w = 0; w < TreeList.Count; w++)
                         {
-                            SortedList<DateTime, (double, double)> thisHistory = thisPlot.getTrees().ElementAt(w).GetHistory();
+                            SortedList<DateTime, (double, double,double)> thisHistory = thisPlot.getTrees().ElementAt(w).GetHistory();
                             if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year)
                             {
                                 double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((y - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;
@@ -238,14 +240,14 @@ namespace GreenBankX
                                 }
                             }
                         }
-                        worksheet.SetValue(4 + countyear, 11, y.ToString());
-                        worksheet.SetValue(4 + countyear, 12, Math.Round(totVolplotyear,4).ToString());
-                        worksheet.SetValue(4 + countyear, 13, Math.Round(totalplotyear,2).ToString());
+                        worksheet.SetValue(4 + countyear, 12, y.ToString());
+                        worksheet.SetValue(4 + countyear, 13, Math.Round(totVolplotyear,4).ToString());
+                        worksheet.SetValue(4 + countyear, 14, Math.Round(totalplotyear,2).ToString());
                         countyear++;
                     }
                     
                 }
-                worksheet.SetValue(1, 10, count.ToString());
+                worksheet.SetValue(1, 11, count.ToString());
                 MemoryStream stream = new MemoryStream();
                 workbook.SaveAs(stream);
                 workbook.Close();
@@ -356,6 +358,7 @@ namespace GreenBankX
         //loads data from .xls files populates plots with trees. data for trees is stored in <PlotName>.xls
         public void LoadTreeFiles2()
         {
+            int shift = 0;
             int treecounter = -1;
             bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/trees.xls");
             if (doesExist)
@@ -368,7 +371,10 @@ namespace GreenBankX
                 Plot Thisplot;
                 if (sheet.GetValueRowCol(1, 1).ToString() == "Tree ID")
                 {
-                    for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 10).ToString()); y++)
+                    if (sheet.GetValueRowCol(1, 6).ToString() == "Merchantable Height") {
+                        shift = 1;
+                    }
+                        for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 10+shift).ToString()); y++)
                     {
                         for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++)
                         {
@@ -384,11 +390,18 @@ namespace GreenBankX
                                 }
                                 if (treecounter > -1)
                                 {
+                                    if (shift == 1) {
+                                        Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 6).ToString()));
+                                    }
                                     Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()));
                                 }
                                 else
                                 {
-                                    Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString())));
+                                    if (shift == 1)
+                                    {
+                                        Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 6).ToString())));
+                                    }
+                                        Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString())));
                                 }
                                 treecounter = -1;
                                 x = ((List<Plot>)Application.Current.Properties["Plots"]).Count + 1;
@@ -435,7 +448,7 @@ namespace GreenBankX
                     calc.SetPrices(ThisPlot.GetRange());
                     for (int w = 0; w < TreeList.Count; w++)
                     {
-                        SortedList<DateTime, (double, double)> thisHistory = ThisPlot.getTrees().ElementAt(w).GetHistory();
+                        SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(w).GetHistory();
                         if (year >= thisHistory.First().Key.Year && year <= thisHistory.Last().Key.Year)
                         {
                             double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;

@@ -37,7 +37,7 @@
         <Entry 
                 x:Name="MHeight"
                    TextColor="Black"
-                   Placeholder="{local:TranslateExtension MerchHeight}"
+                   Placeholder="{local:TranslateExtension Height}"
             BackgroundColor="LightSeaGreen"
             Keyboard="Numeric"
             TextChanged="MHeight_TextChanged"/>

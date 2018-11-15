@@ -36,6 +36,13 @@ namespace GreenBankX
                 Latent.IsVisible = true;
                 Longent.IsVisible = true;
             }
+            else {
+                Latent.IsVisible = true;
+                Longent.IsVisible = true;
+               double[] geo = (double[])Application.Current.Properties["ThisLocation"];
+                Latent.Text = geo[0].ToString();
+                Longent.Text = geo[1].ToString();
+            }
                 for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
@@ -47,12 +54,12 @@ namespace GreenBankX
         }
         public async void Done()
         {
-            if (PlotName.Text != null && int.Parse(PlotYear.Text) <= DateTime.Now.Year)
+            if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
                 double[] geo;
-                if (Application.Current.Properties["ThisLocation"] == null && Latent.Text != null && Longent.Text != null)
+                if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(Latent.Text,out double latout) && double.TryParse(Longent.Text, out double lonout))
                 {
-                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                    geo = new double[] { latout, lonout };
                 }
                 else if (Application.Current.Properties["ThisLocation"] != null)
                 {
@@ -75,7 +82,7 @@ namespace GreenBankX
                 }
                 if (int.Parse(PlotYear.Text) != 0)
                 {
-                    NextPlot.YearPlanted = int.Parse(PlotYear.Text);
+                    NextPlot.YearPlanted = yearout;
                 }
                 for (int i = 0; i < ((List<Plot>)Application.Current.Properties["Plots"]).Count ; i++){
                     if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text) {
@@ -224,7 +231,7 @@ namespace GreenBankX
         {
             double ans;
             if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
-            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= 0))
+            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
             {
                 Longent.Text = e.OldTextValue;
             }

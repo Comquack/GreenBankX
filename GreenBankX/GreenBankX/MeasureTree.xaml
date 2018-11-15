@@ -26,8 +26,26 @@
                 x:Name="height"
                    TextColor="Black"
                     Keyboard="Numeric"
-                   Placeholder="{local:TranslateExtension MerchHeight}"
+                   Placeholder="{local:TranslateExtension Height}"
+                        Grid.Row="0"
+                        Grid.Column="0"
                 TextChanged="height_TextChanged"/>
+                    <Label
+                    Text="Add Merhantable Height"
+                        Grid.Row="0"
+                        Grid.Column="1"/><Switch
+                    x:Name="MerhH"   
+                        Grid.Row="0"
+                    Grid.Column="2"
+                    Toggled="MerhH_Toggled"
+                    />
+                <Entry 
+                    x:Name="merchheight"
+                   TextColor="Black"
+                        Grid.Row="1"
+                    Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension MerchHeight}"
+                TextChanged="merchheight_TextChanged"/>
                 <DatePicker
             x:Name="DateMes" 
             />
