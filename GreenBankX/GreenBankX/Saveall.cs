@@ -390,18 +390,24 @@ namespace GreenBankX
                                 }
                                 if (treecounter > -1)
                                 {
-                                    if (shift == 1) {
+                                    if (shift == 1)
+                                    {
                                         Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 6).ToString()));
                                     }
-                                    Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()));
-                                }
+                                    else { 
+                                        Thisplot.getTrees().ElementAt(treecounter).AddToHistory(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()));
+                                    }
+                                 }
                                 else
                                 {
                                     if (shift == 1)
                                     {
                                         Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 6).ToString())));
                                     }
+                                    else
+                                    {
                                         Thisplot.AddTree(new Tree(double.Parse(sheet.GetValueRowCol(2 + y, 4).ToString()), double.Parse(sheet.GetValueRowCol(2 + y, 5).ToString()), int.Parse(sheet.GetValueRowCol(2 + y, 1).ToString()), DateTime.Parse(sheet.GetValueRowCol(2 + y, 3).ToString())));
+                                    }
                                 }
                                 treecounter = -1;
                                 x = ((List<Plot>)Application.Current.Properties["Plots"]).Count + 1;
