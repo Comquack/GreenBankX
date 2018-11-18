@@ -181,8 +181,13 @@ namespace GreenBankX
                 ToolIn.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignIn");
             }
         }
+        protected override void OnAppearing()
+        {
+            Application.Current.Properties["PriceStore"] = null;
+            base.OnAppearing();
+        }
 
-        private void Tute_Clicked(object sender, EventArgs e)
+            private void Tute_Clicked(object sender, EventArgs e)
         {
             Application.Current.Properties["Tutorial"] = true;
             Device.BeginInvokeOnMainThread(async () =>

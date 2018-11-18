@@ -44,7 +44,7 @@ namespace GreenBankX
             }
             if (pickPlot.SelectedIndex > -1 )
             {
-
+                ToolEdit.Text = "Edit Plot";
                 AddMes.IsVisible = false;
                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2\n";
@@ -909,7 +909,24 @@ namespace GreenBankX
             }
            
         }
-    }
+
+
+
+        public async void EditPlot()
+        {
+            if (pickPlot.SelectedIndex > -1)
+            {
+                Application.Current.Properties["ThisPlot"] = pickPlot.SelectedIndex;
+                Application.Current.Properties["ThisLocation"] = null;
+                MessagingCenter.Subscribe<PlotPopupEdit>(this, "Edit", (sender) =>
+                {
+                    SelectPlot();
+                    SaveAll.GetInstance().SavePlots();
+                });
+                await PopupNavigation.Instance.PushAsync(PlotPopupEdit.GetInstance());
+            }
+        }
+        }
 
     public class DetailsGraph {
         public double volume { get; set; }

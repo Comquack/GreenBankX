@@ -87,6 +87,16 @@ namespace GreenBankX
             }
   
         }
+        protected async override void OnAppearing()
+        {
+            
+            base.OnAppearing();
+            if (Application.Current.Properties["PriceStore"] != null)
+            {
+                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
+            };
+        }
+    
         public void PlacePin(object sender, TKGenericEventArgs<Position> e)
         {
         

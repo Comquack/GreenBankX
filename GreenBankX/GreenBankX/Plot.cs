@@ -45,7 +45,10 @@ namespace GreenBankX
         {
             return this.name;
         }
-
+        public void SetName(string newname)
+        {
+            this.name=newname;
+        }
         public void SetRange(PriceRange newRange) {
             PlotPrice = newRange;
         }

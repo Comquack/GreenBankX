@@ -14,71 +14,63 @@ using Xamarin.Forms.Xaml;
 
 namespace GreenBankX
 {
-    public partial class Popup : Rg.Plugins.Popup.Pages.PopupPage
+    public partial class PlotPopupEdit : Rg.Plugins.Popup.Pages.PopupPage
     {
         Geocoder Geoco;
-        Plot NextPlot;
-        public static Popup instance = new Popup();
-        public static Popup GetInstance()
+        Plot EditPlot;
+        int Priceno = -1;
+        public static PlotPopupEdit instance = new PlotPopupEdit();
+        public static PlotPopupEdit GetInstance()
         {
             if (instance == null)
             {
-                return new Popup();
+                return new PlotPopupEdit();
             }
             return instance;
         }
 
-        private Popup()
+        private PlotPopupEdit()
         {
             InitializeComponent();
-            if (Application.Current.Properties["ThisLocation"] == null)
-            {
+            EditPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]);
                 Latent.IsVisible = true;
                 Longent.IsVisible = true;
-            }
-            else {
-                Latent.IsVisible = true;
-                Longent.IsVisible = true;
-               double[] geo = (double[])Application.Current.Properties["ThisLocation"];
+            PlotName.Text = EditPlot.GetName();
+            Comments.Text = EditPlot.Describe;
+            Location.Text = EditPlot.NearestTown;
+               double[] geo = EditPlot.GetTag();
                 Latent.Text = geo[0].ToString();
                 Longent.Text = geo[1].ToString();
-            }
+                Owner.Text = EditPlot.Owner;
                 for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+                if(EditPlot.GetRange()!= null && ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName() == EditPlot.GetRange().GetName()){
+                    Priceno = x;
+                }
             }
             pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
-
-
-
+            pickPrice.SelectedIndex = Priceno;
         }
+
         public async void Done()
         {
             if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
                 double[] geo;
-                if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(Latent.Text,out double latout) && double.TryParse(Longent.Text, out double lonout))
+                if (double.TryParse(Latent.Text,out double latout) && double.TryParse(Longent.Text, out double lonout))
                 {
                     geo = new double[] { latout, lonout };
                 }
-                else if (Application.Current.Properties["ThisLocation"] != null)
-                {
-                    geo = (double[])Application.Current.Properties["ThisLocation"];
-                }
-                else {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        DisplayAlert("input is invalid", "Please enter co-ordinates", "OK");
-                    });
-                    return; }
-                NextPlot = new Plot(PlotName.Text);
-                NextPlot.SetTag(geo);
-                NextPlot.Describe = Comments.Text;
-                NextPlot.NearestTown = Location.Text;
-                NextPlot.Owner = Owner.Text;
+                else { return; }
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetName(PlotName.Text);
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetTag(geo);
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Describe = Comments.Text;
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).NearestTown = Location.Text;
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Owner = Owner.Text;
                 if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
                 {
-                    NextPlot.SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
                 }
                 else if (pickPrice.SelectedIndex == pickPrice.Items.Count)
                 {
@@ -87,10 +79,10 @@ namespace GreenBankX
                 }
                 if (int.Parse(PlotYear.Text) != 0)
                 {
-                    NextPlot.YearPlanted = yearout;
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).YearPlanted = yearout;
                 }
                 for (int i = 0; i < ((List<Plot>)Application.Current.Properties["Plots"]).Count ; i++){
-                    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text) {
+                    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text&&i!= (int)Application.Current.Properties["ThisPlot"]) {
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
@@ -98,25 +90,24 @@ namespace GreenBankX
                         return;
                     }
                 }
-                ((List<Plot>)Application.Current.Properties["Plots"]).Add(NextPlot);
-                MessagingCenter.Send<Popup>(this, "Add");
+                MessagingCenter.Send<PlotPopupEdit>(this, "Edit");
                 SaveAll.GetInstance().SavePlots();
-                Application.Current.Properties["ThisLocation"] = null;
-                PlotName.Text=null;
-                Comments.Text=null;
-                Location.Text=null;
-                Owner.Text=null;
-                Latent.Text = null;
-                Longent.Text = null;
                 await PopupNavigation.Instance.PopAsync();
             }
             else if (PlotName.Text == null)
             {
-                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName");
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
+                });
             }
             else
             {
-                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate");
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
+                });
             }
            
         }
@@ -125,62 +116,12 @@ namespace GreenBankX
 
         protected override void OnAppearing()
         {
-
-            if (Application.Current.Properties["PriceStore"] == null)
-            {
-
-                if (Application.Current.Properties["ThisLocation"] == null)
-                {
-                    Latent.Text = null;
-                    Longent.Text = null;
-                    Latent.IsVisible = true;
-                    Longent.IsVisible = true;
-                }
-                else
-                {
-                    Latent.IsVisible = true;
-                    Longent.IsVisible = true;
-                    double[] geo = (double[])Application.Current.Properties["ThisLocation"];
-                    Latent.Text = geo[0].ToString();
-                    Longent.Text = geo[1].ToString();
-                }
-                PlotName.Text = null;
-                Comments.Text = null;
-                Location.Text = null;
-                Owner.Text = null;
-                
-                pickPrice.SelectedIndex = -1;
-                PlotYear.Text = null;
-                pickPrice.Items.Clear();
-                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
-                {
-                    pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-                }
-                pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
-                Expand.Text = "Add More Detail";
-                pickPrice.IsVisible = false;
-                Location.IsVisible = false;
-                Owner.IsVisible = false;
-                Comments.IsVisible = false;
-            }
-            else {
-                Expand.Text = "Less Details";
-                pickPrice.SelectedIndex = (int)Application.Current.Properties["PriceStore"];
-                pickPrice.IsVisible = true;
-                Location.IsVisible = true;
-                Owner.IsVisible = true;
-                Comments.IsVisible = true;
-            };
-            
             base.OnAppearing();
-
         }
 
         protected override void OnDisappearing()
         {
-
             base.OnDisappearing();
-
         }
 
         // ### Methods for supporting animations in your popup page ###
@@ -250,7 +191,6 @@ namespace GreenBankX
             if (pickPrice.SelectedIndex == pickPrice.Items.Count-1)
             {
                 await Navigation.PushAsync(new CreatePricing());
-                await PopupNavigation.Instance.PopAsync();
                 return;
             }
         }

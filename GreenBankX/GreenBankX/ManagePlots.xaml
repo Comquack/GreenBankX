@@ -6,6 +6,7 @@
              x:Class="GreenBankX.ManagePlots">
     <ContentPage.ToolbarItems>
         <ToolbarItem x:Name="ToolDelete" Order="Primary"  Text="" Priority="0" Clicked="DelPlot"/>
+		<ToolbarItem x:Name="ToolEdit" Order="Primary"  Text="" Priority="0" Clicked="EditPlot"/>
         <ToolbarItem x:Name="ToolDeleteTree" Order="Primary"  Text="" Priority="2" Clicked="DelTree"/>
         <ToolbarItem x:Name="ToolPricing" Order="Primary"  Text="Change Pricing" Priority="4" Clicked="ChangePricing"/>
     </ContentPage.ToolbarItems>

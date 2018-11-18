@@ -128,6 +128,7 @@ namespace GreenBankX
         {
             if (pickPrice.SelectedIndex > -1)
             {
+                Application.Current.Properties["PriceStore"] = pickPrice.SelectedIndex;
                 selector = pickPrice.SelectedIndex;
                 PopList(selector);
                 AddPrice.IsVisible = true;
@@ -243,6 +244,7 @@ namespace GreenBankX
         {
             base.OnAppearing();
             DunLLoadin();
+            Application.Current.Properties["PriceStore"] = null;
         }
         void SaveTest() {
             

@@ -51,6 +51,9 @@
     <Compile Update="AddTreePop.xaml.cs">
       <DependentUpon>AddTreePop.xaml</DependentUpon>
     </Compile>
+    <Compile Update="PlotPopupEdit.xaml.cs">
+      <DependentUpon>PlotPopupEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Popup.xaml.cs">
       <DependentUpon>Popup.xaml</DependentUpon>
     </Compile>
