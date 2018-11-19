@@ -245,9 +245,10 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 if (GoogleInfo.GetInstance().Count == 3)
                 {
                     Application.Current.Properties["Load"] = true;
+                    work[GoogleInfo.GetInstance().Count - 1] = true;
                 }
                 else {
-                    work[GoogleInfo.GetInstance().Count] = true;
+                    work[GoogleInfo.GetInstance().Count-1] = true;
                 }
                 Download(GoogleInfo.GetInstance().Count);
             });
