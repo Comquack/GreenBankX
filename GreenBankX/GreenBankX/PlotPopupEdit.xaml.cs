@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -116,6 +117,10 @@ namespace GreenBankX
 
         protected override void OnAppearing()
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             base.OnAppearing();
         }
 

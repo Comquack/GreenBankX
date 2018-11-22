@@ -34,4 +34,18 @@
   <item name="android:paddingBottom">0dp</item>
     <item name="android:paddingTop">0dp</item>
   </style>
+
+
+
+<style name="MyTheme.Base" parent="Theme.AppCompat.Light">
+  </style>
+
+  <style name="MyTheme" parent="MyTheme.Base">
+  </style>
+
+  <style name="MyTheme.Splash" parent ="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:windowBackground">@drawable/Splash_Layer</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+   </style>
 </resources>

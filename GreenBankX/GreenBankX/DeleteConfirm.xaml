@@ -31,7 +31,7 @@
            />
         <Button
                    x:Name="YesDel"
-               Text="Delete"
+               Text="{local:TranslateExtension Delete}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"
@@ -42,7 +42,7 @@
                 />
         <Button
                    x:Name="NoDel"
-               Text="Cancel"
+               Text="{local:TranslateExtension Cancel}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

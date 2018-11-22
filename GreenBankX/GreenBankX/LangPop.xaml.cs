@@ -33,6 +33,10 @@ namespace GreenBankX
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
 
         protected override void OnDisappearing()
@@ -106,6 +110,7 @@ namespace GreenBankX
         {
             userSelectedCulture = new System.Globalization.CultureInfo("en-AU");
             Thread.CurrentThread.CurrentCulture = userSelectedCulture;
+            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("en-AU");
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();
         }
@@ -113,6 +118,7 @@ namespace GreenBankX
         private async void Lao_Clicked(object sender, EventArgs e)
         {
             userSelectedCulture = new System.Globalization.CultureInfo("lo-LA");
+            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("lo-LA");
             Thread.CurrentThread.CurrentCulture = userSelectedCulture;
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();

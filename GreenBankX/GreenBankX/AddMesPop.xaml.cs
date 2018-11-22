@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -82,6 +83,10 @@ namespace GreenBankX
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
         private void Diameter_TextChanged(object sender, TextChangedEventArgs e)
         {

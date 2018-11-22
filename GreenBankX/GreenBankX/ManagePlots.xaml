@@ -17,7 +17,7 @@
                    x:Name="Titlename"
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Large"/>
-            <Picker x:Name="pickPlot" Title="Select a Plot"
+                <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
                     SelectedIndexChanged="SelectPlot"
                         TextColor="Black">
                 <Picker.Items>
@@ -30,9 +30,9 @@
                 <Picker.Items>
                     <x:String>Data of trees</x:String>
                     <x:String>Data by Log classes</x:String>
-                    <x:String>Averages </x:String>
-                    <x:String>Over Time</x:String>
-                </Picker.Items>
+                    <x:String>Averages and more details</x:String>
+                        <x:String>Over Time</x:String>
+                    </Picker.Items>
 
             </Picker>
             <Grid x:Name="Graphgrid"
@@ -55,7 +55,7 @@
                     <ListView.Header>
                         <Grid>
                             <Label
-                                Text="Tree ID"
+                                Text="{local:TranslateExtension TreeID}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                             <Label
@@ -112,7 +112,7 @@
                     <ListView.Header>
                         <Grid>
                             <Label
-                                Text="Log Class"
+                                Text="{local:TranslateExtension LogClass}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                             <Label

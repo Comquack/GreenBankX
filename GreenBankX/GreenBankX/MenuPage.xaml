@@ -33,7 +33,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="4"
+                    Grid.Row="2"
                     
                     Clicked="OpenMeasure"/>
                     <Button
@@ -46,7 +46,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="3"
+                    Grid.Row="1"
                         Clicked="OpenMap"/>
                     <Button
                     x:Name="Bttn3"
@@ -59,7 +59,7 @@
                    TextColor="Green"
                     Grid.Column="1"
                          Clicked="OpenManager"
-                        Grid.Row="5"/>
+                        Grid.Row="3"/>
                     <Button
                 x:Name="Bttn4"
                Text="{local:TranslateExtension Pricings}"
@@ -71,10 +71,10 @@
                TextColor="Green"
                 Grid.Column="1"
                 Clicked="OpenPrice"
-                Grid.Row="6"/>
+                Grid.Row="4"/>
                     <Button
                     x:Name="Lang"
-                   Text="Language"
+                   Text="{local:TranslateExtension Language}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -82,12 +82,12 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="7"
+                    Grid.Row="5"
                     Clicked="ChangeLang"/>
 
                     <Button
                     x:Name="Tute"
-                   Text="Tutorial"
+                   Text="{local:TranslateExtension Tutorial}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -95,7 +95,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="8"
+                    Grid.Row="6"
                     Clicked="Tute_Clicked"/>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20*" />

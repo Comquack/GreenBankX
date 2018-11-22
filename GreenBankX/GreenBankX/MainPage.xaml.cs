@@ -14,6 +14,7 @@ namespace GreenBankX
 		{
 			InitializeComponent();
             Application.Current.Properties["Load"] = false;
+            Application.Current.Properties["Language"] = null;
             Application.Current.Properties["Plots"] = new List<Plot>();
             Application.Current.Properties["Prices"] = new List<PriceRange>();
             Application.Current.Properties["First"] = null;
@@ -36,9 +37,26 @@ namespace GreenBankX
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }
-
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            OpenMenu();
+        }
         async void OpenMenu()
         {
+            try
+            {
+                if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count == 0)
+                {
+                    SaveAll.GetInstance().LoadPriceFiles();
+                }
+                if (((List<Plot>)Application.Current.Properties["Plots"]).Count == 0)
+                {
+                    SaveAll.GetInstance().LoadPlotFiles();
+                    SaveAll.GetInstance().LoadTreeFiles2();
+                }
+            }
+            catch { }
             await Navigation.PushAsync(new MenuPage());
         }
     }

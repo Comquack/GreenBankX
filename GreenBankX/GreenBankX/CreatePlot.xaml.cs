@@ -11,6 +11,7 @@ using TK.CustomMap.Overlays;
 using TK.CustomMap.Api.Google;
 using GreenBankX.Resources;
 using System.Threading;
+using System.Globalization;
 
 namespace GreenBankX
 {
@@ -22,7 +23,11 @@ namespace GreenBankX
         List<TKCustomMapPin> Pins = new List<TKCustomMapPin>();
         int setpoly = -1;
         public CreatePlot ()
-		{
+        {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             InitializeComponent ();
             CancelButton.IsVisible = false;
             }
@@ -89,8 +94,11 @@ namespace GreenBankX
         }
         protected async override void OnAppearing()
         {
-            
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             if (Application.Current.Properties["PriceStore"] != null)
             {
                 await PopupNavigation.Instance.PushAsync(Popup.GetInstance());

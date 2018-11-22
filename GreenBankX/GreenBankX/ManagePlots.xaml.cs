@@ -49,15 +49,15 @@ namespace GreenBankX
                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2\n";
                 if (ThisPlot.Owner != null&& ThisPlot.Owner != "") {
-                    trees +="Owner: " + ThisPlot.Owner+" ";
+                    trees +="Owner: " + ThisPlot.Owner+"\n";
                 }
                 if (ThisPlot.NearestTown != null&& ThisPlot.NearestTown != "")
                 {
-                    trees += "Location: " + ThisPlot.NearestTown + " ";
+                    trees += "Location: " + ThisPlot.NearestTown + "\n";
                 }
                 if (ThisPlot.Describe != null && ThisPlot.Describe != "")
                 {
-                    trees += "Comments: " + ThisPlot.Describe + " ";
+                    trees += "Comments: " + ThisPlot.Describe + "\n";
                 }
                 List <Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;
@@ -142,7 +142,7 @@ namespace GreenBankX
                     if (res)
                     {
                         await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot. The  plot can be added to by pressing the add to plot button, or by going to the measure trees page", "Next");
-                        await DisplayAlert("View Trees", "If you tapp a tree in the list twice, you will be shown additional details.", "Next");
+                        await DisplayAlert("View Trees", "If you tap a tree in the list twice, you will be shown additional details.", "Next");
                         await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.", "Next");
                         Application.Current.Properties["Tutmanage"] = false;
                         Application.Current.Properties["Tutmanage2"] = true;
@@ -862,6 +862,10 @@ namespace GreenBankX
 
         protected override void  OnAppearing() {
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             DunLLoadin();
             GraphNo = -1;
              Listhadler = -1;

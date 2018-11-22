@@ -70,6 +70,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Merhantable Height.
+        /// </summary>
+        public static string AddMHeight {
+            get {
+                return ResourceManager.GetString("AddMHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a New Tree.
         /// </summary>
         public static string AddNewTree {
@@ -205,6 +214,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Plot.
         /// </summary>
         public static string DeletePlot {
@@ -295,6 +313,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Girth/DBH.
+        /// </summary>
+        public static string GDBH {
+            get {
+                return ResourceManager.GetString("GDBH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Girth(cm).
         /// </summary>
         public static string Girth {
@@ -318,6 +345,15 @@ namespace GreenBankX.Resources {
         public static string IsInvalid {
             get {
                 return ResourceManager.GetString("IsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
             }
         }
         
@@ -399,6 +435,15 @@ namespace GreenBankX.Resources {
         public static string MeanV {
             get {
                 return ResourceManager.GetString("MeanV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Measure.
+        /// </summary>
+        public static string Measure {
+            get {
+                return ResourceManager.GetString("Measure", resourceCulture);
             }
         }
         
@@ -664,7 +709,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello, welcome to the Greenbank, tutorial. As you continue through the app, tutorials will pop up to help you..
+        ///   Looks up a localized string similar to Hello, welcome to the Greenbank tutorial. As you continue through the app, tutorials will pop up to help you..
         /// </summary>
         public static string TuteMenu0 {
             get {
@@ -741,6 +786,15 @@ namespace GreenBankX.Resources {
         public static string TutePrice3 {
             get {
                 return ResourceManager.GetString("TutePrice3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tutorial.
+        /// </summary>
+        public static string Tutorial {
+            get {
+                return ResourceManager.GetString("Tutorial", resourceCulture);
             }
         }
         

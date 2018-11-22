@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -31,6 +32,10 @@ namespace GreenBankX
         private Popup()
         {
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             if (Application.Current.Properties["ThisLocation"] == null)
             {
                 Latent.IsVisible = true;
@@ -171,7 +176,10 @@ namespace GreenBankX
                 Owner.IsVisible = true;
                 Comments.IsVisible = true;
             };
-            
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             base.OnAppearing();
 
         }

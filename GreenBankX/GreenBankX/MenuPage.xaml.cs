@@ -7,6 +7,7 @@ using GreenBankX.Resources;
 using System.Threading;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Auth;
+using System.Globalization;
 
 namespace GreenBankX
 {
@@ -16,19 +17,6 @@ namespace GreenBankX
         public MenuPage()
         {
             InitializeComponent();
-            try
-            {
-                if (((List<PriceRange>)Application.Current.Properties["Prices"]).Count == 0)
-                {
-                    SaveAll.GetInstance().LoadPriceFiles();
-                }
-                if (((List<Plot>)Application.Current.Properties["Plots"]).Count == 0)
-                {
-                    SaveAll.GetInstance().LoadPlotFiles();
-                    SaveAll.GetInstance().LoadTreeFiles2();
-                }
-            }
-            catch{}
 
             switch (Device.RuntimePlatform)
             {
@@ -38,11 +26,17 @@ namespace GreenBankX
 
                 case Device.Android:
                     try { var nu = DependencyService.Get<ILogin>().AccountName();
-
+                        ToolDrive.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Upload");
+                        ToolDown.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Download");
+                        Toolout.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignOut");
+                        ToolIn.Text = "";
                     }
                     catch
                     {
-
+                        ToolDrive.Text = "";
+                        ToolDown.Text = "";
+                        Toolout.Text = "";
+                        ToolIn.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignIn");
                     }
 
                     break;
@@ -185,6 +179,10 @@ namespace GreenBankX
         {
             Application.Current.Properties["PriceStore"] = null;
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
 
             private void Tute_Clicked(object sender, EventArgs e)

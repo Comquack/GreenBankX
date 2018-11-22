@@ -15,7 +15,7 @@
                     TextChanged="girth_TextChanged"
 				/>
                 <Label
-                    Text="Girth/DBH"
+                    Text="{local:TranslateExtension GDBH}"
                         Grid.Column="0"/>
                 <Switch
                     x:Name="GirthDBH"
@@ -31,7 +31,7 @@
                         Grid.Column="0"
                 TextChanged="height_TextChanged"/>
                     <Label
-                    Text="Add Merhantable Height"
+                    Text="{local:TranslateExtension AddMHeight}"
                         Grid.Row="0"
                         Grid.Column="1"/><Switch
                     x:Name="MerhH"   
@@ -64,7 +64,7 @@
 
                 <Button
                 x:Name="Estimate"
-               Text="Measure"
+               Text="{local:TranslateExtension Measure}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

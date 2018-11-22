@@ -3,6 +3,7 @@ using Rg.Plugins.Popup.Services;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -243,6 +244,10 @@ namespace GreenBankX
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             DunLLoadin();
             Application.Current.Properties["PriceStore"] = null;
         }
