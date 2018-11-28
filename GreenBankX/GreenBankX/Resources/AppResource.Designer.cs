@@ -70,7 +70,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Merhantable Height.
+        ///   Looks up a localized string similar to Add Merchantable Height.
         /// </summary>
         public static string AddMHeight {
             get {
@@ -93,6 +93,15 @@ namespace GreenBankX.Resources {
         public static string AddPlot {
             get {
                 return ResourceManager.GetString("AddPlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Plot  no pin.
+        /// </summary>
+        public static string AddPlotNoPin {
+            get {
+                return ResourceManager.GetString("AddPlotNoPin", resourceCulture);
             }
         }
         

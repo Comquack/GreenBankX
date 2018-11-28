@@ -22,29 +22,58 @@
     <StackLayout 
         VerticalOptions="Center" 
         HorizontalOptions="Center" 
-        Padding="20, 20, 20, 20">
+        Padding="20, 20, 20, 20"
+        BackgroundColor="WhiteSmoke">
         <Label
             x:Name="TreeLabel"
             Text="{local:TranslateExtension AddNewTree}"
-            BackgroundColor="LightSeaGreen"/>
-        <Entry 
-                x:Name="Diameter"
-                   TextColor="Black"
-                   Placeholder="{local:TranslateExtension Girth}"
-            BackgroundColor="LightSeaGreen"
-            Keyboard="Numeric"
-            TextChanged="Diameter_TextChanged"/>
-        <Entry 
-                x:Name="MHeight"
-                   TextColor="Black"
-                   Placeholder="{local:TranslateExtension Height}"
-            BackgroundColor="LightSeaGreen"
-            Keyboard="Numeric"
-            TextChanged="MHeight_TextChanged"/>
-
-        <DatePicker
-            x:Name="DateMes"
             />
+        <Entry  
+                x:Name="girth"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension Girth}"
+                    TextChanged="girth_TextChanged"
+				/>
+        <Label
+                    x:Name="lab1"
+                    Text="{local:TranslateExtension GDBH}"
+                        Grid.Column="0"/>
+        <Switch
+                    x:Name="GirthDBH"
+                    Grid.Column="1"
+                    Toggled="Switch_Toggled"
+                    />
+        <Entry 
+                x:Name="height"
+                   TextColor="Black"
+                    Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension Height}"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                TextChanged="height_TextChanged"/>
+        <Label
+                        x:Name="lab2"
+                    Text="{local:TranslateExtension AddMHeight}"
+                        Grid.Row="0"
+                        Grid.Column="1"/>
+        <Switch
+                    x:Name="MerhH"   
+                        Grid.Row="0"
+                    Grid.Column="2"
+                    Toggled="MerhH_Toggled"
+                    />
+        <Entry 
+                    x:Name="merchheight"
+                   TextColor="Black"
+                        Grid.Row="1"
+                    Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension MerchHeight}"
+                TextChanged="merchheight_TextChanged"/>
+        <DatePicker
+            x:Name="DateMes" 
+            />
+
         <Button
                    x:Name="TreeBut"
                Text="{local:TranslateExtension AddTree}"

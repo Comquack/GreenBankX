@@ -4,65 +4,162 @@
                           xmlns:local="clr-namespace:GreenBankX"
              x:Class="GreenBankX.MeasureTree">
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout>
+        <StackLayout>
+            <Grid>
+                <Button x:Name="FromPlot"
+                            Clicked="FromPlot_Clicked"
+                            Text="Import From Plot"
+                            Grid.Column="0"/>
+                <Button x:Name="NewTree"
+                            Text="New Tree"
+                            Clicked="NewTree_Clicked"
+                            Grid.Column="1"/>
+            </Grid>
+            <Picker x:Name="pickPlotOne" Title="{local:TranslateExtension SelectaPlot}"
+                        TextColor="Black"
+                        IsVisible="False"
+                    SelectedIndexChanged="pickPlotOne_SelectedIndexChanged">
 
-                <Entry  
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
+
+            <ListView
+                    IsVisible="false"
+                x:Name="DetailsList"
+
+                    ItemTapped="DetailsList_ItemTapped">
+                <ListView.Header>
+                    <Grid>
+                        <Label
+                                Text="{local:TranslateExtension TreeID}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                        <Label
+                                Text="{local:TranslateExtension Girth}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                        <Label
+                                Text="{local:TranslateExtension Height}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                    </Grid>
+                </ListView.Header>
+                <ListView.Footer>
+                    <StackLayout>
+                        <Button x:Name="All"
+                                Text="Measure All"
+                                Clicked="All_Clicked"
+                                IsVisible="False"
+                                />
+                        <Button x:Name="New"
+                                Text="{local:TranslateExtension AddNewTree}"
+                                Clicked="New_Clicked"/>
+                    </StackLayout>
+                </ListView.Footer>
+                <ListView.ItemsSource>
+
+                    <x:Array Type="{x:Type x:String}"
+                             x:Name="DetailArray">
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Label
+                                Text="{Binding Id}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                <Label
+                                Text="{Binding Diameter}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                <Label
+                                Text="{Binding MerchHeight}"  
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                <Switch IsToggled="{Binding Selected}" Grid.Column="3" Toggled="Switch_Toggled_1"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Frame BorderColor ="Black"
+                   x:Name="AddFrame">
+            <ScrollView Grid.ColumnSpan="3"
+                        >
+                <Grid Grid.ColumnSpan="3">
+                    <Entry  
                 x:Name="girth"
                    TextColor="Black"
                    Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension Girth}"
                     TextChanged="girth_TextChanged"
+                        Grid.Column="0"
+                        Grid.Row="0"
 				/>
-                <Label
+
+                    <Label
+                    x:Name="lab1"
                     Text="{local:TranslateExtension GDBH}"
-                        Grid.Column="0"/>
-                <Switch
+                        Grid.Column="1"
+                        Grid.Row="0"/>
+
+                    <Switch
                     x:Name="GirthDBH"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Toggled="Switch_Toggled"
+                        Grid.Row="0"
                     />
-                <Entry 
+                    <Entry 
                 x:Name="height"
                    TextColor="Black"
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension Height}"
-                        Grid.Row="0"
+                        Grid.Row="1"
                         Grid.Column="0"
                 TextChanged="height_TextChanged"/>
                     <Label
+                        x:Name="lab2"
                     Text="{local:TranslateExtension AddMHeight}"
-                        Grid.Row="0"
-                        Grid.Column="1"/><Switch
+                        Grid.Row="1"
+                        Grid.Column="1"/>
+                    <Switch
                     x:Name="MerhH"   
-                        Grid.Row="0"
+                        Grid.Row="1"
                     Grid.Column="2"
                     Toggled="MerhH_Toggled"
                     />
-                <Entry 
+                    <Entry 
                     x:Name="merchheight"
                    TextColor="Black"
-                        Grid.Row="1"
+                        Grid.Row="2"
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension MerchHeight}"
                 TextChanged="merchheight_TextChanged"/>
-                <DatePicker
+                    <DatePicker
             x:Name="DateMes" 
+                        Grid.ColumnSpan="3"
+                         Grid.Row="3"
             />
-                <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
+                    <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
-                    SelectedIndexChanged="pickPrice_SelectedIndexChanged">
-                    <Picker.Items>
-                    </Picker.Items>
-                </Picker>
-                <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
+                    SelectedIndexChanged="pickPrice_SelectedIndexChanged"
+                        IsVisible="False">
+                        <Picker.Items>
+                        </Picker.Items>
+                    </Picker>
+                    <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
                         TextColor="Black"
-                    SelectedIndexChanged="pickPlot_SelectedIndexChanged">
-                    <Picker.Items>
-                    </Picker.Items>
-                </Picker>
+                            Grid.ColumnSpan="3"
+                    SelectedIndexChanged="pickPlot_SelectedIndexChanged"
+                            Grid.Row="4">
+                        <Picker.Items>
+                        </Picker.Items>
+                    </Picker>
 
-                <Button
+                    <Button
                 x:Name="Estimate"
                Text="{local:TranslateExtension Measure}"
                VerticalOptions="Center"
@@ -71,10 +168,11 @@
                FontAttributes="Bold"
                 BackgroundColor="LightGray"
                TextColor="Green"
-                Grid.Column="1"
-                Grid.Row="4"
+                Grid.Column="0"
+                Grid.Row="5"
+                        Grid.ColumnSpan="3"
                 Clicked="RunCalc"/>
-                <Button
+                    <Button
                 x:Name="Add"
                Text="{local:TranslateExtension AddtoPlot}"
                VerticalOptions="Center"
@@ -83,61 +181,65 @@
                FontAttributes="Bold"
                 BackgroundColor="LightGray"
                TextColor="Green"
-                Grid.Column="1"
-                Grid.Row="4"
+                Grid.Column="0"
+                Grid.Row="6"
+                        Grid.ColumnSpan="3"
                 Clicked="RunAdd"/>
-                <ListView
+                </Grid>
+            </ScrollView>
+            </Frame>
+            <ListView
+                
                     IsVisible="false"
                 x:Name="LogList"
                     Grid.Row="1"
                     Grid.ColumnSpan="3">
-                    <ListView.Header>
-                        <Grid>
+                <ListView.Header>
+                    <Grid>
 
-                            <Label
+                        <Label
                                 Text="{local:TranslateExtension LogClass}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                            <Label
+                        <Label
                                 Text="{local:TranslateExtension TotalVol}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                            <Label
+                        <Label
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.ItemsSource>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemsSource>
 
-                        <x:Array Type="{x:Type x:String}"
+                    <x:Array Type="{x:Type x:String}"
                             >
-                        </x:Array>
-                    </ListView.ItemsSource>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
 
-                                    <Label
+                                <Label
                                 Text="{Binding label}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                                    <Label
+                                <Label
                                 Text="{Binding volume}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                                    <Label
+                                <Label
                                 Text="{Binding price}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                                </Grid>
+                            </Grid>
 
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </ScrollView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

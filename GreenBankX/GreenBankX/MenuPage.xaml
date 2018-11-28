@@ -22,7 +22,8 @@
                         <local:ClockViewModel  />
                     </Label.BindingContext>
                 </Label>
-                <Grid>
+                <Grid
+                    VerticalOptions="Center">
                     <Button
                     x:Name="Bttn1"
                    Text="{local:TranslateExtension MeasureTree}"
@@ -45,9 +46,22 @@
                    FontAttributes="Bold"
                     BackgroundColor="LightGray"
                    TextColor="Green"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Grid.Row="1"
                         Clicked="OpenMap"/>
+                    <Button
+                    x:Name="BttnOther"
+                   Text="Create Plot Test"
+                   VerticalOptions="Center"
+                   IsVisible="true"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                    BackgroundColor="LightGray"
+                   TextColor="Green"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                        Clicked="BttnOther_Clicked"/>
+
                     <Button
                     x:Name="Bttn3"
                    Text="{local:TranslateExtension ManagePlots}"

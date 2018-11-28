@@ -30,11 +30,11 @@ namespace GreenBankX
         }
         public async void Done() {
             int ID;
-            if (MHeight.Text != null && double.Parse(MHeight.Text) > 0 && Diameter.Text != null && double.Parse(Diameter.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
+            if (height.Text != null && double.Parse(height.Text) > 0 && girth.Text != null && double.Parse(girth.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
             {
                 ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count-1).Id + 1;
                 counter = (int)Application.Current.Properties["Counter"];
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(double.Parse(Diameter.Text), double.Parse(MHeight.Text), ID, DateMes.Date));
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text), ID, DateMes.Date));
                 Application.Current.Properties["Counter"] = -1;
                 MessagingCenter.Send<AddTreePop>(this, "Add");
                 await PopupNavigation.Instance.PopAsync();
@@ -131,20 +131,62 @@ namespace GreenBankX
             return base.OnBackgroundClicked();
         }
 
-        private void Diameter_TextChanged(object sender, TextChangedEventArgs e)
+        private void height_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out double ans)) { }
+            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
             {
-                Diameter.Text = e.OldTextValue;
+                height.Text = e.OldTextValue;
             }
         }
 
-        private void MHeight_TextChanged(object sender, TextChangedEventArgs e)
+        private void girth_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
+            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out double ans)) { }
+            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
             {
-                MHeight.Text = e.OldTextValue;
+                girth.Text = e.OldTextValue;
             }
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                girth.Placeholder = "DBH (cm)";
+                if (girth.Text != null)
+                {
+                    girth.Text = (Math.Round(double.Parse(girth.Text) / Math.PI, 3)).ToString();
+                }
+            }
+            else
+            {
+                girth.Placeholder = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth");
+                if (girth.Text != null)
+                {
+                    girth.Text = (Math.Round(double.Parse(girth.Text) * Math.PI, 3)).ToString();
+                }
+            }
+        }
+
+        private void merchheight_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            double ans;
+            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
+            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 100 || double.Parse(e.NewTextValue) <= 0))
+            {
+                merchheight.Text = e.OldTextValue;
+            }
+            else if (double.TryParse(height.Text, out ans) && ans < double.Parse(e.NewTextValue))
+            {
+                merchheight.Text = e.OldTextValue;
+            }
+        }
+
+        private void MerhH_Toggled(object sender, ToggledEventArgs e)
+        {
+            merchheight.IsVisible = e.Value;
+            merchheight.Text = e.Value ? "" : "";
         }
     }
 }

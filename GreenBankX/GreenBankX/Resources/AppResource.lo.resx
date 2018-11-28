@@ -379,7 +379,7 @@
     <value>ຖ້າຫາກວ່າວົງເລັບລາຄາຖືກລຶບ, ວົງເລັບກ່ອນມັນຈະຂະຫຍາຍການຕື່ມຂໍ້ມູນໃສ່ຊ່ອງຫວ່າງຂອງ.</value>
   </data>
   <data name="AddMHeight" xml:space="preserve">
-    <value>Add Merhantable Height</value>
+    <value>Add Merchantable Height</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -395,5 +395,8 @@
   </data>
   <data name="Tutorial" xml:space="preserve">
     <value>Tutorial</value>
+  </data>
+  <data name="AddPlotNoPin" xml:space="preserve">
+    <value>Add Plot no pin</value>
   </data>
 </root>

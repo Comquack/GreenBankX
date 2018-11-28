@@ -200,6 +200,11 @@ namespace GreenBankX
                 }
             });
         }
+
+        async private void BttnOther_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new NotPopup());
+        }
     }
     class ClockViewModel : INotifyPropertyChanged
     {

@@ -20,6 +20,7 @@ namespace GreenBankX
 	{
         int selector=-1;
         int select2 = -1;
+        bool changer = false;
         public CreatePricing ()
 		{
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
@@ -32,7 +33,7 @@ namespace GreenBankX
                 Name.IsVisible = true;
                 Len.IsVisible = true;
                 AddName.IsVisible = true;
-                AddNew.IsVisible = false;
+                //AddNew.IsVisible = false;
                 maxDiam.IsVisible = false;
                 minDiam.IsVisible = false;
                 price.IsVisible = false;
@@ -42,7 +43,7 @@ namespace GreenBankX
                 Name.IsVisible = false;
                 Len.IsVisible = false;
                 AddName.IsVisible = false;
-                AddNew.IsVisible = true;
+               // AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
                 minDiam.IsVisible = true;
                 price.IsVisible = true;
@@ -100,7 +101,7 @@ namespace GreenBankX
                 Name.IsVisible = false;
                 Len.IsVisible = false;
                 AddName.IsVisible = false;
-                AddNew.IsVisible = true;
+                //AddNew.IsVisible = true;
                 maxDiam.IsVisible = true;
                 minDiam.IsVisible = true;
                 price.IsVisible = true;
@@ -203,7 +204,7 @@ namespace GreenBankX
             Name.IsVisible = true;
             Len.IsVisible = true;
             AddName.IsVisible = true;
-            AddNew.IsVisible = false;
+            //AddNew.IsVisible = false;
             maxDiam.IsVisible = false;
             minDiam.IsVisible = false;
             price.IsVisible = false;
@@ -230,7 +231,7 @@ namespace GreenBankX
                 Name.IsVisible = false;
                 Len.IsVisible = false;
                 AddName.IsVisible = false;
-                AddNew.IsVisible = true;
+                //AddNew.IsVisible = true;
                 maxDiam.IsVisible = false;
                 minDiam.IsVisible = false;
                 price.IsVisible = true;
@@ -257,34 +258,88 @@ namespace GreenBankX
 
         private void PriceList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            
-            Change.IsVisible = true;
+
+            Change.IsVisible = !Confirm.IsVisible;
             string name = PriceList.SelectedItem.ToString();
-            for (int x = 0; x < PriceArray.Length; x++) {
-                if (PriceArray.Cast<string>().ToList().ElementAt(x)== name) {
+            if (changer) { 
+            for (int x = 0; x < PriceArray.Length; x++)
+            {
+                if (PriceArray.Cast<string>().ToList().ElementAt(x) == name)
+                {
                     select2 = x;
-                    minDiam.Text =((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Key.ToString();
+                    minDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Key.ToString();
                     price.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Value.ToString();
-                }
+                        try { maxDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x + 1).Key.ToString(); }
+                        catch { maxDiam.Text = null; }
+                    }
             }
+        }
         }
 
         private void Change_Clicked(object sender, EventArgs e)
+        {
+            Pricetitle.Text = "Change Price";
+            string name = PriceList.SelectedItem.ToString();
+            Change.IsVisible = false;
+            Cancel.IsVisible = true;
+            Confirm.IsVisible = true;
+            changer = true;
+                for (int x = 0; x < PriceArray.Length; x++)
+                {
+                    if (PriceArray.Cast<string>().ToList().ElementAt(x) == name)
+                    {
+                        select2 = x;
+                        minDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Key.ToString();
+                        price.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Value.ToString();
+                    try { maxDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x+1).Key.ToString(); }
+                    catch { maxDiam.Text = null; }
+                }
+                }
+            }
+
+        private void Len_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
+            {
+                Len.Text = e.OldTextValue;
+            }
+
+        }
+
+        private void maxDiam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                maxDiam.Text = e.OldTextValue;
+            }
+        }
+        private void minDiam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                minDiam.Text = e.OldTextValue;
+            }
+        }
+
+        private void Confirm_Clicked(object sender, EventArgs e)
         {
             if (select2 > -1)
             {
                 if (selector > -1 && minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0)
                 {
-                   double key = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().ElementAt(select2).Key;
+                    
+                    double key = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().ElementAt(select2).Key;
                     double value = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().ElementAt(select2).Value;
                     ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().RemoveAt(select2);
                     if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(double.Parse(minDiam.Text), double.Parse(price.Text)))
                     {
-                        try {
+                        try
+                        {
                             ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(key, value);
                             SaveAll.GetInstance().SavePricing();
 
-                        } catch { }
+                        }
+                        catch { }
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), "OK");
@@ -315,28 +370,15 @@ namespace GreenBankX
             }
         }
 
-        private void Len_TextChanged(object sender, TextChangedEventArgs e)
+        private void Cancel_Clicked(object sender, EventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
-            {
-                Len.Text = e.OldTextValue;
-            }
+            Change.IsVisible = true;
+            Cancel.IsVisible = false;
+            Confirm.IsVisible = false;
+            select2 = -1;
+            minDiam.Text = null;
+            price.Text = null;
 
-        }
-
-        private void maxDiam_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
-            {
-                maxDiam.Text = e.OldTextValue;
-            }
-        }
-        private void minDiam_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
-            {
-                minDiam.Text = e.OldTextValue;
-            }
         }
     }
 }

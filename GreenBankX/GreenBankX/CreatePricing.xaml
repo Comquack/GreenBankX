@@ -3,15 +3,18 @@
              xmlns:local="clr-namespace:GreenBankX"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GreenBankX.CreatePricing">
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ToolAddNew" Order="Primary"  Text="{local:TranslateExtension NewPrice}" Priority="0" Clicked="NewPrice"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <ScrollView>
         <StackLayout>
-            <Button x:Name="AddNew"
-                    Text="{local:TranslateExtension NewPrice}"
-                    Clicked="NewPrice"
-                    />
-            <Entry  
+        <Label x:Name="Pricetitle"
+            Text="Pricing Schemes"
+               FontSize="Large"
+               HorizontalOptions="Center"/>
+        <ScrollView>
+            <StackLayout>
+                <Entry  
                 x:Name="Name"
                    TextColor="Black"
                    Placeholder="{local:TranslateExtension Name}"/>
@@ -57,11 +60,7 @@
                    TextColor="Black"
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension Price}"/>
-            <Button x:Name="AddPrice"
-                    Font="Bold"
-                    Text="Add New Price Bracket"
-                    Clicked="AddPrice_Clicked" 
-                    />
+
             <Label x:Name="NameOfPrices" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
@@ -97,15 +96,36 @@
                 </ListView.ItemsSource>
 
             </ListView>
-            <Button x:Name="Delete"
-                    Text="{local:TranslateExtension DelPrice}"
-                    Clicked="DelPrice"
-                    />
-            <Button x:Name="Change"
+                <Button x:Name="Change"
                     Text="Edit Entry"
                     Clicked="Change_Clicked"
                     />
+                    <Grid>
+                        <Button x:Name="Confirm"
+                                Grid.Column="0"
+                    Text="Confirm Edit"
+                    Clicked="Confirm_Clicked"
+                                IsVisible="False"
+                    />
+                        <Button x:Name="Cancel"
+                    Text="Cancel"
+                                Grid.Column="1"
+                    Clicked="Cancel_Clicked"
+                                IsVisible="False"
+                    />
+                    </Grid>
+                    <Button x:Name="AddPrice"
+                    Font="Bold"
+                    Text="Add Price Bracket"
+                    Clicked="AddPrice_Clicked" 
+                    />
+                <Button x:Name="Delete"
+                    Text="{local:TranslateExtension DelPrice}"
+                    Clicked="DelPrice"
+                    />
+
         </StackLayout>
         </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

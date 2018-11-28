@@ -45,6 +45,9 @@
     <Compile Update="ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
     </Compile>
+    <Compile Update="CreatePlotPopup.xaml.cs">
+      <DependentUpon>CreatePlotPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Update="DeleteConfirm.xaml.cs">
       <DependentUpon>DeleteConfirm.xaml</DependentUpon>
     </Compile>
@@ -53,6 +56,9 @@
     </Compile>
     <Compile Update="PlotPopupEdit.xaml.cs">
       <DependentUpon>PlotPopupEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="NotPopup.xaml.cs">
+      <DependentUpon>NotPopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Popup.xaml.cs">
       <DependentUpon>Popup.xaml</DependentUpon>

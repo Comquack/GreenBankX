@@ -16,20 +16,20 @@ using System.Globalization;
 namespace GreenBankX
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CreatePlot : ContentPage
-	{
+	public partial class CreatePlotPopup : Rg.Plugins.Popup.Pages.PopupPage
+    {
         Boolean CanAdd = true;
         List<Position> newpolygon;
         List<TKCustomMapPin> Pins = new List<TKCustomMapPin>();
         int setpoly = -1;
-        public CreatePlot ()
+        public CreatePlotPopup()
         {
             if (Application.Current.Properties["Language"] != null)
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
             InitializeComponent ();
-            CancelButton.IsVisible = false;
+            AddPlot.IsVisible=false;
             }
         public async Task NewPlot() {
             //If setpoly not = -1 (pin selected) converts a set of placed pins into a polygon 
@@ -70,14 +70,8 @@ namespace GreenBankX
                 geo[0] = Pins.ElementAt(Pins.Count - 1).Position.Latitude;
                 geo[1] = Pins.ElementAt(Pins.Count - 1).Position.Longitude;
                 Application.Current.Properties["ThisLocation"] = geo;
-                MessagingCenter.Subscribe<Popup>(this, "Add", (sender) =>
-                {
-                    CanAdd = true;
-                    StartMap(false);
-                    PolyMap();
-                    SaveAll.GetInstance().SavePlots();
-                });
-                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
+                MessagingCenter.Send<CreatePlotPopup>(this, "Add");
+                await PopupNavigation.Instance.PopAsync();
             }
             else {
                 Application.Current.Properties["ThisLocation"] = null;
@@ -92,17 +86,13 @@ namespace GreenBankX
             }
   
         }
-        protected async override void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             if (Application.Current.Properties["Language"] != null)
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
-            if (Application.Current.Properties["PriceStore"] != null)
-            {
-                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
-            };
         }
     
         public void PlacePin(object sender, TKGenericEventArgs<Position> e)
@@ -144,6 +134,7 @@ namespace GreenBankX
                     ShowCallout = false,
                     
                 });
+                AddPlot.IsVisible = true;
                 MyMap.Pins = Pins;
                 CanAdd = false;
             }
@@ -273,23 +264,24 @@ namespace GreenBankX
             MyMap.Polygons = polylist;
         }
         //unselects pin
-        public void Cancel() {
+        async public void Cancel() {
             if (setpoly > -1) {
                         //MyMap.Pins.ElementAt(setpoly).DefaultPinColor = Color.Red;
                         setpoly = -1;
-                        CancelButton.IsVisible = false;
                         newpolygon = new List<Position>();
                         StartMap(false);
                         PolyMap();
                         MyMap.SelectedPin = null;
-                        return;
+                
+                return;
             }
             setpoly = -1;
-            AddPlot.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPlotNoPin");
             CanAdd = true;
             StartMap(false);
             PolyMap();
-            CancelButton.IsVisible = false;
+
+            await PopupNavigation.Instance.PopAsync();
+
         }
         public void SavePlots() {
             SaveAll.GetInstance().SavePlots();
@@ -375,5 +367,75 @@ namespace GreenBankX
             }
 
         }
+
+        protected override void OnDisappearing()
+        {
+
+            base.OnDisappearing();
+
+        }
+
+        // ### Methods for supporting animations in your popup page ###
+
+        // Invoked before an animation appearing
+        protected override void OnAppearingAnimationBegin()
+        {
+            base.OnAppearingAnimationBegin();
+        }
+
+        // Invoked after an animation appearing
+        protected override void OnAppearingAnimationEnd()
+        {
+            base.OnAppearingAnimationEnd();
+        }
+
+        // Invoked before an animation disappearing
+        protected override void OnDisappearingAnimationBegin()
+        {
+            base.OnDisappearingAnimationBegin();
+        }
+
+        // Invoked after an animation disappearing
+        protected override void OnDisappearingAnimationEnd()
+        {
+            base.OnDisappearingAnimationEnd();
+        }
+
+        protected override Task OnAppearingAnimationBeginAsync()
+        {
+            return base.OnAppearingAnimationBeginAsync();
+        }
+
+        protected override Task OnAppearingAnimationEndAsync()
+        {
+            return base.OnAppearingAnimationEndAsync();
+        }
+
+        protected override Task OnDisappearingAnimationBeginAsync()
+        {
+            return base.OnDisappearingAnimationBeginAsync();
+        }
+
+        protected override Task OnDisappearingAnimationEndAsync()
+        {
+            return base.OnDisappearingAnimationEndAsync();
+        }
+
+        // ### Overrided methods which can prevent closing a popup page ###
+
+        // Invoked when a hardware back button is pressed
+        protected override bool OnBackButtonPressed()
+        {
+            // Return true if you don't want to close this popup page when a back button is pressed
+            return base.OnBackButtonPressed();
+        }
+
+        // Invoced when background is clicked
+        protected override bool OnBackgroundClicked()
+        {
+            // Return false if you don't want to close this popup page when a background of the popup page is clicked
+            return base.OnBackgroundClicked();
+        }
+
     }
 }

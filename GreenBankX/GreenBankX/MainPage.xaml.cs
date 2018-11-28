@@ -32,7 +32,7 @@ namespace GreenBankX
             Application.Current.Properties["Signed"] = false;
             Application.Current.Properties["Account"] = null;
             Application.Current.Properties["ThisPlot"] = null;
-
+            Application.Current.Properties["ThisLocation"] = null;
             Application.Current.Properties["PriceStore"] = null;
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
