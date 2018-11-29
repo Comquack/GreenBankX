@@ -224,7 +224,7 @@ namespace GreenBankX
         {
             if (e.Value)
             {
-                girth.Placeholder = "DBH (cm)";
+                girth.Placeholder = "Diameter (cm)";
                 if (girth.Text != null) {
                     girth.Text = (Math.Round(double.Parse(girth.Text) / Math.PI, 3)).ToString();
                 }

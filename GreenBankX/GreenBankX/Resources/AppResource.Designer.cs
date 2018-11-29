@@ -322,7 +322,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Girth/DBH.
+        ///   Looks up a localized string similar to Girth/Diameter.
         /// </summary>
         public static string GDBH {
             get {

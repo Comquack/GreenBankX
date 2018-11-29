@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GreenBankX"
+            xmlns:oxy="clr-namespace:OxyPlot.Xamarin.Forms;assembly=OxyPlot.Xamarin.Forms"
+             x:Class="GreenBankX.Summary">
+    <ContentPage.Content>
+
+            <ScrollView>
+        <StackLayout>
+            <Label Text="Summary"
+                   x:Name="Titlename"
+                HorizontalOptions="CenterAndExpand" 
+                   FontSize="Large"/>
+                <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
+                    SelectedIndexChanged="SelectPlot"
+                        TextColor="Black">
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
+            <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
+                    IsVisible="False"
+                    
+                    SelectedIndexChanged="ShowGraphpick"
+                        TextColor="Black">
+                <Picker.Items>
+                    <x:String>Data of trees</x:String>
+                    <x:String>Data by Log classes</x:String>
+                    <x:String>Averages and more details</x:String>
+                        <x:String>Over Time</x:String>
+                    </Picker.Items>
+
+            </Picker>
+            <Grid x:Name="Graphgrid"
+                IsVisible="True"
+                  Margin="0, 0, 0, 0"
+                  MinimumHeightRequest="100">
+                <Label x:Name="PlotTitle" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="3"
+                       Margin="0"/>
+                <ListView
+                    IsVisible="false"
+                x:Name="DetailsList"
+                    Grid.Row="1"
+                    ItemTapped="DetailsList_ItemSelected"
+                    Grid.ColumnSpan="3">
+                    <ListView.Header>
+                        <Grid>
+                            <Label
+                                Text="{local:TranslateExtension TreeID}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="{local:TranslateExtension Girth}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            <Label
+                                Text="{local:TranslateExtension Height}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.Footer>
+                        <Button x:Name="New"
+                                Text="{local:TranslateExtension AddNewTree}"
+                                Clicked="AddNewTree"/>
+
+                    </ListView.Footer>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                             x:Name="DetailArray">
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label
+                                Text="{Binding Id}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                    <Label
+                                Text="{Binding Diameter}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    <Label
+                                Text="{Binding MerchHeight}"  
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView
+                    IsVisible="false"
+                x:Name="LogClassList"
+                    Grid.Row="1"
+                    ItemTapped="LogClassList_ItemTapped"
+                    Grid.ColumnSpan="3">
+                    <ListView.Header>
+                        <Grid>
+                            <Label
+                                Text="{local:TranslateExtension LogClass}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="{local:TranslateExtension TotalVol}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            <Label
+                                Text="{local:TranslateExtension TotalPrice}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                            >
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label
+                                Text="{Binding label}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                    <Label
+                                Text="{Binding volume}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    <Label
+                                Text="{Binding price}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ListView
+                    IsVisible="false"
+                x:Name="LogList"
+                  
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3">
+                    <ListView.Header>
+                        <Grid>
+                            <Label
+                                Text="ID"
+                                TextColor="Black"
+                                        Grid.Column="0"
+                                XAlign="Start"></Label>
+                            <Label
+                                Text="{local:TranslateExtension Girth}"
+                                TextColor="Black"
+                                        Grid.Column="1"
+                                XAlign="Start"></Label>
+                            <Label
+                                Text="{local:TranslateExtension TotalVol}"
+                                TextColor="Black"
+                                        Grid.Column="2"
+                                XAlign="Start"></Label>
+                            <Label
+                                Text="{local:TranslateExtension TotalPrice}"
+                                TextColor="Black"
+                                        Grid.Column="3"
+                                XAlign="Start"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                            >
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label
+                                Text="{Binding ID}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                    <Label
+                                Text="{Binding girth}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    <Label
+                                Text="{Binding volume}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                    <Label
+                                Text="{Binding price}"
+                                TextColor="Black"
+                                        Grid.Column="3"></Label>
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Label x:Name="ListOfTree" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="1"
+                       Grid.Column="0"/>
+                <Label x:Name="GirthOT" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="1"
+                       Grid.Column="1"/>
+                <Label x:Name="HeightOT" 
+                Text=""
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                       Grid.Row="1"
+                       Grid.Column="2"/>
+
+
+                <oxy:PlotView
+                x:Name="Oxy"
+                IsVisible="False"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                Grid.Row="2"
+                    HeightRequest="300"
+                    
+                />
+                <Button
+                    Text="{local:TranslateExtension Earlier}"
+                    x:Name="Earlier"
+                    Clicked="Earlier_Clicked"
+                IsVisible="False"
+                    HorizontalOptions="Start"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                     Margin="0, 0, 0, 0"
+                    />
+                <Button
+                    x:Name="Later"
+                    Text="{local:TranslateExtension Later}"
+                    Clicked="Later_Clicked"
+                IsVisible="False"
+                     Margin="0, 0, 0, 0"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    HorizontalOptions="End"
+                    />
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="30*" />
+                    <ColumnDefinition Width="30*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Picker x:Name="pickTree" Title="{local:TranslateExtension SelectaTree}"
+                    SelectedIndexChanged="SelectTree"
+                        TextColor="Black"
+                    IsVisible="False">
+                <Picker.Items>
+                </Picker.Items>
+            </Picker>
+
+
+        </StackLayout>
+        </ScrollView>
+
+    </ContentPage.Content>
+</ContentPage>

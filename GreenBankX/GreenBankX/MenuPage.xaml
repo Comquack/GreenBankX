@@ -87,6 +87,19 @@
                 Clicked="OpenPrice"
                 Grid.Row="4"/>
                     <Button
+                    x:Name="Summary"
+                   Text="Summary"
+                   VerticalOptions="Center"
+                   IsVisible="true"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                    BackgroundColor="LightGray"
+                   TextColor="Green"
+                    Grid.Column="1"
+                    Grid.Row="5"
+                    Clicked="Summary_Clicked"/>
+
+                    <Button
                     x:Name="Lang"
                    Text="{local:TranslateExtension Language}"
                    VerticalOptions="Center"
@@ -96,7 +109,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Clicked="ChangeLang"/>
 
                     <Button
@@ -109,7 +122,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Clicked="Tute_Clicked"/>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20*" />

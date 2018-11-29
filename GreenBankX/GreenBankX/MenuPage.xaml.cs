@@ -205,6 +205,11 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new NotPopup());
         }
+
+        async private void Summary_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Summary());
+        }
     }
     class ClockViewModel : INotifyPropertyChanged
     {
