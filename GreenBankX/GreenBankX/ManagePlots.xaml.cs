@@ -47,7 +47,7 @@ namespace GreenBankX
                 ToolEdit.Text = "Edit Plot";
                 AddMes.IsVisible = false;
                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area")+": " + Math.Round(ThisPlot.GetArea(),2)+"km2\n";
+                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName();
                 if (ThisPlot.Owner != null&& ThisPlot.Owner != "") {
                     trees +="Owner: " + ThisPlot.Owner+"\n";
                 }
@@ -82,7 +82,7 @@ namespace GreenBankX
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
                 Oxy.IsVisible = false;
-                ShowGraph.IsVisible = true;
+                ShowGraph.IsVisible = false;
                 ToolDelete.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DeletePlot");
                 ToolDeleteTree.Text = "";
             }
