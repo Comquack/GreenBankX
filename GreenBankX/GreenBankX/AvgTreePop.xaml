@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:local="clr-namespace:GreenBankX"
+    x:Class="GreenBankX.AvgTreePop">
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        Padding="20, 20, 20, 20"
+        BackgroundColor="WhiteSmoke">
+        <Label
+            x:Name="TreeLabel"
+            Text="{local:TranslateExtension AddNewTree}"
+            />
+        <Entry  
+                x:Name="many"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="Number of Trees"
+				/>
+        <Entry  
+                x:Name="girth"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension Girth}"
+                    TextChanged="girth_TextChanged"
+				/>
+        <Label
+                    x:Name="lab1"
+                    Text="{local:TranslateExtension GDBH}"
+                        Grid.Column="0"/>
+        <Switch
+                    x:Name="GirthDBH"
+                    Grid.Column="1"
+                    Toggled="Switch_Toggled"
+                    />
+        <Entry 
+                x:Name="height"
+                   TextColor="Black"
+                    Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension Height}"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                TextChanged="height_TextChanged"/>
+        <Label
+                        x:Name="lab2"
+                    Text="{local:TranslateExtension AddMHeight}"
+                        Grid.Row="0"
+                        Grid.Column="1"/>
+        <Switch
+                    x:Name="MerhH"   
+                        Grid.Row="0"
+                    Grid.Column="2"
+                    Toggled="MerhH_Toggled"
+                    />
+        <Entry 
+                    x:Name="merchheight"
+                   TextColor="Black"
+                        Grid.Row="1"
+                    Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension MerchHeight}"
+                TextChanged="merchheight_TextChanged"/>
+        <DatePicker
+            x:Name="DateMes" 
+            />
+
+        <Button
+                   x:Name="TreeBut"
+               Text="{local:TranslateExtension AddTree}"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Done"
+                />
+
+    </StackLayout>
+</pages:PopupPage>

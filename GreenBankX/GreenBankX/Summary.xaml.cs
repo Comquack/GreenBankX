@@ -23,7 +23,9 @@ namespace GreenBankX
         DetailsGraph doubletap = null;
         Tree doubletapTree;
         int year = DateTime.Now.Year;
-		public Summary()
+        ObservableCollection<PlotContainer> plotty = new ObservableCollection<PlotContainer>();
+        PlotContainer doubletap2;
+        public Summary()
 		{
             
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
@@ -33,6 +35,7 @@ namespace GreenBankX
         //activates when index is changed in the plot picker
         public async void SelectPlot()
         { string trees = "";
+            PlotList.IsVisible = false;
             Listhadler = 0;
             ShowGraph.IsVisible = true;
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
@@ -42,14 +45,15 @@ namespace GreenBankX
                 await Navigation.PushAsync(new CreatePlot());
                 return;
             }
-            if (pickPlot.SelectedIndex > -1 )
+            if (pickPlot.SelectedIndex > -1)
             {
-                   Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+                Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                 trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName();
-                if (ThisPlot.Owner != null&& ThisPlot.Owner != "") {
-                    trees +="Owner: " + ThisPlot.Owner+"\n";
+                if (ThisPlot.Owner != null && ThisPlot.Owner != "")
+                {
+                    trees += "Owner: " + ThisPlot.Owner + "\n";
                 }
-                if (ThisPlot.NearestTown != null&& ThisPlot.NearestTown != "")
+                if (ThisPlot.NearestTown != null && ThisPlot.NearestTown != "")
                 {
                     trees += "Location: " + ThisPlot.NearestTown + "\n";
                 }
@@ -57,15 +61,15 @@ namespace GreenBankX
                 {
                     trees += "Comments: " + ThisPlot.Describe + "\n";
                 }
-                List <Tree> TreeList = ThisPlot.getTrees();
+                List<Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;
                 pickTree.Items.Clear();
                 for (int x = 0; x < TreeList.Count; x++)
                 {
-                    
+
                     ThisTree = TreeList.ElementAt(x);
                     TreeTails.Add(ThisTree);
-                    pickTree.Items.Add(ThisTree.ID.ToString()); 
+                    pickTree.Items.Add(ThisTree.ID.ToString());
                 }
                 pickTree.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddTree"));
                 DetailsList.IsVisible = true;
@@ -75,11 +79,14 @@ namespace GreenBankX
                 GirthOT.Text = "";
                 HeightOT.Text = "";
                 DetailsList.ItemsSource = TreeTails;
-                DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count,5)) + (10 * Math.Min(TreeTails.Count, 5)) +60;
+                DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count, 5)) + (10 * Math.Min(TreeTails.Count, 5)) + 60;
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
                 Oxy.IsVisible = false;
                 ShowGraph.IsVisible = false;
+            }
+            else {
+                base.OnAppearing();
             }
         }
         //activates when index for tree picker is changed
@@ -763,16 +770,21 @@ namespace GreenBankX
              doubletapTree = null;
              year = DateTime.Now.Year;
             pickPlot.Items.Clear();
+            plotty.Clear();
                 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
                 ((List<Plot>)Application.Current.Properties["Plots"]).Count();
                 for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                 {
+                Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
+                plotty.Add(new PlotContainer(thisPlot.GetName(), thisPlot.getTrees().Count, thisPlot.YearPlanted));
                     pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                 pickPlot.SelectedIndex = -1;
                 }
+                PlotList.ItemsSource= plotty;
                 pickPlot.Items.Add("Add Plot");
             pickPlot.SelectedIndex = -1;
             ShowGraph.IsVisible = false;
+            PlotList.IsVisible = true;
             }
         protected override void OnSizeAllocated(double width, double height) {
             base.OnSizeAllocated(width,height);
@@ -800,5 +812,84 @@ namespace GreenBankX
             }
            
         }
+
+        private void PlotList_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            if (doubletap2 == PlotList.SelectedItem)
+            {
+                pickPlot.SelectedIndex = plotty.IndexOf((PlotContainer)PlotList.SelectedItem);
+            }
+            else
+            {
+                doubletap2 = (PlotContainer)PlotList.SelectedItem;
+            }
         }
+
+        protected override bool OnBackButtonPressed() {
+            if (DetailsList.IsVisible) {
+                OnAppearing();
+                PlotTitle.IsVisible = false;
+                return true;
+            } else if (Oxy.IsVisible) {
+                int store = pickPlot.SelectedIndex;
+                pickPlot.SelectedIndex = -1;
+                pickPlot.SelectedIndex = store;
+                return true;
+            }
+            else {
+                base.OnBackButtonPressed();
+                return true;
+            }
+        }
+
+       async private void ShowMap_Clicked(object sender, EventArgs e)
+        {
+            List<Plot> shower = new List<Plot>();
+            Application.Current.Properties["PlotsOnMap"] = new List<Plot>();
+
+            bool selected = false;
+            for (int x = 0; x < plotty.Count; x++)
+            {
+                if (plotty.ElementAt(x).Selected) { shower.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x)); }
+                selected = selected || plotty.ElementAt(x).Selected;
+            }
+            if (shower.Count == 0)
+            {
+                Application.Current.Properties["PlotsOnMap"] = Application.Current.Properties["Plots"];
+            }
+            else {
+                Application.Current.Properties["PlotsOnMap"] = shower;
+            }
+            await PopupNavigation.Instance.PushAsync(new ShowonmapPopup());
+        }
+
+        private void Switch_Toggled(object sender, ToggledEventArgs e)
+        {
+            bool selected = false;
+            for (int x = 0; x < plotty.Count; x++)
+            {
+                selected = selected || plotty.ElementAt(x).Selected;
+            }
+            ShowMap.Text = selected ? "Show on map" : "Show all on map";
+        }
+    }
+
+    public class PlotContainer
+    {
+        public string Name { get; set; }
+        public int NoTrees { get; set; }
+        public int DateMade { get; set; }
+        public bool Selected { get; set; }
+        public PlotContainer(string name, int NoT, int date)
+        {
+            Selected = false;
+            Name = name;
+            DateMade = date;
+            NoTrees = NoT;
+        }
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
 }

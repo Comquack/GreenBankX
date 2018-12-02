@@ -42,8 +42,14 @@
     <Compile Update="AddMesPop.xaml.cs">
       <DependentUpon>AddMesPop.xaml</DependentUpon>
     </Compile>
+    <Compile Update="AvgTreePop.xaml.cs">
+      <DependentUpon>AvgTreePop.xaml</DependentUpon>
+    </Compile>
     <Compile Update="ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="ShowonmapPopup.xaml.cs">
+      <DependentUpon>ShowonmapPopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="CreatePlotPopup.xaml.cs">
       <DependentUpon>CreatePlotPopup.xaml</DependentUpon>

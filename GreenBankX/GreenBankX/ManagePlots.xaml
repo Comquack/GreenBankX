@@ -23,20 +23,56 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
-            <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
-                    IsVisible="False"
-                    
-                    SelectedIndexChanged="ShowGraphpick"
-                        TextColor="Black">
-                <Picker.Items>
-                    <x:String>Data of trees</x:String>
-                    <x:String>Data by Log classes</x:String>
-                    <x:String>Averages and more details</x:String>
-                        <x:String>Over Time</x:String>
-                    </Picker.Items>
+                <ListView
 
-            </Picker>
-            <Grid x:Name="Graphgrid"
+                    x:Name="PlotList"
+                    ItemTapped="PlotList_ItemTapped">
+                    <ListView.Header>
+                        <Grid>
+                            <Label
+                                Text="Name"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="Trees"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            <Label
+                                Text="Date Made"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                            >
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label
+                                Text="{Binding Name}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                    <Label
+                                Text="{Binding NoTrees}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    <Label
+                                Text="{Binding DateMade}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                                </Grid>
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Grid x:Name="Graphgrid"
                 IsVisible="True"
                   Margin="0, 0, 0, 0"
                   MinimumHeightRequest="100">
@@ -155,68 +191,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <ListView
-                    IsVisible="false"
-                x:Name="LogList"
-                  
-                    Grid.Row="1"
-                    Grid.ColumnSpan="3">
-                    <ListView.Header>
-                        <Grid>
-                            <Label
-                                Text="ID"
-                                TextColor="Black"
-                                        Grid.Column="0"
-                                XAlign="Start"></Label>
-                            <Label
-                                Text="{local:TranslateExtension Girth}"
-                                TextColor="Black"
-                                        Grid.Column="1"
-                                XAlign="Start"></Label>
-                            <Label
-                                Text="{local:TranslateExtension TotalVol}"
-                                TextColor="Black"
-                                        Grid.Column="2"
-                                XAlign="Start"></Label>
-                            <Label
-                                Text="{local:TranslateExtension TotalPrice}"
-                                TextColor="Black"
-                                        Grid.Column="3"
-                                XAlign="Start"></Label>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.ItemsSource>
-
-                        <x:Array Type="{x:Type x:String}"
-                            >
-                        </x:Array>
-                    </ListView.ItemsSource>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Label
-                                Text="{Binding ID}"
-                                TextColor="Black"
-                                        Grid.Column="0"></Label>
-                                    <Label
-                                Text="{Binding girth}"
-                                TextColor="Black"
-                                        Grid.Column="1"></Label>
-                                    <Label
-                                Text="{Binding volume}"
-                                TextColor="Black"
-                                        Grid.Column="2"></Label>
-                                    <Label
-                                Text="{Binding price}"
-                                TextColor="Black"
-                                        Grid.Column="3"></Label>
-                                </Grid>
-
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
 
                 <Label x:Name="ListOfTree" 
                 Text=""
@@ -237,16 +211,6 @@
                        Grid.Row="1"
                        Grid.Column="2"/>
 
-
-                <oxy:PlotView
-                x:Name="Oxy"
-                IsVisible="False"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3"
-                Grid.Row="2"
-                    HeightRequest="300"
-                    
-                />
                 <Button
                     Text="{local:TranslateExtension Earlier}"
                     x:Name="Earlier"

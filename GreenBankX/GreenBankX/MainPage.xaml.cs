@@ -16,6 +16,7 @@ namespace GreenBankX
             Application.Current.Properties["Load"] = false;
             Application.Current.Properties["Language"] = null;
             Application.Current.Properties["Plots"] = new List<Plot>();
+            Application.Current.Properties["PlotsOnMap"] = new List<Plot>();
             Application.Current.Properties["Prices"] = new List<PriceRange>();
             Application.Current.Properties["First"] = null;
             Application.Current.Properties["Last"] = null;
@@ -34,6 +35,8 @@ namespace GreenBankX
             Application.Current.Properties["ThisPlot"] = null;
             Application.Current.Properties["ThisLocation"] = null;
             Application.Current.Properties["PriceStore"] = null;
+            Application.Current.Properties["AvgGirth"] = -1;
+            Application.Current.Properties["AvgH"] = -1;
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }

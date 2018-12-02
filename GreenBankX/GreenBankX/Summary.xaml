@@ -8,7 +8,7 @@
 
             <ScrollView>
         <StackLayout>
-            <Label Text="Summary"
+                <Label Text="Summary"
                    x:Name="Titlename"
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Large"/>
@@ -18,20 +18,80 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
-            <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
+                <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
                     IsVisible="False"
                     
                     SelectedIndexChanged="ShowGraphpick"
                         TextColor="Black">
-                <Picker.Items>
-                    <x:String>Data of trees</x:String>
-                    <x:String>Data by Log classes</x:String>
-                    <x:String>Averages and more details</x:String>
+                    <Picker.Items>
+                        <x:String>Data of trees</x:String>
+                        <x:String>Data by Log classes</x:String>
+                        <x:String>Averages and more details</x:String>
                         <x:String>Over Time</x:String>
                     </Picker.Items>
 
-            </Picker>
-            <Grid x:Name="Graphgrid"
+                </Picker>
+                <ListView
+
+                    x:Name="PlotList"
+                    ItemTapped="PlotList_ItemTapped">
+                    <ListView.Header>
+                        <Grid>
+                            <Label
+                                Text="Name"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="Trees"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            <Label
+                                Text="Date Made"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemsSource>
+
+                        <x:Array Type="{x:Type x:String}"
+                            >
+                        </x:Array>
+                    </ListView.ItemsSource>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Label
+                                Text="{Binding Name}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                    <Label
+                                Text="{Binding NoTrees}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    <Label
+                                Text="{Binding DateMade}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+
+                                    <Switch IsToggled="{Binding Selected}" Grid.Column="3" Toggled="Switch_Toggled"/>
+                                </Grid>
+                                
+
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <StackLayout>
+                            <Button x:Name="ShowMap"
+                                Text="Show On Map"
+                                Clicked="ShowMap_Clicked"/>
+                        </StackLayout>
+
+                    </ListView.Footer>
+                </ListView>
+
+                <Grid x:Name="Graphgrid"
                 IsVisible="True"
                   Margin="0, 0, 0, 0"
                   MinimumHeightRequest="100">
@@ -65,11 +125,12 @@
                         </Grid>
                     </ListView.Header>
                     <ListView.Footer>
-                        <Button x:Name="New"
+  
+                                <Button x:Name="New"
                                 Text="{local:TranslateExtension AddNewTree}"
                                 Clicked="AddNewTree"/>
 
-                    </ListView.Footer>
+                        </ListView.Footer>
                     <ListView.ItemsSource>
 
                         <x:Array Type="{x:Type x:String}"
