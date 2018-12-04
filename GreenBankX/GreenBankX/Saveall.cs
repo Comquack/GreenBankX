@@ -470,7 +470,7 @@ namespace GreenBankX
                         }
                     }
                     output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumberTrees") + ": " + treecount.ToString() + "\n";
-                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": " + Math.Round(totVolplotyear,4).ToString() + "m3\n";
+                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": " + Math.Round(totVolplotyear,4).ToString() + "m\xB3\n";
                     output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(totalplotyear,2).ToString() + "k\n";
                 }
                 output +="</description>";

@@ -12,6 +12,7 @@
                    x:Name="Titlename"
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Large"/>
+            
                 <Picker x:Name="pickPlot" Title="{local:TranslateExtension SelectaPlot}"
                     SelectedIndexChanged="SelectPlot"
                         TextColor="Black">
@@ -19,7 +20,7 @@
                 </Picker.Items>
             </Picker>
                 <Picker x:Name="ShowGraph" Title="{local:TranslateExtension ShowGraph}"
-                    IsVisible="False"
+                    IsVisible="True"
                     
                     SelectedIndexChanged="ShowGraphpick"
                         TextColor="Black">

@@ -136,7 +136,7 @@ namespace GreenBankX
             {
                 PriceRange ThisPrice = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex);
                 SortedList<double, double> brack = ThisPrice.GetBrack();
-                prices = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "/m3\n";
+                prices = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "/m\xB3\n";
                 logs = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("minimumdiameter") + "\n ";
                 for (int x = 0; x < brack.Count(); x++)
                 {

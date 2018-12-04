@@ -41,17 +41,18 @@
                     x:Name="Bttn2"
                    Text="{local:TranslateExtension CreatePlot}"
                    VerticalOptions="Center"
-                   IsVisible="true"
+ 
                    FontSize="Large"
                    FontAttributes="Bold"
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="0"
                     Grid.Row="1"
+                        IsVisible="False"
                         Clicked="OpenMap"/>
                     <Button
                     x:Name="BttnOther"
-                   Text="Create Plot Test"
+                   Text="{local:TranslateExtension CreatePlot}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -60,6 +61,7 @@
                    TextColor="Green"
                     Grid.Column="1"
                     Grid.Row="1"
+                        
                         Clicked="BttnOther_Clicked"/>
 
                     <Button

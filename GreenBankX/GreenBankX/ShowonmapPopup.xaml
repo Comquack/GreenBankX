@@ -28,8 +28,6 @@
                 x:FieldModifier="MyMaps"
                 IsShowingUser="True"
                  MapType="Street"
-                MapLongPress="PlacePin"
-                    MapClicked="PlacePin"
                 IsClusteringEnabled="false"
                 Grid.Row="0"
                 MapReady="MapReady"

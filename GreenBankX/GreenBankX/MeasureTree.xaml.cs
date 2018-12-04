@@ -65,7 +65,7 @@ namespace GreenBankX
                 SortedList<double, double> brack = calc.GetPrices().GetBrack();
                 string[] unitcm = { "cm" };
                 string[] unitm = { "m" };
-                string[] unitm3 = { "m3" };
+                string[] unitm3 = { "m\xB3" };
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
                     DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2) };
@@ -475,6 +475,15 @@ namespace GreenBankX
                     avgH += double.Parse(plotTog.ElementAt(x).MerchHeight);
                     avgG +=double.Parse(plotTog.ElementAt(x).Diameter);
                     counter++;
+                }
+            }
+            if (counter == 0) {
+                for (int x = 0; x < plotTog.Count; x++)
+                {
+
+                        avgH += double.Parse(plotTog.ElementAt(x).MerchHeight);
+                        avgG += double.Parse(plotTog.ElementAt(x).Diameter);
+                        counter++;
                 }
             }
             Application.Current.Properties["AvgGirth"] = avgG/counter;

@@ -40,49 +40,7 @@ namespace GreenBankX
             }
         }
     
-        public void PlacePin(object sender, TKGenericEventArgs<Position> e)
-        {
-        
-            //If setpoly not = -1 (pin selected) multiple pins can be placed to form polygon
-            if (setpoly > -1)
-            {
-                MyMap.Pins = new List<TKCustomMapPin>();
-                showName.IsVisible = false;
-                Pins.Add(new TKCustomMapPin
-                {
-                    Position = e.Value,
-                    Title = "Area",
-                    IsVisible = true,
-                    ShowCallout = false,
-                    DefaultPinColor = Color.Green
-
-                });
-                newpolygon.Add(e.Value);
-
-                MyMap.Pins = Pins;
-            }
-            else
-            {
-                // setpoly = -1 (no pin selected) one pin can be placed at a time
-                if (!CanAdd)
-                {
-                    Pins.RemoveAt(Pins.Count - 1);
-                }
-                MyMap.Pins = new List<TKCustomMapPin>();
-                showName.IsVisible = false;
-                Pins.Add(new TKCustomMapPin
-                {
-                    Position = e.Value,
-                    Title = "TestPlot",
-                    IsVisible = true,
-                    ShowCallout = false,
-                    
-                });
-                MyMap.Pins = Pins;
-                CanAdd = false;
-            }
-            CancelButton.IsVisible = true; ;
-        }
+     
         public void MapReady() {
             if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutplot"])
             {
@@ -147,45 +105,9 @@ namespace GreenBankX
         }
 
         private void MyMap_PinSelected(object sender, TKGenericEventArgs<TKCustomMapPin> e)
-        { if (e.Value.Title == "TestPlot")
-            {
-                return;
-            }
-            else if ((e.Value.Title == "Area"))
-            {
-                Pins.Remove(e.Value);
-                newpolygon.Remove(e.Value.Position);
-                StartMap(false);
-                PolyMap();
-            }
-            else
-            {
-                for (int x = 0; x < ((List<Plot>)Application.Current.Properties["PlotsOnMap"]).Count; x++)
-                {
-                    if (e.Value.Title == ((List<Plot>)Application.Current.Properties["PlotsOnMap"]).ElementAt(x).GetName())
-                    {
-                        if (setpoly > -1)
-                        {
-                            Cancel();
-                            return;
-                        }
-                        else
-                        {  if (!CanAdd){
-                                Pins.RemoveAt(Pins.Count - 1);
-                                return;
-                            }
-                            CanAdd = true;
-                            e.Value.DefaultPinColor = Color.Aqua;
-                            setpoly = x;
-                            CancelButton.IsVisible = true;
-                            MyMap.Pins = new List<TKCustomMapPin>();
-                            MyMap.Pins = Pins;
-
-                        }
-                    }
-                }
-                newpolygon = new List<Position>();
-            }
+        {
+            e.Value.ShowCallout = true;
+           
         }
         //renders polygons(plot area)
         public void PolyMap() {

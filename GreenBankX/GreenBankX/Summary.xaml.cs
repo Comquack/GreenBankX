@@ -47,8 +47,9 @@ namespace GreenBankX
             }
             if (pickPlot.SelectedIndex > -1)
             {
+                ShowGraph.IsVisible = true;
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName();
+                trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName()+" ";
                 if (ThisPlot.Owner != null && ThisPlot.Owner != "")
                 {
                     trees += "Owner: " + ThisPlot.Owner + "\n";
@@ -71,7 +72,6 @@ namespace GreenBankX
                     TreeTails.Add(ThisTree);
                     pickTree.Items.Add(ThisTree.ID.ToString());
                 }
-                pickTree.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddTree"));
                 DetailsList.IsVisible = true;
                 LogClassList.IsVisible = false;
                 LogList.IsVisible = false;
@@ -83,7 +83,7 @@ namespace GreenBankX
                 PlotTitle.Text = trees;
                 pickTree.IsVisible = true;
                 Oxy.IsVisible = false;
-                ShowGraph.IsVisible = false;
+                
             }
             else {
                 base.OnAppearing();
@@ -120,9 +120,7 @@ namespace GreenBankX
                 Graphgrid.RowDefinitions.ElementAt(1).Height = new GridLength(20, GridUnitType.Auto);
                 Graphgrid.RowDefinitions.ElementAt(2).Height = new GridLength(90, GridUnitType.Auto);
 
-            } else if (pickTree.SelectedIndex == pickTree.Items.Count - 1) {
-                return;
-            }
+            } 
             else if (pickTree.SelectedIndex == -1)
             {
                 SelectPlot();
@@ -139,7 +137,7 @@ namespace GreenBankX
                     bool res = await DisplayAlert("Manage Plots", "This page allows you to manage the plots you have created.", "Continue", "Skip");
                     if (res)
                     {
-                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot. The  plot can be added to by pressing the add to plot button, or by going to the measure trees page", "Next");
+                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot.", "Next");
                         await DisplayAlert("View Trees", "If you tap a tree in the list twice, you will be shown additional details.", "Next");
                         await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.", "Next");
                         Application.Current.Properties["Tutmanage"] = false;
@@ -511,7 +509,7 @@ namespace GreenBankX
                     HeightOT.Text = "";
                     Later.IsVisible = true;
                     Earlier.IsVisible = true;
-                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "\n" + Math.Round((totalvol / (double)count), 4).ToString() + "\n" + Math.Round((total / (double)count), 4).ToString() + "\n" + Math.Round((totalvol), 4).ToString() + "\n" + Math.Round((total), 4).ToString() + "\n";
+                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "cm \n" + Math.Round((totalvol / (double)count), 4).ToString() + "m\xB3 \n" + Math.Round((total / (double)count), 4).ToString() + " kip\n" + Math.Round((totalvol), 4).ToString() + "m\xB3 \n" + Math.Round((total), 4).ToString() + " kip \n";
                     Later.IsVisible = true;
                     Earlier.IsVisible = true;
                 }
@@ -688,6 +686,7 @@ namespace GreenBankX
                     LogList.IsVisible = false;
                     Listhadler = -1;
                     doubletapTree = null;
+                    ShowGraph.IsVisible = false;
                 }
             }
             else {
@@ -817,6 +816,7 @@ namespace GreenBankX
         {
             if (doubletap2 == PlotList.SelectedItem)
             {
+                ShowGraph.IsVisible = true;
                 pickPlot.SelectedIndex = plotty.IndexOf((PlotContainer)PlotList.SelectedItem);
             }
             else
@@ -829,11 +829,15 @@ namespace GreenBankX
             if (DetailsList.IsVisible) {
                 OnAppearing();
                 PlotTitle.IsVisible = false;
+                Earlier.IsVisible = false;
+                Later.IsVisible = false;
                 return true;
             } else if (Oxy.IsVisible) {
                 int store = pickPlot.SelectedIndex;
                 pickPlot.SelectedIndex = -1;
                 pickPlot.SelectedIndex = store;
+                Earlier.IsVisible = false;
+                Later.IsVisible = false;
                 return true;
             }
             else {

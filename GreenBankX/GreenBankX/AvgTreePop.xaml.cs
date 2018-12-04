@@ -36,11 +36,16 @@ namespace GreenBankX
                     ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count - 1).Id + 1;
                     counter = (int)Application.Current.Properties["Counter"];
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text), ID, DateMes.Date));
-                    
+
                 }
                 Application.Current.Properties["Counter"] = -1;
                 MessagingCenter.Send<AvgTreePop>(this, "Add");
                 await PopupNavigation.Instance.PopAsync();
+            } else if (int.TryParse(many.Text,out int mork) || mork < 1) {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("Number of trees invalid", "Number of trees invalid", "OK");
+                });
             }
             else if (DateMes.Date > DateTime.Now) {
                 Device.BeginInvokeOnMainThread(() =>
@@ -66,8 +71,9 @@ namespace GreenBankX
         }
         protected override void OnAppearing()
         {
-            girth.Text = ((double)Application.Current.Properties["AvgGirth"]).ToString();
-            height.Text = ((double)Application.Current.Properties["AvgH"]).ToString();
+            many.Text = null;
+            girth.Text = (((double)Application.Current.Properties["AvgGirth"])>-1)?((double)Application.Current.Properties["AvgGirth"]).ToString():null;
+            height.Text = (((double)Application.Current.Properties["AvgH"]) > -1) ? ((double)Application.Current.Properties["AvgH"]).ToString() : null;
             base.OnAppearing();
             Application.Current.Properties["AvgH"] = -1;
             Application.Current.Properties["AvgGirth"] = -1;
