@@ -62,16 +62,18 @@ namespace GreenBankX
                 {
                     trees += "Comments: " + ThisPlot.Describe + "\n";
                 }
+                List<string> IDlis = new List<string>();
                 List<Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;
-                pickTree.Items.Clear();
+               // pickTree.Items.Clear();
                 for (int x = 0; x < TreeList.Count; x++)
                 {
 
                     ThisTree = TreeList.ElementAt(x);
                     TreeTails.Add(ThisTree);
-                    pickTree.Items.Add(ThisTree.ID.ToString());
+                    IDlis.Add(ThisTree.ID.ToString());
                 }
+                pickTree.ItemsSource = IDlis;
                 DetailsList.IsVisible = true;
                 LogClassList.IsVisible = false;
                 LogList.IsVisible = false;
@@ -842,7 +844,7 @@ namespace GreenBankX
             }
             else {
                 base.OnBackButtonPressed();
-                return true;
+                return false;
             }
         }
 

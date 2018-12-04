@@ -48,7 +48,7 @@ namespace GreenBankX
             }
             if (pickPrice.SelectedIndex > -1 || (thispolt != null && thispolt.GetRange() != null))
             {
-                ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
+                List<DetailsGraph2> Detail = new List<DetailsGraph2>();
                 if (thispolt != null) { calc.SetPrices(thispolt.GetRange()); } else {
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex)); }
                 double[,] result;
@@ -389,7 +389,7 @@ namespace GreenBankX
         {
             Plot thispolt = null;
             thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
-            ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
+            List<DetailsGraph2> Detail = new List<DetailsGraph2>();
             ObservableCollection<DetailsGraph2> DetailSort = new ObservableCollection<DetailsGraph2>();
             for (int x = 0; x < plotTog.Count; x++)
             {
@@ -463,8 +463,6 @@ namespace GreenBankX
         {
             Plot thispolt = null;
             thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
-            ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
-            ObservableCollection<DetailsGraph2> DetailSort = new ObservableCollection<DetailsGraph2>();
             double avgG = 0;
             double avgH = 0;
             int counter = 0;

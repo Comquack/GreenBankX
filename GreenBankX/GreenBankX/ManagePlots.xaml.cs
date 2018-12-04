@@ -34,17 +34,17 @@ namespace GreenBankX
             changedPlot = new List<Plot>();
         }
         //activates when index is changed in the plot picker
-        public async void SelectPlot()
+        public void SelectPlot()
         { string trees = "";
             PlotList.IsVisible = false;
             Listhadler = 0;
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
             string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
-            if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
-                await Navigation.PushAsync(new CreatePlot());
-                return;
-            }
+            //if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
+               // await Navigation.PushAsync(new CreatePlot());
+             //   return;
+           // }
             if (pickPlot.SelectedIndex > -1)
             {
                 ToolEdit.Text = "Edit Plot";
@@ -529,6 +529,8 @@ DetailsList.IsVisible = false;
 
         protected override void  OnAppearing() {
             base.OnAppearing();
+            plotty = new ObservableCollection<PlotContainer>();
+            List<string> pickplotlist = new List<string>();
             if (Application.Current.Properties["Language"] != null)
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
@@ -542,18 +544,17 @@ DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
              doubletapTree = null;
              year = DateTime.Now.Year;
-            pickPlot.Items.Clear();
+            //pickPlot.Items.Clear();
                 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
                 ((List<Plot>)Application.Current.Properties["Plots"]).Count();
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
             {
                 Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
                 plotty.Add(new PlotContainer(thisPlot.GetName(), thisPlot.getTrees().Count, thisPlot.YearPlanted));
-                pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
-                pickPlot.SelectedIndex = -1;
+                pickplotlist.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
             }
+            pickPlot.ItemsSource = pickplotlist;
             PlotList.ItemsSource = plotty;
-            pickPlot.Items.Add("Add Plot");
             pickPlot.SelectedIndex = -1;
             PlotList.IsVisible = true;
         }
@@ -610,7 +611,7 @@ DetailsList.IsVisible = false;
             else
             {
                 base.OnBackButtonPressed();
-                return true;
+                return false;
             }
         }
     }
