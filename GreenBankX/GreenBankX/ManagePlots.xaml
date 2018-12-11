@@ -30,15 +30,15 @@
                     <ListView.Header>
                         <Grid>
                             <Label
-                                Text="Name"
+                                Text="{local:TranslateExtension Name}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                             <Label
-                                Text="Trees"
+                                Text="{local:TranslateExtension Trees}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                             <Label
-                                Text="Date Made"
+                                Text="{Binding DateMade}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                         </Grid>
@@ -76,197 +76,155 @@
                 IsVisible="True"
                   Margin="0, 0, 0, 0"
                   MinimumHeightRequest="100">
-                <Label x:Name="PlotTitle" 
+                    <Label x:Name="PlotTitle" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="0"
                        Grid.ColumnSpan="3"
                        Margin="0"/>
-                <ListView
+                    <ListView
                     IsVisible="false"
                 x:Name="DetailsList"
                     Grid.Row="1"
                     ItemTapped="DetailsList_ItemSelected"
                     Grid.ColumnSpan="3">
-                    <ListView.Header>
-                        <Grid>
-                            <Label
+                        <ListView.Header>
+                            <Grid>
+                                <Label
                                 Text="{local:TranslateExtension TreeID}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                            <Label
+                                <Label
                                 Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                            <Label
+                                <Label
                                 Text="{local:TranslateExtension Height}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.Footer>
-                        <Button x:Name="New"
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.Footer>
+                            <Button x:Name="New"
                                 Text="{local:TranslateExtension AddNewTree}"
                                 Clicked="AddNewTree"/>
 
-                    </ListView.Footer>
-                    <ListView.ItemsSource>
+                        </ListView.Footer>
+                        <ListView.ItemsSource>
 
-                        <x:Array Type="{x:Type x:String}"
+                            <x:Array Type="{x:Type x:String}"
                              x:Name="DetailArray">
-                        </x:Array>
-                    </ListView.ItemsSource>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Label
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Label
                                 Text="{Binding Id}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                                    <Label
+                                        <Label
                                 Text="{Binding Diameter}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                                    <Label
+                                        <Label
                                 Text="{Binding MerchHeight}"  
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                                </Grid>
+                                    </Grid>
 
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-                <ListView
+                    <ListView
                     IsVisible="false"
                 x:Name="LogClassList"
                     Grid.Row="1"
                     ItemTapped="LogClassList_ItemTapped"
                     Grid.ColumnSpan="3">
-                    <ListView.Header>
-                        <Grid>
-                            <Label
+                        <ListView.Header>
+                            <Grid>
+                                <Label
                                 Text="{local:TranslateExtension LogClass}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                            <Label
+                                <Label
                                 Text="{local:TranslateExtension TotalVol}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                            <Label
+                                <Label
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.ItemsSource>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemsSource>
 
-                        <x:Array Type="{x:Type x:String}"
+                            <x:Array Type="{x:Type x:String}"
                             >
-                        </x:Array>
-                    </ListView.ItemsSource>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid>
-                                    <Label
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Label
                                 Text="{Binding label}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                                    <Label
+                                        <Label
                                 Text="{Binding volume}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                                    <Label
+                                        <Label
                                 Text="{Binding price}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                                </Grid>
+                                    </Grid>
 
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
 
-                <Label x:Name="ListOfTree" 
+                    <Label x:Name="ListOfTree" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="1"
                        Grid.Column="0"/>
-                <Label x:Name="GirthOT" 
+                    <Label x:Name="GirthOT" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="1"
                        Grid.Column="1"/>
-                <Label x:Name="HeightOT" 
+                    <Label x:Name="HeightOT" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="1"
                        Grid.Column="2"/>
 
-                <Button
-                    Text="{local:TranslateExtension Earlier}"
-                    x:Name="Earlier"
-                    Clicked="Earlier_Clicked"
-                IsVisible="False"
-                    HorizontalOptions="Start"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                     Margin="0, 0, 0, 0"
-                    />
-                <Button
-                    x:Name="Later"
-                    Text="{local:TranslateExtension Later}"
-                    Clicked="Later_Clicked"
-                IsVisible="False"
-                     Margin="0, 0, 0, 0"
-                    Grid.Row="3"
-                    Grid.Column="2"
-                    HorizontalOptions="End"
-                    />
-                <Button x:Name="AddMes"
-                    Text="{local:TranslateExtension AddMeasurement}"
-                    Clicked="AddTreeMes"
-                    IsVisible="False"
-                        Grid.Row="3"
-                        Grid.Column="1"/>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
+                    <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*" />
-                    <ColumnDefinition Width="30*" />
-                    <ColumnDefinition Width="30*" />
-                </Grid.ColumnDefinitions>
-            </Grid>
-            <Picker x:Name="pickTree" Title="{local:TranslateExtension SelectaTree}"
-                    SelectedIndexChanged="SelectTree"
-                        TextColor="Black"
-                    IsVisible="False">
-                <Picker.Items>
-                </Picker.Items>
-            </Picker>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="30*" />
+                        <ColumnDefinition Width="30*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
 
-            <Button x:Name="AddTree"
-                    Text="{local:TranslateExtension AddTree}"
-                    Clicked="AddNewTree"
-                    IsVisible="False"/>
-
-            <Button x:Name="DeleteTree"
-                    Text="Delete Tree"
-                    Clicked="DelTree"
-                    IsVisible="False"/>
 
         </StackLayout>
         </ScrollView>

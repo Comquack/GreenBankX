@@ -375,4 +375,91 @@
   <data name="AddPlotNoPin" xml:space="preserve">
     <value>Add Plot  no pin</value>
   </data>
+  <data name="AddAvg" xml:space="preserve">
+    <value>Add from Average</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="Diameter" xml:space="preserve">
+    <value>Diameter (cm)</value>
+  </data>
+  <data name="EditPlot" xml:space="preserve">
+    <value>Edit Plot</value>
+  </data>
+  <data name="ImportPlot" xml:space="preserve">
+    <value>Import From Plot</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="MeasureAll" xml:space="preserve">
+    <value>Measure All</value>
+  </data>
+  <data name="NoPrice" xml:space="preserve">
+    <value>This Plot has no prices. </value>
+  </data>
+  <data name="NoTrees" xml:space="preserve">
+    <value>This plot has no trees.</value>
+  </data>
+  <data name="NumTree" xml:space="preserve">
+    <value>Number of Trees</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Owner</value>
+  </data>
+  <data name="PastTree" xml:space="preserve">
+    <value>Date is before plot is made</value>
+  </data>
+  <data name="ShowAllOnMap" xml:space="preserve">
+    <value>Show All On Map</value>
+  </data>
+  <data name="ShowOnMap" xml:space="preserve">
+    <value>Show On Map</value>
+  </data>
+  <data name="SummaryTute" xml:space="preserve">
+    <value>This page shows you data about the logs produced by this plot. Double tapping a log size will show a list of every log in that catagory and which tree it would come from.</value>
+  </data>
+  <data name="AddPriceB" xml:space="preserve">
+    <value>Add Price Bracket</value>
+  </data>
+  <data name="ComfirmEn" xml:space="preserve">
+    <value>Confirm Edit</value>
+  </data>
+  <data name="EditEn" xml:space="preserve">
+    <value>Edit Entry</value>
+  </data>
+  <data name="LoadFail" xml:space="preserve">
+    <value>Failed to load</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="LoadingFin" xml:space="preserve">
+    <value>Loading Finished</value>
+  </data>
+  <data name="NoTreeErr" xml:space="preserve">
+    <value>Number of trees invalid</value>
+  </data>
+  <data name="Welcome1" xml:space="preserve">
+    <value>Hello! Welcome to GreenBank. Please log In with a Google Account</value>
+  </data>
+  <data name="Welcome2" xml:space="preserve">
+    <value>Welcome to GreenBank.</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="ChangePrice" xml:space="preserve">
+    <value>Change Price</value>
+  </data>
+  <data name="DateMade" xml:space="preserve">
+    <value>Date Made</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Trees</value>
+  </data>
+  <data name="TuteSum1" xml:space="preserve">
+    <value>The "Earlier" and "Later" buttons change the data to the previous/next measurement that was made for that tree. The add measurement button allows you to add new measurement data for the tree.</value>
+  </data>
 </root>

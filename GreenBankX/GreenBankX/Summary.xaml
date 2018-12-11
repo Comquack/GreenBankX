@@ -109,30 +109,23 @@
                     Grid.Row="1"
                     ItemTapped="DetailsList_ItemSelected"
                     Grid.ColumnSpan="3">
-                    <ListView.Header>
-                        <Grid>
-                            <Label
+                        <ListView.Header>
+                            <Grid>
+                                <Label
                                 Text="{local:TranslateExtension TreeID}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
-                            <Label
+                                <Label
                                 Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
-                            <Label
+                                <Label
                                 Text="{local:TranslateExtension Height}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                        </Grid>
-                    </ListView.Header>
-                    <ListView.Footer>
-  
-                                <Button x:Name="New"
-                                Text="{local:TranslateExtension AddNewTree}"
-                                Clicked="AddNewTree"/>
-
-                        </ListView.Footer>
-                    <ListView.ItemsSource>
+                            </Grid>
+                        </ListView.Header>
+                        <ListView.ItemsSource>
 
                         <x:Array Type="{x:Type x:String}"
                              x:Name="DetailArray">

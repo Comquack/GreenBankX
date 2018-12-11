@@ -106,10 +106,10 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Measure trees", "This page allows you to input the measurements of trees and add them to your plots.", "Continue", "Skip");
+                    bool res = await DisplayAlert("Measure trees", "This page allows you to input the measurements of trees and add them to your plots.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Measure trees", "If a pricing scheme is selected,  the measure button will show you how many logs the tree will produce and their worth.", "Next");
+                        await DisplayAlert("Measure trees", "If a pricing scheme is selected,  the measure button will show you how many logs the tree will produce and their worth.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutmes"] = false;
 
                     }

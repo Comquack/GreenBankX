@@ -46,11 +46,11 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot0"), "Continue", "Skip");
+                    bool res = await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot0"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot1"), "Next");
-                        await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot2"), "Next");
+                        await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot1"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePlot2"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutplot"] = false;
                     }
                     else

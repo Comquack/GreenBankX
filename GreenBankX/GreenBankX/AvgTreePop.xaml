@@ -32,7 +32,7 @@
                 x:Name="many"
                    TextColor="Black"
                    Keyboard="Numeric"
-                   Placeholder="Number of Trees"
+                   Placeholder="{local:TranslateExtension NumTree}"
 				/>
         <Entry  
                 x:Name="girth"

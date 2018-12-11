@@ -52,15 +52,15 @@ namespace GreenBankX
                 trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName()+" ";
                 if (ThisPlot.Owner != null && ThisPlot.Owner != "")
                 {
-                    trees += "Owner: " + ThisPlot.Owner + "\n";
+                    trees += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Owner")+": " + ThisPlot.Owner + "\n";
                 }
                 if (ThisPlot.NearestTown != null && ThisPlot.NearestTown != "")
                 {
-                    trees += "Location: " + ThisPlot.NearestTown + "\n";
+                    trees += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall") + ": " + ThisPlot.NearestTown + "\n";
                 }
                 if (ThisPlot.Describe != null && ThisPlot.Describe != "")
                 {
-                    trees += "Comments: " + ThisPlot.Describe + "\n";
+                    trees += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Comments") + ": " + ThisPlot.Describe + "\n";
                 }
                 List<string> IDlis = new List<string>();
                 List<Tree> TreeList = ThisPlot.getTrees();
@@ -97,11 +97,11 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Tree information", "This page shows you information about the selected tree.", "Continue", "Skip");
+                    bool res = await DisplayAlert("Tree information", "This page shows you information about the selected tree.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Tree information", "The \"Earlier\" and \"Later\" buttons change the data to the previous/next measurement that was made for that tree. The add measurement button allows you to add new measurement data for the tree.", "Next");
-                        await DisplayAlert("Tree information", "The first page show for a tree is always the most recent measurement.", "Next");
+                        await DisplayAlert("Tree information", "The \"Earlier\" and \"Later\" buttons change the data to the previous/next measurement that was made for that tree. The add measurement button allows you to add new measurement data for the tree.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Tree information", "The first page show for a tree is always the most recent measurement.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutdt"] = false;
                     }
                     else
@@ -136,12 +136,12 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Manage Plots", "This page allows you to manage the plots you have created.", "Continue", "Skip");
+                    bool res = await DisplayAlert("Plot Summary", "This page allows you to view the summary of the plots you have created.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot.", "Next");
-                        await DisplayAlert("View Trees", "If you tap a tree in the list twice, you will be shown additional details.", "Next");
-                        await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.", "Next");
+                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("View Trees", "If you tap a tree in the list twice, you will be shown additional details.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutmanage"] = false;
                         Application.Current.Properties["Tutmanage2"] = true;
                         Application.Current.Properties["TLogs"] = true;
@@ -153,34 +153,6 @@ namespace GreenBankX
                 });
             }
         }
-
-        public async void AddNewTree()
-        {
-            if (pickPlot.SelectedIndex > -1)
-            {
-                Application.Current.Properties["Counter"] = pickPlot.SelectedIndex;
-                MessagingCenter.Unsubscribe<AddTreePop>(this, "Add");
-        
-               MessagingCenter.Subscribe<AddTreePop>(this, "Add", (sender) =>
-               {
-                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    List<Tree> TreeList = ThisPlot.getTrees();
-                    Tree ThisTree;
-                    pickTree.Items.Clear();
-                    for (int x = 0; x < TreeList.Count; x++)
-                    {
-                        ThisTree = TreeList.ElementAt(x);
-                        pickTree.Items.Add(ThisTree.ID.ToString());
-                    }
-                   pickTree.Items.Add("Add new Tree");
-                   pickTree.SelectedIndex = ThisPlot.getTrees().Count - 1;
-                   SelectTree();
-                   SaveAll.GetInstance().SaveTrees2();
-
-               });
-                await PopupNavigation.Instance.PushAsync(AddTreePop.GetInstance());
-            }
-       }
 
         //Renders tree informaition
         private void LatEar()
@@ -224,8 +196,8 @@ namespace GreenBankX
                         ItemsSource.Add(new ColumnItem { CategoryIndex = x + 1 });
                         if (x == -1)
                         {
-                            Lablels.Add("Too\n Small");
-                            ListLablels.Add("Too Small");
+                            Lablels.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall"));
+                            ListLablels.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall"));
                         }
                         else if (x == thisRange.GetBrack().Count - 1)
                         {
@@ -344,18 +316,6 @@ namespace GreenBankX
             }
 
         }
-        public void Save()
-        {
-            //if (saveplot)
-            //{
-                SaveAll.GetInstance().SavePlots();
-            //}
-            //if (savetree)
-            //{
-                SaveAll.GetInstance().SaveTrees2();
-            //}
-            SaveAll.GetInstance().Kamel();
-        }
 
         //data displaed changes when selection is changed
         private void ShowGraphpick()
@@ -383,7 +343,7 @@ namespace GreenBankX
                     
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            await DisplayAlert("Plot has no trees", "This plot contains no trees.", "OK");
+                            await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoTrees"), "This plot contains no trees.", "OK");
                             return;
                         });
                     
@@ -393,7 +353,7 @@ namespace GreenBankX
 
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await DisplayAlert("Plot has no prices", "This plot does not have a set price scheme.", "OK");
+                        await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoPrice"), "This plot does not have a set price scheme.", "OK");
                         return;
                     });
                     return;
@@ -407,7 +367,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await DisplayAlert("Plot has no prices", "This plot does not have a set price scheme.", "OK");
+                        await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoPrice"), "This plot does not have a set price scheme.", "OK");
                     });
                     return;
                 }
@@ -424,8 +384,8 @@ namespace GreenBankX
                     ItemsSource.Add(new ColumnItem { CategoryIndex = x+1 });
                     if (x == -1)
                     {
-                        Lablels.Add("Too\n Small");
-                        ListLablels.Add("Too Small");
+                        Lablels.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall"));
+                        ListLablels.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall"));
                     }
                     else if (x == thisRange.GetBrack().Count - 1)
                     {
@@ -474,7 +434,7 @@ namespace GreenBankX
                     {
                         Device.BeginInvokeOnMainThread(async () =>
                         {
-                            await DisplayAlert("Logs", "This page shows you data about the logs produced by this plot. Double tapping a log size will show a list of every log in that catagory and which tree it would come from.", "Continue");
+                            await DisplayAlert("Logs", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SummaryTute"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"));
                         });
                         Application.Current.Properties["TLogs"] = false;
                     }
@@ -876,7 +836,7 @@ namespace GreenBankX
             {
                 selected = selected || plotty.ElementAt(x).Selected;
             }
-            ShowMap.Text = selected ? "Show on map" : "Show all on map";
+            ShowMap.Text = selected ? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ShowOnMap") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ShowAllOnMap");
         }
     }
 

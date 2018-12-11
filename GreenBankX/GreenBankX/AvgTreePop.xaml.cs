@@ -44,7 +44,7 @@ namespace GreenBankX
             } else if (int.TryParse(many.Text,out int mork) || mork < 1) {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Number of trees invalid", "Number of trees invalid", "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoTreeErr"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoTreeErr"), "OK");
                 });
             }
             else if (DateMes.Date > DateTime.Now) {
@@ -57,7 +57,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Date is Before Plot is Planted", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PastTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
                 });
             }
             else
@@ -166,7 +166,7 @@ namespace GreenBankX
         {
             if (e.Value)
             {
-                girth.Placeholder = "Diameter (cm)";
+                girth.Placeholder = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Diameter");
                 if (girth.Text != null)
                 {
                     girth.Text = (Math.Round(double.Parse(girth.Text) / Math.PI, 3)).ToString();

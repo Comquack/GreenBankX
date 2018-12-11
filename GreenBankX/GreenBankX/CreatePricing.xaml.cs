@@ -61,12 +61,12 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool res = await DisplayAlert("Pricing", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice0"), "Continue", "Skip");
+                    bool res = await DisplayAlert("Pricing", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice0"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice1"), "Next");
-                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice2"), "Next");
-                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice3"), "Next");
+                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice1"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice2"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Prices", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TutePrice3"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutprice"] = false;
                     }
                     else
@@ -154,11 +154,11 @@ namespace GreenBankX
                 {
                     if (x == brack.Count() - 1)
                     {
-                        ArrayList.Add(brack.ElementAt(x).Key + "(cm) and larger" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
+                        ArrayList.Add(brack.ElementAt(x).Key + "cm " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger") + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
                     }
                     else
                     {
-                        ArrayList.Add(brack.ElementAt(x).Key + "(cm) to" +  brack.ElementAt(x+1).Key+"(cm)" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
+                        ArrayList.Add(brack.ElementAt(x).Key + "cm to " +  brack.ElementAt(x+1).Key+"cm" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
                     }
                     }
                 NameOfPrices.Text =AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
@@ -204,7 +204,6 @@ namespace GreenBankX
             Name.IsVisible = true;
             Len.IsVisible = true;
             AddName.IsVisible = true;
-            //AddNew.IsVisible = false;
             maxDiam.IsVisible = false;
             minDiam.IsVisible = false;
             price.IsVisible = false;
@@ -231,7 +230,6 @@ namespace GreenBankX
                 Name.IsVisible = false;
                 Len.IsVisible = false;
                 AddName.IsVisible = false;
-                //AddNew.IsVisible = true;
                 maxDiam.IsVisible = false;
                 minDiam.IsVisible = false;
                 price.IsVisible = true;
@@ -278,7 +276,7 @@ namespace GreenBankX
 
         private void Change_Clicked(object sender, EventArgs e)
         {
-            Pricetitle.Text = "Change Price";
+            Pricetitle.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ChangePrice");
             string name = PriceList.SelectedItem.ToString();
             Change.IsVisible = false;
             Cancel.IsVisible = true;

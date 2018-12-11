@@ -8,10 +8,10 @@
             <Grid>
                 <Button x:Name="FromPlot"
                             Clicked="FromPlot_Clicked"
-                            Text="Import From Plot"
+                            Text="{local:TranslateExtension ImportPlot}"
                             Grid.Column="0"/>
                 <Button x:Name="NewTree"
-                            Text="New Tree"
+                            Text="{local:TranslateExtension AddNewTree}"
                             Clicked="NewTree_Clicked"
                             Grid.Column="1"/>
             </Grid>
@@ -48,7 +48,7 @@
                 <ListView.Footer>
                     <StackLayout>
                         <Button x:Name="All"
-                                Text="Measure All"
+                                Text="{local:TranslateExtension MeasureAll}"
                                 Clicked="All_Clicked"
                                 IsVisible="False"
                                 />
@@ -56,7 +56,7 @@
                                 Text="{local:TranslateExtension AddNewTree}"
                                 Clicked="New_Clicked"/>
                         <Button x:Name="AddAvg"
-                                Text="Add from average"
+                                Text="{local:TranslateExtension AddAvg}"
                                 Clicked="AddAvg_Clicked"/>
                     </StackLayout>
                 </ListView.Footer>

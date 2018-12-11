@@ -6,7 +6,8 @@ using GreenBankX.Droid;
 using Android.Gms.Drive;
 using Android.Gms.Common.Apis;
 using Android.Runtime;
-
+using GreenBankX.Resources;
+using System.Threading;
 
 [assembly: Dependency(typeof(LoginAndroid))]
 
@@ -75,7 +76,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API))
         {
             DriveClass.DriveApi.RequestSync(GoogleInfo.GetInstance().SignInApi);
-            Application.Current.Properties["Boff"] = "Loading";
+            Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Loading");
             Load = "Loading";
         }
         else
@@ -107,10 +108,10 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
                 GoogleInfo.GetInstance().Count = -1;
                 if (work[0] && work[1] && work[2])
                 {
-                    Application.Current.Properties["Boff"] = "Finished";
+                    Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LoadingFin");
                 }
                 else {
-                    Application.Current.Properties["Boff"] = "Failed to load: " +(work[0]?"": "Pricings.xls, ") + (work[1] ? "" : "Plots.xls, ") + (work[2] ? "" : "trees.xls, ");
+                    Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LoadFail") + ": " +(work[0]?"": "Pricings.xls, ") + (work[1] ? "" : "Plots.xls, ") + (work[2] ? "" : "trees.xls, ");
                 }
                 return "Finished";
                 
@@ -121,7 +122,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         }
         DriveClass.DriveApi.NewDriveContents(GoogleInfo.GetInstance().SignInApi).SetResultCallback(this);
         if (GoogleInfo.GetInstance().SignInApi.HasConnectedApi(DriveClass.API)) {
-            Application.Current.Properties["Boff"] = "Loading";
+            Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Loading");
             Load = "Loading";
         }
         else {
@@ -257,7 +258,6 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
             {
                 Task.Run(() =>
                 {
-                    Application.Current.Properties["Boff"] = "Fail";
                 GoogleInfo.GetInstance().Count = GoogleInfo.GetInstance().Count + 1;
                 Application.Current.Properties["Boff"] = "Failed to Load: " + GoogleInfo.GetInstance().FileName;   
                 if (GoogleInfo.GetInstance().Count == 3)

@@ -13,7 +13,8 @@ using Android.Gms.Auth.Api;
 using Android.Gms.Common;
 using Android.Content;
 using Android.Gms.Drive;
-
+using System.Threading;
+using GreenBankX.Resources;
 
 namespace GreenBankX.Droid
 {
@@ -59,6 +60,7 @@ namespace GreenBankX.Droid
             GoogleInfo.GetInstance(this);
             GoogleInfo.GetInstance().SignInApi = mGoogleApiClient;
             LoadApplication(new App());
+            Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome1");
         }
         protected override void OnResume()
         {
@@ -80,15 +82,6 @@ namespace GreenBankX.Droid
         protected override void OnStart()
         {
             base.OnStart();
-
-           ////var opr = Auth.GoogleSignInApi.SilentSignIn(mGoogleApiClient);
-         //   if (opr.IsDone)
-          //  {
-           //      If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-           //      and the GoogleSignInResult will be available instantly.
-             //   var result = opr.Get() as GoogleSignInResult;
-             //   HandleSignInResult(result);
-          //  }
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
@@ -114,7 +107,7 @@ namespace GreenBankX.Droid
                 if (!mGoogleApiClient.IsConnected)
                 {
                     mGoogleApiClient.Connect(GoogleApiClient.SignInModeOptional);
-                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! \nWelcome to GreenBank";
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! \n"+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome2");
                     Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
                     Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
                     Xamarin.Forms.Application.Current.Properties["Signed"] = true;
@@ -123,7 +116,7 @@ namespace GreenBankX.Droid
 
                 }
                 else {
-                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! \nWelcome to GreenBank";
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + acct.DisplayName + "! \n"+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome2");
                     Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
                     Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
                     Xamarin.Forms.Application.Current.Properties["Signed"] = true;
@@ -146,7 +139,7 @@ namespace GreenBankX.Droid
            mGoogleApiClient.Disconnect();
             GoogleInfo.GetInstance().Acount = null;
             Xamarin.Forms.Application.Current.Properties["Signed"] = false;
-            Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello! Welcome to GreenBank\n Please log In with a Google Account";
+            Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome1");
         }
 
         void RevokeAccess()

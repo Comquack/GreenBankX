@@ -9,7 +9,7 @@
     <ContentPage.Content>
         <StackLayout>
         <Label x:Name="Pricetitle"
-            Text="Pricing Schemes"
+            Text="{local:TranslateExtension Pricings}"
                FontSize="Large"
                HorizontalOptions="Center"/>
         <ScrollView>
@@ -97,18 +97,18 @@
 
             </ListView>
                 <Button x:Name="Change"
-                    Text="Edit Entry"
+                    Text="{local:TranslateExtension EditEn}"
                     Clicked="Change_Clicked"
                     />
                     <Grid>
                         <Button x:Name="Confirm"
                                 Grid.Column="0"
-                    Text="Confirm Edit"
+                    Text="{local:TranslateExtension ConfirmEn}"
                     Clicked="Confirm_Clicked"
                                 IsVisible="False"
                     />
                         <Button x:Name="Cancel"
-                    Text="Cancel"
+                    Text="{local:TranslateExtension Cancel}"
                                 Grid.Column="1"
                     Clicked="Cancel_Clicked"
                                 IsVisible="False"
@@ -116,7 +116,7 @@
                     </Grid>
                     <Button x:Name="AddPrice"
                     Font="Bold"
-                    Text="Add Price Bracket"
+                    Text="{local:TranslateExtension AddPriceB}"
                     Clicked="AddPrice_Clicked" 
                     />
                 <Button x:Name="Delete"
