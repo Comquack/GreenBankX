@@ -100,9 +100,8 @@ namespace GreenBankX
                     bool res = await DisplayAlert("Manage Plots", "This page allows you to manage the plots you have created.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot. The  plot can be added to by pressing the add to plot button, or by going to the measure trees page", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
-                        await DisplayAlert("View Trees", "If you tap a tree in the list twice, you will be shown additional details.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
-                        await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots"), "After selecting a plot from the menu, you will be shown the list trees on the plot. The  plot can be added to by pressing the add to plot button, or by going to the measure trees page", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("", "From this menu you can edit or delete plots or, delete trees.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutmanage"] = false;
                         Application.Current.Properties["Tutmanage2"] = true;
                         Application.Current.Properties["TLogs"] = true;

@@ -10,6 +10,7 @@ using Android;
 using TK.CustomMap.Droid;
 using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Auth.Api;
+using Google.Apis.Drive.v3;
 using Android.Gms.Common;
 using Android.Content;
 using Android.Gms.Drive;
@@ -35,6 +36,8 @@ namespace GreenBankX.Droid
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)    
                 .RequestEmail()
                 .RequestScopes(new Scope(Constants.scopes))
+                .RequestScopes(new Scope(DriveService.Scope.Drive))
+                .RequestScopes(new Scope(DriveService.Scope.DriveMetadata))
                 .RequestScopes(DriveClass.ScopeFile)
                 .RequestScopes(DriveClass.ScopeAppfolder)
                  .Build();
@@ -98,6 +101,7 @@ namespace GreenBankX.Droid
 
         public void HandleSignInResult(GoogleSignInResult result)
         {
+            
             if (result.IsSuccess)
             {
                 // Signed in successfully, show authenticated UI.
@@ -111,7 +115,6 @@ namespace GreenBankX.Droid
                     Xamarin.Forms.Application.Current.Properties["First"] = acct.GivenName;
                     Xamarin.Forms.Application.Current.Properties["Last"] = acct.FamilyName;
                     Xamarin.Forms.Application.Current.Properties["Signed"] = true;
-
 
 
                 }

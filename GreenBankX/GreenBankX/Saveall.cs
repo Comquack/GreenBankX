@@ -173,61 +173,63 @@ namespace GreenBankX
 
 
                 for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
-            {
-                    int minyear=0;
-                    int maxyear=0;
+                {
+                    int minyear = 0;
+                    int maxyear = 0;
                     Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
                     PriceRange thisRange = thisPlot.GetRange();
                     Calculator Calc = new Calculator();
                     Calc.SetPrices(thisRange);
                     List<Tree> TreeList = thisPlot.getTrees();
-                        for (int y = 0; y < TreeList.Count; y++)
+                    for (int y = 0; y < TreeList.Count; y++)
+                    {
+                        Tree thisTree = TreeList.ElementAt(y);
+                        for (int z = 0; z < thisTree.GetHistory().Count; z++)
                         {
-                            Tree thisTree = TreeList.ElementAt(y);
-                            for (int z = 0; z < thisTree.GetHistory().Count; z++)
-                            {
                             if (minyear == 0)
                             {
                                 minyear = thisTree.GetHistory().ElementAt(z).Key.Year;
                             }
-                            else {
+                            else
+                            {
                                 minyear = Math.Min(minyear, thisTree.GetHistory().ElementAt(z).Key.Year);
                             }
                             maxyear = Math.Max(maxyear, thisTree.GetHistory().ElementAt(z).Key.Year);
                             if (thisPlot.GetRange() != null)
                             {
-                                
+
                                 double[,] result = Calc.Calcs(thisTree.GetHistory().ElementAt(z).Value.Item1, thisTree.GetHistory().ElementAt(z).Value.Item2);
                                 double total = 0;
                                 double totVol = 0;
 
                                 for (int w = 0; w < result.GetLength(0); w++)
                                 {
-                                    total =total+ result[w, 1];
-                                    totVol = totVol+ result[w, 2];
+                                    total = total + result[w, 1];
+                                    totVol = totVol + result[w, 2];
                                 }
 
-                               worksheet.SetValue(2 +count, 7, result.GetLength(0).ToString());
+                                worksheet.SetValue(2 + count, 7, result.GetLength(0).ToString());
                                 worksheet.SetValue(2 + count, 8, Math.Round(totVol, 4).ToString());
-                                worksheet.SetValue(2 + count, 9, Math.Round(total,2).ToString());
-                             }
+                                worksheet.SetValue(2 + count, 9, Math.Round(total, 2).ToString());
+                            }
                             worksheet.SetValue(2 + count, 1, thisTree.ID.ToString());
-                                worksheet.SetValue(2 +count, 2, thisPlot.GetName().ToString());
-                                worksheet.SetValue(2 + count, 3, thisTree.GetHistory().ElementAt(z).Key.ToString());
-                                worksheet.SetValue(2 + count, 4, thisTree.GetHistory().ElementAt(z).Value.Item1.ToString());
+                            worksheet.SetValue(2 + count, 2, thisPlot.GetName().ToString());
+                            worksheet.SetValue(2 + count, 3, thisTree.GetHistory().ElementAt(z).Key.ToString());
+                            worksheet.SetValue(2 + count, 4, thisTree.GetHistory().ElementAt(z).Value.Item1.ToString());
                             worksheet.SetValue(2 + count, 5, thisTree.GetHistory().ElementAt(z).Value.Item2.ToString());
-                            worksheet.SetValue(2+count, 6, thisTree.GetHistory().ElementAt(z).Value.Item3.ToString());
-                                count++;
+                            worksheet.SetValue(2 + count, 6, thisTree.GetHistory().ElementAt(z).Value.Item3.ToString());
+                            count++;
                         }
-                        }
+                    }
                     worksheet.SetValue(4 + countyear, 11, thisPlot.GetName());
                     for (int y = minyear; y <= maxyear; y++)
                     {
-                        double totalplotyear=0;
-                        double totVolplotyear=0;
+                        double totalplotyear = 0;
+                        double totVolplotyear = 0;
+                       if(thisPlot.GetRange()!=null) { 
                         for (int w = 0; w < TreeList.Count; w++)
                         {
-                            SortedList<DateTime, (double, double,double)> thisHistory = thisPlot.getTrees().ElementAt(w).GetHistory();
+                            SortedList<DateTime, (double, double, double)> thisHistory = thisPlot.getTrees().ElementAt(w).GetHistory();
                             if (y >= thisHistory.First().Key.Year && y <= thisHistory.Last().Key.Year)
                             {
                                 double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((y + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((y - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;
@@ -241,11 +243,11 @@ namespace GreenBankX
                             }
                         }
                         worksheet.SetValue(4 + countyear, 12, y.ToString());
-                        worksheet.SetValue(4 + countyear, 13, Math.Round(totVolplotyear,4).ToString());
-                        worksheet.SetValue(4 + countyear, 14, Math.Round(totalplotyear,2).ToString());
+                        worksheet.SetValue(4 + countyear, 13, Math.Round(totVolplotyear, 4).ToString());
+                        worksheet.SetValue(4 + countyear, 14, Math.Round(totalplotyear, 2).ToString());
                         countyear++;
                     }
-                    
+                }
                 }
                 worksheet.SetValue(1, 11, count.ToString());
                 MemoryStream stream = new MemoryStream();
@@ -451,27 +453,30 @@ namespace GreenBankX
                 {
                     int treecount = 0;
                     Calculator calc = new Calculator();
-                    calc.SetPrices(ThisPlot.GetRange());
-                    for (int w = 0; w < TreeList.Count; w++)
+                    if (ThisPlot.GetRange() != null)
                     {
-                        SortedList<DateTime, (double, double,double)> thisHistory = ThisPlot.getTrees().ElementAt(w).GetHistory();
-                        if (year >= thisHistory.First().Key.Year && year <= thisHistory.Last().Key.Year)
+                        calc.SetPrices(ThisPlot.GetRange());
+                        for (int w = 0; w < TreeList.Count; w++)
                         {
-                            double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;
-                            double height = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item2;
-                            double[,] result = calc.Calcs(girth, height);
-                            for (int i = 0; i < result.GetLength(0); i++)
+                            SortedList<DateTime, (double, double, double)> thisHistory = ThisPlot.getTrees().ElementAt(w).GetHistory();
+                            if (year >= thisHistory.First().Key.Year && year <= thisHistory.Last().Key.Year)
                             {
-                                totalplotyear = totalplotyear + result[i, 1];
-                                totVolplotyear = totVolplotyear + result[i, 2];
-                                
+                                double girth = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item1;
+                                double height = thisHistory.Where(z => (z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)) && (z.Key > DateTime.ParseExact((year - 1).ToString(), "yyyy", CultureInfo.InvariantCulture))).Last().Value.Item2;
+                                double[,] result = calc.Calcs(girth, height);
+                                for (int i = 0; i < result.GetLength(0); i++)
+                                {
+                                    totalplotyear = totalplotyear + result[i, 1];
+                                    totVolplotyear = totVolplotyear + result[i, 2];
+
+                                }
+                                treecount++;
                             }
-                            treecount++;
                         }
+                        output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumberTrees") + ": " + treecount.ToString() + "\n";
+                        output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": " + Math.Round(totVolplotyear, 4).ToString() + "m\xB3\n";
+                        output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(totalplotyear, 2).ToString() + "k\n";
                     }
-                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumberTrees") + ": " + treecount.ToString() + "\n";
-                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": " + Math.Round(totVolplotyear,4).ToString() + "m\xB3\n";
-                    output += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(totalplotyear,2).ToString() + "k\n";
                 }
                 output +="</description>";
                    output += "<Point>\n<coordinates>"+tag[1].ToString()+","+tag[0].ToString()+"</coordinates>\n </Point>\n";

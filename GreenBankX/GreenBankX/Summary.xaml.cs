@@ -139,9 +139,10 @@ namespace GreenBankX
                     bool res = await DisplayAlert("Plot Summary", "This page allows you to view the summary of the plots you have created.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"),AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                     if (res)
                     {
-                        await DisplayAlert("Manage Plots", "After selecting a plot from the menu, you will be shown the list trees on the plot.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Plot Summary", "Double tapping on a plot will show you further details about the plot.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         await DisplayAlert("View Trees", "If you tap a tree in the list twice, you will be shown additional details.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         await DisplayAlert("Plot Data", "The \"Plot data\" selector allows you to see data about the plot such as averages and number of logs per size bracket.",AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Show on Map", "By pressing 'show on map' (botom of list), you can see all of the plots on a map. By activating the switch next to each plot you can select specific plots to show on the map", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                         Application.Current.Properties["Tutmanage"] = false;
                         Application.Current.Properties["Tutmanage2"] = true;
                         Application.Current.Properties["TLogs"] = true;

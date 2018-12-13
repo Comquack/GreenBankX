@@ -444,10 +444,46 @@
   <data name="LoadingFin" xml:space="preserve">
     <value>Loading Finished</value>
   </data>
+  <data name="AddPriceB" xml:space="preserve">
+    <value>Add Price Bracket</value>
+  </data>
+  <data name="AddPricing" xml:space="preserve">
+    <value>Add pricing scheme</value>
+  </data>
   <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
   <data name="ChangePrice" xml:space="preserve">
     <value>Change Price</value>
+  </data>
+  <data name="ComfirmEn" xml:space="preserve">
+    <value>Confirm Edit</value>
+  </data>
+  <data name="DateMade" xml:space="preserve">
+    <value>Date Made</value>
+  </data>
+  <data name="Diameter" xml:space="preserve">
+    <value>Diameter (cm)</value>
+  </data>
+  <data name="EditEn" xml:space="preserve">
+    <value>Edit Entry</value>
+  </data>
+  <data name="LessDetails" xml:space="preserve">
+    <value>Less Details</value>
+  </data>
+  <data name="MoreDetails" xml:space="preserve">
+    <value>More Details</value>
+  </data>
+  <data name="NumTree" xml:space="preserve">
+    <value>Number of Trees</value>
+  </data>
+  <data name="PastTree" xml:space="preserve">
+    <value>Date is before plot is made</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Trees</value>
+  </data>
+  <data name="TuteSum1" xml:space="preserve">
+    <value>The "Earlier" and "Later" buttons change the data to the previous/next measurement that was made for that tree. The add measurement button allows you to add new measurement data for the tree.</value>
   </data>
 </root>

@@ -49,9 +49,20 @@ namespace GreenBankX
             if (pickPrice.SelectedIndex > -1 || (thispolt != null && thispolt.GetRange() != null))
             {
                 List<DetailsGraph2> Detail = new List<DetailsGraph2>();
-                if (thispolt != null) { calc.SetPrices(thispolt.GetRange()); } else {
+                if (thispolt != null && thispolt.GetRange()!=null) { calc.SetPrices(thispolt.GetRange()); } else {
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex)); }
                 double[,] result;
+                if (calc.GetPrices() == null) {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        bool reslut = await DisplayAlert("Please select a price scheme", "Please select a price scheme", "OK", "Add Price Scheme");
+                        if (!reslut)
+                        {
+                            await Navigation.PushAsync(new CreatePricing());
+                        }
+                    });
+                    return;
+                }
                 if (Double.TryParse(merchheight.Text, out double ans) && ans > 0 && girth.Text != null && height.Text != null)
                 {
                     result = calc.Calcs(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text), ans);
@@ -225,7 +236,7 @@ namespace GreenBankX
         {
             if (e.Value)
             {
-                girth.Placeholder = "Diameter (cm)";
+                girth.Placeholder = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Diameter");
                 if (girth.Text != null) {
                     girth.Text = (Math.Round(double.Parse(girth.Text) / Math.PI, 3)).ToString();
                 }

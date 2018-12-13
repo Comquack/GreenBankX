@@ -152,14 +152,14 @@ namespace GreenBankX
                     pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
                 }
                 pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
-                Expand.Text = "Add More Detail";
+                Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails");
                 pickPrice.IsVisible = false;
                 Location.IsVisible = false;
                 Owner.IsVisible = false;
                 Comments.IsVisible = false;
             }
             else {
-                Expand.Text = "Less Details";
+                Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
                 pickPrice.SelectedIndex = (int)Application.Current.Properties["PriceStore"];
                 pickPrice.IsVisible = true;
                 Location.IsVisible = true;
@@ -208,35 +208,44 @@ namespace GreenBankX
         private async void Expand_Clicked(object sender, EventArgs e)
         {
             double[] geo;
-            bool X = Expand.Text == "Less Details";
+            bool X = Expand.Text == AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
             pickPrice.IsVisible = !X;
             Location.IsVisible = !X;
             Owner.IsVisible = !X;
             Comments.IsVisible = !X;
-            Expand.Text = X? "Add More Detail" :"Less Details";
+            Expand.Text = X? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails"); ;
             if (!X) {
                 if (Application.Current.Properties["ThisLocation"] != null)
                 {     
                     geo = (double[])Application.Current.Properties["ThisLocation"];
                     Geoco = new Geocoder();
+                    Location.IsEnabled = false;
                     try
                     {
                         var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
                         Location.Text = answ.First();
+                        Location.IsEnabled = true;
                     }
-                    catch { Location.Text = "Error"; }
+                    catch { Location.Text = "Error";
+                        Location.IsEnabled = true;
+                    }
                 }
                 else if (Latent.Text != null && Longent.Text != null) {
                     geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
                     Geoco = new Geocoder();
+                    Location.IsEnabled = false;
                     try
                     {
                         var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
                         Location.Text = answ.First();
+                        Location.IsEnabled = true;
                     }
-                    catch { Location.Text = "Error"; }
+                    catch { Location.Text = "Error";
+                        Location.IsEnabled = true;
+                    }
                 }  
             }
+            Owner.Text = (Application.Current.Properties["ThisLocation"] == null).ToString();
             if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {
                 Owner.Text = (string)Xamarin.Forms.Application.Current.Properties["First"] + " " + (string)Xamarin.Forms.Application.Current.Properties["Last"];
             }
@@ -245,20 +254,22 @@ namespace GreenBankX
         private void Latent_TextChanged(object sender, TextChangedEventArgs e)
         {
             double ans;
-            if (e.NewTextValue != null&&!double.TryParse(e.NewTextValue, out ans)) { }
+            if (e.NewTextValue != null&&!double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
             {
                 Latent.Text = e.OldTextValue;
             }
+            Application.Current.Properties["ThisLocation"] = null;
         }
         private void Longent_TextChanged(object sender, TextChangedEventArgs e)
         {
             double ans;
-            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
+            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
             else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
             {
                 Longent.Text = e.OldTextValue;
             }
+            Application.Current.Properties["ThisLocation"] = null;
         }
 
         private async void Button_Clicked( EventArgs e)

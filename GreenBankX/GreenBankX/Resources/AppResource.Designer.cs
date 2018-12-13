@@ -475,6 +475,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Less Details.
+        /// </summary>
+        public static string LessDetails {
+            get {
+                return ResourceManager.GetString("LessDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load.
         /// </summary>
         public static string LoadFail {
@@ -624,6 +633,15 @@ namespace GreenBankX.Resources {
         public static string minimumdiameter {
             get {
                 return ResourceManager.GetString("minimumdiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Details.
+        /// </summary>
+        public static string MoreDetails {
+            get {
+                return ResourceManager.GetString("MoreDetails", resourceCulture);
             }
         }
         
