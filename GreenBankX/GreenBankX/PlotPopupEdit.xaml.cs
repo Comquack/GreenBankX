@@ -46,9 +46,9 @@ namespace GreenBankX
                 for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
                 pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-                if(EditPlot.GetRange()!= null && ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName() == EditPlot.GetRange().GetName()){
-                    Priceno = x;
-                }
+                //if(EditPlot.GetRange()!= null && ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName() == EditPlot.GetRange().GetName()){
+                 //   Priceno = x;
+               // }
             }
             pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
             pickPrice.SelectedIndex = Priceno;
@@ -69,15 +69,15 @@ namespace GreenBankX
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Describe = Comments.Text;
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).NearestTown = Location.Text;
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Owner = Owner.Text;
-                if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
-                {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
-                }
-                else if (pickPrice.SelectedIndex == pickPrice.Items.Count)
-                {
-                    await Navigation.PushAsync(new CreatePricing());
-                    return;
-                }
+               // if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
+               // {
+                //    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
+               // }
+               // else if (pickPrice.SelectedIndex == pickPrice.Items.Count)
+               // {
+               ////     await Navigation.PushAsync(new CreatePricing());
+                //    return;
+              //  }
                 if (int.Parse(PlotYear.Text) != 0)
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).YearPlanted = yearout;

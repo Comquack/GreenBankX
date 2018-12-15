@@ -30,6 +30,11 @@ namespace GreenBankX
             
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");
             InitializeComponent();
+            for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
+            {
+                PickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+
+            }
             changedPlot = new List<Plot>();
         }
         //activates when index is changed in the plot picker
@@ -174,10 +179,10 @@ namespace GreenBankX
                 Application.Current.Properties["HCounter"] = GraphNo;
 
 
-                if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange() != null)
+                if (PickPrice.SelectedIndex<-1)
                 {
-                    
-                    PriceRange thisRange = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetRange();
+
+                    PriceRange thisRange = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex);
                     Calculator Calc = new Calculator();
                     Calc.SetPrices(thisRange);
                     double[,] result;
@@ -185,7 +190,8 @@ namespace GreenBankX
                     {
                         result = Calc.Calcs(girth, high);
                     }
-                    else {
+                    else
+                    {
                         result = Calc.Calcs(girth, high, ThisTree.ActualMerchHeight);
                     }
                     double total = 0;
@@ -225,7 +231,7 @@ namespace GreenBankX
                     }
                     string title = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ThisTree.ID.ToString() + " " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Date") + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
 
-                   
+
                     Later.IsVisible = true;
                     OxyBar(title, Lablels, ItemsSource);
                     Later.IsVisible = true;
@@ -240,7 +246,7 @@ namespace GreenBankX
                         Later.IsVisible = false;
                     }
                     stuff = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + ": " + Math.Round(high, 2).ToString();
-                    girthtext = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalLogs")+": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k";
+                    girthtext = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalLogs") + ": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k";
                     trees = "Tree ID: " + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
                     GirthOT.Text = girthtext;
                     ListOfTree.Text = stuff;
@@ -321,6 +327,10 @@ namespace GreenBankX
         //data displaed changes when selection is changed
         private void ShowGraphpick()
         {
+            PickPrice.Focus();
+        }
+        private void ShowGraphpick2()
+        {
             if (ShowGraph.SelectedIndex > -1) {
                 DetailsList.IsVisible = false;
                 LogClassList.IsVisible = false;
@@ -349,30 +359,7 @@ namespace GreenBankX
                         });
                     
                 }
-                if (ThisPlot.GetRange() == null)
-                {
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoPrice"), "This plot does not have a set price scheme.", "OK");
-                        return;
-                    });
-                    return;
-
-                }
-                try
-                {
-                    int spangle = ThisPlot.GetRange().GetBrack().Count;
-                }
-                catch
-                {
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NoPrice"), "This plot does not have a set price scheme.", "OK");
-                    });
-                    return;
-                }
-                PriceRange thisRange = ThisPlot.GetRange();
+                PriceRange thisRange = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex);
                 Calculator Calc = new Calculator();
                 Calc.SetPrices(thisRange);
 
@@ -482,7 +469,7 @@ namespace GreenBankX
             }//plot over time
             else if (ShowGraph.SelectedIndex == 3 && ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count>0) {
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                PriceRange thisRange = ThisPlot.GetRange();
+                PriceRange thisRange = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex);
                 Calculator Calc = new Calculator();
                 Calc.SetPrices(thisRange);
                 List<double> heightOtime = new List<double>();
@@ -662,7 +649,7 @@ namespace GreenBankX
             Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
             ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
             Calculator Calc = new Calculator();
-            Calc.SetPrices(ThisPlot.GetRange());
+            //Calc.SetPrices(ThisPlot.GetRange());
             for (int y = 0; y < ThisPlot.getTrees().Count; y++)
             {
                 Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
@@ -838,6 +825,14 @@ namespace GreenBankX
                 selected = selected || plotty.ElementAt(x).Selected;
             }
             ShowMap.Text = selected ? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ShowOnMap") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ShowAllOnMap");
+        }
+
+        private void PickPrice_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (PickPrice.SelectedIndex > -1) {
+                ShowGraphpick2();
+            }
+
         }
     }
 

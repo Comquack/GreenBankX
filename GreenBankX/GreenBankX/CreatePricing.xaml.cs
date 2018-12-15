@@ -213,13 +213,13 @@ namespace GreenBankX
             MessagingCenter.Unsubscribe<DeleteConfirm>(this,"Delete");
             MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
 
-                for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
-                {
-                    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetRange() == ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector))
-                    {
-                        ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).SetRange(null);
-                    }
-                }
+               // for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
+               // {
+                  //  if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetRange() == ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector))
+                   // {
+                   //     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).SetRange(null);
+                   // }
+               // }
                 ((List<PriceRange>)Application.Current.Properties["Prices"]).RemoveAt(selector);
                 pickPrice.Items.Clear();
                 for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)

@@ -13,7 +13,7 @@ namespace GreenBankX
         double[] geotag = { 0, 0 };
         List<Tree> trees;
         List<Position> polygon;
-        PriceRange PlotPrice;
+        //PriceRange PlotPrice;
         public string Owner { get; set;}
         public int YearPlanted { get; set; }
         public string Describe { get; set; }
@@ -49,13 +49,13 @@ namespace GreenBankX
         {
             this.name=newname;
         }
-        public void SetRange(PriceRange newRange) {
-            PlotPrice = newRange;
-        }
+      //  public void SetRange(PriceRange newRange) {
+      //      PlotPrice = newRange;
+      //  }
 
-        public PriceRange GetRange() {
-            return PlotPrice;
-        }
+      //  public PriceRange GetRange() {
+      //      return PlotPrice;
+      //  }
 
 
         public double GetArea()

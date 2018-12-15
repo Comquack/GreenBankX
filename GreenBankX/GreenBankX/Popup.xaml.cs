@@ -83,7 +83,7 @@ namespace GreenBankX
                 NextPlot.Owner = Owner.Text;
                 if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
                 {
-                    NextPlot.SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
+                    //NextPlot.SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
                 }
                 else if (pickPrice.SelectedIndex == pickPrice.Items.Count)
                 {

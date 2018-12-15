@@ -49,7 +49,7 @@
                     <StackLayout>
                         <Button x:Name="All"
                                 Text="{local:TranslateExtension MeasureAll}"
-                                Clicked="All_Clicked"
+                                Clicked="All_select"
                                 IsVisible="False"
                                 />
                         <Button x:Name="New"
@@ -146,7 +146,7 @@
                         Grid.ColumnSpan="3"
                          Grid.Row="3"
             />
-                    <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
+                    <Picker x:Name="PickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                     SelectedIndexChanged="pickPrice_SelectedIndexChanged"
                         IsVisible="False">
@@ -174,7 +174,7 @@
                 Grid.Column="0"
                 Grid.Row="5"
                         Grid.ColumnSpan="3"
-                Clicked="RunCalc"/>
+                Clicked="Estimate_Clicked"/>
                     <Button
                 x:Name="Add"
                Text="{local:TranslateExtension AddtoPlot}"

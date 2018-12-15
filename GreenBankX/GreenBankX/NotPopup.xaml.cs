@@ -72,15 +72,6 @@ namespace GreenBankX
                 NextPlot.Describe = Comments.Text;
                 NextPlot.NearestTown = Location.Text;
                 NextPlot.Owner = Owner.Text;
-                if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
-                {
-                    NextPlot.SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
-                }
-                else if (pickPrice.SelectedIndex == pickPrice.Items.Count)
-                {
-                    await Navigation.PushAsync(new CreatePricing());
-                    return;
-                }
                 if (int.Parse(PlotYear.Text) != 0)
                 {
                     NextPlot.YearPlanted = yearout;
@@ -245,7 +236,6 @@ namespace GreenBankX
                     }
                 }  
             }
-            Owner.Text = (Application.Current.Properties["ThisLocation"] == null).ToString();
             if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {
                 Owner.Text = (string)Xamarin.Forms.Application.Current.Properties["First"] + " " + (string)Xamarin.Forms.Application.Current.Properties["Last"];
             }

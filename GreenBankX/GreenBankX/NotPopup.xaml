@@ -48,7 +48,7 @@
             <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                 SelectedIndexChanged="pickPrice_SelectedIndexChanged"
-                IsVisible="True"
+                IsVisible="False"
                 >
             <Picker.Items>
             </Picker.Items>

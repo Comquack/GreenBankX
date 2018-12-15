@@ -50,7 +50,7 @@ namespace GreenBankX
         {
             if (ChosePrice.SelectedIndex > -1) {
                 NameLabel.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex).GetName() + counter.ToString();
-                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex));
+                //((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex));
                 MessagingCenter.Send<ChangePrice>(this, "Change");
             }
             await PopupNavigation.Instance.PopAsync();

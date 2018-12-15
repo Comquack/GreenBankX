@@ -16,6 +16,7 @@ namespace GreenBankX
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MeasureTree : ContentPage
     {
+        bool AllOne = false;
         int Listhadler;
         Tree doubletapTree;
            Tree ThisTree;
@@ -25,11 +26,11 @@ namespace GreenBankX
             InitializeComponent();
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
-                pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+                PickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
 
             }
             plotTog = new ObservableCollection<SelectableData>();
-            pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NewPrice"));
+            //PickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NewPrice"));
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
                 pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                 pickPlotOne.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
@@ -46,11 +47,10 @@ namespace GreenBankX
                 try { thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex); }
                 catch { }
             }
-            if (pickPrice.SelectedIndex > -1 || (thispolt != null && thispolt.GetRange() != null))
+            if (PickPrice.SelectedIndex > -1)
             {
                 List<DetailsGraph2> Detail = new List<DetailsGraph2>();
-                if (thispolt != null && thispolt.GetRange()!=null) { calc.SetPrices(thispolt.GetRange()); } else {
-                calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex)); }
+                calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex)); 
                 double[,] result;
                 if (calc.GetPrices() == null) {
                     Device.BeginInvokeOnMainThread(async () =>
@@ -165,7 +165,15 @@ namespace GreenBankX
                 }
                 else if (DateMes.Date == null)
                 {
+                    girth.Text = null;
+                    height.Text = null;
+                    merchheight.Text = null;
+                    MerhH.IsToggled = false;
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now));
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                    });
                     SaveAll.GetInstance().SaveTrees2();
                 }
                 else
@@ -176,10 +184,16 @@ namespace GreenBankX
             }
         }
 
-        private async void pickPrice_SelectedIndexChanged(object sender, EventArgs e)
+        private void pickPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (pickPrice.SelectedIndex == ((List<PriceRange>)Application.Current.Properties["Prices"]).Count) {
-                await Navigation.PushAsync(new CreatePricing());
+            if (PickPrice.SelectedIndex != -1 && !AllOne) {
+                RunCalc();
+                PickPrice.SelectedIndex  = - 1;
+            }
+            else if (PickPrice.SelectedIndex != -1 && AllOne)
+            {
+                All_Clicked();
+                PickPrice.SelectedIndex = -1;
             }
         }
         protected override void OnAppearing()
@@ -189,13 +203,13 @@ namespace GreenBankX
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
             DunLLoadin();
-            pickPrice.Items.Clear();
+            PickPrice.Items.Clear();
             for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
             {
-                pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
+                PickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
 
             }
-            pickPrice.Items.Add("New Pricing");
+            //PickPrice.Items.Add("New Pricing");
             pickPlot.Items.Clear();
             pickPlotOne.Items.Clear();
             for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
@@ -292,12 +306,6 @@ namespace GreenBankX
                     pickPlot.SelectedIndex = pickPlotOne.SelectedIndex;
                     girth.Text = ThisTree.Diameter.ToString();
                     pickPlotOne.SelectedIndex = -1;
-                for (int x = 0; x < pickPrice.Items.Count; x++) {
-                    pickPrice.SelectedIndex = pickPrice.Items.ElementAt(x) == ThisPlot.GetRange().GetName()?x: pickPrice.SelectedIndex;
-                }
-                
-                    
-
             }
             else
             {
@@ -311,10 +319,6 @@ namespace GreenBankX
         {
             Show(true);
             Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
-            for (int x = 0; x < pickPrice.Items.Count; x++)
-            {
-                pickPrice.SelectedIndex = pickPrice.Items.ElementAt(x) == ThisPlot.GetRange().GetName() ? x : pickPrice.SelectedIndex;
-            }
             pickPlot.SelectedIndex = pickPlotOne.SelectedIndex;
             pickPlotOne.SelectedIndex = -1;
             
@@ -396,7 +400,12 @@ namespace GreenBankX
             }
         }
 
-        private void All_Clicked(object sender, EventArgs e)
+        private void All_select() {
+            AllOne = true;
+            PickPrice.Focus();
+        }
+
+        private void All_Clicked()
         {
             Plot thispolt = null;
             thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
@@ -409,10 +418,10 @@ namespace GreenBankX
                 {
                     Calculator calc = new Calculator();
 
-                    if (thispolt != null && thispolt.GetRange() != null)
+                    if (thispolt != null && PickPrice.SelectedIndex != -1)
                     {
 
-                        calc.SetPrices(thispolt.GetRange());
+                        calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex));
                         double[,] result;
 
                         result = calc.Calcs(thispolt.getTrees().ElementAt(x).Diameter, thispolt.getTrees().ElementAt(x).Merch, thispolt.getTrees().ElementAt(x).ActualMerchHeight);
@@ -527,6 +536,12 @@ namespace GreenBankX
 
             });
             await PopupNavigation.Instance.PushAsync(AvgTreePop.GetInstance());
+        }
+
+        private void Estimate_Clicked(object sender, EventArgs e)
+        {
+            AllOne = false;
+            PickPrice.Focus();
         }
     }
 }

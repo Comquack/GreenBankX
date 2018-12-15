@@ -71,8 +71,6 @@ namespace GreenBankX
                     TreeTails.Add(ThisTree);
                 }
                 DetailsList.IsVisible = true;
-                LogClassList.IsVisible = false;
-
                 ListOfTree.Text = "";
                 GirthOT.Text = "";
                 HeightOT.Text = "";
@@ -130,7 +128,6 @@ namespace GreenBankX
                     pickPlot.Items.Clear();
                     doubletap = null;
                     DetailsList.IsVisible = false;
-                    LogClassList.IsVisible = false;
                     for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                     {
                         pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
@@ -156,13 +153,9 @@ namespace GreenBankX
         
                MessagingCenter.Subscribe<AddTreePop>(this, "Add", (sender) =>
                {
-                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    List<Tree> TreeList = ThisPlot.getTrees();
-                    Tree ThisTree;
-                    for (int x = 0; x < TreeList.Count; x++)
-                    {
-                        ThisTree = TreeList.ElementAt(x);
-                    }
+                    int hold = pickPlot.SelectedIndex;
+                   pickPlot.SelectedIndex = -1;
+                   pickPlot.SelectedIndex = hold;
 
                    SaveAll.GetInstance().SaveTrees2();
 
@@ -182,14 +175,13 @@ namespace GreenBankX
                 {
 
                     DetailsList.IsVisible = false;
-                    LogClassList.IsVisible = false;
+
                     SaveAll.GetInstance().SaveTrees2();
                 });
                 MessagingCenter.Subscribe<AddMesPop>(this, "Alter", (sender) =>
                 {
                     GraphNo = (int)Application.Current.Properties["HCounter"];
                     DetailsList.IsVisible = false;
-                    LogClassList.IsVisible = false;
                     SaveAll.GetInstance().SaveTrees2();
                 });
                 await PopupNavigation.Instance.PushAsync(AddMesPop.GetInstance());
@@ -252,61 +244,7 @@ namespace GreenBankX
 
                     ToolDeleteTree.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DeleteTree");
         }
-        private void LogClassInfoPlot(int bracNo)
-        {
-            PlotTitle.Text = "";
-            Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-            ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
-            Calculator Calc = new Calculator();
-            Calc.SetPrices(ThisPlot.GetRange());
-            for (int y = 0; y < ThisPlot.getTrees().Count; y++)
-            {
-                Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
-                SortedList<DateTime, (double, double,double)> Thistory = ThisTree.GetHistory();
-                try
-                {
-                    
-                    (double, double,double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
-                    double[,] result = Calc.Calcs(measure.Item1, measure.Item2);
-                    for (int x = 0; x < result.GetLength(0); x++)
-                    {
-                        if ((int)result[x, 0] == bracNo)
-                        {
 
-                            Detail.Add(new DetailsGraph2 { ID = ThisTree.ID, girth = Math.Round(result[x, 3] * Math.PI, 2), price = Math.Round(result[x, 1], 2), volume = Math.Round(result[x, 2], 2) });
-                        }
-                    }
-                }
-
-                catch { }
-            }
-DetailsList.IsVisible = false;
-            LogClassList.IsVisible = false;
-            ListOfTree.Text = "";
-           
-            GirthOT.Text = "";
-            HeightOT.Text = "";
-        }
-
-        private void LogClassList_ItemTapped(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (doubletap == e.SelectedItem)
-            {
-                if (Listhadler == 1)
-                {
-                    for (int x = 0; x < ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).Count; x++) {
-                        if (LogClassList.SelectedItem.ToString() == ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).ElementAt(x).ToString()) {
-                            LogClassInfoPlot(x);
-                        }
-                    }
-                    Listhadler = -1;
-                }
-            }
-            else
-            {
-                doubletap = (DetailsGraph)e.SelectedItem;
-            }
-        }
 
         protected override void  OnAppearing() {
             base.OnAppearing();
@@ -321,7 +259,6 @@ DetailsList.IsVisible = false;
              Listhadler = -1;
              doubletap = null;
             DetailsList.IsVisible = false;
-            LogClassList.IsVisible = false;
              doubletapTree = null;
              year = DateTime.Now.Year;
             //pickPlot.Items.Clear();

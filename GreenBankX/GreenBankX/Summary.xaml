@@ -338,9 +338,16 @@
                 <Picker.Items>
                 </Picker.Items>
             </Picker>
+            
+                <Picker x:Name="PickPrice" Title="{local:TranslateExtension SelectPricing}"
+                        TextColor="Black"
+                    SelectedIndexChanged="PickPrice_SelectedIndexChanged"
+                        IsVisible="False">
+                    <Picker.Items>
+                    </Picker.Items>
+                </Picker>
 
-
-        </StackLayout>
+            </StackLayout>
         </ScrollView>
 
     </ContentPage.Content>

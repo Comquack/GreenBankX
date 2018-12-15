@@ -63,7 +63,7 @@
                         TextColor="Black"
                 BackgroundColor="LightGray"
                 SelectedIndexChanged="pickPrice_SelectedIndexChanged"
-                IsVisible="True"
+                IsVisible="False"
                 >
             <Picker.Items>
             </Picker.Items>

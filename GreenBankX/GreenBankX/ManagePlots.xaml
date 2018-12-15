@@ -140,56 +140,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
 
-                    <ListView
-                    IsVisible="false"
-                x:Name="LogClassList"
-                    Grid.Row="1"
-                    ItemTapped="LogClassList_ItemTapped"
-                    Grid.ColumnSpan="3">
-                        <ListView.Header>
-                            <Grid>
-                                <Label
-                                Text="{local:TranslateExtension LogClass}"
-                                TextColor="Black"
-                                        Grid.Column="0"></Label>
-                                <Label
-                                Text="{local:TranslateExtension TotalVol}"
-                                TextColor="Black"
-                                        Grid.Column="1"></Label>
-                                <Label
-                                Text="{local:TranslateExtension TotalPrice}"
-                                TextColor="Black"
-                                        Grid.Column="2"></Label>
-                            </Grid>
-                        </ListView.Header>
-                        <ListView.ItemsSource>
-
-                            <x:Array Type="{x:Type x:String}"
-                            >
-                            </x:Array>
-                        </ListView.ItemsSource>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid>
-                                        <Label
-                                Text="{Binding label}"
-                                TextColor="Black"
-                                        Grid.Column="0"></Label>
-                                        <Label
-                                Text="{Binding volume}"
-                                TextColor="Black"
-                                        Grid.Column="1"></Label>
-                                        <Label
-                                Text="{Binding price}"
-                                TextColor="Black"
-                                        Grid.Column="2"></Label>
-                                    </Grid>
-
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    
 
 
                     <Label x:Name="ListOfTree" 
