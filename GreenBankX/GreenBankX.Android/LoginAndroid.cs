@@ -26,7 +26,7 @@ class LoginAndroid : Java.Lang.Object, ILogin, IResultCallback, IDriveApiDriveCo
         return instance;
     }
    public bool SignIn() {
-         GoogleInfo.GetInstance().bom.SignIn();
+         //GoogleInfo.GetInstance().bom.SignIn();
         return true;
 
     }

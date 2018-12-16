@@ -32,6 +32,7 @@ namespace GreenBankX
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
             Application.Current.Properties["Account"] = null;
+            Application.Current.Properties["Token"] = null;
             Application.Current.Properties["ThisPlot"] = null;
             Application.Current.Properties["ThisLocation"] = null;
             Application.Current.Properties["PriceStore"] = null;

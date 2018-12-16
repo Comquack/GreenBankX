@@ -12,7 +12,7 @@ namespace GreenBankX
         // OAuth
         // For Google login, configure at https://console.developers.google.com/
         public static string iOSClientId = "263109938909-bts0mgt2859gv9btr2h9ep36fqtk31dh.apps.googleusercontent.com";
-        public static string AndroidClientId = "189021053893-9ag4ogqenm1qsliouip4lmqgthr42bnm.apps.googleusercontent.com";
+        public static string AndroidClientId = "263109938909-v6r1cu813081jujunosjadmhc3nr67kk.apps.googleusercontent.com";
 
         // These values do not need changing
         public static string scopes = "https://www.googleapis.com/auth/userinfo.email "+DriveService.Scope.Drive+" "+DriveService.Scope.DriveFile+" "+DriveService.Scope.DriveMetadata;

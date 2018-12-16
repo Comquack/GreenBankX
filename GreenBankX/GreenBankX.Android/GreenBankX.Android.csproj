@@ -126,6 +126,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomUrlSchemeInterceptorActivity.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="MainActivity.cs" />
     <AndroidResource Include="Resources\drawable\Splash_Layer.xml">

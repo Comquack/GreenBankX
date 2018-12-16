@@ -8,39 +8,25 @@ using System.Threading;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Auth;
 using System.Globalization;
+using System.Linq;
+using Newtonsoft.Json;
+using Google.Apis.Drive.v3;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Auth.OAuth2.Flows;
+using Google.Apis.Auth.OAuth2.Responses;
 
 namespace GreenBankX
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
     {
+        Account account;
+        AccountStore store;
         public MenuPage()
         {
+            store = AccountStore.Create();
             InitializeComponent();
-
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-
-                    break;
-
-                case Device.Android:
-                    try { var nu = DependencyService.Get<ILogin>().AccountName();
-                        ToolDrive.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Upload");
-                        ToolDown.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Download");
-                        Toolout.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignOut");
-                        ToolIn.Text = "";
-                    }
-                    catch
-                    {
-                        ToolDrive.Text = "";
-                        ToolDown.Text = "";
-                        Toolout.Text = "";
-                        ToolIn.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SignIn");
-                    }
-
-                    break;
-            }
+            Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome1");
         }
         public void Signot()
         {
@@ -48,16 +34,8 @@ namespace GreenBankX
             {
                 return;
             }
-            DependencyService.Get<ILogin>().SignOut();
-            try
-            {
-                var nu = DependencyService.Get<ILogin>().AccountName();
-
-            }
-            catch
-            {
-
-            }
+           
+   
         }
         void Driv3r()
         {
@@ -65,10 +43,10 @@ namespace GreenBankX
             {
                 return;
             }
-            string nu = DependencyService.Get<ILogin>().UseDrive(-1);
+           // string nu = DependencyService.Get<ILogin>().UseDrive(-1);
 
         }
-        async void OnLoginTest()
+        void OnLoginTest()
         {
             string clientId = null;
             string redirectUri = null;
@@ -82,36 +60,93 @@ namespace GreenBankX
                 case Device.iOS:
                     clientId = Constants.iOSClientId;
                     redirectUri = Constants.iOSRedirectUrl;
-                    try
-                    {
-                        await Navigation.PushAsync(new OAuthNativeFlowPage());
-
-                    }
-                    catch
-                    {
-                        await Navigation.PushAsync(new OAuthNativeFlowPage());
-
-                    }
                     break;
 
                 case Device.Android:
-                    try { var nu  =  DependencyService.Get<ILogin>().AccountName();
-
-                    }
-                    catch
-                    {
-                        clientId = Constants.AndroidClientId;
-                        redirectUri = Constants.AndroidRedirectUrl;
-                       bool wait = DependencyService.Get<ILogin>().SignIn();
-                        try { var nu = DependencyService.Get<ILogin>().AccountName();
-
-                        }
-                        catch { }
-
-                    }
+                    clientId = Constants.AndroidClientId;
+                    redirectUri = Constants.AndroidRedirectUrl;
                     break;
             }
+
+            account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
+
+            var authenticator = new OAuth2Authenticator(
+                clientId,
+                null,
+                Constants.scopes,
+                new Uri(Constants.AuthorizeUrl),
+                new Uri(redirectUri),
+                new Uri(Constants.AccessTokenUrl),
+                null,
+                true);
+            
+            authenticator.Completed += OnAuthCompleted;
+            authenticator.Error += OnAuthError;
+
+            AuthenticationState.Authenticator = authenticator;
+
+            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+            presenter.Login(authenticator);
         }
+
+
+
+        async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            var authenticator = sender as OAuth2Authenticator;
+            if (authenticator != null)
+            {
+                authenticator.Completed -= OnAuthCompleted;
+                authenticator.Error -= OnAuthError;
+            }
+
+            User user = null;
+            if (e.IsAuthenticated)
+            {
+                // If the user is authenticated, request their basic user data from Google
+                // UserInfoUrl = https://www.googleapis.com/oauth2/v2/userinfo
+                var request = new OAuth2Request("GET", new Uri(Constants.UserInfoUrl), null, e.Account);
+                var response = await request.GetResponseAsync();
+                if (response != null)
+                {
+                    // Deserialize the data and store it in the account store
+                    // The users email address will be used to identify data in SimpleDB
+                    string userJson = await response.GetResponseTextAsync();
+                    user = JsonConvert.DeserializeObject<User>(userJson);
+                }
+
+                if (account != null)
+                {
+                    store.Delete(account, Constants.AppName);
+                }
+                Application.Current.Properties["Account"] = account;
+                await store.SaveAsync(account = e.Account, Constants.AppName);
+                Application.Current.Properties["Signed"] = true;
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + user.Name + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome2");
+               // Xamarin.Forms.Application.Current.Properties["Boff"] = "";
+               // for (int x = 0; x < account.Properties.Count; x++) {
+               //     Xamarin.Forms.Application.Current.Properties["Boff"] = Xamarin.Forms.Application.Current.Properties["Boff"] + " key: " + account.Properties.ElementAt(x).Key +" val: "+ account.Properties.ElementAt(x).Value+ "\n";
+              //  }
+            }
+            else
+            {
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "error";
+            }
+        }
+
+        void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+        {
+            var authenticator = sender as OAuth2Authenticator;
+            if (authenticator != null)
+            {
+                authenticator.Completed -= OnAuthCompleted;
+                authenticator.Error -= OnAuthError;
+            }
+
+            Xamarin.Forms.Application.Current.Properties["Boff"] = "Authentication error: " + e.Message;
+        }
+
+
         async void OpenMeasure(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new MeasureTree());
@@ -141,20 +176,46 @@ namespace GreenBankX
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
+            string clientId = null;
+            string redirectUri = null;
+            if (ToolDown.Text == "")
+            {
+                return;
+            }
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
-                    Account Iosacc = (Account)Application.Current.Properties["Account"];
-
+                    clientId = Constants.iOSClientId;
+                    redirectUri = Constants.iOSRedirectUrl;
                     break;
+
                 case Device.Android:
-                    if (ToolDown.Text == "")
-                    {
-                        return;
-                    }
-                    var nu = DependencyService.Get<ILogin>().Download(-1);
+                    clientId = Constants.AndroidClientId;
+                    redirectUri = Constants.AndroidRedirectUrl;
                     break;
             }
+
+
+            TokenResponse token = null;
+            try
+            {
+                token = new TokenResponse()
+                {
+                    AccessToken = account.Properties["access_token"],
+                    ExpiresInSeconds = Convert.ToInt64(account.Properties["expires_in"]),
+                    IdToken = account.Properties["id_token"],
+            //        //IssuedUtc = Convert.ToDateTime(UserAccount.Properties["issued_utc"]),
+                    RefreshToken = account.Properties["refresh_token"],
+                    Scope = account.Properties["scopes"],
+                    TokenType = account.Properties["token_type"],
+                };
+            }
+            catch
+            {
+                Xamarin.Forms.Application.Current.Properties["Boff"] = account.Properties["access_token"];
+            }
+
+
         }
 
         private void boffo_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -193,7 +254,7 @@ namespace GreenBankX
                bool res = await DisplayAlert("Tutorial", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu0"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
                 if (res)
                 {
-                    await DisplayAlert("Signing in to Google", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu1"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                    await DisplayAlert("Signing in to Google.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu1"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
                 }
                 else {
                     Application.Current.Properties["Tutorial"] = false;
