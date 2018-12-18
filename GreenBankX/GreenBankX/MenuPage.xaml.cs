@@ -14,6 +14,8 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
+using Google.Apis.Services;
+using Google.Apis.Drive.v3.Data;
 
 namespace GreenBankX
 {
@@ -22,6 +24,7 @@ namespace GreenBankX
     {
         Account account;
         AccountStore store;
+        UpDowner loader = UpDowner.GetInstance();
         public MenuPage()
         {
             store = AccountStore.Create();
@@ -114,19 +117,15 @@ namespace GreenBankX
                     string userJson = await response.GetResponseTextAsync();
                     user = JsonConvert.DeserializeObject<User>(userJson);
                 }
-
                 if (account != null)
                 {
                     store.Delete(account, Constants.AppName);
                 }
-                Application.Current.Properties["Account"] = account;
                 await store.SaveAsync(account = e.Account, Constants.AppName);
+                Application.Current.Properties["Account"] = (await store.FindAccountsForServiceAsync(Constants.AppName)).FirstOrDefault();
                 Application.Current.Properties["Signed"] = true;
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + user.Name + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome2");
-               // Xamarin.Forms.Application.Current.Properties["Boff"] = "";
-               // for (int x = 0; x < account.Properties.Count; x++) {
-               //     Xamarin.Forms.Application.Current.Properties["Boff"] = Xamarin.Forms.Application.Current.Properties["Boff"] + " key: " + account.Properties.ElementAt(x).Key +" val: "+ account.Properties.ElementAt(x).Value+ "\n";
-              //  }
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + user.Name +"\n"+AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome2");
+                loader.Tokenise();
             }
             else
             {
@@ -176,44 +175,15 @@ namespace GreenBankX
 
         private void ToolDown_Clicked(object sender, EventArgs e)
         {
-            string clientId = null;
-            string redirectUri = null;
             if (ToolDown.Text == "")
             {
                 return;
             }
-            switch (Device.RuntimePlatform)
-            {
-                case Device.iOS:
-                    clientId = Constants.iOSClientId;
-                    redirectUri = Constants.iOSRedirectUrl;
-                    break;
-
-                case Device.Android:
-                    clientId = Constants.AndroidClientId;
-                    redirectUri = Constants.AndroidRedirectUrl;
-                    break;
+            else {
+                loader.FilesList();
+                SaveAll.GetInstance().LoadAll();
             }
 
-
-            TokenResponse token = null;
-            try
-            {
-                token = new TokenResponse()
-                {
-                    AccessToken = account.Properties["access_token"],
-                    ExpiresInSeconds = Convert.ToInt64(account.Properties["expires_in"]),
-                    IdToken = account.Properties["id_token"],
-            //        //IssuedUtc = Convert.ToDateTime(UserAccount.Properties["issued_utc"]),
-                    RefreshToken = account.Properties["refresh_token"],
-                    Scope = account.Properties["scopes"],
-                    TokenType = account.Properties["token_type"],
-                };
-            }
-            catch
-            {
-                Xamarin.Forms.Application.Current.Properties["Boff"] = account.Properties["access_token"];
-            }
 
 
         }
