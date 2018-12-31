@@ -46,6 +46,9 @@ namespace GreenBankX
             {
                 return;
             }
+            else {
+                loader.UpList();
+            }
            // string nu = DependencyService.Get<ILogin>().UseDrive(-1);
 
         }
