@@ -75,14 +75,14 @@ namespace GreenBankX
             }
             else {
                 Application.Current.Properties["ThisLocation"] = null;
-                MessagingCenter.Subscribe<Popup>(this, "Add", (sender) =>
-                {
-                    CanAdd = true;
-                    StartMap(false);
-                    PolyMap();
-                    SaveAll.GetInstance().SavePlots();
-                });
-                await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
+                //MessagingCenter.Subscribe<Popup>(this, "Add", (sender) =>
+                //{
+                //    CanAdd = true;
+                //    StartMap(false);
+                //    PolyMap();
+                //    SaveAll.GetInstance().SavePlots();
+                //});
+                //await PopupNavigation.Instance.PushAsync(Popup.GetInstance());
             }
   
         }

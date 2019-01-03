@@ -47,7 +47,7 @@ namespace GreenBankX
             string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
             if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
-                await Navigation.PushAsync(new CreatePlot());
+                await Navigation.PushAsync(new NotPopup());
                 return;
             }
             if (pickPlot.SelectedIndex > -1)

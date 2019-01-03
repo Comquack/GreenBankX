@@ -224,7 +224,7 @@ namespace GreenBankX
         {
             if (pickPlot.SelectedIndex == ((List<Plot>)Application.Current.Properties["Plots"]).Count)
             {
-                await Navigation.PushAsync(new CreatePlot());
+                await Navigation.PushAsync(new NotPopup());
             }
         }
 

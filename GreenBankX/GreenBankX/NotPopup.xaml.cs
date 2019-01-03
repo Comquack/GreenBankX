@@ -39,16 +39,9 @@ namespace GreenBankX
                 Latent.Text = geo[0].ToString();
                 Longent.Text = geo[1].ToString();
             }
-                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
-            {
-                pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-            }
-            pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
-
-
 
         }
-        public async void Done()
+        public void Done()
         {
             if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
@@ -134,25 +127,15 @@ namespace GreenBankX
                 Comments.Text = null;
                 Location.Text = null;
                 Owner.Text = null;
-                
-                pickPrice.SelectedIndex = -1;
                 PlotYear.Text = null;
-                pickPrice.Items.Clear();
-                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
-                {
-                    pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-                }
-                pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
+
                 Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails");
-                pickPrice.IsVisible = false;
                 Location.IsVisible = false;
                 Owner.IsVisible = false;
                 Comments.IsVisible = false;
             }
             else {
                 Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
-                pickPrice.SelectedIndex = (int)Application.Current.Properties["PriceStore"];
-                pickPrice.IsVisible = true;
                 Location.IsVisible = true;
                 Owner.IsVisible = true;
                 Comments.IsVisible = true;
@@ -186,21 +169,10 @@ namespace GreenBankX
         }
 
 
-        private async Task pickPrice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (pickPrice.SelectedIndex == pickPrice.Items.Count-1)
-            {
-                await Navigation.PushAsync(new CreatePricing());
-                await PopupNavigation.Instance.PopAsync();
-                return;
-            }
-        }
-
         private async void Expand_Clicked(object sender, EventArgs e)
         {
             double[] geo;
             bool X = Expand.Text == AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
-            pickPrice.IsVisible = !X;
             Location.IsVisible = !X;
             Owner.IsVisible = !X;
             Comments.IsVisible = !X;

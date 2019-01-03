@@ -20,7 +20,6 @@ namespace GreenBankX
         List<Plot> changedPlot;
         int GraphNo = -1;
         int Listhadler = -1;
-        DetailsGraph doubletap = null;
         Tree doubletapTree;
         ObservableCollection<PlotContainer> plotty = new ObservableCollection<PlotContainer>();
         PlotContainer doubletap2;
@@ -126,7 +125,6 @@ namespace GreenBankX
                     ListOfTree.Text = "";
                     PlotTitle.Text = "";
                     pickPlot.Items.Clear();
-                    doubletap = null;
                     DetailsList.IsVisible = false;
                     for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                     {
@@ -257,7 +255,6 @@ namespace GreenBankX
             DunLLoadin();
             GraphNo = -1;
              Listhadler = -1;
-             doubletap = null;
             DetailsList.IsVisible = false;
              doubletapTree = null;
              year = DateTime.Now.Year;

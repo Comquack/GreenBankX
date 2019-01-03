@@ -37,19 +37,7 @@
                     Grid.Row="2"
                     
                     Clicked="OpenMeasure"/>
-                    <Button
-                    x:Name="Bttn2"
-                   Text="{local:TranslateExtension CreatePlot}"
-                   VerticalOptions="Center"
- 
-                   FontSize="Large"
-                   FontAttributes="Bold"
-                    BackgroundColor="LightGray"
-                   TextColor="Green"
-                    Grid.Column="0"
-                    Grid.Row="1"
-                        IsVisible="False"
-                        Clicked="OpenMap"/>
+                   
                     <Button
                     x:Name="BttnOther"
                    Text="{local:TranslateExtension CreatePlot}"

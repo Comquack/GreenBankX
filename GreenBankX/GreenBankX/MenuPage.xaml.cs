@@ -153,10 +153,7 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new MeasureTree());
         }
-        async void OpenMap(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CreatePlot());
-        }
+
         async void OpenManager(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new ManagePlots());
@@ -169,7 +166,7 @@ namespace GreenBankX
             MessagingCenter.Unsubscribe<LangPop>(this, "Done");
             MessagingCenter.Subscribe<LangPop>(this, "Done", (sender) => {
                 Bttn1.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
-                Bttn2.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
+                BttnOther.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
                 Bttn3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                 Bttn4.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
             });

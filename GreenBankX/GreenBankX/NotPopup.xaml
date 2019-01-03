@@ -26,35 +26,26 @@
             />
         <Button Text="Add from map"
                 Clicked="Button_Clicked"/>
-        
-        <Grid>
 
-            <Entry
+            <Grid>
+
+                <Entry
             x:Name="Latent"
             Placeholder="Latitude"
             IsVisible="False"
                 Grid.Column="0"
                 Keyboard="Numeric"
                 TextChanged="Latent_TextChanged"/>
-            <Entry
+                <Entry
             x:Name="Longent"
             Placeholder="Longitude"
             IsVisible="False"
                 Keyboard="Numeric"
                 TextChanged="Longent_TextChanged"
                 Grid.Column="1"/>
-        </Grid>
+            </Grid>
 
-            <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
-                        TextColor="Black"
-                SelectedIndexChanged="pickPrice_SelectedIndexChanged"
-                IsVisible="False"
-                >
-            <Picker.Items>
-            </Picker.Items>
-        </Picker>
-
-        <Entry
+            <Entry
             x:Name="Location"
             Placeholder="Nearest Town"
             IsVisible="False"/>
