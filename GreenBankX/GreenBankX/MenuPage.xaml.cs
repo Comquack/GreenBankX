@@ -10,12 +10,6 @@ using Xamarin.Auth;
 using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
-using Google.Apis.Drive.v3;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Responses;
-using Google.Apis.Services;
-using Google.Apis.Drive.v3.Data;
 
 namespace GreenBankX
 {
@@ -47,6 +41,7 @@ namespace GreenBankX
                 return;
             }
             else {
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Uploading Files, Please Wait.";
                 loader.UpList();
             }
            // string nu = DependencyService.Get<ILogin>().UseDrive(-1);
@@ -180,6 +175,7 @@ namespace GreenBankX
                 return;
             }
             else {
+                Xamarin.Forms.Application.Current.Properties["Boff"] = "Downloading Files, Please Wait.";
                 loader.FilesList();
                 SaveAll.GetInstance().LoadAll();
             }

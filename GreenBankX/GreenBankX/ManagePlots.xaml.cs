@@ -19,8 +19,6 @@ namespace GreenBankX
 	{
         List<Plot> changedPlot;
         int GraphNo = -1;
-        int Listhadler = -1;
-        Tree doubletapTree;
         ObservableCollection<PlotContainer> plotty = new ObservableCollection<PlotContainer>();
         PlotContainer doubletap2;
         int year = DateTime.Now.Year;
@@ -36,7 +34,6 @@ namespace GreenBankX
         public void SelectPlot()
         { string trees = "";
             PlotList.IsVisible = false;
-            Listhadler = 0;
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
             string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
@@ -116,26 +113,11 @@ namespace GreenBankX
             {
                 MessagingCenter.Unsubscribe<DeleteConfirm>(this, "Delete");
                 MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
-                    SaveAll.GetInstance().DeletePlot(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName());
                     ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
-                    ToolDelete.Text = "";
-                    ToolDeleteTree.Text = "";
-                    ToolPricing.Text = "";
-
-                    ListOfTree.Text = "";
-                    PlotTitle.Text = "";
-                    pickPlot.Items.Clear();
-                    DetailsList.IsVisible = false;
-                    for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
-                    {
-                        pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
-                        
-                    }
-                    pickPlot.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPlot"));
-                    pickPlot.SelectedIndex = pickPlot.SelectedIndex - 1;
-                    SelectPlot();
                     SaveAll.GetInstance().SavePlots();
                     SaveAll.GetInstance().SaveTrees2();
+                    OnAppearing();
+                    PlotTitle.IsVisible = false;
 
                 });
                 await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -254,9 +236,7 @@ namespace GreenBankX
             }
             DunLLoadin();
             GraphNo = -1;
-             Listhadler = -1;
             DetailsList.IsVisible = false;
-             doubletapTree = null;
              year = DateTime.Now.Year;
             //pickPlot.Items.Clear();
                 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");

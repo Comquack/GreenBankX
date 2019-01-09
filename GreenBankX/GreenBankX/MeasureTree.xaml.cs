@@ -17,7 +17,6 @@ namespace GreenBankX
     public partial class MeasureTree : ContentPage
     {
         bool AllOne = false;
-        int Listhadler;
         Tree doubletapTree;
            Tree ThisTree;
         ObservableCollection<SelectableData> plotTog;
@@ -292,7 +291,6 @@ namespace GreenBankX
             {
                     Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
                     ThisTree = doubletapTree;
-                    Listhadler = -1;
                     doubletapTree = null;
                 Show(true);
                 pickPlot.IsVisible = false;
@@ -340,7 +338,6 @@ namespace GreenBankX
 
         private void pickPlotOne_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Listhadler = 0;
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
             plotTog.Clear();
             if (pickPlotOne.SelectedIndex > -1)
@@ -511,7 +508,6 @@ namespace GreenBankX
 
             MessagingCenter.Subscribe<AvgTreePop>(this, "Add", (grender) =>
             {
-                Listhadler = 0;
                 ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
                 plotTog.Clear();
                 if (pickPlotOne.SelectedIndex > -1)

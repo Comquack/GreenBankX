@@ -41,7 +41,7 @@ namespace GreenBankX
             }
 
         }
-        public void Done()
+        public async void Done()
         {
             if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
@@ -88,6 +88,17 @@ namespace GreenBankX
                 Latent.Text = null;
                 Longent.Text = null;
                 SaveAll.GetInstance().SavePlots();
+                bool res = await DisplayAlert("Add Trees", "Do you wish to add trees to this plot?", "Yes", "No");
+                if (res)
+                {
+                    Application.Current.Properties["Counter"] = ((List<Plot>)Application.Current.Properties["Plots"]).Count - 1;
+                    MessagingCenter.Subscribe<AddTreePop>(this, "Save", (sender) =>
+                    {
+                        SaveAll.GetInstance().SaveTrees2();
+                    });
+                    await PopupNavigation.Instance.PushAsync(AddTreePop.GetInstance());
+                }
+
             }
             else if (PlotName.Text == null)
             {

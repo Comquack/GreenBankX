@@ -68,6 +68,7 @@
                    TextColor="Black"
                         Grid.Row="1"
                     Keyboard="Numeric"
+                    IsVisible="False"
                    Placeholder="{local:TranslateExtension MerchHeight}"
                 TextChanged="merchheight_TextChanged"/>
         <DatePicker
@@ -84,6 +85,18 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Clicked="Done"
+                />
+
+        <Button
+                   x:Name="Close"
+               Text="Close"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Close_Clicked"
                 />
 
     </StackLayout>

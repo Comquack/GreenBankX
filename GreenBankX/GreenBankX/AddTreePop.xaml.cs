@@ -28,16 +28,18 @@ namespace GreenBankX
         { 
             InitializeComponent();
         }
-        public async void Done() {
+        public void Done() {
             int ID;
             if (height.Text != null && double.Parse(height.Text) > 0 && girth.Text != null && double.Parse(girth.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
             {
-                ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count-1).Id + 1;
                 counter = (int)Application.Current.Properties["Counter"];
+                try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count - 1).Id + 1; }
+                catch { ID = 1; }
+                
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text), ID, DateMes.Date));
-                Application.Current.Properties["Counter"] = -1;
                 MessagingCenter.Send<AddTreePop>(this, "Add");
-                await PopupNavigation.Instance.PopAsync();
+                Clear();
+                //await PopupNavigation.Instance.PopAsync();
             }
             else if (DateMes.Date > DateTime.Now) {
                 Device.BeginInvokeOnMainThread(() =>
@@ -61,13 +63,22 @@ namespace GreenBankX
             }
 
         }
+        public void Clear()
+        {
+            merchheight.Text = null;
+            MerhH.IsToggled = false;
+            height.Text = null;
+            girth.Text = null;
+        }
         protected override void OnAppearing()
         {
+            Clear();
             base.OnAppearing();
         }
 
         protected override void OnDisappearing()
         {
+            MessagingCenter.Send<AddTreePop>(this, "Save");
             base.OnDisappearing();
         }
 
@@ -187,6 +198,11 @@ namespace GreenBankX
         {
             merchheight.IsVisible = e.Value;
             merchheight.Text = e.Value ? "" : "";
+        }
+
+        private async Task Close_Clicked(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

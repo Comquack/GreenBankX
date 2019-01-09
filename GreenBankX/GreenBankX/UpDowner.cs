@@ -108,7 +108,7 @@ namespace GreenBankX
                     }
                 }
             }
-            if (pl || pr || tr)
+            if (!pl || !pr || !tr)
             {
                 Xamarin.Forms.Application.Current.Properties["Boff"] = (pr ? "" : "Pricings.xls, ") + (pl ? "" : "Plots.xls, ") + (tr ? "" : "trees.xls, ") + "not found.";
             }

@@ -306,6 +306,7 @@ namespace GreenBankX
                 {
                     MyMap.Pins = new List<TKCustomMapPin>();
                     showName.IsVisible = false;
+                    
                     Pins.Add(new TKCustomMapPin
                     {
                         Position = position,
@@ -335,6 +336,7 @@ namespace GreenBankX
                         ShowCallout = false,
 
                     });
+                    AddPlot.IsVisible = true;
                     MyMap.Pins = Pins;
                     CanAdd = false;
                 }

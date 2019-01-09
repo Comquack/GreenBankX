@@ -30,7 +30,7 @@ namespace GreenBankX
         }
         public async Task YesDelete() {
             await PopupNavigation.Instance.PopAsync();
-            MessagingCenter.Send<DeleteConfirm>(this, "Delete");
+            MessagingCenter.Send(this, "Delete");
         }
 
         public async Task NoDelete()

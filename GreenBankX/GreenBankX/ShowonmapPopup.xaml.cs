@@ -18,7 +18,6 @@ namespace GreenBankX
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ShowonmapPopup : Rg.Plugins.Popup.Pages.PopupPage
     {
-        Boolean CanAdd = true;
         List<Position> newpolygon;
         List<TKCustomMapPin> Pins = new List<TKCustomMapPin>();
         int setpoly = -1;
@@ -140,7 +139,6 @@ namespace GreenBankX
                 return;
             }
             setpoly = -1;
-            CanAdd = true;
             StartMap(false);
             PolyMap();
 
