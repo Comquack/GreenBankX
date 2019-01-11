@@ -274,7 +274,7 @@
     <value>Save</value>
   </data>
   <data name="TotalVol" xml:space="preserve">
-    <value>Total volume</value>
+    <value>Total volume (m³)</value>
   </data>
   <data name="NumberTrees" xml:space="preserve">
     <value>Number of trees</value>

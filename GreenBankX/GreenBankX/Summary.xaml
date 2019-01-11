@@ -27,8 +27,7 @@
                     <Picker.Items>
                         <x:String>Data of trees</x:String>
                         <x:String>Data by Log classes</x:String>
-                        <x:String>Averages and more details</x:String>
-                        <x:String>Over Time</x:String>
+                        <x:String>Averages</x:String>
                     </Picker.Items>
 
                 </Picker>
@@ -106,7 +105,7 @@
                 <ListView
                     IsVisible="false"
                 x:Name="DetailsList"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     ItemTapped="DetailsList_ItemSelected"
                     Grid.ColumnSpan="3">
                         <ListView.Header>
@@ -116,6 +115,7 @@
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                                 <Label
+                                    x:Name="GirthDetailsList"
                                 Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
@@ -136,15 +136,15 @@
                             <ViewCell>
                                 <Grid>
                                     <Label
-                                Text="{Binding Id}"
+                                Text="{Binding ID}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                                     <Label
-                                Text="{Binding Diameter}"
+                                Text="{Binding girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                                     <Label
-                                Text="{Binding MerchHeight}"  
+                                Text="{Binding price}"  
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                                 </Grid>
@@ -153,11 +153,24 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-                <ListView
+                    <Switch
+                        x:Name="Girtdswitch"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        IsVisible="False"
+                        Toggled="Girtdswitch_Toggled"
+                        />
+                    <Label
+                        x:Name="Girtdlab"
+                        Text="Girth/Diameter"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        />
+                    <ListView
                     IsVisible="false"
                 x:Name="LogClassList"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     ItemTapped="LogClassList_ItemTapped"
                     Grid.ColumnSpan="3">
                     <ListView.Header>
@@ -174,7 +187,11 @@
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                        </Grid>
+                                <Label
+                                Text="Number of Logs"
+                                TextColor="Black"
+                                        Grid.Column="3"></Label>
+                            </Grid>
                     </ListView.Header>
                     <ListView.ItemsSource>
 
@@ -187,6 +204,7 @@
                             <ViewCell>
                                 <Grid>
                                     <Label
+                                        x:Name="Logcl"
                                 Text="{Binding label}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
@@ -198,7 +216,11 @@
                                 Text="{Binding price}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
-                                </Grid>
+                                        <Label
+                                Text="{Binding logs}"
+                                TextColor="Black"
+                                        Grid.Column="3"></Label>
+                                    </Grid>
 
                             </ViewCell>
                         </DataTemplate>
@@ -209,7 +231,7 @@
                     IsVisible="false"
                 x:Name="LogList"
                   
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.ColumnSpan="3">
                     <ListView.Header>
                         <Grid>
@@ -219,6 +241,7 @@
                                         Grid.Column="0"
                                 XAlign="Start"></Label>
                             <Label
+                                x:Name ="Girthloglist"
                                 Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"
@@ -293,7 +316,7 @@
                 IsVisible="False"
                     Grid.Column="0"
                     Grid.ColumnSpan="3"
-                Grid.Row="2"
+                Grid.Row="3"
                     HeightRequest="300"
                     
                 />
@@ -303,7 +326,7 @@
                     Clicked="Earlier_Clicked"
                 IsVisible="False"
                     HorizontalOptions="Start"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="0"
                      Margin="0, 0, 0, 0"
                     />
@@ -313,7 +336,7 @@
                     Clicked="Later_Clicked"
                 IsVisible="False"
                      Margin="0, 0, 0, 0"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     Grid.Column="2"
                     HorizontalOptions="End"
                     />

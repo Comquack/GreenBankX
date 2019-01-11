@@ -314,6 +314,7 @@ namespace GreenBankX
         public double volume { get; set; }
         public double price { get; set; }
         public string label { get; set; }
+        public int logs { get; set; }
         public DetailsGraph()
         { }
 
@@ -330,6 +331,8 @@ namespace GreenBankX
         public int ID { get; set; }
         public double girth { get; set; }
         public string label { get; set; }
+
+
         public DetailsGraph2()
         { }
     }
