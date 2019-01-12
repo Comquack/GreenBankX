@@ -55,9 +55,6 @@
                         <Button x:Name="New"
                                 Text="{local:TranslateExtension AddNewTree}"
                                 Clicked="New_Clicked"/>
-                        <Button x:Name="AddAvg"
-                                Text="{local:TranslateExtension AddAvg}"
-                                Clicked="AddAvg_Clicked"/>
                     </StackLayout>
                 </ListView.Footer>
                 <ListView.ItemsSource>

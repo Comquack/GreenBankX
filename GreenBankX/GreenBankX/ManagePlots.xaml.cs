@@ -330,6 +330,7 @@ namespace GreenBankX
         public double price { get; set; }
         public int ID { get; set; }
         public double girth { get; set; }
+        public Tree tree { get; set; }
         public string label { get; set; }
 
 

@@ -161,15 +161,8 @@ namespace GreenBankX
                 worksheet.SetValue(1, 4, "Girth");
                 worksheet.SetValue(1, 5, "Height");
                 worksheet.SetValue(1, 6, "Merchantable Height");
-                worksheet.SetValue(1, 7, "Logs");
-                worksheet.SetValue(1, 8, "Volume");
-                worksheet.SetValue(1, 9, "Price");
-                worksheet.SetValue(2, 11, "Totals by Plot and Year");
-                worksheet.SetValue(3, 11, "Plot");
-                worksheet.SetValue(3, 12, "Year");
-                worksheet.SetValue(3, 13, "Volume");
-                worksheet.SetValue(3, 14, "Price");
-
+                worksheet.SetValue(1, 14, "Currency");
+                worksheet.SetValue(1, 15, "Rate vs USD");
 
 
                 for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
@@ -204,7 +197,6 @@ namespace GreenBankX
                             count++;
                         }
                     }
-                    worksheet.SetValue(4 + countyear, 11, thisPlot.GetName());
                 }
                 worksheet.SetValue(1, 11, count.ToString());
                 MemoryStream stream = new MemoryStream();
@@ -310,6 +302,7 @@ namespace GreenBankX
         //loads data from .xls files populates plots with trees. data for trees is stored in <PlotName>.xls
         public void LoadTreeFiles2()
         {
+            List<(string, double)> currency = new List<(string, double)>();
             int shift = 0;
             int treecounter = -1;
             bool doesExist = File.Exists(DependencyService.Get<ISave>().GetFileName() + "/trees.xls");
@@ -323,6 +316,14 @@ namespace GreenBankX
                 Plot Thisplot;
                 if (sheet.GetValueRowCol(1, 1).ToString() == "Tree ID")
                 {
+                    if (sheet.GetValueRowCol(1, 14).ToString() == "Currency") {
+                        int p = 0;
+                        while (sheet.GetValueRowCol(2, 14).ToString()  != null && sheet.GetValueRowCol(2, 14).ToString() != "") {
+                            currency.Add((sheet.GetValueRowCol(2, 14+p).ToString(), double.Parse(sheet.GetValueRowCol(3, 14+p).ToString())));
+                            p++;
+                        }
+                        Application.Current.Properties["Currenlist"] = currency;
+                    }
                     if (sheet.GetValueRowCol(1, 6).ToString() == "Merchantable Height") {
                         shift = 1;
                     }

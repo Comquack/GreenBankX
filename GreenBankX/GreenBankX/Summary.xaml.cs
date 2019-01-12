@@ -82,7 +82,7 @@ namespace GreenBankX
                 {
 
                     ThisTree = TreeList.ElementAt(x);
-                    Detailstree.Add(new DetailsGraph2() {girth = Math.Round(ThisTree.Diameter*(Girtdswitch.IsToggled?1:1/Math.PI),2), ID = ThisTree.Id, price = ThisTree.Merch});
+                    Detailstree.Add(new DetailsGraph2() {girth = Math.Round(ThisTree.Diameter*(Girtdswitch.IsToggled?1:1/Math.PI),2), ID = ThisTree.Id, price = ThisTree.Merch,tree = ThisTree});
                     TreeTails.Add(ThisTree);
                     IDlis.Add(ThisTree.ID.ToString());
                 }
@@ -248,7 +248,7 @@ namespace GreenBankX
                         Later.IsVisible = false;
                     }
                     stuff = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth") + ": " + Math.Round(girth, 2).ToString() + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + ": " + Math.Round(high, 2).ToString();
-                    girthtext = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalLogs") + ": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(total, 2) + "k";
+                    girthtext = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalLogs") + ": " + result.GetLength(0) + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": " + Math.Round(total, 2) + ((int)Application.Current.Properties["Currenselect"]==-1?"USD": ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) ;
                     trees = "Tree ID: " + ThisTree.ID.ToString() + "at the date" + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
                     GirthOT.Text = girthtext;
                     ListOfTree.Text = stuff;
@@ -469,7 +469,7 @@ namespace GreenBankX
                     HeightOT.Text = "";
                    // Later.IsVisible = true;
                    // Earlier.IsVisible = true;
-                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "cm \n" + Math.Round((totalvol / (double)count), 4).ToString() + "m\xB3 \n" + Math.Round((total / (double)count), 4).ToString() + " kip\n" + Math.Round((totalvol), 4).ToString() + "m\xB3 \n" + Math.Round((total), 4).ToString() + " kip \n";
+                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "cm \n" + Math.Round((totalvol / (double)count), 4).ToString() + "m\xB3 \n" + Math.Round((total / (double)count), 4).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n" + Math.Round((totalvol), 4).ToString() + "m\xB3 \n" + Math.Round((total), 4).ToString() + ((int)Application.Current.Properties["Currenselect"]==-1?"USD": ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n";
                    // Later.IsVisible = true;
                    // Earlier.IsVisible = true;
                 }
@@ -516,7 +516,7 @@ namespace GreenBankX
 
         private void DetailsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (doubletapTree == (Tree)DetailsList.SelectedItem)
+            if (doubletapTree == ((DetailsGraph2)DetailsList.SelectedItem).tree)
             {
                 
                 if (Listhadler == 0)
@@ -533,7 +533,7 @@ namespace GreenBankX
                 }
             }
             else {
-               doubletapTree = (Tree)DetailsList.SelectedItem;
+               doubletapTree = ((DetailsGraph2)DetailsList.SelectedItem).tree;
             }
         }
         private void LogClassInfoPlot(int bracNo)
@@ -557,7 +557,7 @@ namespace GreenBankX
                         if ((int)result[x, 0] == bracNo)
                         {
 
-                            Detail.Add(new DetailsGraph2 { ID = ThisTree.ID, girth = Math.Round(result[x, 3] *(Girtdswitch.IsToggled?Math.PI:1), 2), price = Math.Round(result[x, 1], 2), volume = Math.Round(result[x, 2], 2) });
+                            Detail.Add(new DetailsGraph2 { tree = ThisTree,ID = ThisTree.ID, girth = Math.Round(result[x, 3] *(Girtdswitch.IsToggled?Math.PI:1), 2), price = Math.Round(result[x, 1], 2), volume = Math.Round(result[x, 2], 2) });
                         }
                     }
                 }

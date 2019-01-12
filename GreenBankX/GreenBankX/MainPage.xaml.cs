@@ -38,6 +38,8 @@ namespace GreenBankX
             Application.Current.Properties["PriceStore"] = null;
             Application.Current.Properties["AvgGirth"] = -1;
             Application.Current.Properties["AvgH"] = -1;
+            Application.Current.Properties["Currenlist"] = new List<(string, double)>();
+            Application.Current.Properties["Currenselect"] = -1;
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }
