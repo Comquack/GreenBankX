@@ -38,7 +38,7 @@
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                             <Label
-                                Text="{Binding DateMade}"
+                                Text="{local:TranslateExtension DateMade}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                         </Grid>

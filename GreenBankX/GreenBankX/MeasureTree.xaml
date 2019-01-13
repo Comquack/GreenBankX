@@ -43,6 +43,10 @@
                                 Text="{local:TranslateExtension Height}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
+                        <Label
+                                Text="Select"
+                                TextColor="Black"
+                                        Grid.Column="3"></Label>
                     </Grid>
                 </ListView.Header>
                 <ListView.Footer>
@@ -216,6 +220,7 @@
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                         <Label
+                                x:Name="PriceA"
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
@@ -241,6 +246,7 @@
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                                 <Label
+
                                 Text="{Binding price}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>

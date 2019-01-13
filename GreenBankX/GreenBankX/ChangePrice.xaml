@@ -2,8 +2,8 @@
 <pages:PopupPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-     xmlns:local="clr-namespace:GreenBankX"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:local="clr-namespace:GreenBankX"
     xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     x:Class="GreenBankX.ChangePrice">
     <!--You can set an animation in the xaml file or in the csharp code behind-->
@@ -25,42 +25,58 @@
         BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
         <Label
-            x:Name="NameLabel"
-            Text="Change Price scheme?"
-            FontSize="Large"
-            
-           />
+            Text="Log Length"/>
+        <Entry  
+                x:Name="Len"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension LogLength}"
+                TextChanged="Len_TextChanged"/>
+
         <Grid>
-        <Label
-            x:Name="lab1"
-            Text=""
-            FontSize="Large"
-            Grid.Column="0"
-           />
-        <Label
-            x:Name="lab2"
-            Text=""
-            FontSize="Large"
-            Grid.Column="1"
-           />
+            <Label
+            Text="Min Diameter"
+                Grid.Column="0"
+                Grid.Row="0"/>
+            <Label
+            Text="Max Diameter"
+                Grid.Column="1"
+                Grid.Row="0"/>
+            <Entry  
+                x:Name="minDiam"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension minimumdiameter}"
+                TextChanged="minDiam_TextChanged"
+                Grid.Column="0"
+                Grid.Row="1"/>
+            
+            <Entry  
+                x:Name="maxDiam"
+                   TextColor="Black"
+                   Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension maxdiameter}"
+                TextChanged="maxDiam_TextChanged"
+                    Grid.Column="1"
+                Grid.Row="1"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50*" />
+                <ColumnDefinition Width="50*" />
+            </Grid.ColumnDefinitions>
         </Grid>
-        <Picker
-            x:Name="ChosePrice"
-            SelectedIndexChanged="ChosePrice_SelectedIndexChanged">
-            <Picker.Items>
-            </Picker.Items>
-        </Picker>
-            <Button
-                   x:Name="ConfirmChange"
-                
-               Text="{local:TranslateExtension Change}"
-               VerticalOptions="Center"
-               IsVisible="true"
-               FontSize="Large"
-               FontAttributes="Bold"
-                BackgroundColor="LightGray"
-               TextColor="Green"
-                Clicked="Confirm"
-                />
+        <Label
+            Text="Price/log"/>
+        <Entry 
+                x:Name="price"
+                   TextColor="Black"
+                    Keyboard="Numeric"
+                   Placeholder="{local:TranslateExtension Price}"/>
+
+       
+        <Button x:Name="Change"
+                    Text="{local:TranslateExtension EditEn}"
+                    Clicked="Change_Clicked"
+                    />
+ 
     </StackLayout>
 </pages:PopupPage>

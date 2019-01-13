@@ -224,6 +224,7 @@ namespace GreenBankX
                 pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                 pickPlotOne.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
             }
+            PriceA.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + "(" + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
             pickPlot.Items.Add("New Plot");
         }
 
@@ -489,63 +490,6 @@ namespace GreenBankX
             }
         }
 
-       //async private void AddAvg_Clicked(object sender, EventArgs e)
-       // {
-       //     Plot thispolt = null;
-       //     thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
-       //     double avgG = 0;
-       //     double avgH = 0;
-       //     int counter = 0;
-       //     for (int x = 0; x < plotTog.Count; x++)
-       //     {
-       //         if (plotTog.ElementAt(x).Selected)
-       //         {
-       //             avgH += double.Parse(plotTog.ElementAt(x).MerchHeight);
-       //             avgG +=double.Parse(plotTog.ElementAt(x).Diameter);
-       //             counter++;
-       //         }
-       //     }
-       //     if (counter == 0) {
-       //         for (int x = 0; x < plotTog.Count; x++)
-       //         {
-
-       //                 avgH += double.Parse(plotTog.ElementAt(x).MerchHeight);
-       //                 avgG += double.Parse(plotTog.ElementAt(x).Diameter);
-       //                 counter++;
-       //         }
-       //     }
-       //     Application.Current.Properties["AvgGirth"] = avgG/counter;
-       //     Application.Current.Properties["AvgH"] = avgH / counter;
-       //     Application.Current.Properties["Counter"] = pickPlotOne.SelectedIndex;
-       //     MessagingCenter.Unsubscribe<AvgTreePop>(this, "Add");
-
-       //     MessagingCenter.Subscribe<AvgTreePop>(this, "Add", (grender) =>
-       //     {
-       //         ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
-       //         plotTog.Clear();
-       //         if (pickPlotOne.SelectedIndex > -1)
-       //         {
-       //             Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
-       //             List<Tree> TreeList = ThisPlot.getTrees();
-       //             Tree ThisTree;
-       //             for (int x = 0; x < TreeList.Count; x++)
-       //             {
-       //                 plotTog.Add(new SelectableData(TreeList.ElementAt(x), false));
-       //                 ThisTree = TreeList.ElementAt(x);
-       //                 TreeTails.Add(ThisTree);
-       //             }
-       //             DetailsList.IsVisible = true;
-       //             LogList.IsVisible = false;
-       //             DetailsList.ItemsSource = plotTog;
-       //             Show(false);
-       //             DetailsList.IsVisible = true;
-       //             DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count, 5)) + (10 * Math.Min(TreeTails.Count, 5)) + 60;
-       //             SaveAll.GetInstance().SavePlots();
-       //         }
-
-       //     });
-       //     await PopupNavigation.Instance.PushAsync(AvgTreePop.GetInstance());
-       // }
 
         private void Estimate_Clicked(object sender, EventArgs e)
         {

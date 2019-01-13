@@ -274,26 +274,24 @@ namespace GreenBankX
         }
         }
 
-        private void Change_Clicked(object sender, EventArgs e)
+        private async Task Change_Clicked(EventArgs e)
         {
-            Pricetitle.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ChangePrice");
             string name = PriceList.SelectedItem.ToString();
-            Change.IsVisible = false;
-            Cancel.IsVisible = true;
-            Confirm.IsVisible = true;
-            changer = true;
-                for (int x = 0; x < PriceArray.Length; x++)
+
+            for (int x = 0; x < PriceArray.Length; x++)
+            {
+                if (PriceArray.Cast<string>().ToList().ElementAt(x) == name)
                 {
-                    if (PriceArray.Cast<string>().ToList().ElementAt(x) == name)
-                    {
-                        select2 = x;
-                        minDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Key.ToString();
-                        price.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x).Value.ToString();
-                    try { maxDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex).GetBrack().ElementAt(x+1).Key.ToString(); }
-                    catch { maxDiam.Text = null; }
-                }
+                    select2 = x;
                 }
             }
+            MessagingCenter.Subscribe<ChangePrice>(this, "Change", (sender) => {
+                PopList(pickPrice.SelectedIndex);
+                SaveAll.GetInstance().SavePricing();
+            });
+            Application.Current.Properties["Priceholder"] = (pickPrice.SelectedIndex, select2);
+            await PopupNavigation.Instance.PushAsync(ChangePrice.GetInstance());
+        }
 
         private void Len_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,16 +14,14 @@ namespace GreenBankX
 {
     public partial class ChangePrice : Rg.Plugins.Popup.Pages.PopupPage
     {
+        (int, int) numbers;
         public static ChangePrice instance = new ChangePrice();
-        Plot thisPlot;
-        int counter = -1;
         public static ChangePrice GetInstance()
         {
             if (instance == null)
             {
                 return new ChangePrice();
             }
-            instance.Refresh();
             return instance;
         }
 
@@ -30,36 +29,49 @@ namespace GreenBankX
         {
 
             InitializeComponent();
-            Refresh();
         }
 
-        public void Refresh() {
-            ChosePrice.Items.Clear();
-            counter = (int)Application.Current.Properties["Counter"];
-            if (counter > -1) {
-            thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter);
-                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
-                {
-                    ChosePrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-                }
-            }
-    }
-
-
-        public async Task Confirm()
-        {
-            if (ChosePrice.SelectedIndex > -1) {
-                NameLabel.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex).GetName() + counter.ToString();
-                //((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex));
-                MessagingCenter.Send<ChangePrice>(this, "Change");
-            }
-            await PopupNavigation.Instance.PopAsync();
-        }
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
+            numbers = (((int, int))Application.Current.Properties["Priceholder"]);
+            //Len.Text = numbers.Item1.ToString()+"|"+numbers.Item1.ToString();
+
+            Len.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetLength().ToString();
+            minDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2).Key.ToString();
+            try { maxDiam.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2+1).Key.ToString(); }
+            catch { }
+            price.Text = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2).Value.ToString();
+
         }
 
+        private void Len_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 100 || double.Parse(e.NewTextValue) < 0))
+            {
+                Len.Text = e.OldTextValue;
+            }
+
+        }
+
+        private void maxDiam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                maxDiam.Text = e.OldTextValue;
+            }
+        }
+        private void minDiam_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            {
+                minDiam.Text = e.OldTextValue;
+            }
+        }
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
@@ -127,26 +139,79 @@ namespace GreenBankX
             return base.OnBackgroundClicked();
         }
 
-        private void ChosePrice_SelectedIndexChanged(object sender, EventArgs e)
+        private async void Change_Clicked(object sender, EventArgs e)
         {
-            //Fills list of prices
-            string prices = "";
-            string logs = "";
-            if (ChosePrice.SelectedIndex > -1)
+            if (Len.Text != null)
             {
-                PriceRange ThisPrice = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(ChosePrice.SelectedIndex);
-                SortedList<double, double> brack = ThisPrice.GetBrack();
-                prices = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "/m\xB3\n";
-                logs = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("minimumdiameter") + "\n ";
-                for (int x = 0; x < brack.Count(); x++)
-                {
-                    prices = prices + brack.ElementAt(x).Value + "\n";
-                    logs = logs + brack.ElementAt(x).Key + "\n";
-                }
-                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
-                lab2.Text = prices;
-                lab1.Text = logs;
+                ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).SetLength(int.Parse(Len.Text));
             }
+            if (minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0)
+            {
+                double key = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2).Key;
+                double value = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2).Value;
+                ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().RemoveAt(numbers.Item2);
+                if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).addBrack(double.Parse(minDiam.Text), double.Parse(price.Text)))
+                {
+                    try
+                    {
+                        ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).addBrack(key, value);
+
+                    }
+                    catch { }
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), "OK");
+                    });
+                }
+                else
+                {
+                    if (maxDiam.Text != null && double.Parse(maxDiam.Text) > double.Parse(minDiam.Text)&& numbers.Item2< ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().Count-1&& ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 1).Key != double.Parse(maxDiam.Text))
+                    {
+                        try
+                        {
+                            double key2 = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 1).Key;
+                            double value2 = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2+1).Value;
+                            ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().RemoveAt(numbers.Item2+1);
+                            if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).addBrack(double.Parse(maxDiam.Text), value2))
+                            {
+                                try
+                                {
+                                    ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).addBrack(key2, value2);
+                                }
+                                catch { }
+                                Device.BeginInvokeOnMainThread(() =>
+                                {
+                                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SizeExists"), "OK");
+                                });
+                            }
+                        }
+                        catch { }
+                    }
+                    maxDiam.Text = null;
+                    price.Text = null;
+                    MessagingCenter.Send(this, "Change");
+                    await PopupNavigation.Instance.PopAsync(); ;
+                };
+
+            }
+            else if (minDiam.Text == null || double.Parse(minDiam.Text) <= 0)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), "OK");
+                });
+            }
+            else if (price.Text == null || double.Parse(price.Text) <= 0)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), "OK");
+                });
+            }
+            else {
+                await PopupNavigation.Instance.PopAsync(); ;
+                return; }
+
         }
     }
 }
