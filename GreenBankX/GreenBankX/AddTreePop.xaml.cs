@@ -65,10 +65,15 @@ namespace GreenBankX
         }
         public void Clear()
         {
+            counter = (int)Application.Current.Properties["Counter"];
             merchheight.Text = null;
             MerhH.IsToggled = false;
             height.Text = null;
             girth.Text = null;
+            int ID;
+            try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count - 1).Id + 1; }
+            catch { ID = 1;}
+            TreeD.Text = "Tree ID: "+ID.ToString();
         }
         protected override void OnAppearing()
         {

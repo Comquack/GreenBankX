@@ -28,6 +28,11 @@
             x:Name="TreeLabel"
             Text="{local:TranslateExtension AddNewTree}"
             />
+        <Label
+            x:Name="TreeD"
+            Font="Bold"
+            Text=""
+            />
         <Entry  
                 x:Name="girth"
                    TextColor="Black"

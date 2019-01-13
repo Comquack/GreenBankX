@@ -179,6 +179,14 @@ namespace GreenBankX
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateMes.Date));
                     SaveAll.GetInstance().SaveTrees2();
+                    girth.Text = null;
+                    height.Text = null;
+                    merchheight.Text = null;
+                    MerhH.IsToggled = false;
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                    });
                 }
             }
         }
@@ -221,10 +229,15 @@ namespace GreenBankX
 
         private async void pickPlot_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int ID;
             if (pickPlot.SelectedIndex == ((List<Plot>)Application.Current.Properties["Plots"]).Count)
             {
                 await Navigation.PushAsync(new NotPopup());
+                return;
             }
+            try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count - 1).Id + 1; }
+            catch { ID = 1; }
+            labID.Text = "Tree ID: " + ID;
         }
 
         private void height_TextChanged(object sender, TextChangedEventArgs e)
@@ -280,7 +293,7 @@ namespace GreenBankX
         private void MerhH_Toggled(object sender, ToggledEventArgs e)
         {
             merchheight.IsVisible = e.Value;
-            merchheight.Text = e.Value ? "" : "";
+            merchheight.Text = "";
         }
 
         private void DetailsList_ItemTapped(object sender, ItemTappedEventArgs e)

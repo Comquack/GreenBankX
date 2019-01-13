@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
+using Xamarin.Auth;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
@@ -261,6 +262,9 @@ namespace GreenBankX
                     double[] geo = (double[])Application.Current.Properties["ThisLocation"];
                     Latent.Text = geo[0].ToString();
                     Longent.Text = geo[1].ToString();
+                }
+                if (Application.Current.Properties["User"] != null && ((User)Application.Current.Properties["User"]).Name != null) {
+                    Owner.Text = ((User)Application.Current.Properties["User"]).Name;
                 }
                 
             });

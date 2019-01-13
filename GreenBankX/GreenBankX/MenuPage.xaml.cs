@@ -119,6 +119,7 @@ namespace GreenBankX
                 {
                     store.Delete(account, Constants.AppName);
                 }
+                Application.Current.Properties["User"] = user;
                 await store.SaveAsync(account = e.Account, Constants.AppName);
                 Application.Current.Properties["Account"] = (await store.FindAccountsForServiceAsync(Constants.AppName)).FirstOrDefault();
                 Application.Current.Properties["Signed"] = true;

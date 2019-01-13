@@ -135,6 +135,8 @@
                     x:Name="merchheight"
                    TextColor="Black"
                         Grid.Row="2"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
                     Keyboard="Numeric"
                    Placeholder="{local:TranslateExtension MerchHeight}"
                 TextChanged="merchheight_TextChanged"/>
@@ -158,8 +160,16 @@
                         <Picker.Items>
                         </Picker.Items>
                     </Picker>
+                        <Label
+                    x:Name="labID"
+                    Text=""
+                            Font="Bold"
+                        Grid.Column="0"
+                        Grid.Row="2"
+                            FontSize="Medium"
+                            Grid.ColumnSpan="1"/>
 
-                    <Button
+                        <Button
                 x:Name="Estimate"
                Text="{local:TranslateExtension Measure}"
                VerticalOptions="Center"
