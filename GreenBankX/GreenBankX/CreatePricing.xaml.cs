@@ -154,11 +154,11 @@ namespace GreenBankX
                 {
                     if (x == brack.Count() - 1)
                     {
-                        ArrayList.Add(brack.ElementAt(x).Key + "cm " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger") + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
+                        ArrayList.Add(brack.ElementAt(x).Key + "cm " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger") + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1));
                     }
                     else
                     {
-                        ArrayList.Add(brack.ElementAt(x).Key + "cm to " +  brack.ElementAt(x+1).Key+"cm" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value);
+                        ArrayList.Add(brack.ElementAt(x).Key + "cm to " +  brack.ElementAt(x+1).Key+"cm" + "\t\t\t\t" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + ": " + brack.ElementAt(x).Value+((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1));
                     }
                     }
                 NameOfPrices.Text =AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPrice.GetName() + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogLength") + ": " + ThisPrice.GetLength().ToString() + "m";
@@ -249,6 +249,7 @@ namespace GreenBankX
             }
             DunLLoadin();
             Application.Current.Properties["PriceStore"] = null;
+            price.Placeholder = (CultureInfo)Application.Current.Properties["Language"] + " ("+ ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
         }
         void SaveTest() {
             
