@@ -78,18 +78,18 @@ namespace GreenBankX
                 string[] unitm3 = { "m\xB3" };
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
-                    DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2) };
+                    DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2),result=result,tree = ThisTree, brack =brack, resultrow = i };
                     if (result[i, 0] == -1)
                     {
                         answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
                     }
                     else if (result[i, 0] == brack.Count - 1)
                     {
-                        answer.label = (brack.ElementAt((int)result[i, 0]).Key + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
                     }
                     else
                     {
-                        answer.label = (brack.ElementAt((int)result[i, 0]).Key) + "-" + brack.ElementAt((int)result[i, 0] + 1).Key + unitcm[0];
+                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2)) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0];
 
                     }
                     Detail.Add(answer);
@@ -361,7 +361,7 @@ namespace GreenBankX
                 Tree ThisTree;
                 for (int x = 0; x < TreeList.Count; x++)
                 {
-                    plotTog.Add(new SelectableData(TreeList.ElementAt(x), false));
+                    plotTog.Add(new SelectableData(TreeList.ElementAt(x), false, GirthDBH2.IsToggled));
                     ThisTree = TreeList.ElementAt(x);
                     TreeTails.Add(ThisTree);
                 }
@@ -402,12 +402,15 @@ namespace GreenBankX
             public string Diameter { get; set; }
             public string MerchHeight { get; set; }
             public bool Selected { get; set; }
-            public SelectableData(Tree str, bool boo) {
+            public SelectableData(Tree str, bool boo, bool gd) {
                 tree = str;
                 Id = str.ID.ToString();
-                Diameter = str.Diameter.ToString();
+                Diameter = Math.Round(tree.Diameter * (gd ? 1 / Math.PI:1), 2).ToString();
                 MerchHeight = str.MerchHeight.ToString();
                 Selected = boo;
+            }
+            public void GirthDiam(bool gd) {
+                Diameter = Math.Round(tree.Diameter * (gd ? 1 / Math.PI:1),2).ToString();
             }
         }
 
@@ -445,18 +448,18 @@ namespace GreenBankX
                         string[] unitm3 = { "m3" };
                         for (int i = 0; i < result.GetLength(0); i++)
                         {
-                            DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2) };
+                            DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1], 2),result = result,brack = brack, resultrow=i };
                             if (result[i, 0] == -1)
                             {
                                 answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
                             }
                             else if (result[i, 0] == brack.Count - 1)
                             {
-                                answer.label = (brack.ElementAt((int)result[i, 0]).Key + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                                answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
                             }
                             else
                             {
-                                answer.label = (brack.ElementAt((int)result[i, 0]).Key) + "-" + brack.ElementAt((int)result[i, 0] + 1).Key + unitcm[0];
+                                answer.label = Math.Round(brack.ElementAt((int)result[i, 0]).Key*(GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key*(GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0];
 
                             }
                             Detail.Add(answer);
@@ -495,6 +498,48 @@ namespace GreenBankX
         {
             AllOne = false;
             PickPrice.Focus();
+        }
+
+        private void GirthDBH2_Toggled(object sender, ToggledEventArgs e)
+        {
+            if (DetailsList.IsVisible) {
+                List<SelectableData> TreeTails = new List<SelectableData>();
+                ObservableCollection<SelectableData> TreeOrig = (ObservableCollection<SelectableData>)DetailsList.ItemsSource;
+                foreach (SelectableData g in TreeOrig) {
+                    g.GirthDiam(GirthDBH2.IsToggled);
+                }
+                DetailsList.ItemsSource = null;
+                DetailsList.ItemsSource = TreeOrig;
+               // int hold = pickPlotOne.SelectedIndex;
+               // pickPlotOne.SelectedIndex = -1;
+               // pickPlotOne.SelectedIndex = hold;
+            }
+            if (LogList.IsVisible&& LogList.ItemsSource!=null) {
+                ObservableCollection<DetailsGraph2> deets = (ObservableCollection<DetailsGraph2>)LogList.ItemsSource;
+                ObservableCollection<DetailsGraph2> deets2 = new ObservableCollection<DetailsGraph2>();
+                foreach(DetailsGraph2 answer in deets) {
+                    SortedList<double, double> brack = answer.brack;
+                    double[,] result = answer.result;
+                    int i = answer.resultrow;
+                    if (result[i, 0] == -1)
+                    {
+                        //answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
+                    }
+                    else if (result[i, 0] == brack.Count - 1)
+                    {
+                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1),2) + "cm" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                    }
+                    else
+                    {
+                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key*(GirthDBH2.IsToggled ? 1/Math.PI:1),2) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1),2) + "cm");
+
+                    }
+                    deets2.Add(answer);
+                }
+                LogList.ItemsSource = null;
+                LogList.ItemsSource = deets2;
+                LogList.IsVisible = true;
+            }
         }
     }
 }

@@ -332,6 +332,10 @@ namespace GreenBankX
         public double girth { get; set; }
         public Tree tree { get; set; }
         public string label { get; set; }
+        public double height { get; set; }
+        public double[,] result { get; set; }
+        public SortedList<double, double> brack { get; set;}
+        public int resultrow { get; set; }
 
 
         public DetailsGraph2()

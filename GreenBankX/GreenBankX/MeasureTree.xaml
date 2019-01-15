@@ -256,6 +256,20 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Grid>
+                <Label
+                    x:Name="labbott"
+                    Text="{local:TranslateExtension GDBH}"
+                        Grid.Column="0"
+                        Grid.Row="0"/>
+
+                <Switch
+                    x:Name="GirthDBH2"
+                    Grid.Column="1"
+                    Toggled="GirthDBH2_Toggled"
+                        Grid.Row="0"
+                    />
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
