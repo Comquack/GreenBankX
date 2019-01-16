@@ -37,10 +37,6 @@ namespace GreenBankX
             ObservableCollection<Tree> TreeTails = new ObservableCollection<Tree>();
             string girths = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth")+"\n";
             string heights = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Height") + "\n";
-            //if (pickPlot.SelectedIndex == pickPlot.Items.Count-1&& pickPlot.SelectedIndex>-1) {
-               // await Navigation.PushAsync(new CreatePlot());
-             //   return;
-           // }
             if (pickPlot.SelectedIndex > -1)
             {
                 ToolEdit.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EditPlot");
@@ -59,24 +55,24 @@ namespace GreenBankX
                     trees += AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Comments") + ": " + ThisPlot.Describe + "\n";
                 }
                 List<Tree> TreeList = ThisPlot.getTrees();
+                List<DetailsGraph2> Detailstree = new List<DetailsGraph2>();
                 Tree ThisTree;
                 for (int x = 0; x < TreeList.Count; x++)
                 {
-
                     ThisTree = TreeList.ElementAt(x);
+                    Detailstree.Add(new DetailsGraph2() { girth = Math.Round(ThisTree.Diameter * (Girtdswitch.IsToggled ? 1/ Math.PI : 1 ), 2), ID = ThisTree.Id, price = ThisTree.Merch, tree = ThisTree });
                     TreeTails.Add(ThisTree);
                 }
                 DetailsList.IsVisible = true;
-                ListOfTree.Text = "";
-                GirthOT.Text = "";
-                HeightOT.Text = "";
                 ToolPricing.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CPrice");
-                DetailsList.ItemsSource = TreeTails;
+                DetailsList.ItemsSource = Detailstree;
                 DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count, 5)) + (10 * Math.Min(TreeTails.Count, 5)) + 60;
                 PlotTitle.Text = trees;
 
                 ToolDelete.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DeletePlot");
                 ToolDeleteTree.Text = "";
+                Girtdswitch.IsVisible = true;
+                Girtdlab.IsVisible = true;
             }
             else {
                 OnAppearing();
@@ -174,7 +170,7 @@ namespace GreenBankX
                 MessagingCenter.Unsubscribe<DeleteConfirm>(this, "Delete");
                 MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
                     string trees;
-                   int selec = ((ObservableCollection<Tree>)DetailsList.ItemsSource).IndexOf((Tree)DetailsList.SelectedItem);
+                   int selec = ((List<DetailsGraph2>)DetailsList.ItemsSource).IndexOf((DetailsGraph2)DetailsList.SelectedItem);
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().RemoveAt(selec);
                     Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
                     trees = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name") + ": " + ThisPlot.GetName() +" "+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area") + ": " + Math.Round(ThisPlot.GetArea(), 2) + "km2";
@@ -251,6 +247,8 @@ namespace GreenBankX
             PlotList.ItemsSource = plotty;
             pickPlot.SelectedIndex = -1;
             PlotList.IsVisible = true;
+            Girtdswitch.IsVisible = false;
+            Girtdlab.IsVisible = false;
         }
         protected override void OnSizeAllocated(double width, double height) {
             base.OnSizeAllocated(width,height);
@@ -307,6 +305,17 @@ namespace GreenBankX
                 base.OnBackButtonPressed();
                 return false;
             }
+        }
+
+
+        private void Girtdswitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            GirthDetailsList.Text = Girtdswitch.IsToggled ? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Diameter") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth");
+            if (DetailsList.IsVisible)
+            {
+                SelectPlot();
+            }
+
         }
     }
 

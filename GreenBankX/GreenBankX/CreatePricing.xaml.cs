@@ -249,7 +249,7 @@ namespace GreenBankX
             }
             DunLLoadin();
             Application.Current.Properties["PriceStore"] = null;
-            price.Placeholder = (CultureInfo)Application.Current.Properties["Language"] + " ("+ ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
+            price.Placeholder = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + " ("+ ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
         }
         void SaveTest() {
             

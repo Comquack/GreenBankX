@@ -17,6 +17,7 @@ namespace GreenBankX
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Summary : ContentPage
 	{
+        int brac = -1;
         List<Plot> changedPlot;
         int GraphNo = -1;
         int Listhadler = -1;
@@ -82,7 +83,7 @@ namespace GreenBankX
                 {
 
                     ThisTree = TreeList.ElementAt(x);
-                    Detailstree.Add(new DetailsGraph2() {girth = Math.Round(ThisTree.Diameter*(Girtdswitch.IsToggled?1:1/Math.PI),2), ID = ThisTree.Id, price = ThisTree.Merch,tree = ThisTree});
+                    Detailstree.Add(new DetailsGraph2() {girth = Math.Round(ThisTree.Diameter*(Girtdswitch.IsToggled?1 / Math.PI : 1),2), ID = ThisTree.Id, price = ThisTree.Merch,tree = ThisTree});
                     TreeTails.Add(ThisTree);
                     IDlis.Add(ThisTree.ID.ToString());
                 }
@@ -185,8 +186,7 @@ namespace GreenBankX
 
 
                 if (PickPrice.SelectedIndex>-1)
-                {
-                    Titlename.Text = "testv";
+                { 
                     PriceRange thisRange = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex);
                     Calculator Calc = new Calculator();
                     Calc.SetPrices(thisRange);
@@ -332,6 +332,7 @@ namespace GreenBankX
             if (ShowGraph.SelectedIndex == 0)
             {
                 ShowGraphpick2();
+                brac = -1;
                 return;
             }
             else if (ShowGraph.SelectedIndex == -1) {
@@ -342,11 +343,13 @@ namespace GreenBankX
         }
         private void ShowGraphpick2()
         {
-            if (ShowGraph.SelectedIndex > -1) {
-              //  DetailsList.IsVisible = false;
-               // LogClassList.IsVisible = false;
-               // LogList.IsVisible = false;
+            if (ShowGraph.SelectedIndex > -1)
+            {
+                //  DetailsList.IsVisible = false;
+                // LogClassList.IsVisible = false;
+                // LogList.IsVisible = false;
             }
+            else { brac = -1; }
             //show regular data for each tree
             if (ShowGraph.SelectedIndex == 0) {
                 SelectPlot();
@@ -516,25 +519,25 @@ namespace GreenBankX
 
         private void DetailsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (doubletapTree == ((DetailsGraph2)DetailsList.SelectedItem).tree)
-            {
+            //if (doubletapTree == ((DetailsGraph2)DetailsList.SelectedItem).tree)
+            //{
                 
-                if (Listhadler == 0)
-                {
-                    Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
-                    pickTree.SelectedIndex = ThisPlot.getTrees().IndexOf(doubletapTree);
+            //    if (Listhadler == 0)
+            //    {
+            //        Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
+            //        pickTree.SelectedIndex = ThisPlot.getTrees().IndexOf(doubletapTree);
                     
-                    DetailsList.IsVisible = false;
-                    LogClassList.IsVisible = false;
-                    LogList.IsVisible = false;
-                    Listhadler = -1;
-                    doubletapTree = null;
-                    ShowGraph.IsVisible = false;
-                }
-            }
-            else {
-               doubletapTree = ((DetailsGraph2)DetailsList.SelectedItem).tree;
-            }
+            //        DetailsList.IsVisible = false;
+            //        LogClassList.IsVisible = false;
+            //        LogList.IsVisible = false;
+            //        Listhadler = -1;
+            //        doubletapTree = null;
+            //        ShowGraph.IsVisible = false;
+            //    }
+            //}
+            //else {
+            //   doubletapTree = ((DetailsGraph2)DetailsList.SelectedItem).tree;
+            //}
         }
         private void LogClassInfoPlot(int bracNo)
         {
@@ -542,7 +545,7 @@ namespace GreenBankX
             Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex);
             ObservableCollection<DetailsGraph2> Detail = new ObservableCollection<DetailsGraph2>();
             Calculator Calc = new Calculator();
-            //Calc.SetPrices(ThisPlot.GetRange());
+            Calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex));
             for (int y = 0; y < ThisPlot.getTrees().Count; y++)
             {
                 Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
@@ -550,26 +553,26 @@ namespace GreenBankX
                 try
                 {
                     
-                    (double, double,double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
-                    double[,] result = Calc.Calcs(measure.Item1, measure.Item2);
+                    double[,] result = Calc.Calcs(ThisTree.GetDia(), ThisTree.Merch);
                     for (int x = 0; x < result.GetLength(0); x++)
                     {
                         if ((int)result[x, 0] == bracNo)
                         {
 
-                            Detail.Add(new DetailsGraph2 { tree = ThisTree,ID = ThisTree.ID, girth = Math.Round(result[x, 3] *(Girtdswitch.IsToggled?Math.PI:1), 2), price = Math.Round(result[x, 1], 2), volume = Math.Round(result[x, 2], 2) });
+                            Detail.Add(new DetailsGraph2 { tree = ThisTree,ID = ThisTree.ID, girth = Math.Round(result[x, 3] *(Girtdswitch.IsToggled?1/Math.PI:1), 2), price = Math.Round(result[x, 1], 2), volume = Math.Round(result[x, 2], 2) });
                         }
                     }
                 }
 
                 catch { }
             }
+            LogList.ItemsSource = null;
             LogList.ItemsSource = Detail;
             LogList.HeightRequest = HeightRequest = (40 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5)) + (10 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5));
             DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
-            LogList.IsVisible = false;
             LogList.IsVisible = true;
+            Oxy.IsVisible = false;
             ListOfTree.Text = "";
            
             GirthOT.Text = "";
@@ -582,8 +585,11 @@ namespace GreenBankX
             {
                 if (Listhadler == 1)
                 {
-                    for (int x = 0; x < ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).Count; x++) {
-                        if (LogClassList.SelectedItem.ToString() == ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).ElementAt(x).ToString()) {
+                    for (int x = 0; x < ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).Count; x++)
+                    {
+                        if (LogClassList.SelectedItem.ToString() == ((ObservableCollection<DetailsGraph>)LogClassList.ItemsSource).ElementAt(x).ToString())
+                        {
+                            brac = x;
                             LogClassInfoPlot(x);
                         }
                     }
@@ -602,6 +608,7 @@ namespace GreenBankX
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
+            brac = -1;
             Girtdlab.IsVisible = false;
             Girtdswitch.IsVisible = false;
             PlotTitle.IsVisible = false;
@@ -747,11 +754,15 @@ namespace GreenBankX
             Girthloglist.Text = GirthDetailsList.Text;
             
             if (LogClassList.IsVisible)
-            {
+            {  
                 ShowGraphpick2();
             }
             else if (DetailsList.IsVisible) {
                 SelectPlot();
+            }
+            if (brac > -1)
+            {
+                LogClassInfoPlot(brac);
             }
 
         }

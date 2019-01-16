@@ -49,6 +49,10 @@
                                 Text="Date Made"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
+                            <Label
+                                Text="Select"
+                                TextColor="White"
+                                        Grid.Column="3"/>
                         </Grid>
                     </ListView.Header>
                     <ListView.ItemsSource>
@@ -123,6 +127,7 @@
                                 Text="{local:TranslateExtension Height}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
+
                             </Grid>
                         </ListView.Header>
                         <ListView.ItemsSource>
@@ -355,7 +360,7 @@
                 </Grid.ColumnDefinitions>
             </Grid>
             <Picker x:Name="pickTree" Title="{local:TranslateExtension SelectaTree}"
-                    SelectedIndexChanged="SelectTree"
+                    
                         TextColor="Black"
                     IsVisible="False">
                 <Picker.Items>

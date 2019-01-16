@@ -83,10 +83,24 @@
                        Grid.Row="0"
                        Grid.ColumnSpan="3"
                        Margin="0"/>
+                    <Switch
+                        x:Name="Girtdswitch"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        IsVisible="False"
+                        Toggled="Girtdswitch_Toggled"
+                        />
+                    <Label
+                        x:Name="Girtdlab"
+                        Text="Girth/Diameter"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="false"
+                        />
                     <ListView
                     IsVisible="false"
                 x:Name="DetailsList"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     ItemTapped="DetailsList_ItemSelected"
                     Grid.ColumnSpan="3">
                         <ListView.Header>
@@ -96,6 +110,7 @@
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                                 <Label
+                                   x:Name="GirthDetailsList"
                                 Text="{local:TranslateExtension Girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
@@ -122,15 +137,15 @@
                                 <ViewCell>
                                     <Grid>
                                         <Label
-                                Text="{Binding Id}"
+                                 Text="{Binding ID}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                                         <Label
-                                Text="{Binding Diameter}"
+                                Text="{Binding girth}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                                         <Label
-                                Text="{Binding MerchHeight}"  
+                                Text="{Binding price}"  
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                                     </Grid>
@@ -139,28 +154,7 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-
-                    
-
-
-                    <Label x:Name="ListOfTree" 
-                Text=""
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                       Grid.Row="1"
-                       Grid.Column="0"/>
-                    <Label x:Name="GirthOT" 
-                Text=""
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                       Grid.Row="1"
-                       Grid.Column="1"/>
-                    <Label x:Name="HeightOT" 
-                Text=""
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                       Grid.Row="1"
-                       Grid.Column="2"/>
+                
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
