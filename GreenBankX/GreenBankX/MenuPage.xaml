@@ -88,7 +88,18 @@
                     Grid.Column="1"
                     Grid.Row="5"
                     Clicked="Summary_Clicked"/>
-
+                    <Button
+                    x:Name="Curren"
+                   Text="Currency"
+                   VerticalOptions="Center"
+                   IsVisible="true"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                    BackgroundColor="LightGray"
+                   TextColor="Green"
+                    Grid.Column="1"
+                    Grid.Row="6"
+                    Clicked="Curren_Clicked"/>
                     <Button
                     x:Name="Lang"
                    Text="{local:TranslateExtension Language}"
@@ -99,7 +110,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="6"
+                    Grid.Row="7"
                     Clicked="ChangeLang"/>
 
                     <Button
@@ -112,7 +123,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Clicked="Tute_Clicked"/>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20*" />

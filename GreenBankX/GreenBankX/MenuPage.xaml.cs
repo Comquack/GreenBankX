@@ -238,6 +238,11 @@ namespace GreenBankX
         {
             await Navigation.PushAsync(new Summary());
         }
+
+        async private void Curren_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Currency());
+        }
     }
     class ClockViewModel : INotifyPropertyChanged
     {

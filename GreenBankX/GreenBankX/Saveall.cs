@@ -164,15 +164,20 @@ namespace GreenBankX
                 worksheet.SetValue(1, 14, "Currency");
                 worksheet.SetValue(1, 15, "Rate vs USD");
 
+                for (int x = 0; x < ((List<(string, double)>)Application.Current.Properties["Currenlist"]).Count(); x++) {
+                    try
+                    {
+                        worksheet.SetValue(2 + x, 14, ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt(x).Item1);
+                        worksheet.SetValue(2 + x, 15, ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt(x).Item2.ToString());
+                    }
+                    catch { worksheet.SetValue(2 + x, 15, "ErrorEventArgs"); }
+                }
 
-                for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
+                    for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                 {
                     int minyear = 0;
                     int maxyear = 0;
                     Plot thisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x);
-                    // PriceRange thisRange = thisPlot.GetRange();
-                    //Calculator Calc = new Calculator();
-                    // Calc.SetPrices(thisRange);
                     List<Tree> TreeList = thisPlot.getTrees();
                     for (int y = 0; y < TreeList.Count; y++)
                     {
@@ -316,14 +321,14 @@ namespace GreenBankX
                 Plot Thisplot;
                 if (sheet.GetValueRowCol(1, 1).ToString() == "Tree ID")
                 {
-                    if (sheet.GetValueRowCol(1, 14).ToString() == "Currency") {
+                    //if (sheet.GetValueRowCol(1, 14).ToString() == "Currency") {
                         int p = 0;
-                        while (sheet.GetValueRowCol(2, 14).ToString()  != null && sheet.GetValueRowCol(2, 14).ToString() != "") {
-                            currency.Add((sheet.GetValueRowCol(2, 14+p).ToString(), double.Parse(sheet.GetValueRowCol(3, 14+p).ToString())));
+                        while (sheet.GetValueRowCol(2+p, 14).ToString()  != null && sheet.GetValueRowCol(2+p, 14).ToString() != "") {
+                            currency.Add((sheet.GetValueRowCol(2+p, 14).ToString(), double.Parse(sheet.GetValueRowCol(2+p, 15).ToString())));
                             p++;
                         }
                         Application.Current.Properties["Currenlist"] = currency;
-                    }
+                    //}
                     if (sheet.GetValueRowCol(1, 6).ToString() == "Merchantable Height") {
                         shift = 1;
                     }

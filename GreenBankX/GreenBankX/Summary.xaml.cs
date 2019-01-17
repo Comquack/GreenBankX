@@ -345,9 +345,7 @@ namespace GreenBankX
         {
             if (ShowGraph.SelectedIndex > -1)
             {
-                //  DetailsList.IsVisible = false;
-                // LogClassList.IsVisible = false;
-                // LogList.IsVisible = false;
+
             }
             else { brac = -1; }
             //show regular data for each tree
@@ -454,6 +452,7 @@ namespace GreenBankX
                     }
                     DetailsList.IsVisible = false;
                     LogClassList.IsVisible = true;
+                    LogclPr.Text =  AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + " " + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1);
                     LogList.IsVisible = false;
                    // ListOfTree.Text = "";
                     GirthOT.Text = "";
@@ -571,6 +570,7 @@ namespace GreenBankX
             LogList.HeightRequest = HeightRequest = (40 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5)) + (10 * Math.Min(((ObservableCollection<DetailsGraph2>)LogList.ItemsSource).Count, 5));
             DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
+            Loglistpr.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") +" "+  ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1);
             LogList.IsVisible = true;
             Oxy.IsVisible = false;
             ListOfTree.Text = "";

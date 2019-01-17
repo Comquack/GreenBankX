@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GreenBankX.Currency">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Currencies"
+                FontSize="Medium" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="Selected"
+                Text="Currencies"
+                FontSize="Medium" 
+                HorizontalOptions="CenterAndExpand" />
+            <Entry
+                x:Name="Name"
+                Placeholder="Currency"
+                IsVisible="False"
+                />
+            <Entry
+                x:Name="Rate"
+                Placeholder="Rate per USD"
+                IsVisible="False"
+                Keyboard="Numeric"
+                />
+            <Button x:Name="Conf"
+                                Text="Confirm"
+                                Clicked="Conf_Clicked"
+                    IsVisible="False"/>
+            <ListView
+
+                    x:Name="Currenlist"
+                    ItemTapped="Currenlist_ItemTapped">
+                <ListView.Header>
+                    <Grid>
+                        <Label
+                                Text="Currency"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                        <Label
+                                Text="Conversion rate"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemsSource>
+
+                    <x:Array Type="{x:Type x:String}"
+                            >
+                    </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Label
+                                Text="{Binding Name}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                <Label
+                                Text="{Binding Rate}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            </Grid>
+
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout>
+                        <Button x:Name="AddC"
+                                Text="Add Currency"
+                                Clicked="AddC_Clicked"/>
+                    </StackLayout>
+
+                </ListView.Footer>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

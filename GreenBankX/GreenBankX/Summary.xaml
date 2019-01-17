@@ -189,6 +189,7 @@
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                             <Label
+                                x:Name ="LogclPr"
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
@@ -257,6 +258,7 @@
                                         Grid.Column="2"
                                 XAlign="Start"></Label>
                             <Label
+                                x:Name="Loglistpr"
                                 Text="{local:TranslateExtension TotalPrice}"
                                 TextColor="Black"
                                         Grid.Column="3"
