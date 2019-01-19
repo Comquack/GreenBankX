@@ -76,9 +76,23 @@
                     IsVisible="False"
                    Placeholder="{local:TranslateExtension MerchHeight}"
                 TextChanged="merchheight_TextChanged"/>
-        <DatePicker
+        <Grid>
+            <DatePicker
             x:Name="DateMes" 
+                        Grid.ColumnSpan="2"
+                Grid.Row="0"
             />
+            <Button
+                x:Name="Today"
+               Text="Today"
+               VerticalOptions="Center"
+               IsVisible="true"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="2"
+                Grid.Row="0"
+                Clicked="Today_Clicked"/>
+        </Grid>
 
         <Button
                    x:Name="TreeBut"

@@ -199,6 +199,10 @@ namespace GreenBankX
             }
         }
 
+        private void Today_Clicked(object sender, EventArgs e)
+        {
+            DateMes.Date = DateTime.Now;
+        }
         private void MerhH_Toggled(object sender, ToggledEventArgs e)
         {
             merchheight.IsVisible = e.Value;

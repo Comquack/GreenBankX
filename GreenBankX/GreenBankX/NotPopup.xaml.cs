@@ -181,45 +181,15 @@ namespace GreenBankX
         }
 
 
-        private async void Expand_Clicked(object sender, EventArgs e)
+        private void Expand_Clicked(object sender, EventArgs e)
         {
-            double[] geo;
             bool X = Expand.Text == AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
             Location.IsVisible = !X;
             Owner.IsVisible = !X;
             Comments.IsVisible = !X;
-            Expand.Text = X? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails"); ;
-            if (!X) {
-                if (Application.Current.Properties["ThisLocation"] != null)
-                {     
-                    geo = (double[])Application.Current.Properties["ThisLocation"];
-                    Geoco = new Geocoder();
-                    Location.IsEnabled = false;
-                    try
-                    {
-                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
-                        Location.Text = answ.First();
-                        Location.IsEnabled = true;
-                    }
-                    catch { Location.Text = "Error";
-                        Location.IsEnabled = true;
-                    }
-                }
-                else if (Latent.Text != null && Longent.Text != null) {
-                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
-                    Geoco = new Geocoder();
-                    Location.IsEnabled = false;
-                    try
-                    {
-                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
-                        Location.Text = answ.First();
-                        Location.IsEnabled = true;
-                    }
-                    catch { Location.Text = "Error";
-                        Location.IsEnabled = true;
-                    }
-                }  
-            }
+            Find.IsVisible = !X;
+            Expand.Text = X ? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails"); ;
+
             if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {
                 Owner.Text = (string)Xamarin.Forms.Application.Current.Properties["First"] + " " + (string)Xamarin.Forms.Application.Current.Properties["Last"];
             }
@@ -270,6 +240,47 @@ namespace GreenBankX
             });
             await PopupNavigation.Instance.PushAsync(new CreatePlotPopup());
 
+        }
+
+        private async void Find_Clicked(object sender, EventArgs e)
+        {
+            double[] geo;
+
+                if (Application.Current.Properties["ThisLocation"] != null)
+                {
+                    geo = (double[])Application.Current.Properties["ThisLocation"];
+                    Geoco = new Geocoder();
+                    Location.IsEnabled = false;
+                    try
+                    {
+                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                        Location.Text = answ.First();
+                        Location.IsEnabled = true;
+                    }
+                    catch
+                    {
+                        Location.Text = "Error";
+                        Location.IsEnabled = true;
+                    }
+                }
+                else if (Latent.Text != null && Longent.Text != null)
+                {
+                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                    Geoco = new Geocoder();
+                    Location.IsEnabled = false;
+                    try
+                    {
+                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                        Location.Text = answ.First();
+                        Location.IsEnabled = true;
+                    }
+                    catch
+                    {
+                        Location.Text = "Error";
+                        Location.IsEnabled = true;
+                    }
+                
+            }
         }
     }
 }

@@ -68,11 +68,23 @@
             <Picker.Items>
             </Picker.Items>
         </Picker>
-
-        <Entry
+        <Grid>
+            <Entry
             x:Name="Location"
             Placeholder="Nearest Town"
-            IsVisible="False"/>
+            IsVisible="False"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"/>
+            <Button
+                   x:Name="Find"
+               Text="Find Location"
+               IsVisible="true"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Find_Clicked"
+                Grid.Column="2"
+                />
+        </Grid>
         <Entry
             x:Name="Owner"
             Placeholder="Owner's Name"
@@ -94,7 +106,7 @@
                 />
         <Button
                    x:Name="NamedPlot"
-               Text="Edit Plot"
+               Text="Save Edit"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

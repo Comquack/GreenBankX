@@ -542,5 +542,10 @@ namespace GreenBankX
                 LogList.IsVisible = true;
             }
         }
+
+        private void Today_Clicked(object sender, EventArgs e)
+        {
+            DateMes.Date = DateTime.Now;
+        }     
     }
 }

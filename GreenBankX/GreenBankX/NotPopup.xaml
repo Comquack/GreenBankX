@@ -44,12 +44,24 @@
                 TextChanged="Longent_TextChanged"
                 Grid.Column="1"/>
             </Grid>
-
+            <Grid>
             <Entry
             x:Name="Location"
             Placeholder="Nearest Town"
-            IsVisible="False"/>
-        <Entry
+            IsVisible="False"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"/>
+            <Button
+                   x:Name="Find"
+               Text="Find Location"
+               IsVisible="true"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Find_Clicked"
+                Grid.Column="2"
+                />
+            </Grid>
+            <Entry
             x:Name="Owner"
             Placeholder="Owner's Name"
             IsVisible="False"/>

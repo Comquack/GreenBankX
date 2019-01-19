@@ -39,6 +39,7 @@ namespace GreenBankX
             PlotName.Text = EditPlot.GetName();
             Comments.Text = EditPlot.Describe;
             Location.Text = EditPlot.NearestTown;
+            PlotYear.Text = EditPlot.YearPlanted.ToString();
                double[] geo = EditPlot.GetTag();
                 Latent.Text = geo[0].ToString();
                 Longent.Text = geo[1].ToString();
@@ -200,38 +201,15 @@ namespace GreenBankX
             }
         }
 
-        private async void Expand_Clicked(object sender, EventArgs e)
+        private  void Expand_Clicked(object sender, EventArgs e)
         {
-            double[] geo;
             bool X = Expand.Text == "Less Details";
             pickPrice.IsVisible = !X;
             Location.IsVisible = !X;
             Owner.IsVisible = !X;
+            Find.IsVisible = !X;
             Comments.IsVisible = !X;
             Expand.Text = X? "Add More Detail" :"Less Details";
-            if (!X) {
-                if (Application.Current.Properties["ThisLocation"] != null)
-                {     
-                    geo = (double[])Application.Current.Properties["ThisLocation"];
-                    Geoco = new Geocoder();
-                    try
-                    {
-                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
-                        Location.Text = answ.First();
-                    }
-                    catch { Location.Text = "Error"; }
-                }
-                else if (Latent.Text != null && Longent.Text != null) {
-                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
-                    Geoco = new Geocoder();
-                    try
-                    {
-                        var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
-                        Location.Text = answ.First();
-                    }
-                    catch { Location.Text = "Error"; }
-                }  
-            }
             if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {
                 Owner.Text = (string)Xamarin.Forms.Application.Current.Properties["First"] + " " + (string)Xamarin.Forms.Application.Current.Properties["Last"];
             }
@@ -253,6 +231,46 @@ namespace GreenBankX
             else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
             {
                 Longent.Text = e.OldTextValue;
+            }
+        }
+        private async void Find_Clicked(object sender, EventArgs e)
+        {
+            double[] geo;
+
+            if (Application.Current.Properties["ThisLocation"] != null)
+            {
+                geo = (double[])Application.Current.Properties["ThisLocation"];
+                Geoco = new Geocoder();
+                Location.IsEnabled = false;
+                try
+                {
+                    var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                    Location.Text = answ.First();
+                    Location.IsEnabled = true;
+                }
+                catch
+                {
+                    Location.Text = "Error";
+                    Location.IsEnabled = true;
+                }
+            }
+            else if (Latent.Text != null && Longent.Text != null)
+            {
+                geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                Geoco = new Geocoder();
+                Location.IsEnabled = false;
+                try
+                {
+                    var answ = await Geoco.GetAddressesForPositionAsync(new Position(geo[0], geo[1]));
+                    Location.Text = answ.First();
+                    Location.IsEnabled = true;
+                }
+                catch
+                {
+                    Location.Text = "Error";
+                    Location.IsEnabled = true;
+                }
+
             }
         }
     }

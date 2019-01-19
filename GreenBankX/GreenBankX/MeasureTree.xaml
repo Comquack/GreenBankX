@@ -52,7 +52,7 @@
                 <ListView.Footer>
                     <StackLayout>
                         <Button x:Name="All"
-                                Text="{local:TranslateExtension MeasureAll}"
+                                Text="Evaluate All"
                                 Clicked="All_select"
                                 IsVisible="False"
                                 />
@@ -146,10 +146,20 @@
                 TextChanged="merchheight_TextChanged"/>
                     <DatePicker
             x:Name="DateMes" 
-                        Grid.ColumnSpan="3"
+                        Grid.ColumnSpan="2"
                          Grid.Row="3"
             />
-                    <Picker x:Name="PickPrice" Title="{local:TranslateExtension SelectPricing}"
+                        <Button
+                x:Name="Today"
+               Text="Today"
+               VerticalOptions="Center"
+               IsVisible="true"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Grid.Column="2"
+                Grid.Row="3"
+                Clicked="Today_Clicked"/>
+                        <Picker x:Name="PickPrice" Title="{local:TranslateExtension SelectPricing}"
                         TextColor="Black"
                     SelectedIndexChanged="pickPrice_SelectedIndexChanged"
                         IsVisible="False">
@@ -175,7 +185,7 @@
 
                         <Button
                 x:Name="Estimate"
-               Text="{local:TranslateExtension Measure}"
+               Text="Evaluate"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"
