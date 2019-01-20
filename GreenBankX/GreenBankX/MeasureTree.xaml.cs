@@ -36,7 +36,7 @@ namespace GreenBankX
             }
             pickPlot.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NewPlot"));
         }
-        public void RunCalc() {
+        public async void RunCalc() {
             Calculator calc = new Calculator();
             Plot thispolt=null;
             if (pickPlotOne.SelectedIndex > -1) {
@@ -95,8 +95,9 @@ namespace GreenBankX
                     }
                     Detail.Add(answer);
                 }
-                LogList.ItemsSource = Detail;
-                LogList.IsVisible = true;
+                await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
+                // LogList.ItemsSource = Detail;
+                //LogList.IsVisible = true;
             }
             else {
                 Device.BeginInvokeOnMainThread(async () =>
@@ -278,15 +279,17 @@ namespace GreenBankX
             }
         }
 
+
         private void merchheight_TextChanged(object sender, TextChangedEventArgs e)
         {
             double ans;
-            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
+            if (e.NewTextValue == null || e.NewTextValue == "") { }
+            else if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
             else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 100 || double.Parse(e.NewTextValue) <= 0))
             {
                 merchheight.Text = e.OldTextValue;
             }
-            else if (double.TryParse(height.Text, out ans) && ans < double.Parse(e.NewTextValue))
+            else if (e.NewTextValue != null && e.NewTextValue != "" && double.TryParse(height.Text, out ans) && ans < double.Parse(e.NewTextValue))
             {
                 merchheight.Text = e.OldTextValue;
             }
@@ -420,7 +423,7 @@ namespace GreenBankX
             PickPrice.Focus();
         }
 
-        private void All_Clicked()
+        private async void All_Clicked()
         {
             Plot thispolt = null;
             thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
@@ -466,22 +469,24 @@ namespace GreenBankX
                             Detail.Add(answer);
                         }
                     }
-                    while(Detail.Count>0)
-                    {
-                        string ans = Detail.ElementAt(0).label;
-                    for (int y = 0; y < Detail.Count; y++)
-                    {
-                            if (Detail.ElementAt(y).label == ans) {
-                                DetailSort.Add(Detail.ElementAt(y));
-                                Detail.RemoveAt(y);
-                                y--;
-                            }
-                    }
-                }
-                    LogList.ItemsSource = DetailSort;
-                    LogList.IsVisible = true;
+                //    while(Detail.Count>0)
+                //    {
+                //        string ans = Detail.ElementAt(0).label;
+                //    for (int y = 0; y < Detail.Count; y++)
+                //    {
+                //            if (Detail.ElementAt(y).label == ans) {
+                //                DetailSort.Add(Detail.ElementAt(y));
+                //                Detail.RemoveAt(y);
+                //                y--;
+                //            }
+                //    }
+                //}
+                    
+                    // LogList.ItemsSource = DetailSort;
+                    // LogList.IsVisible = true;
                 }
             }
+            await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
         }
 
         private void Switch_Toggled_1(object sender, ToggledEventArgs e)

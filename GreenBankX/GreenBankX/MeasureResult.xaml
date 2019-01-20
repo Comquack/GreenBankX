@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:local="clr-namespace:GreenBankX"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="GreenBankX.MeasureResult">
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        BackgroundColor="LightGray"
+        Padding="20, 20, 20, 20">
+        <ListView
+                
+                x:Name="LogList"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3">
+            <ListView.Header>
+                <Grid>
+
+                    <Label
+                                Text="{local:TranslateExtension LogClass}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                    <Label
+                                Text="{local:TranslateExtension TotalVol}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                    <Label
+                                x:Name="PriceA"
+                                Text="{local:TranslateExtension TotalPrice}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemsSource>
+
+                <x:Array Type="{x:Type x:String}"
+                            >
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+
+                            <Label
+                                Text="{Binding label}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="{Binding volume}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                            <Label
+
+                                Text="{Binding price}"
+                                TextColor="Black"
+                                        Grid.Column="2"></Label>
+                        </Grid>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid>
+            <Label
+                    x:Name="labbott"
+                    Text="{local:TranslateExtension GDBH}"
+                        Grid.Column="0"
+                        Grid.Row="0"/>
+
+            <Switch
+                    x:Name="GirthDBH2"
+                    Grid.Column="1"
+                    Toggled="GirthDBH2_Toggled"
+                        Grid.Row="0"
+                    />
+        </Grid>
+
+    </StackLayout>
+</pages:PopupPage>

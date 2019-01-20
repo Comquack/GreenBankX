@@ -188,12 +188,13 @@ namespace GreenBankX
         private void merchheight_TextChanged(object sender, TextChangedEventArgs e)
         {
             double ans;
-            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
+            if (e.NewTextValue == null || e.NewTextValue == "") { }
+            else if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
             else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 100 || double.Parse(e.NewTextValue) <= 0))
             {
                 merchheight.Text = e.OldTextValue;
             }
-            else if (double.TryParse(height.Text, out ans) && ans < double.Parse(e.NewTextValue))
+            else if (e.NewTextValue != null && e.NewTextValue != "" && double.TryParse(height.Text, out ans) && ans < double.Parse(e.NewTextValue))
             {
                 merchheight.Text = e.OldTextValue;
             }

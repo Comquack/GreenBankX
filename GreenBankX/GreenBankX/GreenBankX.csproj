@@ -48,6 +48,9 @@
     <Compile Update="ChangePrice.xaml.cs">
       <DependentUpon>ChangePrice.xaml</DependentUpon>
     </Compile>
+    <Compile Update="MeasureResult.xaml.cs">
+      <DependentUpon>MeasureResult.xaml</DependentUpon>
+    </Compile>
     <Compile Update="ShowonmapPopup.xaml.cs">
       <DependentUpon>ShowonmapPopup.xaml</DependentUpon>
     </Compile>

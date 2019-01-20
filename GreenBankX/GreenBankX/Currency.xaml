@@ -71,6 +71,9 @@
                         <Button x:Name="AddC"
                                 Text="Add Currency"
                                 Clicked="AddC_Clicked"/>
+                        <Button x:Name="DelC"
+                                Text="Delete Currency"
+                                Clicked="DelC_Clicked"/>
                     </StackLayout>
 
                 </ListView.Footer>

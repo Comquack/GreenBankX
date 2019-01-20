@@ -140,7 +140,7 @@ namespace GreenBankX
                 Location.Text = null;
                 Owner.Text = null;
                 PlotYear.Text = null;
-
+                Find.IsVisible = false;
                 Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails");
                 Location.IsVisible = false;
                 Owner.IsVisible = false;

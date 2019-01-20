@@ -147,7 +147,6 @@ namespace GreenBankX
         public void SaveTrees2()
         {
             int count = 0;
-            int countyear = 0;
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
 

@@ -118,6 +118,7 @@ namespace GreenBankX
 
         protected override void OnAppearing()
         {
+            Find.IsVisible = false;
             if (Application.Current.Properties["Language"] != null)
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
