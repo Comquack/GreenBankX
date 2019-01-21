@@ -134,7 +134,8 @@ namespace GreenBankX
                     SortedList<double, double> brack = answer.brack;
                     double[,] result = answer.result;
                     int i = answer.resultrow;
-                    if (result[i, 0] == -1)
+                    if (result == null) { answer.label = "Totals"; }
+                    else if (result[i, 0] == -1)
                     {
                         //answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
                     }
