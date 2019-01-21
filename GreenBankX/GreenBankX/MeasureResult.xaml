@@ -25,7 +25,6 @@
         BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
         <ListView
-                
                 x:Name="LogList"
                     Grid.Row="1"
                     Grid.ColumnSpan="3">

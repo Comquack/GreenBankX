@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using GreenBankX.Resources;
 using OxyPlot.Axes;
 using OxyPlot.Series;
@@ -108,12 +109,16 @@ namespace GreenBankX
             if (pickPlot.SelectedIndex > -1)
             {
                 MessagingCenter.Unsubscribe<DeleteConfirm>(this, "Delete");
-                MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
+                MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", async (sender) => {
                     ((List<Plot>)Application.Current.Properties["Plots"]).RemoveAt(pickPlot.SelectedIndex);
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots")+": saving"; 
                     SaveAll.GetInstance().SavePlots();
                     SaveAll.GetInstance().SaveTrees2();
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saved";
                     OnAppearing();
                     PlotTitle.IsVisible = false;
+                    await Task.Delay(5000);
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
 
                 });
                 await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -127,14 +132,16 @@ namespace GreenBankX
                 Application.Current.Properties["Counter"] = pickPlot.SelectedIndex;
                 MessagingCenter.Unsubscribe<AddTreePop>(this, "Add");
         
-               MessagingCenter.Subscribe<AddTreePop>(this, "Add", (sender) =>
+               MessagingCenter.Subscribe<AddTreePop>(this, "Add", async (sender) =>
                {
                     int hold = pickPlot.SelectedIndex;
                    pickPlot.SelectedIndex = -1;
                    pickPlot.SelectedIndex = hold;
-
+                   Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saving";
                    SaveAll.GetInstance().SaveTrees2();
-
+                   Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saved";
+                   await Task.Delay(5000);
+                   Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                });
                 await PopupNavigation.Instance.PushAsync(AddTreePop.GetInstance());
             }
@@ -147,18 +154,24 @@ namespace GreenBankX
                 Application.Current.Properties["Counter"] = pickPlot.SelectedIndex;
                 MessagingCenter.Unsubscribe<AddMesPop>(this, "Append");
 
-                MessagingCenter.Subscribe<AddMesPop>(this, "Append", (sender) =>
+                MessagingCenter.Subscribe<AddMesPop>(this, "Append", async (sender) =>
                 {
 
-                    DetailsList.IsVisible = false;
-
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saving";
                     SaveAll.GetInstance().SaveTrees2();
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saved";
+                    await Task.Delay(5000);
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                 });
-                MessagingCenter.Subscribe<AddMesPop>(this, "Alter", (sender) =>
+                MessagingCenter.Subscribe<AddMesPop>(this, "Alter", async (sender) =>
                 {
                     GraphNo = (int)Application.Current.Properties["HCounter"];
                     DetailsList.IsVisible = false;
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saving";
                     SaveAll.GetInstance().SaveTrees2();
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saved";
+                    await Task.Delay(5000);
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                 });
                 await PopupNavigation.Instance.PushAsync(AddMesPop.GetInstance());
             }
@@ -168,7 +181,7 @@ namespace GreenBankX
             if (pickPlot.SelectedIndex > -1&& ToolDelete.Text!="")
             {
                 MessagingCenter.Unsubscribe<DeleteConfirm>(this, "Delete");
-                MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
+                MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", async (sender) => {
                     string trees;
                    int selec = ((List<DetailsGraph2>)DetailsList.ItemsSource).IndexOf((DetailsGraph2)DetailsList.SelectedItem);
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().RemoveAt(selec);
@@ -183,7 +196,11 @@ namespace GreenBankX
                     int storen = pickPlot.SelectedIndex;
                     pickPlot.SelectedIndex = -1;
                     pickPlot.SelectedIndex = storen;
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saving";
                     SaveAll.GetInstance().SaveTrees2();
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saved";
+                    await Task.Delay(5000);
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                     ToolDelete.Text = "";
                 });
                 await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -273,10 +290,14 @@ namespace GreenBankX
             {
                 Application.Current.Properties["ThisPlot"] = pickPlot.SelectedIndex;
                 Application.Current.Properties["ThisLocation"] = null;
-                MessagingCenter.Subscribe<PlotPopupEdit>(this, "Edit", (sender) =>
+                MessagingCenter.Subscribe<PlotPopupEdit>(this, "Edit", async (sender) =>
                 {
                     SelectPlot();
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saving";
                     SaveAll.GetInstance().SavePlots();
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots") + ": saved";
+                    await Task.Delay(5000);
+                    Titlename.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                 });
                 await PopupNavigation.Instance.PushAsync(PlotPopupEdit.GetInstance());
             }

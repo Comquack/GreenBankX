@@ -88,16 +88,23 @@ namespace GreenBankX
                 Owner.Text=null;
                 Latent.Text = null;
                 Longent.Text = null;
-                SaveAll.GetInstance().SavePlots();
                 bool res = await DisplayAlert("Add Trees", "Do you wish to add trees to this plot?", "Yes", "No");
                 if (res)
                 {
                     Application.Current.Properties["Counter"] = ((List<Plot>)Application.Current.Properties["Plots"]).Count - 1;
-                    MessagingCenter.Subscribe<AddTreePop>(this, "Save", (sender) =>
+                    MessagingCenter.Subscribe<AddTreePop>(this, "Save", async (sender) =>
                     {
                         SaveAll.GetInstance().SaveTrees2();
+                        NameLabel.Text = "Create Plot: saved";
+                        await Task.Delay(5000);
+                        NameLabel.Text = "Create Plot";
                     });
                     await PopupNavigation.Instance.PushAsync(AddTreePop.GetInstance());
+                }
+                else {
+                    NameLabel.Text = "Create Plot: saved";
+                    await Task.Delay(5000);
+                    NameLabel.Text = "Create Plot";
                 }
 
             }

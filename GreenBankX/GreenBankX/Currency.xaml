@@ -4,7 +4,9 @@
              x:Class="GreenBankX.Currency">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Currencies"
+            <Label
+                x:Name="title"
+                Text="Currencies"
                 FontSize="Medium" 
                 HorizontalOptions="CenterAndExpand" />
             <Label x:Name="Selected"

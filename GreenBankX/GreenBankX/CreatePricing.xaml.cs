@@ -211,7 +211,7 @@ namespace GreenBankX
         public async Task DelPrice()
         {
             MessagingCenter.Unsubscribe<DeleteConfirm>(this,"Delete");
-            MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", (sender) => {
+            MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", async (sender) => {
 
                // for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++)
                // {
@@ -234,7 +234,11 @@ namespace GreenBankX
                 minDiam.IsVisible = false;
                 price.IsVisible = true;
                 AddPrice.IsVisible = false;
+                ListOfPrices.IsVisible = false;
+                Pricetitle.Text = "Pricings :saved";
                 SaveAll.GetInstance().SavePricing();
+                await Task.Delay(5000);
+                Pricetitle.Text = "Pricings";
 
             });
             await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -286,9 +290,13 @@ namespace GreenBankX
                     select2 = x;
                 }
             }
-            MessagingCenter.Subscribe<ChangePrice>(this, "Change", (sender) => {
+            MessagingCenter.Subscribe<ChangePrice>(this, "Change", async (sender) => {
                 PopList(pickPrice.SelectedIndex);
+                Pricetitle.Text = "Pricings :saved";
                 SaveAll.GetInstance().SavePricing();
+                await Task.Delay(5000);
+                Pricetitle.Text = "Pricings";
+
             });
             Application.Current.Properties["Priceholder"] = (pickPrice.SelectedIndex, select2);
             await PopupNavigation.Instance.PushAsync(ChangePrice.GetInstance());

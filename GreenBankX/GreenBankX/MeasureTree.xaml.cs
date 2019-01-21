@@ -48,6 +48,8 @@ namespace GreenBankX
             }
             if (PickPrice.SelectedIndex > -1)
             {
+                double totalv = 0;
+                double totalp = 0;
                 List<DetailsGraph2> Detail = new List<DetailsGraph2>();
                 calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex)); 
                 double[,] result;
@@ -79,7 +81,9 @@ namespace GreenBankX
 
                 for (int i = 0; i < result.GetLength(0); i++)
                 {
-                    DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result=result,tree = ThisTree, brack =brack, resultrow = i };
+                    totalv += result[i, 2];
+                    totalp += result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2));
+            DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result=result,tree = ThisTree, brack =brack, resultrow = i };
                     if (result[i, 0] == -1)
                     {
                         answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
@@ -95,6 +99,8 @@ namespace GreenBankX
                     }
                     Detail.Add(answer);
                 }
+                DetailsGraph2 answer2 = new DetailsGraph2 {volume= Math.Round(totalv,4), price = Math.Round(totalp,2), label = "Totals" };
+                Detail.Add(answer2);
                 await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
                 // LogList.ItemsSource = Detail;
                 //LogList.IsVisible = true;
@@ -132,7 +138,7 @@ namespace GreenBankX
                 });
             }
         }
-        public void RunAdd() {
+        public async void RunAdd() {
             if (Double.TryParse(merchheight.Text, out double ans) && ans > 0 && girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1)
             {
                 int ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count();
@@ -146,12 +152,36 @@ namespace GreenBankX
                 else if (DateMes.Date == null)
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now, ans));
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                    });
+                    girth.Text = null;
+                    height.Text = null;
+                    merchheight.Text = null;
+                    MerhH.IsToggled = false;
+                    title.Text = "Measure Tree: Saving changes";
                     SaveAll.GetInstance().SaveTrees2();
+                    title.Text = "Measure Tree: Saved changes";
+                    await Task.Delay(5000);
+                    title.Text = "Measure Tree";
                 }
                 else
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateMes.Date));
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                    });
+                    girth.Text = null;
+                    height.Text = null;
+                    merchheight.Text = null;
+                    MerhH.IsToggled = false;
+                    title.Text = "Measure Tree: Saving changes";
                     SaveAll.GetInstance().SaveTrees2();
+                    title.Text = "Measure Tree: Saved changes";
+                    await Task.Delay(5000);
+                    title.Text = "Measure Tree";
                 }
             }
             else if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1)
@@ -166,16 +196,21 @@ namespace GreenBankX
                 }
                 else if (DateMes.Date == null)
                 {
-                    girth.Text = null;
-                    height.Text = null;
-                    merchheight.Text = null;
-                    MerhH.IsToggled = false;
+
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now));
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
+                    girth.Text = null;
+                    height.Text = null;
+                    merchheight.Text = null;
+                    MerhH.IsToggled = false;
+                    title.Text = "Measure Tree: Saving changes";
                     SaveAll.GetInstance().SaveTrees2();
+                    title.Text = "Measure Tree: Saved changes";
+                    await Task.Delay(5000);
+                    title.Text = "Measure Tree";
                 }
                 else
                 {
@@ -189,6 +224,11 @@ namespace GreenBankX
                     {
                         DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
+                    title.Text = "Measure Tree: Saving changes";
+                    SaveAll.GetInstance().SaveTrees2();
+                    title.Text = "Measure Tree: Saved changes";
+                    await Task.Delay(5000);
+                    title.Text = "Measure Tree";
                 }
             }
         }
@@ -429,6 +469,8 @@ namespace GreenBankX
             thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
             List<DetailsGraph2> Detail = new List<DetailsGraph2>();
             ObservableCollection<DetailsGraph2> DetailSort = new ObservableCollection<DetailsGraph2>();
+            double totalv = 0;
+            double totalp = 0;
             for (int x = 0; x < plotTog.Count; x++)
             {
 
@@ -452,6 +494,8 @@ namespace GreenBankX
                         string[] unitm3 = { "m3" };
                         for (int i = 0; i < result.GetLength(0); i++)
                         {
+                            totalv += result[i, 2];
+                            totalp += result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2));
                             DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result = result,brack = brack, resultrow=i };
                             if (result[i, 0] == -1)
                             {
@@ -469,23 +513,10 @@ namespace GreenBankX
                             Detail.Add(answer);
                         }
                     }
-                //    while(Detail.Count>0)
-                //    {
-                //        string ans = Detail.ElementAt(0).label;
-                //    for (int y = 0; y < Detail.Count; y++)
-                //    {
-                //            if (Detail.ElementAt(y).label == ans) {
-                //                DetailSort.Add(Detail.ElementAt(y));
-                //                Detail.RemoveAt(y);
-                //                y--;
-                //            }
-                //    }
-                //}
-                    
-                    // LogList.ItemsSource = DetailSort;
-                    // LogList.IsVisible = true;
                 }
             }
+            DetailsGraph2 answer2 = new DetailsGraph2 { volume = Math.Round(totalv,4), price = Math.Round(totalp,2), label = "Totals" };
+            Detail.Add(answer2);
             await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
         }
 

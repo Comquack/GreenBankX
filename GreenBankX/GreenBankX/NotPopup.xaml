@@ -9,11 +9,12 @@
         <StackLayout 
         HorizontalOptions="Center" 
         Padding="20, 20, 20, 20">
-        <Label
+            <Label
             x:Name="NameLabel"
             Text="Name Plot"
-            />
-        <Entry 
+            HorizontalOptions="CenterAndExpand" 
+               FontSize="Large"/>
+            <Entry 
                 x:Name="PlotName"
                    TextColor="Black"
                    Placeholder="{local:TranslateExtension Name}"/>

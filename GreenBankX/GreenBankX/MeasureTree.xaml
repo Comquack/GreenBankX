@@ -5,6 +5,11 @@
              x:Class="GreenBankX.MeasureTree">
     <ContentPage.Content>
         <StackLayout>
+            <Label
+                x:Name="title"
+                Text="Measure Tree"
+                FontSize="Medium" 
+                HorizontalOptions="CenterAndExpand" />
             <Grid>
                 <Button x:Name="FromPlot"
                             Clicked="FromPlot_Clicked"
