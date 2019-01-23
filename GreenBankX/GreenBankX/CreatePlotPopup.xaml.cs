@@ -18,6 +18,7 @@ namespace GreenBankX
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CreatePlotPopup : Rg.Plugins.Popup.Pages.PopupPage
     {
+        GeolocationRequest request;
         Boolean CanAdd = true;
         List<Position> newpolygon;
         List<TKCustomMapPin> Pins = new List<TKCustomMapPin>();
@@ -183,7 +184,7 @@ namespace GreenBankX
                 MyMap.Pins = Pins;
                 if (first)
                 {
-                    var request = new GeolocationRequest(GeolocationAccuracy.High);
+                    request = new GeolocationRequest(GeolocationAccuracy.High);
                     var location = await Geolocation.GetLocationAsync(request);
 
                     if (location != null)
@@ -292,7 +293,6 @@ namespace GreenBankX
             Position position = new Position();
             try
             {
-                var request = new GeolocationRequest(GeolocationAccuracy.High);
                 var location = await Geolocation.GetLocationAsync(request);
                 
                 if (location != null)

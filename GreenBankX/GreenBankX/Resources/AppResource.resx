@@ -256,16 +256,16 @@
     <value>Please enter valid date</value>
   </data>
   <data name="MeanD" xml:space="preserve">
-    <value>Mean diameter:</value>
+    <value>Mean diameter</value>
   </data>
   <data name="MeanG" xml:space="preserve">
     <value>Mean growth over time</value>
   </data>
   <data name="MeanP" xml:space="preserve">
-    <value>Mean price:</value>
+    <value>Mean price</value>
   </data>
   <data name="MeanV" xml:space="preserve">
-    <value>Mean voume:</value>
+    <value>Mean volume</value>
   </data>
   <data name="PinHere" xml:space="preserve">
     <value>Pin Here</value>

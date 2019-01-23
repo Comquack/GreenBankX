@@ -63,6 +63,7 @@
                                 />
                         <Button x:Name="New"
                                 Text="{local:TranslateExtension AddNewTree}"
+                                IsVisible="false"
                                 Clicked="New_Clicked"/>
                     </StackLayout>
                 </ListView.Footer>

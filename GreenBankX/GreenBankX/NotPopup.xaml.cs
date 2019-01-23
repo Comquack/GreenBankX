@@ -31,24 +31,37 @@ namespace GreenBankX
             if (Application.Current.Properties["ThisLocation"] == null)
             {
                 Latent.IsVisible = true;
-                Longent.IsVisible = true;
             }
             else {
                 Latent.IsVisible = true;
-                Longent.IsVisible = true;
                double[] geo = (double[])Application.Current.Properties["ThisLocation"];
-                Latent.Text = geo[0].ToString();
-                Longent.Text = geo[1].ToString();
+                Latent.Text = geo[0].ToString()+", "+geo[1].ToString();
             }
 
         }
+
         public async void Done()
         {
             if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
                 double[] geo;
-                if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(Latent.Text,out double latout) && double.TryParse(Longent.Text, out double lonout))
+                string[] splitter = Latent.Text.Split(',');
+                if (splitter.Count() != 2) {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("input is invalid", "Please add coodinates in Lat, Long form", "OK");
+                    });
+                    return;
+                }
+                if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0),out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
                 {
+                    if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180) {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                        });
+                        return;  
+                }
                     geo = new double[] { latout, lonout };
                 }
                 else if (Application.Current.Properties["ThisLocation"] != null)
@@ -58,7 +71,7 @@ namespace GreenBankX
                 else {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("input is invalid", "Please enter co-ordinates", "OK");
+                        DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
                     });
                     return; }
                 NextPlot = new Plot(PlotName.Text);
@@ -87,7 +100,6 @@ namespace GreenBankX
                 Location.Text=null;
                 Owner.Text=null;
                 Latent.Text = null;
-                Longent.Text = null;
                 bool res = await DisplayAlert("Add Trees", "Do you wish to add trees to this plot?", "Yes", "No");
                 if (res)
                 {
@@ -130,17 +142,13 @@ namespace GreenBankX
                 if (Application.Current.Properties["ThisLocation"] == null)
                 {
                     Latent.Text = null;
-                    Longent.Text = null;
                     Latent.IsVisible = true;
-                    Longent.IsVisible = true;
                 }
                 else
                 {
                     Latent.IsVisible = true;
-                    Longent.IsVisible = true;
                     double[] geo = (double[])Application.Current.Properties["ThisLocation"];
-                    Latent.Text = geo[0].ToString();
-                    Longent.Text = geo[1].ToString();
+                    Latent.Text = geo[0].ToString()+", "+geo[1].ToString();
                 }
                 PlotName.Text = null;
                 Comments.Text = null;
@@ -204,24 +212,34 @@ namespace GreenBankX
 
         private void Latent_TextChanged(object sender, TextChangedEventArgs e)
         {
-            double ans;
-            if (e.NewTextValue != null&&!double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
-           else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
-            {
-                Latent.Text = e.OldTextValue;
-            }
-            Application.Current.Properties["ThisLocation"] = null;
+            //if (e.NewTextValue == null)
+            //{
+            //    return;
+            //}
+            //string[] splitter = Latent.Text.Split(',');
+            //if (splitter.Count() < 2)
+            //{
+            //    return;
+            //}
+            //else if (splitter.Count() > 2) {
+            //    Latent.Text = e.OldTextValue;
+            //    return;
+            //}
+            //double ans;
+            //if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
+            //else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
+            //{
+            //    Latent.Text = e.OldTextValue;
+            //}
+            //Application.Current.Properties["ThisLocation"] = null;
+            //if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
+            //else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
+            //{
+            //    Longent.Text = e.OldTextValue;
+            //}
+            //Application.Current.Properties["ThisLocation"] = null;
         }
-        private void Longent_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            double ans;
-            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
-            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
-            {
-                Longent.Text = e.OldTextValue;
-            }
-            Application.Current.Properties["ThisLocation"] = null;
-        }
+       
 
         private async void Button_Clicked( EventArgs e)
         {
@@ -230,15 +248,12 @@ namespace GreenBankX
                 if (Application.Current.Properties["ThisLocation"] == null)
                 {
                     Latent.IsVisible = true;
-                    Longent.IsVisible = true;
                 }
                 else
                 {
                     Latent.IsVisible = true;
-                    Longent.IsVisible = true;
                     double[] geo = (double[])Application.Current.Properties["ThisLocation"];
-                    Latent.Text = geo[0].ToString();
-                    Longent.Text = geo[1].ToString();
+                    Latent.Text = geo[0].ToString()+", "+ geo[1].ToString();
                 }
                 if (Application.Current.Properties["User"] != null && ((User)Application.Current.Properties["User"]).Name != null) {
                     Owner.Text = ((User)Application.Current.Properties["User"]).Name;
@@ -270,9 +285,16 @@ namespace GreenBankX
                         Location.IsEnabled = true;
                     }
                 }
-                else if (Latent.Text != null && Longent.Text != null)
+                else if (Latent.Text != null)
                 {
-                    geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                if (Latent.Text == null) {
+                    return;
+                }
+                string[] splitter = Latent.Text.Split(',');
+                if (splitter.Count() != 2) {
+                    return;
+                }
+                geo = new double[] { double.Parse(splitter.ElementAt(0)), double.Parse(splitter.ElementAt(1)) };
                     Geoco = new Geocoder();
                     Location.IsEnabled = false;
                     try

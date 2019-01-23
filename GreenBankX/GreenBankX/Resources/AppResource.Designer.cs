@@ -556,7 +556,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mean diameter:.
+        ///   Looks up a localized string similar to Mean diameter.
         /// </summary>
         public static string MeanD {
             get {
@@ -574,7 +574,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mean price:.
+        ///   Looks up a localized string similar to Mean price.
         /// </summary>
         public static string MeanP {
             get {
@@ -583,7 +583,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mean voume:.
+        ///   Looks up a localized string similar to Mean volume.
         /// </summary>
         public static string MeanV {
             get {

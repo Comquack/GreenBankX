@@ -269,17 +269,17 @@ namespace GreenBankX
         }
         protected override void OnSizeAllocated(double width, double height) {
             base.OnSizeAllocated(width,height);
-            if (DetailsList.ItemsSource.GetType() == new ObservableCollection<Tree>().GetType())
-            {
-                if (width < height)
-                {
-                    DetailsList.HeightRequest = (height/14 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 7)) + height / 10;
-                }
-                else
-                {
-                    DetailsList.HeightRequest = (width / 14 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count)  + width / 10;
-                }
-            }  
+            //if (DetailsList.ItemsSource.GetType() == new ObservableCollection<Tree>().GetType())
+            //{
+            //    if (width < height)
+            //    {
+            //        DetailsList.HeightRequest = (height/14 * Math.Min(((ObservableCollection<Tree>)DetailsList.ItemsSource).Count, 7)) + height / 10;
+            //    }
+            //    else
+            //    {
+            //        DetailsList.HeightRequest = (width / 14 * ((ObservableCollection<Tree>)DetailsList.ItemsSource).Count)  + width / 10;
+            //    }
+            //}  
         }
 
 

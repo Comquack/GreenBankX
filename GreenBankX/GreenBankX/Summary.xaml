@@ -27,7 +27,7 @@
                     <Picker.Items>
                         <x:String>Data of trees</x:String>
                         <x:String>Data by Log classes</x:String>
-                        <x:String>Averages</x:String>
+                        <x:String>Summary per Plot</x:String>
                     </Picker.Items>
 
                 </Picker>
@@ -302,20 +302,23 @@
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
+                       HorizontalTextAlignment="End"
                        Grid.Row="1"
-                       Grid.Column="0"/>
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"/>
                 <Label x:Name="GirthOT" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
+                       
                        Grid.Row="1"
-                       Grid.Column="1"/>
+                       Grid.Column="2"/>
                 <Label x:Name="HeightOT" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
                        Grid.Row="1"
-                       Grid.Column="2"/>
+                       Grid.Column="1"/>
 
 
                 <oxy:PlotView

@@ -97,7 +97,7 @@ namespace GreenBankX
                 DetailsList.ItemsSource = Detailstree;
                 DetailsList.HeightRequest = (40 * Math.Min(TreeTails.Count, 5)) + (10 * Math.Min(TreeTails.Count, 5)) + 60;
                 PlotTitle.Text = trees;
-                pickTree.IsVisible = true;
+                pickTree.IsVisible = false;
                 Oxy.IsVisible = false;
                 
             }
@@ -343,6 +343,10 @@ namespace GreenBankX
         }
         private void ShowGraphpick2()
         {
+            ListOfTree.IsVisible = false;
+            GirthOT.IsVisible = false;
+            Girtdlab.IsVisible = true;
+            Girtdswitch.IsVisible = true;
             if (ShowGraph.SelectedIndex > -1)
             {
 
@@ -401,8 +405,9 @@ namespace GreenBankX
                 double[] vals = new double[thisRange.GetBrack().Count + 1];
                 double totalvol = 0;
                 double totalDia = 0;
+                double totalTree = 0;
                 int count=0;
-
+                int tcount = 0;
                 for (int y = 0; y < ThisPlot.getTrees().Count; y++)
                 {
 
@@ -418,11 +423,12 @@ namespace GreenBankX
                         vals[(int)result[x, 0] + 1] += result[x, 1];
                         totalvol += result[x, 2];
                         total += result[x, 1];
-                        totalDia += result[x, 3];
+                        totalDia += Math.Max(result[x, 3],0);
                         count++;
                     }
                     } catch { }
-                   
+                    totalTree += ThisTree.GetDia() / Math.PI;
+                    tcount++;
                 }
                 // data by log class
                 if (ShowGraph.SelectedIndex == 1)
@@ -454,7 +460,7 @@ namespace GreenBankX
                     LogClassList.IsVisible = true;
                     LogclPr.Text =  AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + " " + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1);
                     LogList.IsVisible = false;
-                   // ListOfTree.Text = "";
+                   ListOfTree.Text = "";
                     GirthOT.Text = "";
                     HeightOT.Text = "";
                     LogClassList.ItemsSource = Detail;
@@ -464,16 +470,29 @@ namespace GreenBankX
                 }
                 else
                 {
-                    SelectPlot();
+
+                        SelectPlot();
+                    ListOfTree.IsVisible = true;
+                    GirthOT.IsVisible = true;
                     DetailsList.IsVisible = false;
-                    Oxy.Model = new OxyPlot.PlotModel();
-                    ListOfTree.Text = "Year: \n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + " \n " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanV") + " \n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanP") +  "\nTotal Volume: \n Total Value: \n";
+                   // Oxy.Model = new OxyPlot.PlotModel();
+                    ListOfTree.Text = "Year:\n" 
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") +"(Logs):\n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Trees):"
+                        + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanV") + "(Logs):"
+                        + "\nTotal Volume: \nTotal Value: \nNumber of Trees:\nNumber of Logs:";
+                    HeightOT.IsVisible = false;
                     HeightOT.Text = "";
-                   // Later.IsVisible = true;
-                   // Earlier.IsVisible = true;
-                    GirthOT.Text = year.ToString()+"\n"+Math.Round((totalDia / (double)count), 4).ToString() + "cm \n" + Math.Round((totalvol / (double)count), 4).ToString() + "m\xB3 \n" + Math.Round((total / (double)count), 4).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n" + Math.Round((totalvol), 4).ToString() + "m\xB3 \n" + Math.Round((total), 4).ToString() + ((int)Application.Current.Properties["Currenselect"]==-1?"USD": ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n";
-                   // Later.IsVisible = true;
-                   // Earlier.IsVisible = true;
+                    GirthOT.Text = year.ToString()
+                        + "\n" + Math.Round((totalDia / (double)count), 2).ToString() + "cm\n"
+                        + Math.Round((totalTree / (double)tcount), 2).ToString() + "cm\n"
+                         + Math.Round((totalvol / (double)count), 2).ToString() + "m\xB3\n"
+                        + Math.Round((totalvol), 2).ToString() + "m\xB3\n"
+                        + Math.Round((total), 2).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n" +
+                        tcount + "\n" + count;
+                    pickTree.IsVisible = false;
+                    Girtdlab.IsVisible = false;
+                    Girtdswitch.IsVisible = false;
                 }
 
 
