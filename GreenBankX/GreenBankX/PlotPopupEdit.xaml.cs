@@ -35,32 +35,103 @@ namespace GreenBankX
             InitializeComponent();
             EditPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]);
                 Latent.IsVisible = true;
-                Longent.IsVisible = true;
+                //Longent.IsVisible = true;
             PlotName.Text = EditPlot.GetName();
             Comments.Text = EditPlot.Describe;
             Location.Text = EditPlot.NearestTown;
             PlotYear.Text = EditPlot.YearPlanted.ToString();
                double[] geo = EditPlot.GetTag();
-                Latent.Text = geo[0].ToString();
-                Longent.Text = geo[1].ToString();
+                Latent.Text = geo[0].ToString()+", "+ geo[1].ToString();
+                //Longent.Text = geo[1].ToString();
                 Owner.Text = EditPlot.Owner;
-                for (int x = 0; x < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count(); x++)
-            {
-                pickPrice.Items.Add(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName());
-                //if(EditPlot.GetRange()!= null && ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(x).GetName() == EditPlot.GetRange().GetName()){
-                 //   Priceno = x;
-               // }
-            }
-            pickPrice.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddPricing"));
-            pickPrice.SelectedIndex = Priceno;
         }
 
         public async void Done()
         {
+            if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout) && yearout <= DateTime.Now.Year)
+            {
+                double[] geo;
+                string[] splitter = Latent.Text.Split(',');
+                if (splitter.Count() != 2)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("input is invalid", "Please add coodinates in Lat, Long form", "OK");
+                    });
+                    return;
+                }
+                if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
+                {
+                    if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                        });
+                        return;
+                    }
+                    geo = new double[] { latout, lonout };
+                }
+                else if (Application.Current.Properties["ThisLocation"] != null)
+                {
+                    geo = (double[])Application.Current.Properties["ThisLocation"];
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                    });
+                    return;
+                }
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetName(PlotName.Text);
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetTag(geo);
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Describe = Comments.Text;
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).NearestTown = Location.Text;
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Owner = Owner.Text;
+
+                if (int.Parse(PlotYear.Text) != 0)
+                {
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).YearPlanted = yearout;
+                }
+                for (int i = 0; i < ((List<Plot>)Application.Current.Properties["Plots"]).Count; i++)
+                {
+                    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text && i != (int)Application.Current.Properties["ThisPlot"])
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
+                        });
+                        return;
+                    }
+                }
+                SaveAll.GetInstance().SavePlots();
+                Application.Current.Properties["ThisLocation"] = null;
+                PlotName.Text = null;
+                Comments.Text = null;
+                Location.Text = null;
+                Owner.Text = null;
+                Latent.Text = null;
+                        SaveAll.GetInstance().SaveTrees2();
+                await PopupNavigation.Instance.PopAsync();
+
+            }
+            else if (PlotName.Text == null)
+            {
+                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName");
+            }
+            else
+            {
+                NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate");
+            }
+
+        }
+        public async void Done2()
+        {
             if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
                 double[] geo;
-                if (double.TryParse(Latent.Text,out double latout) && double.TryParse(Longent.Text, out double lonout))
+                if (double.TryParse(Latent.Text,out double latout) && double.TryParse(Longents.Text, out double lonout))
                 {
                     geo = new double[] { latout, lonout };
                 }
@@ -70,15 +141,7 @@ namespace GreenBankX
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Describe = Comments.Text;
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).NearestTown = Location.Text;
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).Owner = Owner.Text;
-               // if (pickPrice.SelectedIndex > -1 && pickPrice.SelectedIndex < pickPrice.Items.Count-1)
-               // {
-                //    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).SetRange(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(pickPrice.SelectedIndex));
-               // }
-               // else if (pickPrice.SelectedIndex == pickPrice.Items.Count)
-               // {
-               ////     await Navigation.PushAsync(new CreatePricing());
-                //    return;
-              //  }
+
                 if (int.Parse(PlotYear.Text) != 0)
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]).YearPlanted = yearout;
@@ -123,6 +186,17 @@ namespace GreenBankX
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
+            EditPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]);
+            Latent.IsVisible = true;
+            //Longent.IsVisible = true;
+            PlotName.Text = EditPlot.GetName();
+            Comments.Text = EditPlot.Describe;
+            Location.Text = EditPlot.NearestTown;
+            PlotYear.Text = EditPlot.YearPlanted.ToString();
+            double[] geo = EditPlot.GetTag();
+            Latent.Text = geo[0].ToString() + ", " + geo[1].ToString();
+            //Longent.Text = geo[1].ToString();
+            Owner.Text = EditPlot.Owner;
             base.OnAppearing();
         }
 
@@ -193,19 +267,12 @@ namespace GreenBankX
             return base.OnBackgroundClicked();
         }
 
-        private async Task pickPrice_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (pickPrice.SelectedIndex == pickPrice.Items.Count-1)
-            {
-                await Navigation.PushAsync(new CreatePricing());
-                return;
-            }
-        }
+
 
         private  void Expand_Clicked(object sender, EventArgs e)
         {
             bool X = Expand.Text == "Less Details";
-            pickPrice.IsVisible = !X;
+            ButtBound.IsVisible = !X;
             Location.IsVisible = !X;
             Owner.IsVisible = !X;
             Find.IsVisible = !X;
@@ -218,25 +285,29 @@ namespace GreenBankX
 
         private void Latent_TextChanged(object sender, TextChangedEventArgs e)
         {
-            double ans;
-            if (e.NewTextValue != null&&!double.TryParse(e.NewTextValue, out ans)) { }
-           else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
-            {
-                Latent.Text = e.OldTextValue;
-            }
+
         }
         private void Longent_TextChanged(object sender, TextChangedEventArgs e)
         {
-            double ans;
-            if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { }
-            else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
-            {
-                Longent.Text = e.OldTextValue;
-            }
+
         }
         private async void Find_Clicked(object sender, EventArgs e)
         {
-            double[] geo;
+
+            if (Latent.Text == null)
+            {
+                return;
+            }
+            double[] geo = new double[] { 0, 0 };
+            string[] splitter = Latent.Text.Split(',');
+            if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
+            {
+                if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
+                {
+                    return;
+                }
+                geo = new double[] { latout, lonout };
+            }
 
             if (Application.Current.Properties["ThisLocation"] != null)
             {
@@ -255,9 +326,12 @@ namespace GreenBankX
                     Location.IsEnabled = true;
                 }
             }
-            else if (Latent.Text != null && Longent.Text != null)
+            else if (Latent.Text != null)
             {
-                geo = new double[] { double.Parse(Latent.Text), double.Parse(Longent.Text) };
+                if (Latent.Text == null)
+                {
+                    return;
+                }
                 Geoco = new Geocoder();
                 Location.IsEnabled = false;
                 try
@@ -274,5 +348,13 @@ namespace GreenBankX
 
             }
         }
+
+        private async void ButtBound_Clicked(object sender, EventArgs e)
+        {
+
+                await PopupNavigation.Instance.PushAsync(new PopupBound((int)Application.Current.Properties["ThisPlot"]));
+
+        }
     }
 }
+

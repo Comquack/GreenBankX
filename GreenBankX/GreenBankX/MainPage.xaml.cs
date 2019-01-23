@@ -42,6 +42,7 @@ namespace GreenBankX
             Application.Current.Properties["Currenlist"] = new List<(string, double)>();
             Application.Current.Properties["Currenselect"] = -1;
             Application.Current.Properties["Priceholder"] = null;
+            Application.Current.Properties["Bounds"] = false;
             store = AccountStore.Create();
             account = store.FindAccountsForService(Constants.AppName).FirstOrDefault();
         }

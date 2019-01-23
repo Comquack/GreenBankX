@@ -48,10 +48,10 @@
             Placeholder="Latitude"
             IsVisible="False"
                 Grid.Column="0"
-                Keyboard="Numeric"
+                Grid.ColumnSpan="2"
                 TextChanged="Latent_TextChanged"/>
             <Entry
-            x:Name="Longent"
+            x:Name="Longents"
             Placeholder="Longitude"
             IsVisible="False"
                 Keyboard="Numeric"
@@ -59,21 +59,20 @@
                 Grid.Column="1"/>
         </Grid>
 
-            <Picker x:Name="pickPrice" Title="{local:TranslateExtension SelectPricing}"
-                        TextColor="Black"
-                BackgroundColor="LightGray"
-                SelectedIndexChanged="pickPrice_SelectedIndexChanged"
-                IsVisible="False"
-                >
-            <Picker.Items>
-            </Picker.Items>
-        </Picker>
         <Grid>
+            <Button
+                x:Name="ButtBound"
+                Text="Set Boundary"
+                Clicked="ButtBound_Clicked"
+                IsVisible="False"
+                Grid.Row="0"
+                />
             <Entry
             x:Name="Location"
             Placeholder="Nearest Town"
             IsVisible="False"
                 Grid.Column="0"
+                Grid.Row="1"
                 Grid.ColumnSpan="2"/>
             <Button
                    x:Name="Find"
@@ -83,6 +82,7 @@
                TextColor="Green"
                 Clicked="Find_Clicked"
                 Grid.Column="2"
+                Grid.Row="1"
                 />
         </Grid>
         <Entry

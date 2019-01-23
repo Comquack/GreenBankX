@@ -480,7 +480,7 @@ namespace GreenBankX
                         + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") +"(Logs):\n"
                         + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Trees):"
                         + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanV") + "(Logs):"
-                        + "\nTotal Volume: \nTotal Value: \nNumber of Trees:\nNumber of Logs:";
+                        + "\nTotal Volume: \nTotal Value: \nNumber of Trees:\nNumber of Logs:\nArea:";
                     HeightOT.IsVisible = false;
                     HeightOT.Text = "";
                     GirthOT.Text = year.ToString()
@@ -489,7 +489,7 @@ namespace GreenBankX
                          + Math.Round((totalvol / (double)count), 2).ToString() + "m\xB3\n"
                         + Math.Round((totalvol), 2).ToString() + "m\xB3\n"
                         + Math.Round((total), 2).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n" +
-                        tcount + "\n" + count;
+                        tcount + "\n" + count+"\n"+ThisPlot.GetArea();
                     pickTree.IsVisible = false;
                     Girtdlab.IsVisible = false;
                     Girtdswitch.IsVisible = false;

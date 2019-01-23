@@ -60,11 +60,15 @@ namespace GreenBankX
 
         public double GetArea()
         {
+            if (GetPolygon().Count < 3) {
+                return 0;
+            }
             double area = 0;
             int m = GetPolygon().Count;
             for (int x = 0; x < m; x++) {
-                area = area + GetPolygon().ElementAt(x).Latitude* 111139* 111139* (GetPolygon().ElementAt((((x-1)%m)+m)%m).Longitude - GetPolygon().ElementAt((((x+1) % m) + m) % m).Longitude)/1000000;
+                area = area + ((GetPolygon().ElementAt(x).Latitude * 111000 * GetPolygon().ElementAt((((x + 1) % m) + m) % m).Longitude * 111000 * Math.Cos((GetPolygon().ElementAt((((x + 1) % m) + m) % m).Latitude+ GetPolygon().ElementAt(x).Latitude) *Math.PI/360)) - (GetPolygon().ElementAt(x).Longitude * 111000 *Math.Cos((GetPolygon().ElementAt((((x + 1) % m) + m) % m).Latitude + GetPolygon().ElementAt(x).Latitude) * Math.PI / 360) * GetPolygon().ElementAt((((x + 1) % m) + m) % m).Latitude * 111000));
             }
+            
             return Math.Abs(area)*0.5;
         }
         public void AddPolygon(List<Position> newpoly) {

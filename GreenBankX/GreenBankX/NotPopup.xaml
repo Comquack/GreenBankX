@@ -34,12 +34,25 @@
             x:Name="Latent"
             Placeholder="Latitude, Longitude"
             IsVisible="False"
+                    Grid.Row="0"
                 Grid.Column="0"
                     Grid.ColumnSpan="2"
                 TextChanged="Latent_TextChanged"/>
+                <Button
+                   x:Name="Bound"
+               Text="Set Boundary"
+                    Grid.Row="1"
+               IsVisible="false"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Bound_Clicked"
+                    Grid.ColumnSpan="2"
+                Grid.Column="0"
+                />
             </Grid>
             <Grid>
-            <Entry
+                
+                <Entry
             x:Name="Location"
             Placeholder="Nearest Town"
             IsVisible="False"

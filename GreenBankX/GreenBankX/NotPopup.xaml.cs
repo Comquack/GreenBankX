@@ -79,6 +79,10 @@ namespace GreenBankX
                 NextPlot.Describe = Comments.Text;
                 NextPlot.NearestTown = Location.Text;
                 NextPlot.Owner = Owner.Text;
+                if (Application.Current.Properties["Bounds"] != null && ((List<TK.CustomMap.Position>)Application.Current.Properties["Bounds"]).Count > 1) {
+                    NextPlot.AddPolygon(((List<TK.CustomMap.Position>)Application.Current.Properties["Bounds"]));
+                    Application.Current.Properties["Bounds"] = new List<TK.CustomMap.Position>();
+                }
                 if (int.Parse(PlotYear.Text) != 0)
                 {
                     NextPlot.YearPlanted = yearout;
@@ -158,11 +162,13 @@ namespace GreenBankX
                 Find.IsVisible = false;
                 Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails");
                 Location.IsVisible = false;
+                Bound.IsVisible = false;
                 Owner.IsVisible = false;
                 Comments.IsVisible = false;
             }
             else {
                 Expand.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
+                Bound.IsVisible = true;
                 Location.IsVisible = true;
                 Owner.IsVisible = true;
                 Comments.IsVisible = true;
@@ -200,6 +206,7 @@ namespace GreenBankX
         {
             bool X = Expand.Text == AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
             Location.IsVisible = !X;
+            Bound.IsVisible = !X;
             Owner.IsVisible = !X;
             Comments.IsVisible = !X;
             Find.IsVisible = !X;
@@ -266,9 +273,21 @@ namespace GreenBankX
 
         private async void Find_Clicked(object sender, EventArgs e)
         {
-            double[] geo;
+            if (Latent.Text == null) {
+                return;
+            }
+            double[] geo =new double[] { 0, 0 };
+            string[] splitter = Latent.Text.Split(',');
+            if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
+            {
+                if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
+                {
+                    return;
+                }
+                geo = new double[] { latout, lonout };
+            }
 
-                if (Application.Current.Properties["ThisLocation"] != null)
+            if (Application.Current.Properties["ThisLocation"] != null)
                 {
                     geo = (double[])Application.Current.Properties["ThisLocation"];
                     Geoco = new Geocoder();
@@ -290,11 +309,6 @@ namespace GreenBankX
                 if (Latent.Text == null) {
                     return;
                 }
-                string[] splitter = Latent.Text.Split(',');
-                if (splitter.Count() != 2) {
-                    return;
-                }
-                geo = new double[] { double.Parse(splitter.ElementAt(0)), double.Parse(splitter.ElementAt(1)) };
                     Geoco = new Geocoder();
                     Location.IsEnabled = false;
                     try
@@ -310,6 +324,37 @@ namespace GreenBankX
                     }
                 
             }
+        }
+
+        private async void Bound_Clicked(EventArgs e)
+        {
+            if (Latent.Text == null)
+            {
+                return;
+            }
+            double[] geo = new double[] { 0, 0 };
+            string[] splitter = Latent.Text.Split(',');
+            if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
+            {
+                if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
+                {
+                    return;
+                }
+                geo = new double[] { latout, lonout };
+            }
+
+            if (Application.Current.Properties["ThisLocation"] != null)
+            {
+                geo = (double[])Application.Current.Properties["ThisLocation"];
+                await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
+
+            }
+            else if (Latent.Text != null)
+            {
+
+                await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
+            }
+            
         }
     }
 }
