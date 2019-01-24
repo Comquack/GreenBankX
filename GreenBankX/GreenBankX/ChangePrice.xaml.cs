@@ -143,8 +143,14 @@ namespace GreenBankX
         {
             if (Len.Text != null)
             {
-                ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).SetLength(int.Parse(Len.Text));
+                ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).SetLength(double.Parse(Len.Text));
             }
+            else
+            {              Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("invalid size", "Size invalid", "OK");
+                });
+                return; }
             if (minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0)
             {
                 double key = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2).Key;
@@ -165,13 +171,24 @@ namespace GreenBankX
                 }
                 else
                 {
-                    if (maxDiam.Text != null && double.Parse(maxDiam.Text) > double.Parse(minDiam.Text)&& numbers.Item2< ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().Count-1&& ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 1).Key != double.Parse(maxDiam.Text))
+                    if (maxDiam.Text != null && double.Parse(maxDiam.Text) > double.Parse(minDiam.Text) && numbers.Item2 < ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().Count - 1 && ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 1).Key != double.Parse(maxDiam.Text))
                     {
                         try
                         {
                             double key2 = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 1).Key;
-                            double value2 = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2+1).Value;
-                            ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().RemoveAt(numbers.Item2+1);
+                            double value2 = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 1).Value;
+                            ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().RemoveAt(numbers.Item2 + 1);
+                            try { double key3 = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).GetBrack().ElementAt(numbers.Item2 + 2).Key;
+                                if (key3 <= double.Parse(maxDiam.Text)) {
+                                    Device.BeginInvokeOnMainThread(() =>
+                                    {
+                                        DisplayAlert("Max value too high", "Max value too high, please edit higer backets first", "OK");
+                                    });
+
+                                    return;
+                                }
+                            }
+                            catch { }
                             if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(numbers.Item1).addBrack(double.Parse(maxDiam.Text), value2))
                             {
                                 try
@@ -208,10 +225,12 @@ namespace GreenBankX
                     DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PriceInvalid"), "OK");
                 });
             }
-            else {
+            else
+            {
                 await PopupNavigation.Instance.PopAsync(); ;
-                return; }
+                return;
+            }
 
         }
-    }
+        }
 }

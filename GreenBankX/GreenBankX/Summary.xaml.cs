@@ -404,6 +404,7 @@ namespace GreenBankX
                 double[] vols = new double[thisRange.GetBrack().Count + 1];
                 double[] vals = new double[thisRange.GetBrack().Count + 1];
                 double totalvol = 0;
+                double totalvolM = 0;
                 double totalDia = 0;
                 double totalTree = 0;
                 int count=0;
@@ -422,9 +423,10 @@ namespace GreenBankX
                         vols[(int)result[x, 0] + 1] += result[x, 2];
                         vals[(int)result[x, 0] + 1] += result[x, 1];
                         totalvol += result[x, 2];
+                            totalvolM += ((result[x, 0]==-1)?0:1)*result[x, 2];
                         total += result[x, 1];
                         totalDia += Math.Max(result[x, 3],0);
-                        count++;
+                        count+= ((result[x, 0] == -1) ? 0 : 1);
                     }
                     } catch { }
                     totalTree += ThisTree.GetDia() / Math.PI;
@@ -476,20 +478,24 @@ namespace GreenBankX
                     GirthOT.IsVisible = true;
                     DetailsList.IsVisible = false;
                    // Oxy.Model = new OxyPlot.PlotModel();
-                    ListOfTree.Text = "Year:\n" 
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") +"(Logs):\n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Trees):"
-                        + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanV") + "(Logs):"
-                        + "\nTotal Volume: \nTotal Value: \nNumber of Trees:\nNumber of Logs:\nArea:";
+                    ListOfTree.Text = "Year:\n"
+                        + "Number of Trees:\n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Merchantable Logs):\n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Trees):" + "\n"
+                         + "Total Volume: \n"
+                        +  "Total Volume" + "(Merchantable Logs):\n"
+                       +"Total Value: \n"+"Number of Logs(Merchantable):\n"+"Area:";
                     HeightOT.IsVisible = false;
                     HeightOT.Text = "";
-                    GirthOT.Text = year.ToString()
-                        + "\n" + Math.Round((totalDia / (double)count), 2).ToString() + "cm\n"
+                    GirthOT.Text = year.ToString() + "\n"
+                        + tcount + "\n"
+                        + Math.Round((totalDia / (double)count), 2).ToString() + "cm\n"
                         + Math.Round((totalTree / (double)tcount), 2).ToString() + "cm\n"
-                         + Math.Round((totalvol / (double)count), 2).ToString() + "m\xB3\n"
-                        + Math.Round((totalvol), 2).ToString() + "m\xB3\n"
-                        + Math.Round((total), 2).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n" +
-                        tcount + "\n" + count+"\n"+ThisPlot.GetArea();
+                         + Math.Round((totalvol), 2).ToString() + "m\xB3\n"
+                        + Math.Round((totalvolM), 2).ToString() + "m\xB3\n"
+                        + Math.Round((total), 2).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n"  
+                        + count+"\n"
+                        +ThisPlot.GetArea();
                     pickTree.IsVisible = false;
                     Girtdlab.IsVisible = false;
                     Girtdswitch.IsVisible = false;

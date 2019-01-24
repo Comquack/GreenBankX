@@ -22,7 +22,7 @@ namespace GreenBankX
             return brackName;
         }
         public double GetLength() => logLen;
-        public void SetLength(int len) {
+        public void SetLength(double len) {
             logLen = len;
         }
 

@@ -152,19 +152,20 @@ namespace GreenBankX
                         ShowCallout = true
                         
                     });
-                    
-                
+
                 MyMap.Pins = Pins;
                 if (first)
                 {
                     request = new GeolocationRequest(GeolocationAccuracy.High);
-                    var location = new Position(pinLoc[0], pinLoc[1]); ;
+                    var location = await Geolocation.GetLocationAsync(request);
+                    //Location location = new Location(geo[0],geo[1]);
+                        //new Position(pinLoc[0], pinLoc[1]);
 
                     if (location != null)
                     {
                         MyMap.MoveToMapRegion(
                             MapSpan.FromCenterAndRadius(
-                            new Position(location.Latitude, location.Longitude), Distance.FromKilometers(1)));
+                            new Position(geo[0], geo[1]), Distance.FromKilometers(1)));
                     }
                 }
             }
