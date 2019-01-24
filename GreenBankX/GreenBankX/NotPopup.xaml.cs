@@ -346,13 +346,27 @@ namespace GreenBankX
             if (Application.Current.Properties["ThisLocation"] != null)
             {
                 geo = (double[])Application.Current.Properties["ThisLocation"];
-                await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
+                bool res = await DisplayAlert("Set Boundary", "Do you wish to use a map or type in manually?", "Map", "Type");
+                if (res)
+                {
+                    await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
+                }
+                else {
+
+                }
 
             }
             else if (Latent.Text != null)
             {
+                bool res = await DisplayAlert("Set Boundary", "Do you wish to use a map or type in manually?", "Map", "Type");
+                if (res)
+                {
+                    await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
+                }
+                else
+                {
 
-                await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
+                }
             }
             
         }

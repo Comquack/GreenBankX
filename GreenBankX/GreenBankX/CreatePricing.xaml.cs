@@ -210,6 +210,9 @@ namespace GreenBankX
         }
         public async Task DelPrice()
         {
+            if (pickPrice.SelectedIndex < 0) {
+                return;
+            }
             MessagingCenter.Unsubscribe<DeleteConfirm>(this,"Delete");
             MessagingCenter.Subscribe<DeleteConfirm>(this, "Delete", async (sender) => {
 
@@ -239,7 +242,7 @@ namespace GreenBankX
                 SaveAll.GetInstance().SavePricing();
                 await Task.Delay(5000);
                 Pricetitle.Text = "Pricings";
-
+                Delete.IsVisible = false;
             });
             await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
             

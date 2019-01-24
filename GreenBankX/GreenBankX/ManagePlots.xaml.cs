@@ -366,7 +366,8 @@ namespace GreenBankX
         public double[,] result { get; set; }
         public SortedList<double, double> brack { get; set;}
         public int resultrow { get; set; }
-
+        public double Lat { get; set; }
+        public double Lon { get; set; }
 
         public DetailsGraph2()
         { }

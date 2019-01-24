@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:local="clr-namespace:GreenBankX"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    x:Class="GreenBankX.BoundList">
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <StackLayout 
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        BackgroundColor="LightGray"
+        Padding="20, 20, 20, 20">
+
+        <Entry
+            x:Name="Latent"
+            Placeholder="Latitude, Longitude" />
+        <Button
+            x:Name="way"
+            Text="Add Waypoint"
+            Clicked="Button_Clicked"
+            />
+        <Button
+            x:Name="done"
+            Text="Confirm"
+            Clicked="Done_Clicked"
+            />
+        <Button
+            x:Name="Cancel"
+            Text="Cancel"
+            Clicked="Cancel_Clicked"
+            />
+        <ListView
+                x:Name="LBound"
+            ItemTapped="LBound_ItemTapped">
+            <ListView.Header>
+                <Grid>
+
+                    <Label
+                                Text="Latitude"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                    <Label
+                                Text="Longitude"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemsSource>
+
+                <x:Array Type="{x:Type x:String}"
+                            >
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+
+                            <Label
+                                Text="{Binding Lat}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                            <Label
+                                Text="{Binding Lon}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                        </Grid>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</pages:PopupPage>
