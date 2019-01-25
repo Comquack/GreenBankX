@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAvg" xml:space="preserve">
+    <value>Lägg till från Average</value>
+  </data>
+  <data name="AddMeasurement" xml:space="preserve">
+    <value>Lägg Mätning</value>
+  </data>
+  <data name="AddMHeight" xml:space="preserve">
+    <value>Lägg säljbar Höjd</value>
+  </data>
+  <data name="AddNewTree" xml:space="preserve">
+    <value>Lägg till ett nytt träd</value>
+  </data>
+  <data name="AddPlot" xml:space="preserve">
+    <value>Lägg Plot</value>
+  </data>
+  <data name="AddPlotNoPin" xml:space="preserve">
+    <value>Lägg Plot no stift</value>
+  </data>
+  <data name="AddPriceB" xml:space="preserve">
+    <value>Lägg prisklass</value>
+  </data>
+  <data name="AddPricing" xml:space="preserve">
+    <value>Lägg prissättningen</value>
+  </data>
+  <data name="AddtoPlot" xml:space="preserve">
+    <value>Lägg till Plot</value>
+  </data>
+  <data name="AddTree" xml:space="preserve">
+    <value>Lägg Tree</value>
+  </data>
+  <data name="AddTree2" xml:space="preserve">
+    <value>Vill du lägga till träd med denna kurva?</value>
+  </data>
+  <data name="Apin" xml:space="preserve">
+    <value>Area inte nära stift</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Område</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annullera</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Byta</value>
+  </data>
+  <data name="ChangePrice" xml:space="preserve">
+    <value>Ändra pris</value>
+  </data>
+  <data name="ChangePricing" xml:space="preserve">
+    <value>Ändra prissättning</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Stänga</value>
+  </data>
+  <data name="ComfirmEn" xml:space="preserve">
+    <value>bekräfta Edit</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>kommentarer</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bekräfta</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Fortsätta</value>
+  </data>
+  <data name="ConvRate" xml:space="preserve">
+    <value>Omvandlingsfrekvens</value>
+  </data>
+  <data name="CreatePlot" xml:space="preserve">
+    <value>Skapa Plot</value>
+  </data>
+  <data name="CurrAdd" xml:space="preserve">
+    <value>Lägg Valuta</value>
+  </data>
+  <data name="CurrDel" xml:space="preserve">
+    <value>Radera valuta</value>
+  </data>
+  <data name="Currencies" xml:space="preserve">
+    <value>Valutor</value>
+  </data>
+  <data name="CurrenciesS" xml:space="preserve">
+    <value>Valda valutan:</value>
+  </data>
+  <data name="CurrenciesSet" xml:space="preserve">
+    <value>set Valuta</value>
+  </data>
+  <data name="CurrenciesSet2" xml:space="preserve">
+    <value>Vill du ställa in detta som valuta att använda?</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="DateExists" xml:space="preserve">
+    <value>Datum existerar</value>
+  </data>
+  <data name="DateExistsB" xml:space="preserve">
+    <value>Mätning existerar för detta datum</value>
+  </data>
+  <data name="DateMade" xml:space="preserve">
+    <value>Datum Made</value>
+  </data>
+  <data name="DelConf" xml:space="preserve">
+    <value>Är du säker att du vill radera?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Radera</value>
+  </data>
+  <data name="DeletePlot" xml:space="preserve">
+    <value>Radera Plot</value>
+  </data>
+  <data name="DeleteTree" xml:space="preserve">
+    <value>Radera Tree</value>
+  </data>
+  <data name="DelPrice" xml:space="preserve">
+    <value>Radera prissättning Scheme</value>
+  </data>
+  <data name="DFute" xml:space="preserve">
+    <value>Datum är i framtiden</value>
+  </data>
+  <data name="DiaInvalid" xml:space="preserve">
+    <value>Diameter är ogiltig</value>
+  </data>
+  <data name="Diameter" xml:space="preserve">
+    <value>Diameter (cm)</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Ladda ner</value>
+  </data>
+  <data name="DownloadPW" xml:space="preserve">
+    <value>Nedladdning av filer, vänta.</value>
+  </data>
+  <data name="Earlier" xml:space="preserve">
+    <value>tidigare</value>
+  </data>
+  <data name="EditEn" xml:space="preserve">
+    <value>Ändra post</value>
+  </data>
+  <data name="EditPlot" xml:space="preserve">
+    <value>Redigera Plot</value>
+  </data>
+  <data name="EMes" xml:space="preserve">
+    <value>Redigera mätning</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Ange namn</value>
+  </data>
+  <data name="EnterVDate" xml:space="preserve">
+    <value>Ange giltigt datum</value>
+  </data>
+  <data name="Evaluate" xml:space="preserve">
+    <value>Utvärdera</value>
+  </data>
+  <data name="EvaluateAll" xml:space="preserve">
+    <value>utvärdera alla</value>
+  </data>
+  <data name="FLoc" xml:space="preserve">
+    <value>Hitta Plats</value>
+  </data>
+  <data name="fourpointBound" xml:space="preserve">
+    <value>Boundary kräver minst 4 poäng.</value>
+  </data>
+  <data name="GDBH" xml:space="preserve">
+    <value>Omkrets / Diameter</value>
+  </data>
+  <data name="Girth" xml:space="preserve">
+    <value>Omkrets (cm)</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Höjd (m)</value>
+  </data>
+  <data name="ImportPlot" xml:space="preserve">
+    <value>Importera från Plot</value>
+  </data>
+  <data name="InputInv" xml:space="preserve">
+    <value>Input är ogiltig</value>
+  </data>
+  <data name="IsInvalid" xml:space="preserve">
+    <value>är ogiltig</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Språk</value>
+  </data>
+  <data name="Lat" xml:space="preserve">
+    <value>Latitud</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Senare</value>
+  </data>
+  <data name="Latlon" xml:space="preserve">
+    <value>Latitud longitud</value>
+  </data>
+  <data name="LessDetails" xml:space="preserve">
+    <value>mindre detaljer</value>
+  </data>
+  <data name="LoadFail" xml:space="preserve">
+    <value>Misslyckades att ladda</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Läser in</value>
+  </data>
+  <data name="LoadingFin" xml:space="preserve">
+    <value>Laddar Färdig</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Plats</value>
+  </data>
+  <data name="LogClass" xml:space="preserve">
+    <value>Log klass</value>
+  </data>
+  <data name="LogLength" xml:space="preserve">
+    <value>Log längd (m)</value>
+  </data>
+  <data name="Lon" xml:space="preserve">
+    <value>Longitud</value>
+  </data>
+  <data name="ManagePlots" xml:space="preserve">
+    <value>Hantera Tomter</value>
+  </data>
+  <data name="MapAdd" xml:space="preserve">
+    <value>Lägg Från Karta</value>
+  </data>
+  <data name="maxdiameter" xml:space="preserve">
+    <value>maximal diameter (cm)</value>
+  </data>
+  <data name="MaxV" xml:space="preserve">
+    <value>Högsta värde är för högt</value>
+  </data>
+  <data name="MaxV2" xml:space="preserve">
+    <value>Max värde för högt, redigerar högre konsoler först</value>
+  </data>
+  <data name="MeanD" xml:space="preserve">
+    <value>medeldiameter</value>
+  </data>
+  <data name="MeanG" xml:space="preserve">
+    <value>Genomsnittlig tillväxt över tiden</value>
+  </data>
+  <data name="MeanP" xml:space="preserve">
+    <value>Medelpriset</value>
+  </data>
+  <data name="MeanV" xml:space="preserve">
+    <value>medelvolym</value>
+  </data>
+  <data name="Measure" xml:space="preserve">
+    <value>Mäta</value>
+  </data>
+  <data name="MeasureAll" xml:space="preserve">
+    <value>mäta alla</value>
+  </data>
+  <data name="MeasureTree" xml:space="preserve">
+    <value>Mät träd</value>
+  </data>
+  <data name="Merch" xml:space="preserve">
+    <value>säljbar</value>
+  </data>
+  <data name="MerchHeight" xml:space="preserve">
+    <value>Säljbar höjd (m)</value>
+  </data>
+  <data name="MerchLogs" xml:space="preserve">
+    <value>säljbar Loggar</value>
+  </data>
+  <data name="minimumdiameter" xml:space="preserve">
+    <value>minimidiameter (cm)</value>
+  </data>
+  <data name="MoreDetails" xml:space="preserve">
+    <value>Fler detaljer</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>namn</value>
+  </data>
+  <data name="NameInUse" xml:space="preserve">
+    <value>Namn är redan i bruk</value>
+  </data>
+  <data name="NewPlot" xml:space="preserve">
+    <value>Lägg till ny Plot</value>
+  </data>
+  <data name="NewPrice" xml:space="preserve">
+    <value>Lägg till ett nytt prissättningssystem</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Nästa</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>Nej</value>
+  </data>
+  <data name="NoPrice" xml:space="preserve">
+    <value>Denna Plot har inga priser.</value>
+  </data>
+  <data name="NotEnoughPoints" xml:space="preserve">
+    <value>Inte tillräckligt med poäng</value>
+  </data>
+  <data name="NoTreeErr" xml:space="preserve">
+    <value>Antal träd ogiltiga</value>
+  </data>
+  <data name="NoTrees" xml:space="preserve">
+    <value>Denna kurva har inga träd.</value>
+  </data>
+  <data name="NTown" xml:space="preserve">
+    <value>Närmsta stad</value>
+  </data>
+  <data name="NumberTrees" xml:space="preserve">
+    <value>Antal träd</value>
+  </data>
+  <data name="NumLog" xml:space="preserve">
+    <value>Antal Logs</value>
+  </data>
+  <data name="NumTree" xml:space="preserve">
+    <value>Antal träd</value>
+  </data>
+  <data name="OName" xml:space="preserve">
+    <value>Ägarens namn</value>
+  </data>
+  <data name="OORCoord" xml:space="preserve">
+    <value>Koordinater utom räckhåll.</value>
+  </data>
+  <data name="OrLarger" xml:space="preserve">
+    <value>eller större</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Ägare</value>
+  </data>
+  <data name="PastTree" xml:space="preserve">
+    <value>Datum är före plot görs</value>
+  </data>
+  <data name="PinHere" xml:space="preserve">
+    <value>stift här</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Pris</value>
+  </data>
+  <data name="PriceInvalid" xml:space="preserve">
+    <value>Priset är ogiltig</value>
+  </data>
+  <data name="Pricings" xml:space="preserve">
+    <value>prissättningssystem</value>
+  </data>
+  <data name="PSPrice" xml:space="preserve">
+    <value>Välj ett pris schema</value>
+  </data>
+  <data name="PUSD" xml:space="preserve">
+    <value>Priserna per USD</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Spara</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>sparad</value>
+  </data>
+  <data name="SEdit" xml:space="preserve">
+    <value>Spara Edit</value>
+  </data>
+  <data name="SelectaPlot" xml:space="preserve">
+    <value>Välj en tomt</value>
+  </data>
+  <data name="SelectaTree" xml:space="preserve">
+    <value>Välj ett träd</value>
+  </data>
+  <data name="SelectPricing" xml:space="preserve">
+    <value>Välj ett prissättningssystem</value>
+  </data>
+  <data name="SetArea" xml:space="preserve">
+    <value>set område</value>
+  </data>
+  <data name="SetBoundary" xml:space="preserve">
+    <value>Ställ Boundary</value>
+  </data>
+  <data name="SetBoundary2" xml:space="preserve">
+    <value>Vill du använda en karta eller skriv in manuellt?</value>
+  </data>
+  <data name="SetBoundaryA" xml:space="preserve">
+    <value>Karta</value>
+  </data>
+  <data name="SetBoundaryB" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="ShowAllOnMap" xml:space="preserve">
+    <value>Visa alla On Map</value>
+  </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>plot uppgifter</value>
+  </data>
+  <data name="ShowOnMap" xml:space="preserve">
+    <value>Visa på kartan</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
+  <data name="SizeExists" xml:space="preserve">
+    <value>Storlek redan</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Hoppa</value>
+  </data>
+  <data name="SMap" xml:space="preserve">
+    <value>Visa på karta</value>
+  </data>
+  <data name="SuccTree" xml:space="preserve">
+    <value>Tree lagts till för att Tomt:</value>
+  </data>
+  <data name="SumL1" xml:space="preserve">
+    <value>Uppgifter om träd</value>
+  </data>
+  <data name="SumL2" xml:space="preserve">
+    <value>Data från Log Class</value>
+  </data>
+  <data name="SumL3" xml:space="preserve">
+    <value>Sammanfattning per Plot</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Sammanfattning</value>
+  </data>
+  <data name="SummaryTute" xml:space="preserve">
+    <value>Denna sida visar information om loggarna som produceras av denna tomt. Dubbel knacka en logg storlek kommer att visa en lista över varje stock i den catagory och vilket träd det skulle komma från.</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>I dag</value>
+  </data>
+  <data name="TooSmall" xml:space="preserve">
+    <value>För liten</value>
+  </data>
+  <data name="TotalLogs" xml:space="preserve">
+    <value>Totalt loggar</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Totalbelopp</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Totals</value>
+  </data>
+  <data name="TotalVol" xml:space="preserve">
+    <value>Total volym (m ^)</value>
+  </data>
+  <data name="TreeID" xml:space="preserve">
+    <value>träd-ID</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>träd</value>
+  </data>
+  <data name="TuteMenu0" xml:space="preserve">
+    <value>Hej, välkommen till Greenbank tutorial. När du fortsätter genom appen kommer tutorials dyka upp för att hjälpa dig.</value>
+  </data>
+  <data name="TuteMenu1" xml:space="preserve">
+    <value>Högst upp på denna sida är Logga in knappen. Detta gör att du kan logga in på ditt Google-konto, när detta är gjort kan du ladda upp dina filer till Google Drive och hämta dem till någon annan enhet.</value>
+  </data>
+  <data name="TutePlot0" xml:space="preserve">
+    <value>Denna sida kan du markera platsen för dina tomter</value>
+  </data>
+  <data name="TutePlot1" xml:space="preserve">
+    <value>Ett stift kan placeras på kartan genom att antingen trycka på kartan på den plats du vill eller genom att trycka på tappen här för att placera ett stift på din plats. Radera tomter kan göras på Hantera Tomter sidan.</value>
+  </data>
+  <data name="TutePlot2" xml:space="preserve">
+    <value>Om du trycker på stiftet av en tomt som redan finns, kan du sedan placera stift som markerar ut gränsen av tomten.</value>
+  </data>
+  <data name="TutePrice0" xml:space="preserve">
+    <value>Denna sida låter dig skapa prisscheman dina loggar</value>
+  </data>
+  <data name="TutePrice1" xml:space="preserve">
+    <value>En prissättningssystemet består av ett namn en log längd och prisklasser.</value>
+  </data>
+  <data name="TutePrice2" xml:space="preserve">
+    <value>Alla loggar mindre än den minsta konsolen är värda någonting, några stockar större än den största konsolen kommer att prissättas på samma sätt som stockar i den högsta konsolen.</value>
+  </data>
+  <data name="TutePrice3" xml:space="preserve">
+    <value>Om en prisklass raderas kommer konsolen innan det expanderar för att fylla gapet.</value>
+  </data>
+  <data name="TuteSum1" xml:space="preserve">
+    <value>De "tidigare" och "senare" knapparna ändra data till föregående / nästa mätning som gjordes för trädet. Knappen Lägg till mätning gör det möjligt att lägga till data ny mätning för trädet.</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>Handledning</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Ladda upp</value>
+  </data>
+  <data name="UploadPW" xml:space="preserve">
+    <value>Ladda upp filer, vänta.</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Volym</value>
+  </data>
+  <data name="WayAdd" xml:space="preserve">
+    <value>Lägg waypoint</value>
+  </data>
+  <data name="Welcome1" xml:space="preserve">
+    <value>Hej! Välkommen till Greenbank. Logga in med ett Google-konto</value>
+  </data>
+  <data name="Welcome2" xml:space="preserve">
+    <value>Välkommen till Greenbank.</value>
+  </data>
+  <data name="WrongCoord" xml:space="preserve">
+    <value>Vänligen lägga koordinater i Lat, Long formen</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>År</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="YPlant" xml:space="preserve">
+    <value>år planterats</value>
+  </data>
+</root>

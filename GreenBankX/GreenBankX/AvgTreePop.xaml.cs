@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -27,6 +28,10 @@ namespace GreenBankX
         private AvgTreePop()
         { 
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
         public async void Done() {
             int ID;
@@ -71,6 +76,10 @@ namespace GreenBankX
         }
         protected override void OnAppearing()
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             many.Text = null;
             girth.Text = (((double)Application.Current.Properties["AvgGirth"])>-1)?((double)Application.Current.Properties["AvgGirth"]).ToString():null;
             height.Text = (((double)Application.Current.Properties["AvgH"]) > -1) ? ((double)Application.Current.Properties["AvgH"]).ToString() : null;

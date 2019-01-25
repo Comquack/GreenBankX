@@ -43,13 +43,21 @@ namespace GreenBankX
         private MeasureResult()
         {
             InitializeComponent();
-           
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
+
         }
 
 
 
         protected override void OnAppearing()
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
 
             base.OnAppearing();
             LogList.ItemsSource = null;

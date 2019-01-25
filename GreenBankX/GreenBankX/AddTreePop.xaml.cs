@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -27,6 +28,10 @@ namespace GreenBankX
         private AddTreePop()
         { 
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
         public void Done() {
             int ID;
@@ -78,6 +83,10 @@ namespace GreenBankX
         protected override void OnAppearing()
         {
             Clear();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             base.OnAppearing();
         }
 

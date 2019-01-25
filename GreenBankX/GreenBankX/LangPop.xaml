@@ -50,5 +50,16 @@
                TextColor="Green"
                 Clicked="Lao_Clicked"
                 />
+        <Button
+                   x:Name="Swedish"
+               Text="Svenska"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Swedish_Clicked"
+                />
     </StackLayout>
 </pages:PopupPage>

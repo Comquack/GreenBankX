@@ -33,6 +33,10 @@ namespace GreenBankX
         private PlotPopupEdit()
         {
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             EditPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt((int)Application.Current.Properties["ThisPlot"]);
                 Latent.IsVisible = true;
                 //Longent.IsVisible = true;

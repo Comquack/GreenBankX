@@ -21,8 +21,14 @@ namespace GreenBankX
         UpDowner loader = UpDowner.GetInstance();
         public MenuPage()
         {
+            Application.Current.Properties["PriceStore"] = null;
+
             store = AccountStore.Create();
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome1");
         }
         public void Signot()
@@ -165,6 +171,11 @@ namespace GreenBankX
                 BttnOther.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
                 Bttn3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("ManagePlots");
                 Bttn4.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
+
+                Summary.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Summary");
+                Curren.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currency");
+                Lang.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Language");
+                Tute.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Tutorial");
             });
                await PopupNavigation.Instance.PushAsync(LangPop.GetInstance());
         }
@@ -206,11 +217,11 @@ namespace GreenBankX
         protected override void OnAppearing()
         {
             Application.Current.Properties["PriceStore"] = null;
-            base.OnAppearing();
             if (Application.Current.Properties["Language"] != null)
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
+            base.OnAppearing();
         }
 
             private void Tute_Clicked(object sender, EventArgs e)

@@ -36,6 +36,10 @@ namespace GreenBankX
             geo = geol;
             setpoly = -1;
             InitializeComponent ();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             AddPlot.IsVisible=false;
         }
         public PopupBound(int geol)
@@ -49,6 +53,10 @@ namespace GreenBankX
             geo = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(geol).GetTag();
             setpoly = geol;
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             AddPlot.IsVisible = false;
         }
         public async Task NewPlot() {

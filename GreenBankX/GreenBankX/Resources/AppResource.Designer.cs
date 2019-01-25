@@ -754,7 +754,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max value too high, please edit higer backets first.
+        ///   Looks up a localized string similar to Max value too high, please edit higher brackets first.
         /// </summary>
         public static string MaxV2 {
             get {

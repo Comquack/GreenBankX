@@ -535,7 +535,7 @@
     <value>Max value is too high</value>
   </data>
   <data name="MaxV2" xml:space="preserve">
-    <value>Max value too high, please edit higer backets first</value>
+    <value>Max value too high, please edit higher brackets first</value>
   </data>
   <data name="Merch" xml:space="preserve">
     <value>Merchantable</value>

@@ -30,6 +30,10 @@ namespace GreenBankX
         public BoundList(int geol)
         {
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             plot = geol;
             store = new List<DetailsGraph2>();
             geo = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(geol).GetTag();
@@ -56,6 +60,10 @@ namespace GreenBankX
 
         protected override void OnAppearing()
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
 
             base.OnAppearing();
         }

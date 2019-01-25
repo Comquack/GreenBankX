@@ -27,6 +27,10 @@ namespace GreenBankX
         {
             
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
         public async Task YesDelete() {
             await PopupNavigation.Instance.PopAsync();

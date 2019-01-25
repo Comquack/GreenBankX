@@ -29,6 +29,10 @@ namespace GreenBankX
         {
 
             InitializeComponent();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
         }
 
         protected override void OnAppearing()

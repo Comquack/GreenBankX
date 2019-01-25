@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -20,6 +21,10 @@ namespace GreenBankX
 		{
 			InitializeComponent ();
             nel.Clear();
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             nel.Add(new Currencys("USD", 1));
             foreach ((string, double) dol in (List<(string, double)>)Application.Current.Properties["Currenlist"]){
                 nel.Add(new Currencys(dol.Item1, dol.Item2));
@@ -116,7 +121,10 @@ namespace GreenBankX
         }
         protected override void OnAppearing()
         {
-
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             DelC.IsVisible = false;
             base.OnAppearing();
 
