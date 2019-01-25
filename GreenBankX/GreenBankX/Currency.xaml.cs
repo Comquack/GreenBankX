@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-
+using GreenBankX.Resources;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,7 +24,7 @@ namespace GreenBankX
             foreach ((string, double) dol in (List<(string, double)>)Application.Current.Properties["Currenlist"]){
                 nel.Add(new Currencys(dol.Item1, dol.Item2));
             }
-            Selected.Text = "Selected Currency: " + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
+            Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
             Currenlist.ItemsSource = null;
             Currenlist.ItemsSource = nel;
         }
@@ -33,7 +34,7 @@ namespace GreenBankX
             if (doubletap == Currenlist.SelectedItem)
             {
                 Application.Current.Properties["Currenselect"] = ((List<Currencys>)Currenlist.ItemsSource).IndexOf(doubletap)-1;
-                Selected.Text = "Selected Currency: " + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
+                Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
 
             }
             else
@@ -70,19 +71,19 @@ namespace GreenBankX
                 nel.Add(new Currencys(Name.Text, rates));
                 Currenlist.ItemsSource = null;
                 Currenlist.ItemsSource = nel;
-                title.Text = "Currencies: saving";
+                title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                 SaveAll.GetInstance().SaveTrees2();
-                title.Text = "Currencies: Changes saved";
+                title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                 Name.Text = null;
                 Rate.Text = null;
-                bool res = await DisplayAlert("Set Currency", "Do you wish to add set this as the currency to use", "Yes", "No");
+                bool res = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesSet"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesSet2"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("yes"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("no"));
                 if (res)
                 {
                     Application.Current.Properties["Currenselect"] = ((List<Currencys>)Currenlist.ItemsSource).Count-2;
-                    Selected.Text = "Selected Currency: " + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
+                    Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
                 }
                 await Task.Delay(5000);
-                title.Text = "Currencies";
+                title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies");
             }
         }
         private void Titleset() {
@@ -102,16 +103,16 @@ namespace GreenBankX
             }
             Currenlist.ItemsSource = null;
             Currenlist.ItemsSource = nel;
-            title.Text = "Currencies: saving";
+            title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
             SaveAll.GetInstance().SaveTrees2();
-            title.Text = "Currencies: Changes saved";
+            title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies")+ ": "+AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
             DelC.IsVisible = false;
             if (((int)Application.Current.Properties["Currenselect"])== delin) {
                 Application.Current.Properties["Currenselect"] = -1;
-                Selected.Text = "Selected Currency: " + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
+                Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
             }
             await Task.Delay(5000);
-            title.Text = "Currencies";
+            title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies");
         }
         protected override void OnAppearing()
         {

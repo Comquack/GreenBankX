@@ -58,7 +58,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", "input is invalid", "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), "OK");
                 });
             }
 
@@ -73,7 +73,7 @@ namespace GreenBankX
             int ID;
             try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count - 1).Id + 1; }
             catch { ID = 1;}
-            TreeD.Text = "Tree ID: "+ID.ToString();
+            TreeD.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": "+ID.ToString();
         }
         protected override void OnAppearing()
         {

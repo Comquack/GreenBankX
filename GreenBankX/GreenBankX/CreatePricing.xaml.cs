@@ -238,10 +238,10 @@ namespace GreenBankX
                 price.IsVisible = true;
                 AddPrice.IsVisible = false;
                 ListOfPrices.IsVisible = false;
-                Pricetitle.Text = "Pricings :saved";
+                Pricetitle.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings") + " :" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                 SaveAll.GetInstance().SavePricing();
                 await Task.Delay(5000);
-                Pricetitle.Text = "Pricings";
+                Pricetitle.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
                 Delete.IsVisible = false;
             });
             await PopupNavigation.Instance.PushAsync(DeleteConfirm.GetInstance());
@@ -295,10 +295,10 @@ namespace GreenBankX
             }
             MessagingCenter.Subscribe<ChangePrice>(this, "Change", async (sender) => {
                 PopList(pickPrice.SelectedIndex);
-                Pricetitle.Text = "Pricings :saved";
+                Pricetitle.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings") + " :"+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                 SaveAll.GetInstance().SavePricing();
                 await Task.Delay(5000);
-                Pricetitle.Text = "Pricings";
+                Pricetitle.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Pricings");
 
             });
             Application.Current.Properties["Priceholder"] = (pickPrice.SelectedIndex, select2);

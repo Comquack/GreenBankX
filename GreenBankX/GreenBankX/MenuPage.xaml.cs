@@ -41,7 +41,7 @@ namespace GreenBankX
                 return;
             }
             else {
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Uploading Files, Please Wait.";
+                Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("UploadPW");
                 loader.UpList();
             }
            // string nu = DependencyService.Get<ILogin>().UseDrive(-1);
@@ -176,7 +176,7 @@ namespace GreenBankX
                 return;
             }
             else {
-                Xamarin.Forms.Application.Current.Properties["Boff"] = "Downloading Files, Please Wait.";
+                Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DownloadPW");
                 loader.FilesList();
                 SaveAll.GetInstance().LoadAll();
             }
@@ -219,7 +219,7 @@ namespace GreenBankX
             Device.BeginInvokeOnMainThread(async () =>
             {
                 //   bool res = await DisplayAlert("Tutorial", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu0"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
-                bool res = await DisplayAlert("Tutorial","This is the latest version: 3.24", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
+                bool res = await DisplayAlert("Tutorial","This is the latest version: 3.24. Tutorial feature pending ", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
 
                 if (res)
                 {

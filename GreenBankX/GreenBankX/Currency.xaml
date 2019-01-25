@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UsingResxLocalization"
              x:Class="GreenBankX.Currency">
     <ContentPage.Content>
         <StackLayout>
             <Label
                 x:Name="title"
-                Text="Currencies"
+                Text="{local:TranslateExtension Currencies}"
                 FontSize="Medium" 
                 HorizontalOptions="CenterAndExpand" />
             <Label x:Name="Selected"
-                Text="Currencies"
+                Text="{local:TranslateExtension Currencies}"
                 FontSize="Medium" 
                 HorizontalOptions="CenterAndExpand" />
             <Entry
                 x:Name="Name"
-                Placeholder="Currency"
+                Placeholder="{local:TranslateExtension Currency}"
                 IsVisible="False"
                 />
             <Entry
                 x:Name="Rate"
-                Placeholder="Rate per USD"
+                Placeholder="{local:TranslateExtension PUSD}"
                 IsVisible="False"
                 Keyboard="Numeric"
                 />
             <Button x:Name="Conf"
-                                Text="Confirm"
+                                Text="{local:TranslateExtension Confirm}"
                                 Clicked="Conf_Clicked"
                     IsVisible="False"/>
             <ListView
@@ -35,11 +36,11 @@
                 <ListView.Header>
                     <Grid>
                         <Label
-                                Text="Currency"
+                                Text="{local:TranslateExtension Currency}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                         <Label
-                                Text="Conversion rate"
+                                Text="{local:TranslateExtension ConvRate}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                     </Grid>
@@ -71,10 +72,10 @@
                 <ListView.Footer>
                     <StackLayout>
                         <Button x:Name="AddC"
-                                Text="Add Currency"
+                                Text="{local:TranslateExtension CurrAdd}"
                                 Clicked="AddC_Clicked"/>
                         <Button x:Name="DelC"
-                                Text="Delete Currency"
+                                Text="{local:TranslateExtension CurrDel}"
                                 Clicked="DelC_Clicked"/>
                     </StackLayout>
 

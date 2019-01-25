@@ -151,6 +151,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you wish to add trees to this plot?.
+        /// </summary>
+        public static string AddTree2 {
+            get {
+                return ResourceManager.GetString("AddTree2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area not near pin.
         /// </summary>
         public static string Apin {
@@ -205,6 +214,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Edit.
         /// </summary>
         public static string ComfirmEn {
@@ -223,6 +241,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {
@@ -232,11 +259,83 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conversion Rate.
+        /// </summary>
+        public static string ConvRate {
+            get {
+                return ResourceManager.GetString("ConvRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Plot.
         /// </summary>
         public static string CreatePlot {
             get {
                 return ResourceManager.GetString("CreatePlot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Currency.
+        /// </summary>
+        public static string CurrAdd {
+            get {
+                return ResourceManager.GetString("CurrAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Currency.
+        /// </summary>
+        public static string CurrDel {
+            get {
+                return ResourceManager.GetString("CurrDel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currencies.
+        /// </summary>
+        public static string Currencies {
+            get {
+                return ResourceManager.GetString("Currencies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Currency: .
+        /// </summary>
+        public static string CurrenciesS {
+            get {
+                return ResourceManager.GetString("CurrenciesS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Currency.
+        /// </summary>
+        public static string CurrenciesSet {
+            get {
+                return ResourceManager.GetString("CurrenciesSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you wish to set this as the currency to use?.
+        /// </summary>
+        public static string CurrenciesSet2 {
+            get {
+                return ResourceManager.GetString("CurrenciesSet2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
             }
         }
         
@@ -358,6 +457,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading Files, Please Wait..
+        /// </summary>
+        public static string DownloadPW {
+            get {
+                return ResourceManager.GetString("DownloadPW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Earlier.
         /// </summary>
         public static string Earlier {
@@ -412,6 +520,42 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Evaluate.
+        /// </summary>
+        public static string Evaluate {
+            get {
+                return ResourceManager.GetString("Evaluate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Evaluate All.
+        /// </summary>
+        public static string EvaluateAll {
+            get {
+                return ResourceManager.GetString("EvaluateAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Find Location.
+        /// </summary>
+        public static string FLoc {
+            get {
+                return ResourceManager.GetString("FLoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boundary requires at least 4 points..
+        /// </summary>
+        public static string fourpointBound {
+            get {
+                return ResourceManager.GetString("fourpointBound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Girth/Diameter.
         /// </summary>
         public static string GDBH {
@@ -448,6 +592,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Input is invalid.
+        /// </summary>
+        public static string InputInv {
+            get {
+                return ResourceManager.GetString("InputInv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  is invalid.
         /// </summary>
         public static string IsInvalid {
@@ -466,11 +619,29 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Latitude.
+        /// </summary>
+        public static string Lat {
+            get {
+                return ResourceManager.GetString("Lat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Later.
         /// </summary>
         public static string Later {
             get {
                 return ResourceManager.GetString("Later", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude, Longitude.
+        /// </summary>
+        public static string Latlon {
+            get {
+                return ResourceManager.GetString("Latlon", resourceCulture);
             }
         }
         
@@ -538,6 +709,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Longitude.
+        /// </summary>
+        public static string Lon {
+            get {
+                return ResourceManager.GetString("Lon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Plots.
         /// </summary>
         public static string ManagePlots {
@@ -547,11 +727,38 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add From Map.
+        /// </summary>
+        public static string MapAdd {
+            get {
+                return ResourceManager.GetString("MapAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to maximum diameter(cm).
         /// </summary>
         public static string maxdiameter {
             get {
                 return ResourceManager.GetString("maxdiameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max value is too high.
+        /// </summary>
+        public static string MaxV {
+            get {
+                return ResourceManager.GetString("MaxV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max value too high, please edit higer backets first.
+        /// </summary>
+        public static string MaxV2 {
+            get {
+                return ResourceManager.GetString("MaxV2", resourceCulture);
             }
         }
         
@@ -619,11 +826,29 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Merchantable.
+        /// </summary>
+        public static string Merch {
+            get {
+                return ResourceManager.GetString("Merch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Merchantable height(m).
         /// </summary>
         public static string MerchHeight {
             get {
                 return ResourceManager.GetString("MerchHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Merchantable Logs.
+        /// </summary>
+        public static string MerchLogs {
+            get {
+                return ResourceManager.GetString("MerchLogs", resourceCulture);
             }
         }
         
@@ -691,11 +916,29 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string no {
+            get {
+                return ResourceManager.GetString("no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This Plot has no prices. .
         /// </summary>
         public static string NoPrice {
             get {
                 return ResourceManager.GetString("NoPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not enough points.
+        /// </summary>
+        public static string NotEnoughPoints {
+            get {
+                return ResourceManager.GetString("NotEnoughPoints", resourceCulture);
             }
         }
         
@@ -718,6 +961,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nearest Town.
+        /// </summary>
+        public static string NTown {
+            get {
+                return ResourceManager.GetString("NTown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of trees.
         /// </summary>
         public static string NumberTrees {
@@ -727,11 +979,38 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of Logs.
+        /// </summary>
+        public static string NumLog {
+            get {
+                return ResourceManager.GetString("NumLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of Trees.
         /// </summary>
         public static string NumTree {
             get {
                 return ResourceManager.GetString("NumTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Owner&apos;s Name.
+        /// </summary>
+        public static string OName {
+            get {
+                return ResourceManager.GetString("OName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinates out of range..
+        /// </summary>
+        public static string OORCoord {
+            get {
+                return ResourceManager.GetString("OORCoord", resourceCulture);
             }
         }
         
@@ -799,11 +1078,47 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a price scheme.
+        /// </summary>
+        public static string PSPrice {
+            get {
+                return ResourceManager.GetString("PSPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rate per USD.
+        /// </summary>
+        public static string PUSD {
+            get {
+                return ResourceManager.GetString("PUSD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        public static string Saved {
+            get {
+                return ResourceManager.GetString("Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Edit.
+        /// </summary>
+        public static string SEdit {
+            get {
+                return ResourceManager.GetString("SEdit", resourceCulture);
             }
         }
         
@@ -840,6 +1155,42 @@ namespace GreenBankX.Resources {
         public static string SetArea {
             get {
                 return ResourceManager.GetString("SetArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Boundary.
+        /// </summary>
+        public static string SetBoundary {
+            get {
+                return ResourceManager.GetString("SetBoundary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you wish to use a map or type in manually?.
+        /// </summary>
+        public static string SetBoundary2 {
+            get {
+                return ResourceManager.GetString("SetBoundary2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Map.
+        /// </summary>
+        public static string SetBoundaryA {
+            get {
+                return ResourceManager.GetString("SetBoundaryA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string SetBoundaryB {
+            get {
+                return ResourceManager.GetString("SetBoundaryB", resourceCulture);
             }
         }
         
@@ -907,11 +1258,74 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show on map.
+        /// </summary>
+        public static string SMap {
+            get {
+                return ResourceManager.GetString("SMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tree Added Successfully to Plot:.
+        /// </summary>
+        public static string SuccTree {
+            get {
+                return ResourceManager.GetString("SuccTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data of Trees.
+        /// </summary>
+        public static string SumL1 {
+            get {
+                return ResourceManager.GetString("SumL1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data by Log Class.
+        /// </summary>
+        public static string SumL2 {
+            get {
+                return ResourceManager.GetString("SumL2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary per Plot.
+        /// </summary>
+        public static string SumL3 {
+            get {
+                return ResourceManager.GetString("SumL3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary.
+        /// </summary>
+        public static string Summary {
+            get {
+                return ResourceManager.GetString("Summary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This page shows you data about the logs produced by this plot. Double tapping a log size will show a list of every log in that catagory and which tree it would come from..
         /// </summary>
         public static string SummaryTute {
             get {
                 return ResourceManager.GetString("SummaryTute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        public static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
             }
         }
         
@@ -939,6 +1353,15 @@ namespace GreenBankX.Resources {
         public static string TotalPrice {
             get {
                 return ResourceManager.GetString("TotalPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totals.
+        /// </summary>
+        public static string Totals {
+            get {
+                return ResourceManager.GetString("Totals", resourceCulture);
             }
         }
         
@@ -1078,11 +1501,29 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploading Files, Please Wait..
+        /// </summary>
+        public static string UploadPW {
+            get {
+                return ResourceManager.GetString("UploadPW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Volume.
         /// </summary>
         public static string Volume {
             get {
                 return ResourceManager.GetString("Volume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Waypoint.
+        /// </summary>
+        public static string WayAdd {
+            get {
+                return ResourceManager.GetString("WayAdd", resourceCulture);
             }
         }
         
@@ -1101,6 +1542,33 @@ namespace GreenBankX.Resources {
         public static string Welcome2 {
             get {
                 return ResourceManager.GetString("Welcome2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please add coordinates in Lat, Long form.
+        /// </summary>
+        public static string WrongCoord {
+            get {
+                return ResourceManager.GetString("WrongCoord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year.
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string yes {
+            get {
+                return ResourceManager.GetString("yes", resourceCulture);
             }
         }
         

@@ -56,7 +56,7 @@ namespace GreenBankX
                 if (calc.GetPrices() == null) {
                     Device.BeginInvokeOnMainThread(async () =>
                     {
-                        bool reslut = await DisplayAlert("Please select a price scheme", "Please select a price scheme", "OK", "Add Price Scheme");
+                        bool reslut = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), "OK", "Add Price Scheme");
                         if (!reslut)
                         {
                             await Navigation.PushAsync(new CreatePricing());
@@ -99,7 +99,7 @@ namespace GreenBankX
                     }
                     Detail.Add(answer);
                 }
-                DetailsGraph2 answer2 = new DetailsGraph2 {volume= Math.Round(totalv,4), price = Math.Round(totalp,2), label = "Totals" };
+                DetailsGraph2 answer2 = new DetailsGraph2 {volume= Math.Round(totalv,4), price = Math.Round(totalp,2), label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Totals") };
                 Detail.Add(answer2);
                 await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
                 // LogList.ItemsSource = Detail;
@@ -108,7 +108,7 @@ namespace GreenBankX
             else {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool result = await DisplayAlert("Please select a price scheme", "Please select a price scheme", "OK", "Add Price Scheme");
+                    bool result = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), "OK", "Add Price Scheme");
                     if (!result)
                     {
                         await Navigation.PushAsync(new CreatePricing());
@@ -153,12 +153,12 @@ namespace GreenBankX
                 }
                 else if (DateMes.Date == null)
                 {
-                    title.Text = "Measure Tree: Saving changes";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree")+": "+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     SaveAll.GetInstance().SaveTrees2();
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now, ans));
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree") + " " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
                     girth.Text = null;
                     height.Text = null;
@@ -166,30 +166,30 @@ namespace GreenBankX
                     MerhH.IsToggled = false;
                     try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count - 1).Id + 1; }
                     catch { ID = 1; }
-                    labID.Text = "Tree ID: " + ID;
-                    title.Text = "Measure Tree: Saved changes";
+                    labID.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ID;
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     await Task.Delay(5000);
-                    title.Text = "Measure Tree";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
                 }
                 else
                 {
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateMes.Date));
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree") + " " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
                     girth.Text = null;
                     height.Text = null;
                     merchheight.Text = null;
                     MerhH.IsToggled = false;
-                    title.Text = "Measure Tree: Saving changes";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     SaveAll.GetInstance().SaveTrees2();
-                    title.Text = "Measure Tree: Saved changes";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count - 1).Id + 1; }
                     catch { ID = 1; }
-                    labID.Text = "Tree ID: " + ID;
+                    labID.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ID;
                     await Task.Delay(5000);
-                    title.Text = "Measure Tree";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
                 }
             }
             else if (girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1)
@@ -206,12 +206,12 @@ namespace GreenBankX
                 }
                 else if (DateMes.Date == null)
                 {
-                    title.Text = "Measure Tree: Saving changes";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     SaveAll.GetInstance().SaveTrees2();
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now));
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree") + " " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
                     girth.Text = null;
                     height.Text = null;
@@ -219,10 +219,10 @@ namespace GreenBankX
                     MerhH.IsToggled = false;
                     try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count - 1).Id + 1; }
                     catch { ID = 1; }
-                    labID.Text = "Tree ID: " + ID;
-                    title.Text = "Measure Tree: Saved changes";
+                    labID.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ID;
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     await Task.Delay(5000);
-                    title.Text = "Measure Tree";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
                 }
                 else
                 {
@@ -232,18 +232,18 @@ namespace GreenBankX
                     height.Text = null;
                     merchheight.Text = null;
                     MerhH.IsToggled = false;
-                    title.Text = "Measure Tree: Saving changes";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     SaveAll.GetInstance().SaveTrees2();
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("Tree Added Successfully", "Tree Added Successfully to Plot: " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree") + " " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
                     try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count - 1).Id + 1; }
                     catch { ID = 1; }
-                    labID.Text = "Tree ID: " + ID;
-                    title.Text = "Measure Tree: Saved changes";
+                    labID.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ID;
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree") + ": " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     await Task.Delay(5000);
-                    title.Text = "Measure Tree";
+                    title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree");
                 }
             }
         }
@@ -298,7 +298,7 @@ namespace GreenBankX
             }
             try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).getTrees().Count - 1).Id + 1; }
             catch { ID = 1; }
-            labID.Text = "Tree ID: " + ID;
+            labID.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ID;
         }
 
         private void height_TextChanged(object sender, TextChangedEventArgs e)
@@ -537,7 +537,7 @@ namespace GreenBankX
                     }
                 }
             }
-            DetailsGraph2 answer2 = new DetailsGraph2 { volume = Math.Round(totalv,4), price = Math.Round(totalp,2), label = "Totals" };
+            DetailsGraph2 answer2 = new DetailsGraph2 { volume = Math.Round(totalv,4), price = Math.Round(totalp,2), label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Totals") };
             Detail.Add(answer2);
             await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
         }

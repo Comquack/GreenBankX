@@ -49,7 +49,7 @@ namespace GreenBankX
                 if (splitter.Count() != 2) {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("input is invalid", "Please add coodinates in Lat, Long form", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("WrongCoord"), "OK");
                     });
                     return;
                 }
@@ -58,7 +58,7 @@ namespace GreenBankX
                     if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180) {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OORCoord"), "OK");
                         });
                         return;  
                 }
@@ -71,7 +71,7 @@ namespace GreenBankX
                 else {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OORCoord"), "OK");
                     });
                     return; }
                 NextPlot = new Plot(PlotName.Text);
@@ -91,7 +91,7 @@ namespace GreenBankX
                     if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text) {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
                         });
                         return;
                     }
@@ -104,23 +104,23 @@ namespace GreenBankX
                 Location.Text=null;
                 Owner.Text=null;
                 Latent.Text = null;
-                bool res = await DisplayAlert("Add Trees", "Do you wish to add trees to this plot?", "Yes", "No");
+                bool res = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("AddTree2"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("yes"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("no"));
                 if (res)
                 {
                     Application.Current.Properties["Counter"] = ((List<Plot>)Application.Current.Properties["Plots"]).Count - 1;
                     MessagingCenter.Subscribe<AddTreePop>(this, "Save", async (sender) =>
                     {
                         SaveAll.GetInstance().SaveTrees2();
-                        NameLabel.Text = "Create Plot: saved";
+                        NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot")+": "+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                         await Task.Delay(5000);
-                        NameLabel.Text = "Create Plot";
+                        NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
                     });
                     await PopupNavigation.Instance.PushAsync(AddTreePop.GetInstance());
                 }
                 else {
-                    NameLabel.Text = "Create Plot: saved";
+                    NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot") +": "+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
                     await Task.Delay(5000);
-                    NameLabel.Text = "Create Plot";
+                    NameLabel.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CreatePlot");
                 }
 
             }
@@ -219,32 +219,7 @@ namespace GreenBankX
 
         private void Latent_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (e.NewTextValue == null)
-            //{
-            //    return;
-            //}
-            //string[] splitter = Latent.Text.Split(',');
-            //if (splitter.Count() < 2)
-            //{
-            //    return;
-            //}
-            //else if (splitter.Count() > 2) {
-            //    Latent.Text = e.OldTextValue;
-            //    return;
-            //}
-            //double ans;
-            //if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
-            //else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 90 || double.Parse(e.NewTextValue) < -90))
-            //{
-            //    Latent.Text = e.OldTextValue;
-            //}
-            //Application.Current.Properties["ThisLocation"] = null;
-            //if (e.NewTextValue != null && !double.TryParse(e.NewTextValue, out ans)) { Application.Current.Properties["ThisLocation"] = null; }
-            //else if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) > 180 || double.Parse(e.NewTextValue) <= -180))
-            //{
-            //    Longent.Text = e.OldTextValue;
-            //}
-            //Application.Current.Properties["ThisLocation"] = null;
+
         }
        
 
@@ -276,8 +251,17 @@ namespace GreenBankX
             if (Latent.Text == null) {
                 return;
             }
+           
             double[] geo =new double[] { 0, 0 };
             string[] splitter = Latent.Text.Split(',');
+            if (splitter.Count() != 2)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("WrongCoord"), "OK");
+                });
+                return;
+            }
             if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
             {
                 if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
@@ -306,9 +290,7 @@ namespace GreenBankX
                 }
                 else if (Latent.Text != null)
                 {
-                if (Latent.Text == null) {
-                    return;
-                }
+
                     Geoco = new Geocoder();
                     Location.IsEnabled = false;
                     try
@@ -334,6 +316,14 @@ namespace GreenBankX
             }
             double[] geo = new double[] { 0, 0 };
             string[] splitter = Latent.Text.Split(',');
+            if (splitter.Count() != 2)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("WrongCoord"), "OK");
+                });
+                return;
+            }
             if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
             {
                 if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
@@ -346,26 +336,26 @@ namespace GreenBankX
             if (Application.Current.Properties["ThisLocation"] != null)
             {
                 geo = (double[])Application.Current.Properties["ThisLocation"];
-                bool res = await DisplayAlert("Set Boundary", "Do you wish to use a map or type in manually?", "Map", "Type");
+                bool res = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundary"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundary2"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundaryA"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundaryB"));
                 if (res)
                 {
                     await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
                 }
                 else {
-
+                    await PopupNavigation.Instance.PushAsync(new BoundList(geo));
                 }
 
             }
             else if (Latent.Text != null)
             {
-                bool res = await DisplayAlert("Set Boundary", "Do you wish to use a map or type in manually?", "Map", "Type");
+                bool res = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundary"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundary2"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundaryA"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundaryB"));
                 if (res)
                 {
                     await PopupNavigation.Instance.PushAsync(new PopupBound(geo));
                 }
                 else
                 {
-
+                    await PopupNavigation.Instance.PushAsync(new BoundList(geo)); 
                 }
             }
             

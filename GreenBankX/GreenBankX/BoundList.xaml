@@ -27,21 +27,27 @@
 
         <Entry
             x:Name="Latent"
-            Placeholder="Latitude, Longitude" />
+            Placeholder="{local:TranslateExtension Latlon}" />
         <Button
             x:Name="way"
-            Text="Add Waypoint"
+            Text="{local:TranslateExtension WayAdd}"
             Clicked="Button_Clicked"
             />
         <Button
             x:Name="done"
-            Text="Confirm"
+            Text="{local:TranslateExtension Confirm}"
             Clicked="Done_Clicked"
             />
         <Button
             x:Name="Cancel"
-            Text="Cancel"
+            Text="{local:TranslateExtension Cancel}"
             Clicked="Cancel_Clicked"
+            />
+        <Button
+            x:Name="Del"
+            Text="{local:TranslateExtension Delete}"
+            IsVisible="False"
+            Clicked="Del_Clicked"
             />
         <ListView
                 x:Name="LBound"
@@ -50,11 +56,11 @@
                 <Grid>
 
                     <Label
-                                Text="Latitude"
+                                Text="{local:TranslateExtension Lat}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                     <Label
-                                Text="Longitude"
+                                Text="{local:TranslateExtension Lon}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                 </Grid>

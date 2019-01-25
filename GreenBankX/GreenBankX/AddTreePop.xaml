@@ -84,7 +84,7 @@
             />
             <Button
                 x:Name="Today"
-               Text="Today"
+               Text="{local:TranslateExtension Today}"
                VerticalOptions="Center"
                IsVisible="true"
                 BackgroundColor="LightGray"
@@ -108,7 +108,7 @@
 
         <Button
                    x:Name="Close"
-               Text="Close"
+               Text="{local:TranslateExtension Close}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

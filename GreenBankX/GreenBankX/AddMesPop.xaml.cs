@@ -75,7 +75,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", "input" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), "input" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("IsInvalid"), "OK");
                 });
             }
 

@@ -478,13 +478,15 @@ namespace GreenBankX
                     GirthOT.IsVisible = true;
                     DetailsList.IsVisible = false;
                    // Oxy.Model = new OxyPlot.PlotModel();
-                    ListOfTree.Text = "Year:\n"
-                        + "Number of Trees:\n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Merchantable Logs):\n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(Trees):" + "\n"
-                         + "Total Volume: \n"
-                        +  "Total Volume" + "(Merchantable Logs):\n"
-                       +"Total Value: \n"+"Number of Logs(Merchantable):\n"+"Area:";
+                    ListOfTree.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Year") + ":\n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumTree") + ":\n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "("+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + "):\n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "("+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Trees") + "):" + "\n"
+                         + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": \n"
+                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + "):\n"
+                       + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": \n"
+                       + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumLogs") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Merch") + "):\n" +
+                         AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area") + ":";
                     HeightOT.IsVisible = false;
                     HeightOT.Text = "";
                     GirthOT.Text = year.ToString() + "\n"
@@ -646,6 +648,10 @@ namespace GreenBankX
             LogClassList.IsVisible = false;
              doubletapTree = null;
              year = DateTime.Now.Year;
+            ShowGraph.Items.Clear();
+            ShowGraph.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SumL1"));
+            ShowGraph.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SumL2"));
+            ShowGraph.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SumL3"));
             pickPlot.Items.Clear();
             plotty.Clear();
                 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTY4MzVAMzEzNjJlMzIyZTMwZmMzUTBVc2x2STVZNG4rTm1mdXlXQ1czR09UQ1p0QzB2SmNjWFFtZ2RmOD0=");

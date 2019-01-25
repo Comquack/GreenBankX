@@ -56,7 +56,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("input is invalid", "Please add coodinates in Lat, Long form", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), "Please add coodinates in Lat, Long form", "OK");
                     });
                     return;
                 }
@@ -66,7 +66,7 @@ namespace GreenBankX
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), "Please enter valid co-ordinates", "OK");
                         });
                         return;
                     }
@@ -80,7 +80,7 @@ namespace GreenBankX
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        DisplayAlert("input is invalid", "Please enter valid co-ordinates", "OK");
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), "Please enter valid co-ordinates", "OK");
                     });
                     return;
                 }
@@ -100,7 +100,7 @@ namespace GreenBankX
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
                         });
                         return;
                     }
@@ -150,7 +150,7 @@ namespace GreenBankX
                     if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(i).GetName() == PlotName.Text&&i!= (int)Application.Current.Properties["ThisPlot"]) {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
+                            DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
                         });
                         return;
                     }
@@ -163,7 +163,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterName"), "OK");
                 });
             }
             else
@@ -171,7 +171,7 @@ namespace GreenBankX
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("input is invalid", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("EnterVDate"), "OK");
                 });
             }
            
@@ -271,13 +271,13 @@ namespace GreenBankX
 
         private  void Expand_Clicked(object sender, EventArgs e)
         {
-            bool X = Expand.Text == "Less Details";
+            bool X = Expand.Text == AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
             ButtBound.IsVisible = !X;
             Location.IsVisible = !X;
             Owner.IsVisible = !X;
             Find.IsVisible = !X;
             Comments.IsVisible = !X;
-            Expand.Text = X? "Add More Detail" :"Less Details";
+            Expand.Text = X? AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MoreDetails") : AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LessDetails");
             if (Xamarin.Forms.Application.Current.Properties["First"] != null && Xamarin.Forms.Application.Current.Properties["Last"] != null) {
                 Owner.Text = (string)Xamarin.Forms.Application.Current.Properties["First"] + " " + (string)Xamarin.Forms.Application.Current.Properties["Last"];
             }
@@ -351,8 +351,17 @@ namespace GreenBankX
 
         private async void ButtBound_Clicked(object sender, EventArgs e)
         {
-
-                await PopupNavigation.Instance.PushAsync(new PopupBound((int)Application.Current.Properties["ThisPlot"]));
+           int geol = (int)Application.Current.Properties["ThisPlot"];
+            bool res = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundary"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundary2"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundaryA"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SetBoundaryB"));
+            if (res)
+            {
+                await PopupNavigation.Instance.PushAsync(new PopupBound(geol));
+            }
+            else
+            {
+                await PopupNavigation.Instance.PushAsync(new BoundList(geol));
+            }
+            await PopupNavigation.Instance.PushAsync(new PopupBound((int)Application.Current.Properties["ThisPlot"]));
 
         }
     }

@@ -8,7 +8,7 @@
 
             <ScrollView>
         <StackLayout>
-                <Label Text="Summary"
+                <Label Text="{local:TranslateExtension Summary}"
                    x:Name="Titlename"
                 HorizontalOptions="CenterAndExpand" 
                    FontSize="Large"/>
@@ -88,7 +88,7 @@
                     <ListView.Footer>
                         <StackLayout>
                             <Button x:Name="ShowMap"
-                                Text="Show On Map"
+                                Text="{local:TranslateExtension SMap}"
                                 Clicked="ShowMap_Clicked"/>
                         </StackLayout>
 
@@ -167,7 +167,7 @@
                         />
                     <Label
                         x:Name="Girtdlab"
-                        Text="Girth/Diameter"
+                        Text="{local:TranslateExtension GDBH}"
                         Grid.Row="1"
                         Grid.Column="1"
                         IsVisible="false"

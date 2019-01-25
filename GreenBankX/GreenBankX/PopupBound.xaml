@@ -37,7 +37,7 @@
                 />
                 <Button
                    x:Name="AddPlot"
-               Text="Set Boundary"
+               Text="{local:TranslateExtension SetBoundary}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

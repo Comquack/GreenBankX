@@ -58,7 +58,7 @@ namespace GreenBankX
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("Not enough points", "Boundary requires at least 3 points.", "OK");
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NotEnoughPoints"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("fourpointBound"), "OK");
                 });
                 return;
             }

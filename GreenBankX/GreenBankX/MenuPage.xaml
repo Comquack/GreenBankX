@@ -78,7 +78,7 @@
                 Grid.Row="4"/>
                     <Button
                     x:Name="Summary"
-                   Text="Summary"
+                   Text="{local:TranslateExtension Summary}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
@@ -90,7 +90,7 @@
                     Clicked="Summary_Clicked"/>
                     <Button
                     x:Name="Curren"
-                   Text="Currency"
+                   Text="{local:TranslateExtension Currency}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"

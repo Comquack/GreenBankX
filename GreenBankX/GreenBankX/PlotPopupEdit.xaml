@@ -36,7 +36,7 @@
         <Entry 
                 x:Name="PlotYear"
                    TextColor="Black"
-                   Placeholder="Year Planted"
+                   Placeholder="{local:TranslateExtension YPlant}"
             Keyboard="Numeric"
             BackgroundColor="LightSeaGreen"
             MaxLength="4"
@@ -45,14 +45,14 @@
 
             <Entry
             x:Name="Latent"
-            Placeholder="Latitude"
+            Placeholder="{local:TranslateExtension Lat}"
             IsVisible="False"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 TextChanged="Latent_TextChanged"/>
             <Entry
             x:Name="Longents"
-            Placeholder="Longitude"
+            Placeholder="{local:TranslateExtension Lon}"
             IsVisible="False"
                 Keyboard="Numeric"
                 TextChanged="Longent_TextChanged"
@@ -62,21 +62,21 @@
         <Grid>
             <Button
                 x:Name="ButtBound"
-                Text="Set Boundary"
+                Text="{local:TranslateExtension SetBoundary}"
                 Clicked="ButtBound_Clicked"
                 IsVisible="False"
                 Grid.Row="0"
                 />
             <Entry
             x:Name="Location"
-            Placeholder="Nearest Town"
+            Placeholder="{local:TranslateExtension NTown}"
             IsVisible="False"
                 Grid.Column="0"
                 Grid.Row="1"
                 Grid.ColumnSpan="2"/>
             <Button
                    x:Name="Find"
-               Text="Find Location"
+               Text="{local:TranslateExtension FLoc}"
                IsVisible="true"
                 BackgroundColor="LightGray"
                TextColor="Green"
@@ -87,15 +87,15 @@
         </Grid>
         <Entry
             x:Name="Owner"
-            Placeholder="Owner's Name"
+            Placeholder="{local:TranslateExtension OName}"
             IsVisible="False"/>
         <Entry
             x:Name="Comments"
-            Placeholder="Other Comments"
+            Placeholder="{local:TranslateExtension Comments}"
             IsVisible="False"/>
         <Button
                    x:Name="Expand"
-               Text="Add more details"
+               Text="{local:TranslateExtension MoreDetails}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"
@@ -106,7 +106,7 @@
                 />
         <Button
                    x:Name="NamedPlot"
-               Text="Save Edit"
+               Text="{local:TranslateExtension SEdit}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

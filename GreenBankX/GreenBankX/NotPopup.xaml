@@ -21,18 +21,18 @@
         <Entry 
                 x:Name="PlotYear"
                    TextColor="Black"
-                   Placeholder="Year Planted"
+                   Placeholder="{local:TranslateExtension YPlant}"
             Keyboard="Numeric"
             MaxLength="4"
             />
-        <Button Text="Add from map"
+            <Button Text="{local:TranslateExtension MapAdd}"
                 Clicked="Button_Clicked"/>
 
             <Grid>
 
                 <Entry
             x:Name="Latent"
-            Placeholder="Latitude, Longitude"
+            Placeholder="{local:TranslateExtension Latlon}"
             IsVisible="False"
                     Grid.Row="0"
                 Grid.Column="0"
@@ -40,7 +40,7 @@
                 TextChanged="Latent_TextChanged"/>
                 <Button
                    x:Name="Bound"
-               Text="Set Boundary"
+               Text="{local:TranslateExtension SetBoundary}"
                     Grid.Row="1"
                IsVisible="false"
                 BackgroundColor="LightGray"
@@ -54,13 +54,13 @@
                 
                 <Entry
             x:Name="Location"
-            Placeholder="Nearest Town"
+            Placeholder="{local:TranslateExtension NTown}"
             IsVisible="False"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"/>
             <Button
                    x:Name="Find"
-               Text="Find Location"
+               Text="{local:TranslateExtension FLoc}"
                IsVisible="true"
                 BackgroundColor="LightGray"
                TextColor="Green"
@@ -70,15 +70,15 @@
             </Grid>
             <Entry
             x:Name="Owner"
-            Placeholder="Owner's Name"
+            Placeholder="{local:TranslateExtension OName}"
             IsVisible="False"/>
         <Entry
             x:Name="Comments"
-            Placeholder="Other Comments"
+            Placeholder="{local:TranslateExtension Comments}"
             IsVisible="False"/>
         <Button
                    x:Name="Expand"
-               Text="Add more details"
+               Text="{local:TranslateExtension MoreDetails}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

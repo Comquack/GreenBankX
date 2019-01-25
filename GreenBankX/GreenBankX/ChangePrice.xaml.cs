@@ -182,7 +182,7 @@ namespace GreenBankX
                                 if (key3 <= double.Parse(maxDiam.Text)) {
                                     Device.BeginInvokeOnMainThread(() =>
                                     {
-                                        DisplayAlert("Max value too high", "Max value too high, please edit higer backets first", "OK");
+                                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MaxV"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MaxV2"), "OK");
                                     });
 
                                     return;

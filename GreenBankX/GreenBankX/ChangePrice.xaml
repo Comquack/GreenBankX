@@ -35,11 +35,11 @@
 
         <Grid>
             <Label
-            Text="Min Diameter"
+            Text="{local:TranslateExtension minimumdiameter}"
                 Grid.Column="0"
                 Grid.Row="0"/>
             <Label
-            Text="Max Diameter"
+            Text="{local:TranslateExtension maxdiameter}"
                 Grid.Column="1"
                 Grid.Row="0"/>
             <Entry  

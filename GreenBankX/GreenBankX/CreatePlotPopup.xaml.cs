@@ -256,7 +256,8 @@ namespace GreenBankX
                     {
                         Coordinates = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetPolygon(),
                         Color = Color.LightGray,
-                        StrokeColor = Color.LightGreen
+                        StrokeColor = Color.LightGreen,
+
                     };
                     polylist.Add(newpoly);
                 }

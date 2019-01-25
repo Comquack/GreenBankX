@@ -57,7 +57,7 @@
                 <ListView.Footer>
                     <StackLayout>
                         <Button x:Name="All"
-                                Text="Evaluate All"
+                                Text="{local:TranslateExtension EvaluateAll}"
                                 Clicked="All_select"
                                 IsVisible="False"
                                 />
@@ -157,7 +157,7 @@
             />
                         <Button
                 x:Name="Today"
-               Text="Today"
+               Text="{local:TranslateExtension Today}"
                VerticalOptions="Center"
                IsVisible="true"
                 BackgroundColor="LightGray"
@@ -191,7 +191,7 @@
 
                         <Button
                 x:Name="Estimate"
-               Text="Evaluate"
+               Text="{local:TranslateExtension Evaluate}"
                VerticalOptions="Center"
                IsVisible="true"
                FontSize="Large"

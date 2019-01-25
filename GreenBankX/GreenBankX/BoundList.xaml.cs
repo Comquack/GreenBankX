@@ -19,6 +19,7 @@ namespace GreenBankX
 {
     public partial class BoundList : Rg.Plugins.Popup.Pages.PopupPage
     {
+        int delno = -1;
         List<Position> newpolygon = new List<Position>();
         List<DetailsGraph2> store = new List<DetailsGraph2>();
         bool add = true;
@@ -48,7 +49,7 @@ namespace GreenBankX
             store = new List<DetailsGraph2>();
             InitializeComponent();
             geo = geol;
-
+            newpolygon = new List<Position>();
         }
 
 
@@ -128,23 +129,84 @@ namespace GreenBankX
 
         private void Button_Clicked(object sender, EventArgs e)
         {
+            if (Latent.Text == null)
+            {
+                return;
+            }
             double[] geo = new double[] { 0, 0 };
             string[] splitter = Latent.Text.Split(',');
+            if (splitter.Count() != 2)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("WrongCoord"), "OK");
+                });
+                return;
+            }
             if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
             {
                 if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
                 {
                     return;
                 }
+                bool addon = true;
+                foreach (Position p in newpolygon) {
+                    if (p.Latitude == latout && p.Longitude == lonout) {
+                        addon = false;
+                    }
+                }
+                if (!addon) {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), "Waypoint exists", "OK");
+                    });
+                    return;
+                }
                 geo = new double[] { latout, lonout };
                 newpolygon.Add(new Position(latout, lonout));
                 store.Add(new DetailsGraph2 { Lat = latout, Lon = lonout});
+                LBound.ItemsSource = null;
+                LBound.ItemsSource = store;
+                Latent.Text = null;
 
             }
         }
 
-        private void Done_Clicked(object sender, EventArgs e)
+        private async void Done_Clicked(object sender, EventArgs e)
         {
+            List<double> lat = new List<double>();
+            List<double> lon = new List<double>();
+            if (newpolygon.Count() < 3)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NotEnoughPoints"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("fourpointBound"), "OK");
+                });
+                return;
+            }
+
+            for (int x = 0; x < newpolygon.Count; x++)
+            {
+                lat.Add(newpolygon.ElementAt(x).Latitude);
+                lon.Add(newpolygon.ElementAt(x).Longitude);
+                ((List<TK.CustomMap.Position>)Application.Current.Properties["Bounds"]).Add(newpolygon.ElementAt(x));
+            }
+            if (geo[0] > lat.Min() && geo[1] > lon.Min() && geo[0] < lat.Max() && geo[1] < lon.Max())
+            {
+                if (plot > -1)
+                {
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(plot).AddPolygon(((List<TK.CustomMap.Position>)Application.Current.Properties["Bounds"]));
+                }
+                MessagingCenter.Send<BoundList>(this, "Add");
+                await PopupNavigation.Instance.PopAsync();
+            }
+            else
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Apin"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Apin"), "OK");
+                });
+            }
 
         }
 
@@ -155,7 +217,27 @@ namespace GreenBankX
 
         private void LBound_ItemTapped(object sender, ItemTappedEventArgs e)
         {
+            delno = -1;
+            foreach (Position p in newpolygon)
+            {
+                if (p.Latitude == ((DetailsGraph2)e.Item).Lat && p.Longitude == ((DetailsGraph2)e.Item).Lon)
+                {
+                    delno = newpolygon.IndexOf(p);
+                    Del.IsVisible = true;
+                }
+            }
+            
+        }
 
+        private void Del_Clicked(object sender, EventArgs e)
+        {
+            if (delno > -1) {
+                newpolygon.RemoveAt(delno);
+                store.RemoveAt(delno);
+                LBound.ItemsSource = null;
+                LBound.ItemsSource = store;
+            }
+           
         }
     }
 }
