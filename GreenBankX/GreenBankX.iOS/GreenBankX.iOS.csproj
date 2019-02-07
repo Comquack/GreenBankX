@@ -103,7 +103,7 @@
     <None Include="Info.plist" />
     <Compile Include="PreviewControllerDS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="Resources\GoogleService-Info.plist" />
+    <BundleResource Include="Resources\GoogleService-Info.plists" />
     <BundleResource Include="Resources\GreenBankX.mobileprovision" />
   </ItemGroup>
   <ItemGroup>
