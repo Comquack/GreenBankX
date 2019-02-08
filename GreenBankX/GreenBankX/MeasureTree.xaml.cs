@@ -16,6 +16,7 @@ namespace GreenBankX
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MeasureTree : ContentPage
     {
+        Tree OneTree = null;
         bool AllOne = false;
         Tree doubletapTree;
            Tree ThisTree;
@@ -254,9 +255,16 @@ namespace GreenBankX
 
         private void pickPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (PickPrice.SelectedIndex != -1 && !AllOne) {
+            if (PickPrice.SelectedIndex != -1 && !AllOne)
+            {
+                if (OneTree != null && PickPrice.SelectedIndex != -1)
+                {
+                    One_Clicked();
+                    PickPrice.SelectedIndex = -1;
+                    return;
+                }
                 RunCalc();
-                PickPrice.SelectedIndex  = - 1;
+                PickPrice.SelectedIndex = -1;
             }
             else if (PickPrice.SelectedIndex != -1 && AllOne)
             {
@@ -370,20 +378,9 @@ namespace GreenBankX
             if (doubletapTree == ((SelectableData)DetailsList.SelectedItem).tree)
             {
                     Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
-                    ThisTree = doubletapTree;
-                    doubletapTree = null;
-                Show(true);
-                pickPlot.IsVisible = false;
-                Add.IsVisible = false;
-                if (ThisTree.ActualMerchHeight > -1) {
-                        merchheight.Text = ThisTree.ActualMerchHeight.ToString();
-                        MerhH.IsToggled = true;
-                    }
-                    height.Text = ThisTree.MerchHeight.ToString();
-                    DateMes.Date = ThisTree.GetHistory().Last().Key;
-                    pickPlot.SelectedIndex = pickPlotOne.SelectedIndex;
-                    girth.Text = ThisTree.Diameter.ToString();
-                    pickPlotOne.SelectedIndex = -1;
+                OneTree = doubletapTree;
+                PickPrice.Focus();
+
             }
             else
             {
@@ -488,7 +485,56 @@ namespace GreenBankX
             AllOne = true;
             PickPrice.Focus();
         }
+        private async void One_Clicked()
+        {
 
+            Plot thispolt = null;
+            thispolt = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
+            List<DetailsGraph2> Detail = new List<DetailsGraph2>();
+            ObservableCollection<DetailsGraph2> DetailSort = new ObservableCollection<DetailsGraph2>();
+            double totalv = 0;
+            double totalp = 0;
+                    Calculator calc = new Calculator();
+
+                    if (thispolt != null && PickPrice.SelectedIndex != -1)
+                    {
+
+                        calc.SetPrices(((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(PickPrice.SelectedIndex));
+                        double[,] result;
+
+                        result = calc.Calcs(OneTree.Diameter, OneTree.Merch, OneTree.ActualMerchHeight);
+                        string resText0 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("LogClass") + "\n";
+                        string resText1 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Price") + "\n";
+                        string resText2 = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Volume") + "\n";
+                        SortedList<double, double> brack = calc.GetPrices().GetBrack();
+                        string[] unitcm = { "cm" };
+                        string[] unitm = { "m" };
+                        string[] unitm3 = { "m3" };
+                        for (int i = 0; i < result.GetLength(0); i++)
+                        {
+                            totalv += result[i, 2];
+                            totalp += result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2));
+                            DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result = result, brack = brack, resultrow = i };
+                            if (result[i, 0] == -1)
+                            {
+                                answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
+                            }
+                            else if (result[i, 0] == brack.Count - 1)
+                            {
+                                answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                            }
+                            else
+                            {
+                                answer.label = Math.Round(brack.ElementAt((int)result[i, 0]).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0];
+
+                            }
+                            Detail.Add(answer);
+                        }
+
+                    }
+            OneTree = null;
+            await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
+        }
         private async void All_Clicked()
         {
             Plot thispolt = null;

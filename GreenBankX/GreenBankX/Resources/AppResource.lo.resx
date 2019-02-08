@@ -117,373 +117,511 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddAvg" xml:space="preserve">
+    <value>ເພີ້ມຈາກຄ່າສະເລຍ</value>
+  </data>
   <data name="AddMeasurement" xml:space="preserve">
-    <value>ເພີ້ມການວັດແທກໃສ່</value>
+    <value>ເພີ້ມການວັດແທກ</value>
+  </data>
+  <data name="AddMHeight" xml:space="preserve">
+    <value>ເພີ້ມລວງສູງການຄ້າ</value>
   </data>
   <data name="AddNewTree" xml:space="preserve">
-    <value>ເພີ້ມຕົ້ນໄມ້ໃໝ່</value>
+    <value>ເພີ້ມຕົ້ນໃໝ່</value>
   </data>
   <data name="AddPlot" xml:space="preserve">
-    <value>ສ້າງດອນໃໝ່</value>
-    <comment>plot as in plot of land</comment>
-  </data>
-  <data name="AddtoPlot" xml:space="preserve">
     <value>ເພີ້ມດອນ</value>
   </data>
+  <data name="AddPlotNoPin" xml:space="preserve">
+    <value>ເພີ້ມຈຸດເຄື່ອງໝາຍດອນ</value>
+  </data>
+  <data name="AddPriceB" xml:space="preserve">
+    <value>ເພີ້ມວົງເລັບລາຄາ</value>
+  </data>
+  <data name="AddPricing" xml:space="preserve">
+    <value>ເພີ້ມລາຄາທີ່ຄາດຫັວງ</value>
+  </data>
+  <data name="AddtoPlot" xml:space="preserve">
+    <value>ເພີ້ມເຂົ້າໃນດອນ</value>
+  </data>
   <data name="AddTree" xml:space="preserve">
-    <value>ເພີ້ມຕົ້ນໄມ້ໃສ່</value>
+    <value>ເພີ້ມຕົ້ນໄມ້</value>
   </data>
-  <data name="Area" xml:space="preserve">
-    <value>ເນື້ອທີ່ດິນ</value>
-    <comment>Area (measurement)</comment>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>ລົບລ້າງ</value>
-  </data>
-  <data name="CreatePlot" xml:space="preserve">
-    <value>ສ້າງດອນ</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>ວັນທີ່</value>
-  </data>
-  <data name="DeletePlot" xml:space="preserve">
-    <value>ລຶມດອນອອກ</value>
-  </data>
-  <data name="DeleteTree" xml:space="preserve">
-    <value>ລຶບຕົ້ນອອກ</value>
-  </data>
-  <data name="Earlier" xml:space="preserve">
-    <value>ວອງໄວ(ມາກອນ)</value>
-    <comment>finds previous record</comment>
-  </data>
-  <data name="Girth" xml:space="preserve">
-    <value>ວັດຮອບ</value>
-  </data>
-  <data name="Height" xml:space="preserve">
-    <value>ລວງສູງ</value>
-  </data>
-  <data name="Later" xml:space="preserve">
-    <value>ຕາມຫຼັງ</value>
-    <comment>finds next record</comment>
-  </data>
-  <data name="ManagePlots" xml:space="preserve">
-    <value>ຈັດການດອນ</value>
-  </data>
-  <data name="MeasureTree" xml:space="preserve">
-    <value>ວັດແທກຕົ້ນໄມ້</value>
-  </data>
-  <data name="MerchHeight" xml:space="preserve">
-    <value>ລວງສູງການຄ້າ</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>ຊື່</value>
-  </data>
-  <data name="Pricings" xml:space="preserve">
-    <value>ລາຄາ</value>
-    <comment>List of price ranges</comment>
-  </data>
-  <data name="SelectaPlot" xml:space="preserve">
-    <value>ຄັດເລືອກດອນ</value>
-  </data>
-  <data name="SelectaTree" xml:space="preserve">
-    <value>ຄັດເລືອກຕົ້ນໄມ້</value>
-  </data>
-  <data name="TooSmall" xml:space="preserve">
-    <value>ນ້ອຍໂພດ</value>
-  </data>
-  <data name="TotalLogs" xml:space="preserve">
-    <value>ທ່ອນໄມ້ລວມທັງໝົດ</value>
-    <comment>Total number of logs</comment>
-  </data>
-  <data name="TotalPrice" xml:space="preserve">
-    <value>ລາຄາລວມທັງໝົດ</value>
-    <comment>Total value of logs</comment>
-  </data>
-  <data name="TreeID" xml:space="preserve">
-    <value>ກຳນົດຕຳແໜງຕົ້ນໄມ້</value>
+  <data name="AddTree2" xml:space="preserve">
+    <value>ເຈົ້າຄິດວ່າຢາກເພີ້ມຕົ້ນໄມ້ເຂົ້າໃນດອນນິ້ບໍ່?</value>
   </data>
   <data name="Apin" xml:space="preserve">
-    <value>ໝາຍຈຸດ ຖ້າພື້ນທີບໍຢູ່ໃກ້ກັນ</value>
-    <comment>area (of plot) not containing the map pin</comment>
+    <value>ພື້ນທີທີ່ບໍ່ຢູ່ງໃກ້ຄຽງກັບຈຸດທີ່ໝາຍ</value>
   </data>
-  <data name="DateExists" xml:space="preserve">
-    <value>ວັນທີ່ ຕົວຈິ່ງ(ປະຈຸບັນ)</value>
-    <comment>Date entered is already in use </comment>
+  <data name="Area" xml:space="preserve">
+    <value>ພື້ນທີ</value>
   </data>
-  <data name="DateExistsB" xml:space="preserve">
-    <value>ວັນທີ່ວັດແທກປະຈຸບັນ</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>ຍົກເລີກ</value>
   </data>
-  <data name="DelConf" xml:space="preserve">
-    <value>ເຈົ້າໝັນໃຈທີ່ຈະລົບອອກບໍ່</value>
+  <data name="Change" xml:space="preserve">
+    <value>ປ່ຽນ</value>
   </data>
-  <data name="DelPrice" xml:space="preserve">
-    <value>ລຶມລາຄາອອກ</value>
-  </data>
-  <data name="DFute" xml:space="preserve">
-    <value>ວັນທີ່ ໃນອານາຄົດ</value>
-    <comment>Date entered is later than current date</comment>
-  </data>
-  <data name="DiaInvalid" xml:space="preserve">
-    <value>ໜ້າຕ້າງທີ່ເປັນໂມຄະ</value>
-  </data>
-  <data name="Download" xml:space="preserve">
-    <value>ດາວໂລດ</value>
-  </data>
-  <data name="EMes" xml:space="preserve">
-    <value>ດັດແກ້ການວັດແທກ</value>
-  </data>
-  <data name="EnterName" xml:space="preserve">
-    <value>ກະລຸນນາພືມຊື່ໃສ່</value>
-  </data>
-  <data name="EnterVDate" xml:space="preserve">
-    <value>ກະລຸນນາພືມວັນທີໂມຄະ</value>
-  </data>
-  <data name="IsInvalid" xml:space="preserve">
-    <value>ຖຶກໂມຄະ</value>
-    <comment>Sentance fragmet: example Date is in valid) can be changed if this does not translate properly</comment>
-  </data>
-  <data name="LogClass" xml:space="preserve">
-    <value>ປະເພດ ຂອງ ໄມ້ທ່ອນ</value>
-    <comment>Example (10cm-20cm)</comment>
-  </data>
-  <data name="LogLength" xml:space="preserve">
-    <value>ລວງຍາວຂອງທ່ອນໄມ້(ມ)</value>
-  </data>
-  <data name="MeanD" xml:space="preserve">
-    <value>ໜ້າຕ້າງສະເລ່ຍ</value>
-  </data>
-  <data name="MeanG" xml:space="preserve">
-    <value>ຄວາມໃຫ່ຍສະເລ່ຍ</value>
-  </data>
-  <data name="MeanP" xml:space="preserve">
-    <value>ລາຄາສະເລັຍ</value>
-  </data>
-  <data name="MeanV" xml:space="preserve">
-    <value>ບໍລິມາດສະເລ່ຍ</value>
-  </data>
-  <data name="minimumdiameter" xml:space="preserve">
-    <value>ໜ້າຕ້າງຕ່ຳສຸດ(ຊມ)</value>
-  </data>
-  <data name="NameInUse" xml:space="preserve">
-    <value>ຊທີ່ຖຶກໃຊ້ແລ້ວ</value>
-  </data>
-  <data name="NewPlot" xml:space="preserve">
-    <value>ດອນໃໝ່</value>
-  </data>
-  <data name="NewPrice" xml:space="preserve">
-    <value>ລາຄາໃໝ່</value>
-  </data>
-  <data name="NumberTrees" xml:space="preserve">
-    <value>ນຳເບີຕົ້ນ</value>
-  </data>
-  <data name="OrLarger" xml:space="preserve">
-    <value>ຫຼື ໃຫຍ່ກ່ວາ</value>
-    <comment>eg 5cm "or larger"</comment>
-  </data>
-  <data name="PinHere" xml:space="preserve">
-    <value>ໝາຍຢູ່ຈຸດນິ້</value>
-    <comment>Place pin at current location</comment>
-  </data>
-  <data name="Price" xml:space="preserve">
-    <value>ລາຄາ</value>
-    <comment>Price (sale)</comment>
-  </data>
-  <data name="PriceInvalid" xml:space="preserve">
-    <value>ລາຄາທີ່ໂມຄະ</value>
-    <comment>Price (for logs) is unable to be used</comment>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>ເກັບຮັກສາໄວ້</value>
-    <comment>Save files</comment>
-  </data>
-  <data name="SelectPricing" xml:space="preserve">
-    <value>ຄັດເລືອກລາຄາ</value>
-    <comment>Select a list of values for logs of particular sizes</comment>
-  </data>
-  <data name="SetArea" xml:space="preserve">
-    <value>ສ້າງພື້ນທີ</value>
-    <comment>Set region for a plot of land</comment>
-  </data>
-  <data name="ShowGraph" xml:space="preserve">
-    <value>ສະແດງເສັ້ນກຣາບ</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>ເຂົ້າສູ່ລະບົບ</value>
-    <comment>sign in to google</comment>
-  </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>ອອກຈາກລະບົບ</value>
-    <comment>sign out from google</comment>
-  </data>
-  <data name="SizeExists" xml:space="preserve">
-    <value>ຂະໜາດທີ່ມີແລ້ວ</value>
-    <comment>Size the user has chosen is already in use</comment>
-  </data>
-  <data name="TotalVol" xml:space="preserve">
-    <value>ບໍລິມາດລວມທັງໝົດ</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>ອັບໂຫຼດ</value>
-    <comment>Upload files</comment>
-  </data>
-  <data name="Volume" xml:space="preserve">
-    <value>ບໍລິມາດ</value>
-    <comment>Volume of logs</comment>
-  </data>
-  <data name="YPlant" xml:space="preserve">
-    <value>ປີປູກ</value>
-    <comment>Year tree was planted</comment>
+  <data name="ChangePrice" xml:space="preserve">
+    <value>ປ່ຽນລາຄາ</value>
   </data>
   <data name="ChangePricing" xml:space="preserve">
-    <value>ປ່ຽນລາຄາ</value>
-    <comment>Change the pricing sheme used for logs</comment>
+    <value>ປ່ຽນຄ່າລາຄາ</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>ປິດ</value>
+  </data>
+  <data name="ComfirmEn" xml:space="preserve">
+    <value>ຢືນຢັນການແກ້ໄຂ</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>ໃຫ້ຂໍ້ຄິດເຫັນ</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>ຢືນຢັນ</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>ສືບຕໍ່</value>
   </data>
+  <data name="ConvRate" xml:space="preserve">
+    <value>ອັດຕາການປຽນແປງ</value>
+  </data>
+  <data name="CreatePlot" xml:space="preserve">
+    <value>ສ້າງດອນ</value>
+  </data>
+  <data name="CurrAdd" xml:space="preserve">
+    <value>ເພີ້ມສະກຸນເງິນ</value>
+  </data>
+  <data name="CurrDel" xml:space="preserve">
+    <value>ລື້ມສະກຸນເງິນ</value>
+  </data>
+  <data name="Currencies" xml:space="preserve">
+    <value>ສະກຸນເງິນຕ່າງ</value>
+  </data>
+  <data name="CurrenciesS" xml:space="preserve">
+    <value>ເລືອກສະກຸນເງິນ</value>
+  </data>
+  <data name="CurrenciesSet" xml:space="preserve">
+    <value>ຕັ້ງສະກຸນເງິນ</value>
+  </data>
+  <data name="CurrenciesSet2" xml:space="preserve">
+    <value>ທ່ານຕ້ອງການຕັ້ງຄ່າສະກຸນເງິນນີ້ເພື່ອນໍາໃຊ້ບໍ່?</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>ສະກຸນເງິນ</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>ວັນທີ່</value>
+  </data>
+  <data name="DateExists" xml:space="preserve">
+    <value>ວັນທີ່ປະຈຸບັນ</value>
+  </data>
+  <data name="DateExistsB" xml:space="preserve">
+    <value>ວັດແທກມີຢູ່ໃນວັນທີນີ້</value>
+  </data>
+  <data name="DateMade" xml:space="preserve">
+    <value>ວັນທີ່ຈັດຕັ້ງປະຕິບັດ</value>
+  </data>
+  <data name="DelConf" xml:space="preserve">
+    <value>ທ່ານແນ່ໃຈວ່າທ່ານຕ້ອງການລຶບ?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>ລຶບ</value>
+  </data>
+  <data name="DeletePlot" xml:space="preserve">
+    <value>ລຶບພື້ນທີ່ດອນ</value>
+  </data>
+  <data name="DeleteTree" xml:space="preserve">
+    <value>ລຶບຕົ້ນໄມ້</value>
+  </data>
+  <data name="DelPrice" xml:space="preserve">
+    <value>ລຶບແຜນການກໍາຫນົດລາຄາ</value>
+  </data>
+  <data name="DFute" xml:space="preserve">
+    <value>ວັນທີໃນອະນາຄົດ</value>
+  </data>
+  <data name="DiaInvalid" xml:space="preserve">
+    <value>ໜ້າຕ້າງບໍ່ຖືກຕ້ອງ</value>
+  </data>
+  <data name="Diameter" xml:space="preserve">
+    <value>ໜ້າຕ້າງ (ຊມ)</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>ດາວໂຫລດ</value>
+  </data>
+  <data name="DownloadPW" xml:space="preserve">
+    <value>ດາວໂຫຼດໄຟລ໌, ກະລຸນາລໍຖ້າ.</value>
+  </data>
+  <data name="Earlier" xml:space="preserve">
+    <value>ກ່ອນຫນ້ານັ້ນ</value>
+  </data>
+  <data name="EditEn" xml:space="preserve">
+    <value>ຕີ ພິມ ຕົວດັດແປງ</value>
+  </data>
+  <data name="EditPlot" xml:space="preserve">
+    <value>ດັດແປງດອນ</value>
+  </data>
+  <data name="EMes" xml:space="preserve">
+    <value>ແກ້ໄຂການວັດແທກ</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>ກະລຸນາໃສ່ຊື່</value>
+  </data>
+  <data name="EnterVDate" xml:space="preserve">
+    <value>ກະລຸນາໃສ່ວັນທີ່ຖືກຕ້ອງ</value>
+  </data>
+  <data name="Evaluate" xml:space="preserve">
+    <value>ປະເມີນ</value>
+  </data>
+  <data name="EvaluateAll" xml:space="preserve">
+    <value>ປະເມີນທັງໝົດ</value>
+  </data>
+  <data name="FLoc" xml:space="preserve">
+    <value>ຊອກຫາສະຖານທີ່</value>
+  </data>
+  <data name="fourpointBound" xml:space="preserve">
+    <value>ຂອບເຂດຈໍາກັດຮຽກຮ້ອງຢ່າງຫນ້ອຍ 4 ຈຸດ.</value>
+  </data>
+  <data name="GDBH" xml:space="preserve">
+    <value>ວັດຮອບ / ໜ້າຕ້າງ</value>
+  </data>
+  <data name="Girth" xml:space="preserve">
+    <value>ວັດຮອບ (ຊມ)</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>ລວງສູງ (ມ)</value>
+  </data>
+  <data name="ImportPlot" xml:space="preserve">
+    <value>ນຳເຂົ້າຈາກດອນ</value>
+  </data>
+  <data name="InputInv" xml:space="preserve">
+    <value>ເຂົ້າບໍ່ຖືກຕ້ອງ</value>
+  </data>
+  <data name="IsInvalid" xml:space="preserve">
+    <value>ແມ່ນບໍ່ຖືກຕ້ອງ</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>ພາສາ</value>
+  </data>
+  <data name="Lat" xml:space="preserve">
+    <value>ເສັ້ນແວງ</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>ຕໍ່ມາ</value>
+  </data>
+  <data name="Latlon" xml:space="preserve">
+    <value>ເສັ້ນແວງ, ເສັ້ນຂະໜານ</value>
+  </data>
+  <data name="LessDetails" xml:space="preserve">
+    <value>ລາຍະລະອຽດນ້ອຍລົງ</value>
+  </data>
+  <data name="LoadFail" xml:space="preserve">
+    <value>ບໍ່ສາມາດໂຫລດໄດ້</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>ກຳລັງໂຫຼດຢູ່</value>
+  </data>
+  <data name="LoadingFin" xml:space="preserve">
+    <value>ການໂລດສຳເລັດແລ້ວ</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>ສະຖານທີ່</value>
+  </data>
+  <data name="LogClass" xml:space="preserve">
+    <value>ກຸ່ມໄມ້ທ່ອນ</value>
+  </data>
+  <data name="LogLength" xml:space="preserve">
+    <value>ຍາວຂອງ ທ່ອນໄມ້ (ມ)</value>
+  </data>
+  <data name="Lon" xml:space="preserve">
+    <value>ແສັ້ນຂະໜານ</value>
+  </data>
+  <data name="ManagePlots" xml:space="preserve">
+    <value>ຈັດການພື້ນທີ(ດອນ)</value>
+  </data>
+  <data name="MapAdd" xml:space="preserve">
+    <value>ເພີ່ມຈາກຜື້ນທີ່(ດອນ)</value>
+  </data>
+  <data name="maxdiameter" xml:space="preserve">
+    <value>ໜ້າຕ້າງສູງສຸດ (ຊມ)</value>
+  </data>
+  <data name="MaxV" xml:space="preserve">
+    <value>ບໍລິມາດສູງສຸດແມ່ນສູງເກີນໄປ</value>
+  </data>
+  <data name="MaxV2" xml:space="preserve">
+    <value>ລວງສູງສູງສຸດ ສູງເກີນໄປ, ກະລຸນາແກ້ໄຂຄວາມສູງ ວົງເລັບກ່ອນ</value>
+  </data>
+  <data name="MeanD" xml:space="preserve">
+    <value>ໜ້າຕ້າງສະເລັ່ຍ</value>
+  </data>
+  <data name="MeanG" xml:space="preserve">
+    <value>ສະເລັ່ຍການເຕີບໃຫຍ່ໃນໄລຍະເວລາ</value>
+  </data>
+  <data name="MeanP" xml:space="preserve">
+    <value>ລາຄາສະເລັ່ຍ</value>
+  </data>
+  <data name="MeanV" xml:space="preserve">
+    <value>ບໍລິມາດສະເລັ່ຍ</value>
+  </data>
+  <data name="Measure" xml:space="preserve">
+    <value>ວັດແທກ</value>
+  </data>
+  <data name="MeasureAll" xml:space="preserve">
+    <value>ວັດແທກທັງໝົດ</value>
+  </data>
+  <data name="MeasureTree" xml:space="preserve">
+    <value>ວັດແທກຕົ້ນໄມ້</value>
+  </data>
+  <data name="Merch" xml:space="preserve">
+    <value>ການຄ້າ</value>
+  </data>
+  <data name="MerchHeight" xml:space="preserve">
+    <value>ລວງສູງ ການຄ້າ (ມ)</value>
+  </data>
+  <data name="MerchLogs" xml:space="preserve">
+    <value>ທ່ອນໄມ້ທີ່ເປັນການຄ້າ</value>
+  </data>
+  <data name="minimumdiameter" xml:space="preserve">
+    <value>ໜ້າຕ້າງຕ່ໍາສຸດ (ຊມ)</value>
+  </data>
+  <data name="MoreDetails" xml:space="preserve">
+    <value>ລາຍ​ລະ​ອຽດ​ເພີ່ມ​ເຕີມ</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>ຊື່</value>
+  </data>
+  <data name="NameInUse" xml:space="preserve">
+    <value>ຊື່ທີ່ຖືກໃຊ້ແລ້ວ</value>
+  </data>
+  <data name="NewPlot" xml:space="preserve">
+    <value>ເພີ່ມດອນໃຫມ່</value>
+  </data>
+  <data name="NewPrice" xml:space="preserve">
+    <value>ເພີ່ມແຜນການລາຄາໃຫມ່</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>ຕໍ່ໄປ</value>
   </data>
+  <data name="no" xml:space="preserve">
+    <value>ຈຳນວນ</value>
+  </data>
+  <data name="NoPrice" xml:space="preserve">
+    <value>ດອນນີ້ບໍ່ມີລາຄາ.</value>
+  </data>
+  <data name="NotEnoughPoints" xml:space="preserve">
+    <value>ຈຸດບໍ່ພຽງພໍ</value>
+  </data>
+  <data name="NoTreeErr" xml:space="preserve">
+    <value>ຈໍານວນຕົ້ນໄມ້ບໍ່ຖືກຕ້ອງ</value>
+  </data>
+  <data name="NoTrees" xml:space="preserve">
+    <value>ດິນຕອນນີ້ບໍ່ມີຕົ້ນໄມ້.</value>
+  </data>
+  <data name="NTown" xml:space="preserve">
+    <value>ຢູ່ໃກ້ເມືອງທີ່ສຸດ</value>
+  </data>
+  <data name="NumberTrees" xml:space="preserve">
+    <value>ຈໍານວນຕົ້ນໄມ້</value>
+  </data>
+  <data name="NumLog" xml:space="preserve">
+    <value>ຈໍານວນທ່ອນໄມ້</value>
+  </data>
+  <data name="NumTree" xml:space="preserve">
+    <value>ຈໍານວນຕົ້ນໄມ້</value>
+  </data>
+  <data name="OName" xml:space="preserve">
+    <value>ຊື່ເຈົ້າຂອງ</value>
+  </data>
+  <data name="OORCoord" xml:space="preserve">
+    <value>ລະດັບທີ່ອອກຈາກຈຸດພິກັດ</value>
+  </data>
+  <data name="OrLarger" xml:space="preserve">
+    <value>ຫຼືໃຫຍ່ກວ່າ</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>ເຈົ້າຂອງ</value>
+  </data>
+  <data name="PastTree" xml:space="preserve">
+    <value>ວັນທີ ກ່ອນທີ່ຈະສ້າງດອນ</value>
+  </data>
+  <data name="PinHere" xml:space="preserve">
+    <value>ໝາຍຈຸດໃສ່ນິ້</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>ລາຄາ</value>
+  </data>
+  <data name="PriceInvalid" xml:space="preserve">
+    <value>ລາຄາບໍ່ຖືກຕ້ອງ</value>
+  </data>
+  <data name="Pricings" xml:space="preserve">
+    <value>ລາຄາ</value>
+  </data>
+  <data name="PSPrice" xml:space="preserve">
+    <value>ກະລຸນາເລືອກການປະເມີນລາຄາ</value>
+  </data>
+  <data name="PUSD" xml:space="preserve">
+    <value>ອັດຕາຕໍ່ USD</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ເກັບບັນທຶກໄວ້</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>ບັນທຶກໄວ້</value>
+  </data>
+  <data name="SEdit" xml:space="preserve">
+    <value>ບັນທຶກການແກ້ໄຂ</value>
+  </data>
+  <data name="SelectaPlot" xml:space="preserve">
+    <value>ເລືອກເອົາດິນຕອນຫນຶ່ງ</value>
+  </data>
+  <data name="SelectaTree" xml:space="preserve">
+    <value>ເລືອກຕົ້ນໄມ້</value>
+  </data>
+  <data name="SelectPricing" xml:space="preserve">
+    <value>ເລືອກການປະເມີນລາຄາ</value>
+  </data>
+  <data name="SetArea" xml:space="preserve">
+    <value>ກໍານົດພື້ນທີ່</value>
+  </data>
+  <data name="SetBoundary" xml:space="preserve">
+    <value>ກໍານົດຂອບເຂດແດນ</value>
+  </data>
+  <data name="SetBoundary2" xml:space="preserve">
+    <value>ທ່ານຕ້ອງການນໍາໃຊ້ແຜນທີ່ຫຼືພິມດ້ວຍຕົນເອງບໍ?</value>
+  </data>
+  <data name="SetBoundaryA" xml:space="preserve">
+    <value>ແຜນທີ່</value>
+  </data>
+  <data name="SetBoundaryB" xml:space="preserve">
+    <value>ປະເພດ</value>
+  </data>
+  <data name="ShowAllOnMap" xml:space="preserve">
+    <value>ສະແດງທັງຫມົດໃນແຜນທີ່</value>
+  </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>ຂໍ້ມູນກ່ຽວກັບດອນ</value>
+  </data>
+  <data name="ShowOnMap" xml:space="preserve">
+    <value>ສະແດງໃນແຜນທີ່</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>ເຂົ້າ​ສູ່​ລະ​ບົບ</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>ອອກ​ຈາກ​ລະ​ບົບ</value>
+  </data>
+  <data name="SizeExists" xml:space="preserve">
+    <value>ຂະຫນາດທີ່ມີຢູ່ແລ້ວ</value>
+  </data>
   <data name="Skip" xml:space="preserve">
-    <value>ຜ່ານໄປ</value>
-    <comment>Skip to next text box</comment>
+    <value>ຂ້າມ</value>
+  </data>
+  <data name="SMap" xml:space="preserve">
+    <value>ສະແດງເທິງແຜນທີ່</value>
+  </data>
+  <data name="SuccTree" xml:space="preserve">
+    <value>ການເພີ້ມຕົ້ນໄມ້ເຂົ້າໃນດອນແມ່ນມີຄວາມສຳເລັດແລ້ວ</value>
+  </data>
+  <data name="SumL1" xml:space="preserve">
+    <value>ຂໍ້ມູນຂອງຕົ້ນໄມ້</value>
+  </data>
+  <data name="SumL2" xml:space="preserve">
+    <value>ຂໍ້ມູນໃນກຸ່ມໄດ້ທ່ອນ</value>
+  </data>
+  <data name="SumL3" xml:space="preserve">
+    <value>ລວມ ຕໍ່ ດອນ</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>ສະຫຼຸບລວມ</value>
+  </data>
+  <data name="SummaryTute" xml:space="preserve">
+    <value>ຫນ້ານີ້ສະແດງຂໍ້ມູນຂອງທ່ານກ່ຽວກັບການຜະລິດໄມ້ທ່ອນໃນດິນຕອນນີ້. ແຕະຂະຫນາດ ຂອງໄມ້ທ່ອນສອງຄັ້ງ ຈະສະແດງບັນຊີລາຍຊື່ຂອງທ່ອນໄມ້ທຸກທ່ອນ ໃນ ກາຕາລ້ອກ ແລະ ສະຖານທີທີ່ຕົ້ນໄມ້ມາຈາກ.</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>ມື້​ນີ້</value>
+  </data>
+  <data name="TooSmall" xml:space="preserve">
+    <value>ຂະຫນາດນ້ອຍເກີນໄປ</value>
+  </data>
+  <data name="TotalLogs" xml:space="preserve">
+    <value>ທ່ອນໄມ້ລວມທັງໝົດ</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>ລາ​ຄາ​ລວມ</value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>ຈໍານວນທັງຫມົດ</value>
+  </data>
+  <data name="TotalVol" xml:space="preserve">
+    <value>ບໍລິມາດທັງຫມົດ (ມ3)</value>
+  </data>
+  <data name="TreeID" xml:space="preserve">
+    <value>ລະຫັດ ຕົ້ນໄມ້</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>ຕົ້ນໄມ້</value>
   </data>
   <data name="TuteMenu0" xml:space="preserve">
-    <value>ຍິນດີຕອນຮັບເຂົ້າສູ່ບົດຮຽນຂອງ Greenbank</value>
+    <value>ສະບາຍດີ, ຍິນດີຕ້ອນຮັບ ເຂົ້າສູ່  the Greenbank tutorial ເມື່ອທ່ານສືບຕໍ່ຜ່ານ app, tutorials ຈະປາກົດຂຶ້ນເພື່ອຊ່ວຍທ່ານ.</value>
   </data>
   <data name="TuteMenu1" xml:space="preserve">
-    <value>ຢູ່ດ້ານເທີງຂອງຫນ້ານີ້ແມ່ນປຸ່ມເຂົ້າສູ່ລະບົບປຸ່ມນີ້ຈະອະນຸຍາດໃຫ້ທ່ານເຂົ້າສູ່ລະບົບບັນຊີ Google ຂອງທ່ານເມື່ອໃດທີ່ທ່ານເຮັດແລ້ວທ່ານສາມາດອັບໂຫລດໄຟລ໌ຂອງທ່ານໄປທີ່ Google Drive ແລະດາວໂຫລດໃຫ້ກັບອຸປະກອນອື່ນໆ</value>
-  </data>
-  <data name="TutePrice0" xml:space="preserve">
-    <value>ຫນ້ານີ້ອະນຸຍາດໃຫ້ທ່ານກຳນົດລາຄາສໍາລັບໄມ້ທ່ອນຂອງທ່ານ</value>
-  </data>
-  <data name="TutePrice1" xml:space="preserve">
-    <value>ລາຄາຈະປະກອບດ້ວຍຊື່ ແລະ ຄວາມຍາວຂອງ ທ່ອນໄມ້ ແລະ ວົງເລັບ ລາຄາ.</value>
-  </data>
-  <data name="maxdiameter" xml:space="preserve">
-    <value>ໜ້າຕ້າງສູງສຸດ(ຊມ)</value>
+    <value>ຢູ່ເທິງສຸດຂອງຫນ້ານີ້ແມ່ນປຸ່ມເຂົ້າສູ່ລະບົບ. ນີ້ຈະຊ່ວຍໃຫ້ທ່ານເຂົ້າສູ່ລະບົບບັນຊີ Google ຂອງທ່ານເມື່ອໃດທີ່ທ່ານເຮັດແລ້ວທ່ານສາມາດອັບໂຫລດໄຟລ໌ຂອງທ່ານໄປທີ່ Google Drive ແລະດາວໂຫລດໃຫ້ກັບອຸປະກອນອື່ນໆ.</value>
   </data>
   <data name="TutePlot0" xml:space="preserve">
-    <value>ຫນ້ານີ້ເຮັດໃຫ້ທ່ານສາມາດຫມາຍທີ່ຕັ້ງຂອງສະຖານທີ່ດິນຂອງທ່ານ</value>
+    <value>ຫນ້ານີ້ຊ່ວຍໃຫ້ທ່ານສາມາດຫມາຍເຖິງສະຖານທີ່ຂອງພື້ນທີ່ຂອງທ່ານ</value>
   </data>
   <data name="TutePlot1" xml:space="preserve">
-    <value>ສາມາດວາງໄວ້ເທິງແຜນທີ່ໂດຍການກົດປຸ່ມຢູ່ໃນສະຖານທີ່ທີ່ທ່ານຕ້ອງການຫຼືກົດປຸ່ມ PIN ທີ່ຢູ່ນີ້ເພື່ອໃສ່ PIN ຢູ່ບ່ອນທີ່ທ່ານຕ້ອງການ. ການລຶບແຜນທີ່ສາມາດເຮັດໄດ້ໃນຫນ້າຈັດການສະຖານທີ່ຈັດການ.</value>
+    <value>ພື້ນທີສາມາດວາງເທິງແຜນທີ່ໂດຍກົດປຸ່ມຢູ່ໃນສະຖານທີ່ທີ່ທ່ານຕ້ອງການຫຼືໂດຍການກົດປຸ່ມ PIN ທີ່ຢູ່ນີ້ເພື່ອເອົາ PIN ຢູ່ບ່ອນທີ່ທ່ານຕັ້ງຢູ່. ການລຶບແຜນທີ່ສາມາດເຮັດໄດ້ໃນຫນ້າຈັດການແຜນການຈັດການ.</value>
   </data>
   <data name="TutePlot2" xml:space="preserve">
-    <value>ຖ້າທ່ານແຕະໃສ່ແຜນປຽງ ຕອນດິນດອນທີ່ມີຢູ່ແລ້ວ, ຫຼັງຈາກນັ້ນທ່ານສາມາດເອົາພິນທີ່ຫມາຍຂອບຊາຍແດນຂອງດິນຕອນນັ້ນເຂົ້າໃສ່</value>
+    <value>ຖ້າທ່ານແຕະໃສ່ປ່ຽງຂອງດິນຕອນທີ່ມີຢູ່ແລ້ວ, ຫຼັງຈາກນັ້ນທ່ານສາມາດວາງພິນທີ່ຫມາຍເອົາຊາຍແດນຂອງດິນຕອນ.</value>
+  </data>
+  <data name="TutePrice0" xml:space="preserve">
+    <value>ຫນ້ານີ້ອະນຸຍາດໃຫ້ທ່ານສ້າງແຜນການລາຄາສໍາໄມ້ທ່ອນຂອງທ່ານ</value>
+  </data>
+  <data name="TutePrice1" xml:space="preserve">
+    <value>ການປະເມີນລາຄາປະກອບດ້ວຍຊື່ ລວງຍາວຂອງທ່ອນໄມ້ມູນຄ່າ ຢູ່ໃນວົງເລັບລາຄາ.</value>
   </data>
   <data name="TutePrice2" xml:space="preserve">
-    <value>ໄມ້ຂະຫນາດນ້ອຍກ່ວາເຄື່ອງຫມາຍນ້ອຍທີ່ສຸດແມ່ນເປັນໄມ້ທີ່ບໍ່ມີມູນຄາຫຍັງ, ໄມ້ທີ່ຖືກຂະຫນາດໃຫຍ່ກ່ວາໃນວົງເລັບໃຫຍ່ທີ່ສຸດຈະໄດ້ຮັບລາຄາຄືກັນກັບຂໍ້ມູນບັນທຶກຢູ່ໃນວົງເລັບທີ່ສູງທີ່ສຸດ.</value>
+    <value>ທຸ່ອນໄມ້ທີ່ນ້ອຍກໃນວ່າວົງເລັບທີ່ນ້ອຍທີ່ສຸດນັ້ນແມ່ນບໍ່ມີຄ່າຫຍັງ, ໄມ້ທ່ອນໆໃດກໍ່ຕາມທີ່ໃຫຍ່ກວ່າໃນວົງເລັບທີ່ໃຫຍ່ທີ່ສຸດຈະມີລາຄາດຽວກັບທອ່ນທີ່ຢູ່ໃນວົງເລັບທີ່ໃຫ່ຍທີ່ສຸດ.</value>
   </data>
   <data name="TutePrice3" xml:space="preserve">
-    <value>ຖ້າຫາກວ່າວົງເລັບລາຄາຖືກລຶບ, ວົງເລັບກ່ອນມັນຈະຂະຫຍາຍການຕື່ມຂໍ້ມູນໃສ່ຊ່ອງຫວ່າງຂອງ.</value>
+    <value>ຖ້າວົງເລັບລາຄາຖືກຖືກລຶບ, ວົງເລັບກ່ອນທີ່ມັນຈະຂະຫຍາຍເພີ້ມຊ່ອງຫວ່າງເພື່ອຕື່ມໃສ່.</value>
   </data>
-  <data name="AddMHeight" xml:space="preserve">
-    <value>Add Merchantable Height</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="GDBH" xml:space="preserve">
-    <value>Girth/DBH</value>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="Measure" xml:space="preserve">
-    <value>Measure</value>
+  <data name="TuteSum1" xml:space="preserve">
+    <value>ປຸ່ມ "ກ່ອນຫນ້າ" ແລະ "ຫຼັງຈາກນັ້ນ" ປ່ຽນຂໍ້ມູນການວັດທີ່ຜ່ານມາ / ຕໍ່ໄປທີ່ເຮັດໃຫ້ຕົ້ນໄມ້ນັ້ນ. ປຸ່ມເພີ່ມ ຂໍ້ມູນນັ້ນຈະຊ່ວຍໃຫ້ທ່ານສາມາດເພີ່ມຂໍ້ມູນການວັດແທກໃຫມ່ສໍາລັບຕົ້ນໄມ້.</value>
   </data>
   <data name="Tutorial" xml:space="preserve">
     <value>Tutorial</value>
   </data>
-  <data name="AddPlotNoPin" xml:space="preserve">
-    <value>Add Plot no pin</value>
+  <data name="Upload" xml:space="preserve">
+    <value>ອັບໂຫລດ</value>
   </data>
-  <data name="AddAvg" xml:space="preserve">
-    <value>Add from Average</value>
+  <data name="UploadPW" xml:space="preserve">
+    <value>ອັບໂຫລດໄຟລ໌, ກະລຸນາລໍຖ້າ.</value>
   </data>
-  <data name="Comments" xml:space="preserve">
-    <value>Comments</value>
+  <data name="Volume" xml:space="preserve">
+    <value>ບໍລິມາດ</value>
   </data>
-  <data name="EditPlot" xml:space="preserve">
-    <value>Edit Plot</value>
+  <data name="WayAdd" xml:space="preserve">
+    <value>ເພີ້ມຈຸດທິດທາງ</value>
   </data>
-  <data name="ImportPlot" xml:space="preserve">
-    <value>Import From Plot</value>
+  <data name="Welcome1" xml:space="preserve">
+    <value>Hello! ຍິນດີຕ້ອນຮັບສູ່ GreenBank. ກະລຸນາເຂົ້າສູ່ລະບົບດ້ວຍບັນຊີ Google</value>
   </data>
-  <data name="Location" xml:space="preserve">
-    <value>Location</value>
+  <data name="Welcome2" xml:space="preserve">
+    <value>ຍິນດີຕ້ອນຮັບສູ່ GreenBank.</value>
   </data>
-  <data name="MeasureAll" xml:space="preserve">
-    <value>Measure All</value>
+  <data name="WrongCoord" xml:space="preserve">
+    <value>ກະລຸນາເພີ່ມຈຸພິກັດໃນຮູບແບບ ເສັ້ນແວງ, ເສັ້ນຂະໜານ</value>
   </data>
-  <data name="NoPrice" xml:space="preserve">
-    <value>This Plot has no prices. </value>
+  <data name="Year" xml:space="preserve">
+    <value>ປີ</value>
   </data>
-  <data name="NoTrees" xml:space="preserve">
-    <value>This plot has no trees.</value>
+  <data name="yes" xml:space="preserve">
+    <value>ແມ່ນແລ້ວ</value>
   </data>
-  <data name="Owner" xml:space="preserve">
-    <value>Owner</value>
-  </data>
-  <data name="ShowAllOnMap" xml:space="preserve">
-    <value>Show All On Map</value>
-  </data>
-  <data name="ShowOnMap" xml:space="preserve">
-    <value>Show On Map</value>
-  </data>
-  <data name="SummaryTute" xml:space="preserve">
-    <value>This page shows you data about the logs produced by this plot. Double tapping a log size will show a list of every log in that catagory and which tree it would come from.</value>
-  </data>
-  <data name="LoadFail" xml:space="preserve">
-    <value>Failed to load</value>
-  </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading</value>
-  </data>
-  <data name="LoadingFin" xml:space="preserve">
-    <value>Loading Finished</value>
-  </data>
-  <data name="AddPriceB" xml:space="preserve">
-    <value>Add Price Bracket</value>
-  </data>
-  <data name="AddPricing" xml:space="preserve">
-    <value>Add pricing scheme</value>
-  </data>
-  <data name="Change" xml:space="preserve">
-    <value>Change</value>
-  </data>
-  <data name="ChangePrice" xml:space="preserve">
-    <value>Change Price</value>
-  </data>
-  <data name="ComfirmEn" xml:space="preserve">
-    <value>Confirm Edit</value>
-  </data>
-  <data name="DateMade" xml:space="preserve">
-    <value>Date Made</value>
-  </data>
-  <data name="Diameter" xml:space="preserve">
-    <value>Diameter (cm)</value>
-  </data>
-  <data name="EditEn" xml:space="preserve">
-    <value>Edit Entry</value>
-  </data>
-  <data name="LessDetails" xml:space="preserve">
-    <value>Less Details</value>
-  </data>
-  <data name="MoreDetails" xml:space="preserve">
-    <value>More Details</value>
-  </data>
-  <data name="NumTree" xml:space="preserve">
-    <value>Number of Trees</value>
-  </data>
-  <data name="PastTree" xml:space="preserve">
-    <value>Date is before plot is made</value>
-  </data>
-  <data name="Trees" xml:space="preserve">
-    <value>Trees</value>
-  </data>
-  <data name="TuteSum1" xml:space="preserve">
-    <value>The "Earlier" and "Later" buttons change the data to the previous/next measurement that was made for that tree. The add measurement button allows you to add new measurement data for the tree.</value>
+  <data name="YPlant" xml:space="preserve">
+    <value>ປີປູກ</value>
   </data>
 </root>
