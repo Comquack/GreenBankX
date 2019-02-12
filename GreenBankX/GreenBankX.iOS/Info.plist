@@ -72,5 +72,9 @@
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs to know your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>New Entry</string>
 </dict>
 </plist>
