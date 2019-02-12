@@ -61,6 +61,7 @@ using QuickLook;
         var directories = Directory.EnumerateDirectories("./");
         string path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         //Create directory and file 
-        return path + "/GreenBankX";
+        return path;
+       // return path + "/GreenBankX";
     }
 }

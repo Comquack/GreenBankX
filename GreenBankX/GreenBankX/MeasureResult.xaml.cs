@@ -131,6 +131,12 @@ namespace GreenBankX
             // Return false if you don't want to close this popup page when a background of the popup page is clicked
             return base.OnBackgroundClicked();
         }
+
+        async void Handle_Clicked(object sender, System.EventArgs e)
+        {
+            await PopupNavigation.Instance.PopAsync();
+        }
+
         private void GirthDBH2_Toggled(object sender, ToggledEventArgs e)
         {
             if (LogList.IsVisible && LogList.ItemsSource != null)
