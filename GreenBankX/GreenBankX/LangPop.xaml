@@ -61,5 +61,16 @@
                TextColor="Green"
                 Clicked="Swedish_Clicked"
                 />
+        <Button
+                   x:Name="Span"
+               Text="Español"
+               VerticalOptions="Center"
+               IsVisible="true"
+               FontSize="Large"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Span_Clicked"
+                />
     </StackLayout>
 </pages:PopupPage>

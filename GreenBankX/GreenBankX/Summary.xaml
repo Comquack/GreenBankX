@@ -306,7 +306,38 @@
                        Grid.Row="1"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"/>
-                <Label x:Name="GirthOT" 
+
+                    <ListView
+                    IsVisible="false"
+                x:Name="SummList"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3">
+                        
+                        <ListView.ItemsSource>
+
+                            <x:Array Type="{x:Type x:String}"
+                             >
+                            </x:Array>
+                        </ListView.ItemsSource>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid>
+                                        <Label
+                                Text="{Binding label}"
+                                TextColor="Black"
+                                        Grid.Column="0"></Label>
+                                        <Label
+                                Text="{Binding label2}"
+                                TextColor="Black"
+                                        Grid.Column="1"></Label>
+                                    </Grid>
+
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label x:Name="GirthOT" 
                 Text=""
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"

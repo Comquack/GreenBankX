@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBankX.Android", "Green
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBankX.iOS", "GreenBankX\GreenBankX.iOS\GreenBankX.iOS.csproj", "{38A2D571-DBDF-4A35-A57F-F8E0ABC30FAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GreenBankX", "GreenBankX\GreenBankX\GreenBankX.csproj", "{11E73AE8-36D7-45C5-AAB1-744F6FD7A8C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenBankX", "GreenBankX\GreenBankX\GreenBankX.csproj", "{11E73AE8-36D7-45C5-AAB1-744F6FD7A8C3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D9770A3-2F83-4BCA-8CA2-5BB099FBA007}"
 	ProjectSection(SolutionItems) = preProject

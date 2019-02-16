@@ -49,6 +49,7 @@ namespace GreenBankX
                 pickTree.SelectedIndex = -1;
                 return;
             }
+            SummList.IsVisible = false;
             Girtdlab.IsVisible = true;
             Girtdswitch.IsVisible = true;
             PlotList.IsVisible = false;
@@ -111,6 +112,7 @@ namespace GreenBankX
         }
         //activates when index for tree picker is changed
         public void SelectTree() {
+            SummList.IsVisible = false;
             if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutmanage2"]&& (bool)Application.Current.Properties["Tutdt"])
             {
                 Device.BeginInvokeOnMainThread(async () =>
@@ -173,6 +175,7 @@ namespace GreenBankX
         //Renders tree informaition
         private void LatEar()
         {
+            SummList.IsVisible = false;
             string trees = "";
             string girthtext = "";
             string stuff = "";
@@ -333,6 +336,7 @@ namespace GreenBankX
         //data displaed changes when selection is changed
         private void ShowGraphpick()
         {
+            SummList.IsVisible = false;
             if (ShowGraph.SelectedIndex == 0)
             {
                 ShowGraphpick2();
@@ -347,6 +351,7 @@ namespace GreenBankX
         }
         private void ShowGraphpick2()
         {
+            SummList.IsVisible = false;
             ListOfTree.IsVisible = false;
             GirthOT.IsVisible = false;
             Girtdlab.IsVisible = true;
@@ -481,27 +486,24 @@ namespace GreenBankX
                     ListOfTree.IsVisible = true;
                     GirthOT.IsVisible = true;
                     DetailsList.IsVisible = false;
-                   // Oxy.Model = new OxyPlot.PlotModel();
-                    ListOfTree.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Year") + ":\n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumTree") + ":\n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "("+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + "):\n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "("+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Trees") + "):" + "\n"
-                         + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + ": \n"
-                        + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + "):\n"
-                       + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + ": \n"
-                       + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumLogs") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Merch") + "):\n" +
-                         AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area") + ":";
+                    // Oxy.Model = new OxyPlot.PlotModel();
+
+                    List<DetailsGraph2> Sumtree = new List<DetailsGraph2>();
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Year"), label2 = year.ToString() });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumTree"), label2 = tcount.ToString() });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + ")", label2 = Math.Round((totalDia / (double)count), 2).ToString() + "cm" });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Trees") + "):", label2 = Math.Round((totalTree / (double)tcount), 2).ToString() + "cm" });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol"), label2 = Math.Round((totalvol), 2).ToString() + "m\xB3" });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + ")", label2 = Math.Round((totalvolM), 2).ToString() + "m\xB3" });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice"), label2 = Math.Round((total), 2).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumLogs") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Merch") + ")", label2 = count.ToString() });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Area"), label2 = ThisPlot.GetArea().ToString() });
+                    SummList.ItemsSource = Sumtree;
+                    SummList.IsVisible = true;
+                    ListOfTree.Text = "";
                     HeightOT.IsVisible = false;
                     HeightOT.Text = "";
-                    GirthOT.Text = year.ToString() + "\n"
-                        + tcount + "\n"
-                        + Math.Round((totalDia / (double)count), 2).ToString() + "cm\n"
-                        + Math.Round((totalTree / (double)tcount), 2).ToString() + "cm\n"
-                         + Math.Round((totalvol), 2).ToString() + "m\xB3\n"
-                        + Math.Round((totalvolM), 2).ToString() + "m\xB3\n"
-                        + Math.Round((total), 2).ToString() + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + "\n"  
-                        + count+"\n"
-                        +ThisPlot.GetArea();
+                    GirthOT.Text = "";
                     pickTree.IsVisible = false;
                     Girtdlab.IsVisible = false;
                     Girtdswitch.IsVisible = false;

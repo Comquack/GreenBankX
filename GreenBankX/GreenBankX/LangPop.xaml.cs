@@ -132,5 +132,13 @@ namespace GreenBankX
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();
         }
+        private async void Span_Clicked(object sender, EventArgs e)
+        {
+            userSelectedCulture = new System.Globalization.CultureInfo("es-ES");
+            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("es-ES");
+            Thread.CurrentThread.CurrentCulture = userSelectedCulture;
+            MessagingCenter.Send<LangPop>(this, "Done");
+            await PopupNavigation.Instance.PopAsync();
+        }
     }
 }

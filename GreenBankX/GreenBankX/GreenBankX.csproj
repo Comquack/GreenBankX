@@ -57,11 +57,6 @@
     <Compile Update="MeasureResult.xaml.cs">
       <DependentUpon>MeasureResult.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Resources\AppResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AppResource.resx</DependentUpon>
-    </Compile>
     <Compile Update="ShowonmapPopup.xaml.cs">
       <DependentUpon>ShowonmapPopup.xaml</DependentUpon>
     </Compile>
@@ -119,13 +114,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\AppResource.es.resx">
+      <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\AppResource.sv.resx">
       <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\AppResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResource - Copy.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="UserEdit.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

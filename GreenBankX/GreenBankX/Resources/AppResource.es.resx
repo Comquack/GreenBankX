@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddAvg" xml:space="preserve">
+    <value>Agregar promedio</value>
+  </data>
+  <data name="AddMeasurement" xml:space="preserve">
+    <value>Agregar medicion </value>
+  </data>
+  <data name="AddMHeight" xml:space="preserve">
+    <value>Agregar altura comercial </value>
+  </data>
+  <data name="AddNewTree" xml:space="preserve">
+    <value>Agregar nuevo arbol </value>
+  </data>
+  <data name="AddPlot" xml:space="preserve">
+    <value>Agregar parcela</value>
+  </data>
+  <data name="AddPlotNoPin" xml:space="preserve">
+    <value>Agregar parcela no punto </value>
+  </data>
+  <data name="AddPriceB" xml:space="preserve">
+    <value>Agregar esquema de precio </value>
+  </data>
+  <data name="AddPricing" xml:space="preserve">
+    <value>Agregar precio </value>
+  </data>
+  <data name="AddtoPlot" xml:space="preserve">
+    <value>Agregar a la parcela</value>
+  </data>
+  <data name="AddTree" xml:space="preserve">
+    <value>Agregar arbol</value>
+  </data>
+  <data name="AddTree2" xml:space="preserve">
+    <value>Desea agregar arboles a la parcela ?</value>
+  </data>
+  <data name="Apin" xml:space="preserve">
+    <value>Area no cercano al punto </value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Area  </value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Cambiar </value>
+  </data>
+  <data name="ChangePrice" xml:space="preserve">
+    <value>Cambiar precio</value>
+  </data>
+  <data name="ChangePricing" xml:space="preserve">
+    <value>Cambiar el precio</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="ComfirmEn" xml:space="preserve">
+    <value>Confirmar edicion</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comentarios</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar   </value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="ConvRate" xml:space="preserve">
+    <value>Tasa de conversion</value>
+  </data>
+  <data name="CreatePlot" xml:space="preserve">
+    <value>Crear parcela</value>
+  </data>
+  <data name="CurrAdd" xml:space="preserve">
+    <value>Agregar moneda</value>
+  </data>
+  <data name="CurrDel" xml:space="preserve">
+    <value>Borrar moneda</value>
+  </data>
+  <data name="Currencies" xml:space="preserve">
+    <value>Monedas</value>
+  </data>
+  <data name="CurrenciesS" xml:space="preserve">
+    <value>Moneda seleccionada</value>
+  </data>
+  <data name="CurrenciesSet" xml:space="preserve">
+    <value>Seleccionar moneda</value>
+  </data>
+  <data name="CurrenciesSet2" xml:space="preserve">
+    <value>Desea agregar esta moneda para su uso?</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Moneda  </value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="DateExists" xml:space="preserve">
+    <value>Fecha actual </value>
+  </data>
+  <data name="DateExistsB" xml:space="preserve">
+    <value>Medicion existente hasta la fecha </value>
+  </data>
+  <data name="DateMade" xml:space="preserve">
+    <value>Fecha de implantacion </value>
+  </data>
+  <data name="DelConf" xml:space="preserve">
+    <value>Esta seguro de quere borrar?</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Borrar   </value>
+  </data>
+  <data name="DeletePlot" xml:space="preserve">
+    <value>Borrar parcela </value>
+  </data>
+  <data name="DeleteTree" xml:space="preserve">
+    <value>Borrar arbol</value>
+  </data>
+  <data name="DelPrice" xml:space="preserve">
+    <value>Borrar esquema de precio</value>
+  </data>
+  <data name="DFute" xml:space="preserve">
+    <value>Fecha futura</value>
+  </data>
+  <data name="DiaInvalid" xml:space="preserve">
+    <value>Diametro invalido</value>
+  </data>
+  <data name="Diameter" xml:space="preserve">
+    <value>Diametro (cm)</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Descargar</value>
+  </data>
+  <data name="DownloadPW" xml:space="preserve">
+    <value>Descargando archivos, por favor espere</value>
+  </data>
+  <data name="Earlier" xml:space="preserve">
+    <value>Mas temprano</value>
+  </data>
+  <data name="EditEn" xml:space="preserve">
+    <value>Editar entrada</value>
+  </data>
+  <data name="EditPlot" xml:space="preserve">
+    <value>Editar parcela </value>
+  </data>
+  <data name="EMes" xml:space="preserve">
+    <value>Editar medicion </value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Por favor entre su nombre </value>
+  </data>
+  <data name="EnterVDate" xml:space="preserve">
+    <value>Por favor entre un dato valido de fecha</value>
+  </data>
+  <data name="Evaluate" xml:space="preserve">
+    <value>Evaluar</value>
+  </data>
+  <data name="EvaluateAll" xml:space="preserve">
+    <value>Evaluar todo </value>
+  </data>
+  <data name="FLoc" xml:space="preserve">
+    <value>Encontrar localidad</value>
+  </data>
+  <data name="fourpointBound" xml:space="preserve">
+    <value>Los limites requieren 4 puntos</value>
+  </data>
+  <data name="GDBH" xml:space="preserve">
+    <value>Circunferencia/Diametro</value>
+  </data>
+  <data name="Girth" xml:space="preserve">
+    <value>Circunferencia (cm)</value>
+  </data>
+  <data name="Height" xml:space="preserve">
+    <value>Altura (m)</value>
+  </data>
+  <data name="ImportPlot" xml:space="preserve">
+    <value>Importar desde parcela</value>
+  </data>
+  <data name="InputInv" xml:space="preserve">
+    <value>dato invalido </value>
+  </data>
+  <data name="IsInvalid" xml:space="preserve">
+    <value>es invalido </value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Latitud</value>
+  </data>
+  <data name="Lat" xml:space="preserve">
+    <value>Longitud</value>
+  </data>
+  <data name="Later" xml:space="preserve">
+    <value>Despues</value>
+  </data>
+  <data name="Latlon" xml:space="preserve">
+    <value>Latitud, Longitud</value>
+  </data>
+  <data name="LessDetails" xml:space="preserve">
+    <value>Menos detalle</value>
+  </data>
+  <data name="LoadFail" xml:space="preserve">
+    <value>Problemas en cargar</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Cargando</value>
+  </data>
+  <data name="LoadingFin" xml:space="preserve">
+    <value>Carga finalizada</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Localidad</value>
+  </data>
+  <data name="LogClass" xml:space="preserve">
+    <value>Clase de tora</value>
+  </data>
+  <data name="LogLength" xml:space="preserve">
+    <value>Longitud de la tora</value>
+  </data>
+  <data name="Lon" xml:space="preserve">
+    <value>Longitud  </value>
+  </data>
+  <data name="ManagePlots" xml:space="preserve">
+    <value>Manejo de parcelas</value>
+  </data>
+  <data name="MapAdd" xml:space="preserve">
+    <value>Agregar desde el mapa</value>
+  </data>
+  <data name="maxdiameter" xml:space="preserve">
+    <value>Diametro maximo (cm)</value>
+  </data>
+  <data name="MaxV" xml:space="preserve">
+    <value>Valor maximo es my alto</value>
+  </data>
+  <data name="MaxV2" xml:space="preserve">
+    <value>Valor maximo es my alto, por favor editar cortes primero </value>
+  </data>
+  <data name="MeanD" xml:space="preserve">
+    <value>Diametro promedio</value>
+  </data>
+  <data name="MeanG" xml:space="preserve">
+    <value>Promedio de crecimiento </value>
+  </data>
+  <data name="MeanP" xml:space="preserve">
+    <value>Precio promedio</value>
+  </data>
+  <data name="MeanV" xml:space="preserve">
+    <value>Volumen promedio</value>
+  </data>
+  <data name="Measure" xml:space="preserve">
+    <value>Medir </value>
+  </data>
+  <data name="MeasureAll" xml:space="preserve">
+    <value>Medir todo</value>
+  </data>
+  <data name="MeasureTree" xml:space="preserve">
+    <value>Medir arbol</value>
+  </data>
+  <data name="Merch" xml:space="preserve">
+    <value>Comercializable </value>
+  </data>
+  <data name="MerchHeight" xml:space="preserve">
+    <value>Altura comercial </value>
+  </data>
+  <data name="MerchLogs" xml:space="preserve">
+    <value>Trozas comerciables</value>
+  </data>
+  <data name="minimumdiameter" xml:space="preserve">
+    <value>diametro minimo (cm)</value>
+  </data>
+  <data name="MoreDetails" xml:space="preserve">
+    <value>Mas detalle</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="NameInUse" xml:space="preserve">
+    <value>El nombre ya esta siendo utilizado </value>
+  </data>
+  <data name="NewPlot" xml:space="preserve">
+    <value>Agregar nueva parcela</value>
+  </data>
+  <data name="NewPrice" xml:space="preserve">
+    <value>Agregar nuevo esquema de precio</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Proximo</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No </value>
+  </data>
+  <data name="NoPrice" xml:space="preserve">
+    <value>Esta parcela no tiene precio</value>
+  </data>
+  <data name="NotEnoughPoints" xml:space="preserve">
+    <value>No suficiente puntos</value>
+  </data>
+  <data name="NoTreeErr" xml:space="preserve">
+    <value>El numero de arbol es invalido </value>
+  </data>
+  <data name="NoTrees" xml:space="preserve">
+    <value>La parcela no tiene arboles</value>
+  </data>
+  <data name="NTown" xml:space="preserve">
+    <value>Localidad  mas cercana </value>
+  </data>
+  <data name="NumberTrees" xml:space="preserve">
+    <value>Numero de arboles</value>
+  </data>
+  <data name="NumLog" xml:space="preserve">
+    <value>Numero de trozas</value>
+  </data>
+  <data name="NumTree" xml:space="preserve">
+    <value>Numbero de arboles</value>
+  </data>
+  <data name="OName" xml:space="preserve">
+    <value>Nombre del propietario </value>
+  </data>
+  <data name="OORCoord" xml:space="preserve">
+    <value>Coordenadas fuera del area </value>
+  </data>
+  <data name="OrLarger" xml:space="preserve">
+    <value>o mas grande</value>
+  </data>
+  <data name="Owner" xml:space="preserve">
+    <value>Propietario</value>
+  </data>
+  <data name="PastTree" xml:space="preserve">
+    <value>La fecha es antes que la parcela fuera establecida</value>
+  </data>
+  <data name="PinHere" xml:space="preserve">
+    <value>Seleccione aqui</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Precio  </value>
+  </data>
+  <data name="PriceInvalid" xml:space="preserve">
+    <value>Precio invalido </value>
+  </data>
+  <data name="Pricings" xml:space="preserve">
+    <value>Precios</value>
+  </data>
+  <data name="PSPrice" xml:space="preserve">
+    <value>Por favor selecciones un esquema de precio</value>
+  </data>
+  <data name="PUSD" xml:space="preserve">
+    <value>Tasa por USD</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Saved" xml:space="preserve">
+    <value>Guardado </value>
+  </data>
+  <data name="SEdit" xml:space="preserve">
+    <value>Guardar edicion </value>
+  </data>
+  <data name="SelectaPlot" xml:space="preserve">
+    <value>Seleccionar una parcela</value>
+  </data>
+  <data name="SelectaTree" xml:space="preserve">
+    <value>Seleccionar un arbol</value>
+  </data>
+  <data name="SelectPricing" xml:space="preserve">
+    <value>Seleccionar un esquema de precio</value>
+  </data>
+  <data name="SetArea" xml:space="preserve">
+    <value>Agregar area</value>
+  </data>
+  <data name="SetBoundary" xml:space="preserve">
+    <value>Agregar limites</value>
+  </data>
+  <data name="SetBoundary2" xml:space="preserve">
+    <value>Desea usar un mapa or agregar manualmente?</value>
+  </data>
+  <data name="SetBoundaryA" xml:space="preserve">
+    <value>Mapa</value>
+  </data>
+  <data name="SetBoundaryB" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="ShowAllOnMap" xml:space="preserve">
+    <value>Mostrar todo en el mapa</value>
+  </data>
+  <data name="ShowGraph" xml:space="preserve">
+    <value>Graficar datos</value>
+  </data>
+  <data name="ShowOnMap" xml:space="preserve">
+    <value>Mostrar en el mapa</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Ingresar </value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="SizeExists" xml:space="preserve">
+    <value>Tamano ya existe</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Saltear</value>
+  </data>
+  <data name="SMap" xml:space="preserve">
+    <value>Mostrar en el mapa</value>
+  </data>
+  <data name="SuccTree" xml:space="preserve">
+    <value>El arbol se agrego exitosamente</value>
+  </data>
+  <data name="SumL1" xml:space="preserve">
+    <value>Dato de arboles</value>
+  </data>
+  <data name="SumL2" xml:space="preserve">
+    <value>Dato por clase de trozas</value>
+  </data>
+  <data name="SumL3" xml:space="preserve">
+    <value>Resumen por parcela</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Resumen</value>
+  </data>
+  <data name="SummaryTute" xml:space="preserve">
+    <value>Esta pagina muestra los datos de trozas producidos para esta parcela. Doble click en tamano en clase de trozas mostrara la lista de las trozas producidas por categoria y a que arbol corresponde.</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Hoy </value>
+  </data>
+  <data name="TooSmall" xml:space="preserve">
+    <value>Muy pequeño</value>
+  </data>
+  <data name="TotalLogs" xml:space="preserve">
+    <value>Total de trozas</value>
+  </data>
+  <data name="TotalPrice" xml:space="preserve">
+    <value>Precio total </value>
+  </data>
+  <data name="Totals" xml:space="preserve">
+    <value>Total  </value>
+  </data>
+  <data name="TotalVol" xml:space="preserve">
+    <value>Volument total (m3)</value>
+  </data>
+  <data name="TreeID" xml:space="preserve">
+    <value>arbol ID</value>
+  </data>
+  <data name="Trees" xml:space="preserve">
+    <value>Arboles </value>
+  </data>
+  <data name="TuteMenu0" xml:space="preserve">
+    <value>Hola, bienvenido al tutorial de My Greenbank. A medida que avanza a traves de la aplicacion, el tutorial lo ira guiando.</value>
+  </data>
+  <data name="TuteMenu1" xml:space="preserve">
+    <value>En la parte superior de la pagina se encuentra el boto de inicio. Este le permitira ingresar a su cuenta de Google; una vez ahi se podra descargar los archivos en Google Drive y podra acceder a sus datos de cualquier dispositivo.</value>
+  </data>
+  <data name="TutePlot0" xml:space="preserve">
+    <value>Esta pagina le permite a uds marcar la ubicacion de su parcela </value>
+  </data>
+  <data name="TutePlot1" xml:space="preserve">
+    <value>Se puede marcar un punto en el mapa, presionado en la pantalla el punto deseado or seleccionado el boton que dice agregar el punto en el mapa. La eliminacion de las parcelas se puede hacer en la solapa de manejo de parcelas</value>
+  </data>
+  <data name="TutePlot2" xml:space="preserve">
+    <value>Si el punto ya esta seleccionado, uds puede crear otro punto en una esquina de la parcela</value>
+  </data>
+  <data name="TutePrice0" xml:space="preserve">
+    <value>Esta pagina le permite crea el esquema de precios para sus rollos/trozas</value>
+  </data>
+  <data name="TutePrice1" xml:space="preserve">
+    <value>El esquema de precios consiste en caracterizar el largo de  las trozas, diametros maximos y minimos y sus precios</value>
+  </data>
+  <data name="TutePrice2" xml:space="preserve">
+    <value>Cualquie troza menor que el diamtro minimo de venta no tendra valor, y diametro mayor que sea mayor que el diamtro maximo de venta se adjudicara el maximo valor </value>
+  </data>
+  <data name="TutePrice3" xml:space="preserve">
+    <value>Si una categoria de precio es eliminado, el rango de precio sera rellenado por la categoria previo mas cercana para rellenar el vacio generado por la eliminacion de la categoria de troza</value>
+  </data>
+  <data name="TuteSum1" xml:space="preserve">
+    <value>El boton Temprano or Despues, cambia los datos de medicion previos y posterior en que se realizo la medicion. El boton de agregar medicion permite agregar datos al arbol.</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>Tutorial</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Cargar</value>
+  </data>
+  <data name="UploadPW" xml:space="preserve">
+    <value>Cargando archivos, por favor espere</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>Volument (m3)</value>
+  </data>
+  <data name="WayAdd" xml:space="preserve">
+    <value>Agregar puntos</value>
+  </data>
+  <data name="Welcome1" xml:space="preserve">
+    <value>Hola, bienvenido a  My Greenbank.  Por favor ingrese con su cuenta de Google. </value>
+  </data>
+  <data name="Welcome2" xml:space="preserve">
+    <value>Bienvenido a MyGreenBank</value>
+  </data>
+  <data name="WrongCoord" xml:space="preserve">
+    <value>Por favor agregar coordenadas en formato de Latitud y longitud</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="YPlant" xml:space="preserve">
+    <value>Año de plantacion</value>
+  </data>
+</root>
