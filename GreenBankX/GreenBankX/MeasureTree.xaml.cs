@@ -89,19 +89,20 @@ namespace GreenBankX
                     totalv += result[i, 2];
                     totalp += result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2));
             DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result=result,tree = ThisTree, brack =brack, resultrow = i };
-                    if (result[i, 0] == -1)
-                    {
-                        answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
-                    }
-                    else if (result[i, 0] == brack.Count - 1)
-                    {
-                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
-                    }
-                    else
-                    {
-                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2)) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0];
+                    answer.label = result[i, 4].ToString();
+                    //if (result[i, 0] == -1)
+                    //{
+                    //    answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");
+                    //}
+                    //else if (result[i, 0] == brack.Count - 1)
+                    //{
+                    //    answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0] + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                    //}
+                    //else
+                    //{
+                    //    answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2)) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key* (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + unitcm[0];
 
-                    }
+                    //}
                     Detail.Add(answer);
                 }
                 DetailsGraph2 answer2 = new DetailsGraph2 {volume= Math.Round(totalv,4), price = Math.Round(totalp,2), label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Totals") };
@@ -532,6 +533,8 @@ namespace GreenBankX
                         }
 
                     }
+            DetailsGraph2 answer2 = new DetailsGraph2 { volume = Math.Round(totalv, 4), price = Math.Round(totalp, 2), label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Totals") };
+            Detail.Add(answer2);
             OneTree = null;
             await PopupNavigation.Instance.PushAsync(MeasureResult.GetInstance(Detail));
         }
@@ -611,12 +614,18 @@ namespace GreenBankX
 
         private void GirthDBH2_Toggled(object sender, ToggledEventArgs e)
         {
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            string a = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth").Split('(')[0];
+            string b = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Diameter").Split(' ')[0];
+            labbott.Text = (GirthDBH2.IsToggled ? a : textInfo.ToUpper(a)) + "/" + (GirthDBH2.IsToggled ? textInfo.ToUpper(b) : b);
             if (DetailsList.IsVisible) {
                 List<SelectableData> TreeTails = new List<SelectableData>();
                 ObservableCollection<SelectableData> TreeOrig = (ObservableCollection<SelectableData>)DetailsList.ItemsSource;
                 foreach (SelectableData g in TreeOrig) {
                     g.GirthDiam(GirthDBH2.IsToggled);
                 }
+
                 DetailsList.ItemsSource = null;
                 DetailsList.ItemsSource = TreeOrig;
                // int hold = pickPlotOne.SelectedIndex;

@@ -58,7 +58,11 @@ namespace GreenBankX
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
-
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            string a = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth").Split('(')[0];
+            string b = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Diameter").Split(' ')[0];
+            labbott.Text = (GirthDBH2.IsToggled ? a : textInfo.ToUpper(a)) + "/" + (GirthDBH2.IsToggled ? textInfo.ToUpper(b) : b);
             base.OnAppearing();
             LogList.ItemsSource = null;
             PriceA.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + "(" + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
@@ -139,7 +143,13 @@ namespace GreenBankX
 
         private void GirthDBH2_Toggled(object sender, ToggledEventArgs e)
         {
-            if (LogList.IsVisible && LogList.ItemsSource != null)
+            CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+            TextInfo textInfo = cultureInfo.TextInfo;
+            string a = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Girth").Split('(')[0];
+            string b = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Diameter").Split(' ')[0];
+            labbott.Text = (GirthDBH2.IsToggled ? a:textInfo.ToUpper(a))+"/"+ (GirthDBH2.IsToggled ? textInfo.ToUpper(b):b);
+                if (LogList.IsVisible && LogList.ItemsSource != null)
+
             {
                 List<DetailsGraph2> deets = (List<DetailsGraph2>)LogList.ItemsSource;
                 List<DetailsGraph2> deets2 = new List<DetailsGraph2>();
@@ -155,11 +165,11 @@ namespace GreenBankX
                     }
                     else if (result[i, 0] == brack.Count - 1)
                     {
-                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "cm" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
+                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key * (!GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "cm" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("OrLarger"));
                     }
                     else
                     {
-                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key * (GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "cm");
+                        answer.label = (Math.Round(brack.ElementAt((int)result[i, 0]).Key * (!GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "-" + Math.Round(brack.ElementAt((int)result[i, 0] + 1).Key * (!GirthDBH2.IsToggled ? 1 / Math.PI : 1), 2) + "cm");
 
                     }
                     deets2.Add(answer);
