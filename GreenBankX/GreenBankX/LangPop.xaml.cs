@@ -110,7 +110,7 @@ namespace GreenBankX
         {
             userSelectedCulture = new System.Globalization.CultureInfo("en-AU");
             Thread.CurrentThread.CurrentCulture = userSelectedCulture;
-            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("en-AU");
+            Application.Current.Properties["Language"] = userSelectedCulture;
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();
         }
@@ -118,7 +118,8 @@ namespace GreenBankX
         private async void Lao_Clicked(object sender, EventArgs e)
         {
             userSelectedCulture = new System.Globalization.CultureInfo("lo-LA");
-            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("lo-LA");
+            userSelectedCulture.NumberFormat.NumberDecimalSeparator = ".";
+            Application.Current.Properties["Language"] = userSelectedCulture;
             Thread.CurrentThread.CurrentCulture = userSelectedCulture;
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();
@@ -127,7 +128,8 @@ namespace GreenBankX
         private async void Swedish_Clicked(object sender, EventArgs e)
         {
             userSelectedCulture = new System.Globalization.CultureInfo("sv-SE");
-            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("sv-SE");
+            userSelectedCulture.NumberFormat.NumberDecimalSeparator = ".";
+            Application.Current.Properties["Language"] = userSelectedCulture;
             Thread.CurrentThread.CurrentCulture = userSelectedCulture;
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();
@@ -135,7 +137,8 @@ namespace GreenBankX
         private async void Span_Clicked(object sender, EventArgs e)
         {
             userSelectedCulture = new System.Globalization.CultureInfo("es-ES");
-            Application.Current.Properties["Language"] = new System.Globalization.CultureInfo("es-ES");
+            userSelectedCulture.NumberFormat.NumberDecimalSeparator = ".";
+            Application.Current.Properties["Language"] = userSelectedCulture;
             Thread.CurrentThread.CurrentCulture = userSelectedCulture;
             MessagingCenter.Send<LangPop>(this, "Done");
             await PopupNavigation.Instance.PopAsync();

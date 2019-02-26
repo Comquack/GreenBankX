@@ -415,6 +415,7 @@ namespace GreenBankX
                 double totalvol = 0;
                 double totalvolM = 0;
                 double totalDia = 0;
+                double absVol = 0;
                 double totalTree = 0;
                 int count=0;
                 int tcount = 0;
@@ -424,8 +425,9 @@ namespace GreenBankX
                     Tree ThisTree = ThisPlot.getTrees().ElementAt(y);
                     SortedList<DateTime, (double, double,double)> Thistory = ThisTree.GetHistory();
                     try {
-                        (double, double,double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
-                        double[,] result = Calc.Calcs(measure.Item1, measure.Item2);
+                        //(double, double,double) measure = Thistory.Where(z => z.Key < DateTime.ParseExact((year + 1).ToString(), "yyyy", CultureInfo.InvariantCulture)).Last().Value;
+                        double[,] result = Calc.Calcs(ThisTree.GetDia(), ThisTree.Merch, ThisTree.ActualMerchHeight);
+                        absVol += (0.423 * Math.PI * Math.Pow((ThisTree.GetDia()), 2) * ThisTree.Merch) / 40000;
                     for (int x = 0; x < result.GetLength(0); x++)
                     {
                         logs[(int)result[x, 0] + 1]++;
@@ -434,7 +436,7 @@ namespace GreenBankX
                         totalvol += result[x, 2];
                             totalvolM += ((result[x, 0]==-1)?0:1)*result[x, 2];
                         total += result[x, 1];
-                        totalDia += Math.Max(result[x, 3],0);
+                        totalDia += Math.Max(result[x, 3],0)* ((result[x, 1] <= 0) ? 0 : 1) ;
                         count+= ((result[x, 0] == -1) ? 0 : 1);
                     }
                     } catch { }
@@ -493,7 +495,7 @@ namespace GreenBankX
                     Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumTree"), label2 = tcount.ToString() });
                     Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + ")", label2 = Math.Round((totalDia / (double)count), 2).ToString() + "cm" });
                     Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeanD") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Trees") + "):", label2 = Math.Round((totalTree / (double)tcount), 2).ToString() + "cm" });
-                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol"), label2 = Math.Round((totalvol), 2).ToString() + "m\xB3" });
+                    Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol"), label2 = Math.Round((absVol), 2).ToString() + "m\xB3" });
                     Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalVol") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MerchLogs") + ")", label2 = Math.Round((totalvolM), 2).ToString() + "m\xB3" });
                     Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice"), label2 = Math.Round((total), 2)* ((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2) + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) });
                     Sumtree.Add(new DetailsGraph2() { label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("NumLog") + "(" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Merch") + ")", label2 = count.ToString() });
@@ -585,7 +587,7 @@ namespace GreenBankX
                 try
                 {
                     
-                    double[,] result = Calc.Calcs(ThisTree.GetDia(), ThisTree.Merch);
+                    double[,] result = Calc.Calcs(ThisTree.GetDia(), ThisTree.Merch,ThisTree.ActualMerchHeight);
                     for (int x = 0; x < result.GetLength(0); x++)
                     {
                         if ((int)result[x, 0] == bracNo)
@@ -596,7 +598,24 @@ namespace GreenBankX
                     }
                 }
 
-                catch { }
+                catch
+                {
+                    try
+                    {
+
+                        double[,] result = Calc.Calcs(ThisTree.GetDia(), ThisTree.Merch);
+                        for (int x = 0; x < result.GetLength(0); x++)
+                        {
+                            if ((int)result[x, 0] == bracNo)
+                            {
+
+                                Detail.Add(new DetailsGraph2 { tree = ThisTree, ID = ThisTree.ID, girth = Math.Round(result[x, 3] * (Girtdswitch.IsToggled ? 1 / Math.PI : 1), 2), price = Math.Round(result[x, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), volume = Math.Round(result[x, 2], 2) });
+                            }
+                        }
+                    }
+
+                    catch { }
+                }
             }
             LogList.ItemsSource = null;
             LogList.ItemsSource = Detail;
