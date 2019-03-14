@@ -65,7 +65,7 @@ namespace GreenBankX
             labbott.Text = (GirthDBH2.IsToggled ? a : textInfo.ToUpper(a)) + "/" + (GirthDBH2.IsToggled ? textInfo.ToUpper(b) : b);
             base.OnAppearing();
             LogList.ItemsSource = null;
-            PriceA.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + "(" + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
+            PriceA.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + "(" + ((int)Application.Current.Properties["Currenselect"] == -1 ? "$" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
             LogList.ItemsSource = store;
         }
 

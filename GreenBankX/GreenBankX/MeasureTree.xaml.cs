@@ -144,6 +144,7 @@ namespace GreenBankX
             }
         }
         public async void RunAdd() {
+   
             if (Double.TryParse(merchheight.Text, out double ans) && ans > 0 && girth.Text != null && height.Text != null && pickPlot.SelectedIndex != -1)
             {
                 int ID;
@@ -159,9 +160,10 @@ namespace GreenBankX
                 else if (DateMes.Date == null)
                 {
                     title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("MeasureTree")+": "+ AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Saved");
-                    SaveAll.GetInstance().SaveTrees2();
                     ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now, ans));
-                    Device.BeginInvokeOnMainThread(() =>
+                    Tree boing = (new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateTime.Now, ans));
+                    SaveAll.GetInstance().SaveTrees2();
+                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree") + " " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
                     });
@@ -178,7 +180,7 @@ namespace GreenBankX
                 }
                 else
                 {
-                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateMes.Date));
+                    ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).AddTree(new Tree((double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1)), (double.Parse(height.Text)), ID, DateMes.Date, ans));
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SuccTree") + " " + ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlot.SelectedIndex).GetName(), "OK");
@@ -293,7 +295,7 @@ namespace GreenBankX
                 pickPlot.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
                 pickPlotOne.Items.Add(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName());
             }
-            PriceA.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + "(" + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
+            PriceA.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TotalPrice") + "(" + ((int)Application.Current.Properties["Currenselect"] == -1 ? "$" : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item1) + ")";
             pickPlot.Items.Add("New Plot");
             labbott.IsVisible = false;
             GirthDBH2.IsVisible = false;
@@ -401,13 +403,14 @@ namespace GreenBankX
 
         private void FromPlot_Clicked(object sender, EventArgs e)
         {
-            labbott.IsVisible = true;
-            GirthDBH2.IsVisible = true;
+            //labbott.IsVisible = true;
+            //GirthDBH2.IsVisible = true;
             pickPlotOne.Focus();
         }
 
         private void NewTree_Clicked(object sender, EventArgs e)
         {
+            OneTree = null;
             labbott.IsVisible = false;
             GirthDBH2.IsVisible = false;
             Show(true);
@@ -423,6 +426,8 @@ namespace GreenBankX
             plotTog.Clear();
             if (pickPlotOne.SelectedIndex > -1)
             {
+                labbott.IsVisible = true;
+                GirthDBH2.IsVisible = true;
                 Plot ThisPlot = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(pickPlotOne.SelectedIndex);
                 List<Tree> TreeList = ThisPlot.getTrees();
                 Tree ThisTree;

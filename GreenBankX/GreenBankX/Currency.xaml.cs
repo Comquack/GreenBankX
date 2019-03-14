@@ -26,11 +26,11 @@ namespace GreenBankX
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
-            nel.Add(new Currencys("USD", 1));
+            nel.Add(new Currencys("$", 1));
             foreach ((string, double) dol in (List<(string, double)>)Application.Current.Properties["Currenlist"]){
                 nel.Add(new Currencys(dol.Item1, dol.Item2));
             }
-            Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
+            Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "$" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
             Currenlist.ItemsSource = null;
             Currenlist.ItemsSource = nel;
         }
@@ -40,7 +40,7 @@ namespace GreenBankX
             if (doubletap == Currenlist.SelectedItem)
             {
                 Application.Current.Properties["Currenselect"] = ((List<Currencys>)Currenlist.ItemsSource).IndexOf(doubletap)-1;
-                Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
+                Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "$" : nel.ElementAt((int)Application.Current.Properties["Currenselect"]+1).Name);
 
             }
             else
@@ -87,7 +87,7 @@ namespace GreenBankX
                 if (res)
                 {
                     Application.Current.Properties["Currenselect"] = ((List<Currencys>)Currenlist.ItemsSource).Count-2;
-                    Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
+                    Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "$" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
                 }
                 await Task.Delay(5000);
                 title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies");
@@ -103,7 +103,7 @@ namespace GreenBankX
             if (delin == -1) { return; }
             ((List<(string, double)>)Application.Current.Properties["Currenlist"]).RemoveAt(delin);
             nel.Clear();
-            nel.Add(new Currencys("USD", 1));
+            nel.Add(new Currencys("$", 1));
             foreach ((string, double) dol in (List<(string, double)>)Application.Current.Properties["Currenlist"])
             {
                 nel.Add(new Currencys(dol.Item1, dol.Item2));
@@ -116,7 +116,7 @@ namespace GreenBankX
             DelC.IsVisible = false;
             if (((int)Application.Current.Properties["Currenselect"])== delin) {
                 Application.Current.Properties["Currenselect"] = -1;
-                Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "USD" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
+                Selected.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrenciesS") + ((int)Application.Current.Properties["Currenselect"] == -1 ? "$" : nel.ElementAt((int)Application.Current.Properties["Currenselect"] + 1).Name);
             }
             await Task.Delay(5000);
             title.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currencies");

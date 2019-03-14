@@ -29,6 +29,7 @@ namespace GreenBankX
             Application.Current.Properties["Tutmanage2"] = false;
             Application.Current.Properties["Tutdt"] = true;
             Application.Current.Properties["TLogs"] = false;
+            Application.Current.Properties["Tutplot0"] = true;
             Application.Current.Properties["Boff"] = " ";
             Application.Current.Properties["Signed"] = false;
             Application.Current.Properties["Account"] = null;

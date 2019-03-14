@@ -139,7 +139,26 @@ namespace GreenBankX
 
         protected override void OnAppearing()
         {
-
+            if (((bool)Application.Current.Properties["Tutorial"]) && (bool)Application.Current.Properties["Tutplot0"])
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool res = await DisplayAlert("Plot", "This is the Create Plot screen. Here you can create new plots for your trees.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
+                    if (res)
+                    {
+                        await DisplayAlert("Plot Location", "The location of the plot can be designated either by typing in the co-ordinates, or by tapping Add From Map to bring up a map.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("More details", "Additional details can be added to the plot by selecting, More Details. This will let you set a boundary for the plot, Name the nearest town, the owner and ass additional comments about the plot", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Set Boundary", "Set Boundary lets you define the boundary of your plot of land. This will be further explained when the option is selected", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Details", "The nearest town can be located automatically by selecting Find Location. Owner's  Name will be automatically filled in if you have logged into Google.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        await DisplayAlert("Adding Trees", "When Add Plot is selected, if the plot is valid, you will be given the option to add trees to the plot. Adding trees will be explained further when it is time to start adding trees", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+                        Application.Current.Properties["Tutplot0"] = false;
+                    }
+                    else
+                    {
+                        Application.Current.Properties["Tutplot0"] = false;
+                    }
+                });
+            }
             if (Application.Current.Properties["PriceStore"] == null)
             {
 

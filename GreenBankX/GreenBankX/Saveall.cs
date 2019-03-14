@@ -331,7 +331,8 @@ namespace GreenBankX
                     if (sheet.GetValueRowCol(1, 6).ToString() == "Merchantable Height") {
                         shift = 1;
                     }
-                        for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 10+shift).ToString()); y++)
+                    shift = 1;
+                    for (int y = 0; y < int.Parse(sheet.GetValueRowCol(1, 10+shift).ToString()); y++)
                     {
                         for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count; x++)
                         {
