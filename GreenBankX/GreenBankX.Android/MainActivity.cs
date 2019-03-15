@@ -44,7 +44,6 @@ namespace GreenBankX.Droid
            
         // [END build_client]
         global::Xamarin.Forms.Forms.Init(this, bundle);
-            OxyPlot.Xamarin.Forms.Platform.Android.PlotViewRenderer.Init();
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
             TKGoogleMaps.Init(this, bundle);
             

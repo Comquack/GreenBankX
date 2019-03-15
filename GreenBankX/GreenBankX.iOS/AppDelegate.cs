@@ -26,7 +26,6 @@ namespace GreenBankX.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.FormsMaps.Init();
-            OxyPlot.Xamarin.Forms.Platform.iOS.PlotViewRenderer.Init();
             TKCustomMapRenderer.InitMapRenderer();
             global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
             Rg.Plugins.Popup.Popup.Init();

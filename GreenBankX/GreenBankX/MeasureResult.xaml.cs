@@ -19,9 +19,6 @@ namespace GreenBankX
     public partial class MeasureResult : Rg.Plugins.Popup.Pages.PopupPage
     {
         List<DetailsGraph2> store = new List<DetailsGraph2>();
-        Geocoder Geoco;
-        Plot EditPlot;
-        int Priceno = -1;
         public static MeasureResult instance = new MeasureResult();
         public static MeasureResult GetInstance()
         {

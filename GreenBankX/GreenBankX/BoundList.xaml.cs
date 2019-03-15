@@ -22,7 +22,6 @@ namespace GreenBankX
         int delno = -1;
         List<Position> newpolygon = new List<Position>();
         List<DetailsGraph2> store = new List<DetailsGraph2>();
-        bool add = true;
         int plot = -1;
         double[] geo = null;
 

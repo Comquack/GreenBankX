@@ -19,7 +19,6 @@ namespace GreenBankX
         Tree OneTree = null;
         bool AllOne = false;
         Tree doubletapTree;
-           Tree ThisTree;
         ObservableCollection<SelectableData> plotTog;
         public MeasureTree()
         {
@@ -88,7 +87,7 @@ namespace GreenBankX
                 {
                     totalv += result[i, 2];
                     totalp += result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2));
-            DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result=result,tree = ThisTree, brack =brack, resultrow = i };
+            DetailsGraph2 answer = new DetailsGraph2 { volume = Math.Round(result[i, 2], 4), price = Math.Round(result[i, 1] * (((int)Application.Current.Properties["Currenselect"] == -1 ? 1 : ((List<(string, double)>)Application.Current.Properties["Currenlist"]).ElementAt((int)Application.Current.Properties["Currenselect"]).Item2)), 2), result=result, brack =brack, resultrow = i };
                     if (result[i, 0] == -1)
                     {
                         answer.label = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TooSmall");

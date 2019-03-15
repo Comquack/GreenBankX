@@ -17,7 +17,6 @@
     <PackageReference Include="Google.Apis.Auth" Version="1.35.1" />
     <PackageReference Include="Google.Apis.Core" Version="1.35.1" />
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.35.1.1330" />
-    <PackageReference Include="OxyPlot.Xamarin.Forms" Version="1.0.0" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="16.2.0.46" />
     <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.2.0.46" />

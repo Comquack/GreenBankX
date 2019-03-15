@@ -6,8 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using GreenBankX.Resources;
-using OxyPlot.Axes;
-using OxyPlot.Series;
+
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -22,7 +21,6 @@ namespace GreenBankX
         int GraphNo = -1;
         int Listhadler = -1;
         DetailsGraph doubletap = null;
-        Tree doubletapTree;
         int year = DateTime.Now.Year;
         ObservableCollection<PlotContainer> plotty = new ObservableCollection<PlotContainer>();
         PlotContainer doubletap2;
@@ -208,10 +206,10 @@ namespace GreenBankX
                     double total = 0;
                     List<string> Lablels = new List<string>();
                     List<string> ListLablels = new List<string>();
-                    List<ColumnItem> ItemsSource = new List<ColumnItem>();
+
                     for (int x = -1; x < thisRange.GetBrack().Count; x++)
                     {
-                        ItemsSource.Add(new ColumnItem { CategoryIndex = x + 1 });
+                       
                         if (x == -1)
                         {
                             Lablels.Add("<" + Math.Round((thisRange.GetBrack().ElementAt(0).Key * (Girtdswitch.IsToggled ? 1 : Math.PI)),2).ToString() + "cm");
@@ -233,10 +231,7 @@ namespace GreenBankX
                         total = +result[x, 1];
                         totVol += result[x, 2];
                     }
-                    for (int x = 0; x < thisRange.GetBrack().Count + 1; x++)
-                    {
-                        ItemsSource.ElementAt(x).Value = Math.Round((double)logs[x] / (double)(result.GetLength(0)) * 100, 2);
-                    }
+
                     string title = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TreeID") + ": " + ThisTree.ID.ToString() + " " + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Date") + ": " + ThisTree.GetHistory().ElementAt(GraphNo).Key.ToShortDateString();
 
                     if (GraphNo <= 0)
@@ -385,10 +380,10 @@ namespace GreenBankX
                 double total = 0;
                 List<string> Lablels = new List<string>();
                 List<string> ListLablels = new List<string>();
-                List<ColumnItem> ItemsSource = new List<ColumnItem>();
+
                 for (int x = -1; x < thisRange.GetBrack().Count; x++)
                 {
-                    ItemsSource.Add(new ColumnItem { CategoryIndex = x+1 });
+
                     if (x == -1)
                     {
                         Lablels.Add("<" + Math.Round((thisRange.GetBrack().ElementAt(0).Key * (Girtdswitch.IsToggled ? 1 : Math.PI)), 2).ToString() + "cm");
@@ -606,7 +601,6 @@ namespace GreenBankX
             pickTree.IsVisible = false;
             DetailsList.IsVisible = false;
             LogClassList.IsVisible = false;
-             doubletapTree = null;
              year = DateTime.Now.Year;
             ShowGraph.Items.Clear();
             ShowGraph.Items.Add(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("SumL1"));

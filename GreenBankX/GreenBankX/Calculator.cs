@@ -76,7 +76,6 @@ namespace GreenBankX
             SortedList<double, double> brack = prices.GetBrack();
             int noLogs = (int)Math.Floor((TotalHeight) / LOGLEN);
             double[,] totals = new double[noLogs, 5];
-            double taper = 0;
             double rH = 0;
             double rL = 0;
             
