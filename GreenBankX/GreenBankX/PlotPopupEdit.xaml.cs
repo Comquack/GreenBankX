@@ -19,7 +19,6 @@ namespace GreenBankX
     {
         Geocoder Geoco;
         Plot EditPlot;
-        int Priceno = -1;
         public static PlotPopupEdit instance = new PlotPopupEdit();
         public static PlotPopupEdit GetInstance()
         {

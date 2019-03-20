@@ -224,22 +224,23 @@ namespace GreenBankX
             base.OnAppearing();
         }
 
-            private void Tute_Clicked(object sender, EventArgs e)
+            private async void Tute_Clicked(object sender, EventArgs e)
         {
-           Application.Current.Properties["Tutorial"] = true;
-            Device.BeginInvokeOnMainThread(async () =>
-            {
-                bool res = await DisplayAlert("Tutorial", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu0"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
-               // bool res = await DisplayAlert("Tutorial","This is the latest version: 3.24. Tutorial feature pending ", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
+            await PopupNavigation.Instance.PushAsync(Tutepop.GetInstance());
+            // Application.Current.Properties["Tutorial"] = true;
+            //Device.BeginInvokeOnMainThread(async () =>
+            // {
+            //  bool res = await DisplayAlert("Tutorial", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu0"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
+            // bool res = await DisplayAlert("Tutorial","This is the latest version: 3.24. Tutorial feature pending ", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
 
-                if (res)
-                {
-                    await DisplayAlert("Signing in to Google.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu1"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
-                }
-                else {
-                    Application.Current.Properties["Tutorial"] = false;
-                }
-            });
+            // if (res)
+            // {
+            //    await DisplayAlert("Signing in to Google.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu1"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
+            // }
+            // else {
+            //    Application.Current.Properties["Tutorial"] = false;
+            //}
+            // });Tutepop
         }
 
         async private void BttnOther_Clicked(object sender, EventArgs e)
