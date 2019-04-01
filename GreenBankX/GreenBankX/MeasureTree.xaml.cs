@@ -112,7 +112,7 @@ namespace GreenBankX
             else {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    bool result = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), "OK", "Add Price Scheme");
+                    bool result = await DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("PSPrice"), "OK", "( Price Scheme");
                     if (!result)
                     {
                         await Navigation.PushAsync(new CreatePricing());

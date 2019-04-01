@@ -64,7 +64,7 @@ namespace GreenBankX
                 for (int x = 0; x < TreeList.Count; x++)
                 {
                     ThisTree = TreeList.ElementAt(x);
-                    Detailstree.Add(new DetailsGraph2() { girth = Math.Round(ThisTree.Diameter * (Girtdswitch.IsToggled ? 1/ Math.PI : 1 ), 2), ID = ThisTree.Id, price = ThisTree.Merch, tree = ThisTree });
+                    Detailstree.Add(new DetailsGraph2() {girth = Math.Round(ThisTree.Diameter*(Girtdswitch.IsToggled?1 / Math.PI : 1),2), ID = ThisTree.Id, price = ThisTree.Merch,tree = ThisTree, label2 = (ThisTree.ActualMerchHeight>0)? ThisTree.ActualMerchHeight.ToString():"?"});
                     TreeTails.Add(ThisTree);
                 }
                 DetailsList.IsVisible = true;

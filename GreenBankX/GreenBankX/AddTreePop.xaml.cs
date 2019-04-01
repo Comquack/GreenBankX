@@ -35,12 +35,22 @@ namespace GreenBankX
         }
         public void Done() {
             int ID;
-            if (height.Text != null && double.Parse(height.Text) > 0 && girth.Text != null && double.Parse(girth.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
+            if (Double.TryParse(merchheight.Text, out double ans) && ans > 0&&height.Text != null && double.Parse(height.Text) > 0 && girth.Text != null && double.Parse(girth.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
             {
                 counter = (int)Application.Current.Properties["Counter"];
                 try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count - 1).Id + 1; }
                 catch { ID = 1; }
                 
+                ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text), ID, DateMes.Date,ans));
+                MessagingCenter.Send<AddTreePop>(this, "Add");
+                Clear();
+                //await PopupNavigation.Instance.PopAsync();
+            }else if(height.Text != null && double.Parse(height.Text) > 0 && girth.Text != null && double.Parse(girth.Text) > 0 && Application.Current.Properties["Counter"] != null && (int)Application.Current.Properties["Counter"] > -1 && DateMes.Date < DateTime.Now)
+            {
+                counter = (int)Application.Current.Properties["Counter"];
+                try { ID = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().ElementAt(((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).getTrees().Count - 1).Id + 1; }
+                catch { ID = 1; }
+
                 ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(counter).AddTree(new Tree(double.Parse(girth.Text) * (GirthDBH.IsToggled ? Math.PI : 1), double.Parse(height.Text), ID, DateMes.Date));
                 MessagingCenter.Send<AddTreePop>(this, "Add");
                 Clear();
