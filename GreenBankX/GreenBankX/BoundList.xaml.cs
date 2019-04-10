@@ -137,7 +137,7 @@ namespace GreenBankX
         private void Button_Clicked(object sender, EventArgs e)
         {
             if (Latent.Text == null)
-            {
+            {  
                 return;
             }
             double[] geo = new double[] { 0, 0 };
@@ -150,10 +150,14 @@ namespace GreenBankX
                 });
                 return;
             }
-            if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
+            if (double.TryParse(splitter.ElementAt(0), out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
             {
                 if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180)
                 {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("WrongCoord"), "OK");
+                    });
                     return;
                 }
                 bool addon = true;

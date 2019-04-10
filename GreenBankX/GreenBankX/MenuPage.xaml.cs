@@ -227,20 +227,7 @@ namespace GreenBankX
             private async void Tute_Clicked(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(Tutepop.GetInstance());
-            // Application.Current.Properties["Tutorial"] = true;
-            //Device.BeginInvokeOnMainThread(async () =>
-            // {
-            //  bool res = await DisplayAlert("Tutorial", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu0"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
-            // bool res = await DisplayAlert("Tutorial","This is the latest version: 3.24. Tutorial feature pending ", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Continue"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Skip"));
 
-            // if (res)
-            // {
-            //    await DisplayAlert("Signing in to Google.", AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("TuteMenu1"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Next"));
-            // }
-            // else {
-            //    Application.Current.Properties["Tutorial"] = false;
-            //}
-            // });Tutepop
         }
 
         async private void BttnOther_Clicked(object sender, EventArgs e)
@@ -256,6 +243,11 @@ namespace GreenBankX
         async private void Curren_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Currency());
+        }
+
+        async private void Cred_Clicked(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(Credits.GetInstance());
         }
     }
     class ClockViewModel : INotifyPropertyChanged

@@ -50,6 +50,9 @@
     <Compile Update="BoundList.xaml.cs">
       <DependentUpon>BoundList.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Credits.xaml.cs">
+      <DependentUpon>Credits.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Tutepop.xaml.cs">
       <DependentUpon>Tutepop.xaml</DependentUpon>
     </Compile>
