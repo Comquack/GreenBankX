@@ -25,6 +25,23 @@
         BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
         <WebView
-            x:Name="dennis"/>
+            x:Name="dennis"
+            IsVisible="False"/>
+        <Button
+            x:Name="PriceB"
+            Text="{local:TranslateExtension Pricings}"
+            Clicked="PriceB_Clicked"
+            />
+        <Button
+            x:Name="PlotB"
+            Text="{local:TranslateExtension AddPlot}"
+            Clicked="PlotB_Clicked"
+            />
+        <Button
+            x:Name="SummB"
+            Text="{local:TranslateExtension Summary}"
+            Clicked="SummB_Clicked"
+            />
+
     </StackLayout>
 </pages:PopupPage>

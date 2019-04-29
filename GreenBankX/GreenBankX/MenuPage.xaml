@@ -135,7 +135,7 @@
                     BackgroundColor="LightGray"
                    TextColor="Green"
                     Grid.Column="1"
-                    Grid.Row="8"
+                    Grid.Row="9"
                     Clicked="Cred_Clicked"/>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="20*" />

@@ -37,9 +37,6 @@ namespace GreenBankX
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
-            dennis.HeightRequest = Application.Current.MainPage.Height/2;
-            dennis.WidthRequest = Application.Current.MainPage.Width;
-            dennis.Source = "https://www.youtube.com/embed/_r1UiNZ3G4Y";
         }
 
 
@@ -111,6 +108,28 @@ namespace GreenBankX
             return base.OnBackgroundClicked();
         }
 
-      
+        private void PriceB_Clicked(object sender, EventArgs e)
+        {
+            dennis.HeightRequest = Application.Current.MainPage.Height / 2;
+            dennis.WidthRequest = Application.Current.MainPage.Width;
+            dennis.IsVisible = true;
+            dennis.Source = "https://youtube.com/embed/cvJW3ZghrrU";
+        }
+
+        private void PlotB_Clicked(object sender, EventArgs e)
+        {
+            dennis.HeightRequest = Application.Current.MainPage.Height / 2;
+            dennis.WidthRequest = Application.Current.MainPage.Width;
+            dennis.IsVisible = true;
+            dennis.Source = "https://youtube.com/embed/2QL01_wyCGI";
+        }
+
+        private void SummB_Clicked(object sender, EventArgs e)
+        {
+            dennis.HeightRequest = Application.Current.MainPage.Height / 2;
+            dennis.WidthRequest = Application.Current.MainPage.Width;
+            dennis.IsVisible = true;
+            dennis.Source = "https://youtube.com/embed/7tlbBvQb8NU";
+        }
     }
 }

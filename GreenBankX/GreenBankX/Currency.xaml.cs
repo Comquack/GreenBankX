@@ -57,7 +57,7 @@ namespace GreenBankX
 
         private void AddC_Clicked(object sender, EventArgs e)
         {
-            if (AddC.Text == "Add Currency")
+            if (AddC.Text == AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("CurrAdd"))
             {
                 Rate.IsVisible = true;
                 Name.IsVisible = true;
