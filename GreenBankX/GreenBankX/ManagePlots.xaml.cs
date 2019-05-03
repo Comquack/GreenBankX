@@ -250,6 +250,9 @@ namespace GreenBankX
             {
                 Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
             }
+            PlotList1.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Name");
+            PlotList2.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Trees");
+            PlotList3.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DateMade");
             DunLLoadin();
             GraphNo = -1;
             DetailsList.IsVisible = false;

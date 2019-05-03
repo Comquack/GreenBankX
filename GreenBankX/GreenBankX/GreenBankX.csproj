@@ -53,6 +53,11 @@
     <Compile Update="Credits.xaml.cs">
       <DependentUpon>Credits.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Resources\AppResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Tutepop.xaml.cs">
       <DependentUpon>Tutepop.xaml</DependentUpon>
     </Compile>
@@ -129,7 +134,7 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\AppResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResource - Copy.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="UserEdit.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

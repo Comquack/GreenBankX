@@ -201,7 +201,8 @@
                                 TextColor="Black"
                                         Grid.Column="2"></Label>
                                 <Label
-                                Text="Number of Logs"
+                                    x:Name ="Logclnum"
+                                Text="{local:TranslateExtension NumLog}"
                                 TextColor="Black"
                                         Grid.Column="3"></Label>
                             </Grid>

@@ -29,14 +29,17 @@
                     <ListView.Header>
                         <Grid>
                             <Label
+                                 x:Name="PlotList1"
                                 Text="{local:TranslateExtension Name}"
                                 TextColor="Black"
                                         Grid.Column="0"></Label>
                             <Label
+                                x:Name="PlotList2"
                                 Text="{local:TranslateExtension Trees}"
                                 TextColor="Black"
                                         Grid.Column="1"></Label>
                             <Label
+                                x:Name="PlotList3"
                                 Text="{local:TranslateExtension DateMade}"
                                 TextColor="Black"
                                         Grid.Column="2"></Label>

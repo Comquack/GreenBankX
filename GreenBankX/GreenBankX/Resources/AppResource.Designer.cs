@@ -1321,6 +1321,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string Team {
+            get {
+                return ResourceManager.GetString("Team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Today.
         /// </summary>
         public static string Today {

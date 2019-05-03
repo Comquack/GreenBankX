@@ -624,4 +624,7 @@
   <data name="yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
 </root>

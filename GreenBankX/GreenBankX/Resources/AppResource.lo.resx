@@ -592,7 +592,7 @@
     <value>ປຸ່ມ "ກ່ອນຫນ້າ" ແລະ "ຫຼັງຈາກນັ້ນ" ປ່ຽນຂໍ້ມູນການວັດທີ່ຜ່ານມາ / ຕໍ່ໄປທີ່ເຮັດໃຫ້ຕົ້ນໄມ້ນັ້ນ. ປຸ່ມເພີ່ມ ຂໍ້ມູນນັ້ນຈະຊ່ວຍໃຫ້ທ່ານສາມາດເພີ່ມຂໍ້ມູນການວັດແທກໃຫມ່ສໍາລັບຕົ້ນໄມ້.</value>
   </data>
   <data name="Tutorial" xml:space="preserve">
-    <value>Tutorial</value>
+    <value>ຄູ່​ມື</value>
   </data>
   <data name="Upload" xml:space="preserve">
     <value>ອັບໂຫລດ</value>
@@ -623,5 +623,8 @@
   </data>
   <data name="YPlant" xml:space="preserve">
     <value>ປີປູກ</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>ຄູ່​ມື</value>
   </data>
 </root>

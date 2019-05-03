@@ -127,7 +127,7 @@
                     Clicked="Tute_Clicked"/>
                     <Button
                     x:Name="Cred"
-                   Text="Credits"
+                   Text="{local:TranslateExtension Team}"
                    VerticalOptions="Center"
                    IsVisible="true"
                    FontSize="Large"
