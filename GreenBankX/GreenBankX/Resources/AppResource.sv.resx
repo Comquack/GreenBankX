@@ -624,4 +624,13 @@
   <data name="YPlant" xml:space="preserve">
     <value>år planterats</value>
   </data>
+  <data name="zyoutube1" xml:space="preserve">
+    <value>https://youtube.com/embed/cvJW3ZghrrU</value>
+  </data>
+  <data name="zyoutube2" xml:space="preserve">
+    <value>https://youtube.com/embed/2QL01_wyCGI</value>
+  </data>
+  <data name="zyoutube3" xml:space="preserve">
+    <value>https://youtube.com/embed/7tlbBvQb8NU</value>
+  </data>
 </root>

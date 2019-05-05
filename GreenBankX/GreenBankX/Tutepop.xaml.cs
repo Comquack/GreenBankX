@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using GreenBankX.Resources;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -17,16 +18,19 @@ namespace GreenBankX
 
         public static Tutepop GetInstance()
         {
-            if (instance == null)
-            {
-                return new Tutepop();
-            }
-            return instance;
+            //  if (instance == null)
+
+            return new Tutepop();
+          //  }
+           // return instance;
         }
 
         private Tutepop()
         {
-            
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             InitializeComponent();
         }
 
@@ -110,26 +114,41 @@ namespace GreenBankX
 
         private void PriceB_Clicked(object sender, EventArgs e)
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             dennis.HeightRequest = Application.Current.MainPage.Height / 2;
             dennis.WidthRequest = Application.Current.MainPage.Width;
             dennis.IsVisible = true;
-            dennis.Source = "https://youtube.com/embed/cvJW3ZghrrU";
+            dennis.Source = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube1");
+          //  Demmous.Text= AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube1");
         }
 
         private void PlotB_Clicked(object sender, EventArgs e)
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             dennis.HeightRequest = Application.Current.MainPage.Height / 2;
             dennis.WidthRequest = Application.Current.MainPage.Width;
             dennis.IsVisible = true;
-            dennis.Source = "https://youtube.com/embed/2QL01_wyCGI";
+            dennis.Source = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube2");
+          //  Demmous.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube2");
         }
 
         private void SummB_Clicked(object sender, EventArgs e)
         {
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             dennis.HeightRequest = Application.Current.MainPage.Height / 2;
             dennis.WidthRequest = Application.Current.MainPage.Width;
             dennis.IsVisible = true;
-            dennis.Source = "https://youtube.com/embed/7tlbBvQb8NU";
+            dennis.Source = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube3");
+           // Demmous.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube3");
         }
     }
 }

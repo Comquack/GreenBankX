@@ -176,6 +176,7 @@ namespace GreenBankX
                 Curren.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Currency");
                 Lang.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Language");
                 Tute.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Tutorial");
+                Cred.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Team");
             });
                await PopupNavigation.Instance.PushAsync(LangPop.GetInstance());
         }

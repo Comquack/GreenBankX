@@ -627,4 +627,13 @@
   <data name="Team" xml:space="preserve">
     <value>ຄູ່​ມື</value>
   </data>
+  <data name="zyoutube1" xml:space="preserve">
+    <value>https://youtube.com/embed/UD86i3kyp54</value>
+  </data>
+  <data name="zyoutube2" xml:space="preserve">
+    <value>https://youtube.com/embed/J_WVTj2zbWU</value>
+  </data>
+  <data name="zyoutube3" xml:space="preserve">
+    <value>https://youtube.com/embed/sTrRd41pP9w</value>
+  </data>
 </root>

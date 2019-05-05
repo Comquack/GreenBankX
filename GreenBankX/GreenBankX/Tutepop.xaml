@@ -24,6 +24,8 @@
         HorizontalOptions="Center"
         BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
+        <Label
+            x:Name="Demmous"/>
         <WebView
             x:Name="dennis"
             IsVisible="False"/>

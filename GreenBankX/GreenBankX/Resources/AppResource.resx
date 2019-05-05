@@ -627,4 +627,13 @@
   <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
+  <data name="zyoutube1" xml:space="preserve">
+    <value>https://youtube.com/embed/cvJW3ZghrrU</value>
+  </data>
+  <data name="zyoutube2" xml:space="preserve">
+    <value>https://youtube.com/embed/2QL01_wyCGI</value>
+  </data>
+  <data name="zyoutube3" xml:space="preserve">
+    <value>https://youtube.com/embed/7tlbBvQb8NU</value>
+  </data>
 </root>

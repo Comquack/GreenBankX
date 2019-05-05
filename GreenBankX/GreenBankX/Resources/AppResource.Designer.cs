@@ -1589,5 +1589,32 @@ namespace GreenBankX.Resources {
                 return ResourceManager.GetString("YPlant", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://youtube.com/embed/cvJW3ZghrrU.
+        /// </summary>
+        public static string zyoutube1 {
+            get {
+                return ResourceManager.GetString("zyoutube1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://youtube.com/embed/2QL01_wyCGI.
+        /// </summary>
+        public static string zyoutube2 {
+            get {
+                return ResourceManager.GetString("zyoutube2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://youtube.com/embed/7tlbBvQb8NU.
+        /// </summary>
+        public static string zyoutube3 {
+            get {
+                return ResourceManager.GetString("zyoutube3", resourceCulture);
+            }
+        }
     }
 }
