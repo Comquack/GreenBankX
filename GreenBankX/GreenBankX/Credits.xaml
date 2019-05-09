@@ -46,7 +46,7 @@
 
         <Label
             FontSize="Medium"
-            Text="GreenBank Prototype Version"
+            Text="GreenBank Prototype Version 2 by: 1 2 Tree"
             />
         <Label
             Text="Clancy O'Reilly"
@@ -65,6 +65,38 @@
             />
         <Label
             Text="Ben Wildie"
+            />
+        <Label
+            Text="Dr Mark Dieter"
+            />
+        <Label
+            Text="Dr Nahuel Pachas"
+            />
+        <Label
+            Text=""
+            />
+
+        <Label
+            FontSize="Medium"
+            Text="GreenBank Prototype Version 1 by:Team Cali"
+            />
+        <Label
+            Text="Rohan Singh"
+            />
+        <Label
+            Text="Justin Chin"
+            />
+        <Label
+            Text="Yujie Xie"
+            />
+        <Label
+            Text="Bimo P. Reksoprodjo"
+            />
+        <Label
+            Text="Kian Noctor"
+            />
+        <Label
+            Text="Felipe Vasquez"
             />
         <Label
             Text="Dr Mark Dieter"

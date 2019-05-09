@@ -440,5 +440,12 @@ namespace GreenBankX
             return base.OnBackgroundClicked();
         }
 
+        private void Satmap_Clicked(object sender, EventArgs e)
+        {
+            if (MyMap.MapType == MapType.Satellite) { MyMap.MapType = MapType.Street;
+            } else { MyMap.MapType = MapType.Satellite; }
+            
+            
+        }
     }
 }
