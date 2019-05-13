@@ -23,6 +23,17 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid>
+                <Button
+                x:Name="Satmap"
+               Text="Satelite/Map"
+               HorizontalOptions="EndAndExpand"
+               IsVisible="true"
+               FontAttributes="Bold"
+                BackgroundColor="LightGray"
+               TextColor="Green"
+                Clicked="Satmap_Clicked"
+                    Grid.Row="0"
+                />
                 <customMap:TKCustomMap 
             x:Name="MyMap"
                 x:FieldModifier="MyMaps"
@@ -31,7 +42,7 @@
                 MapLongPress="PlacePin"
                     MapClicked="PlacePin"
                 IsClusteringEnabled="false"
-                Grid.Row="0"
+                Grid.Row="1"
                 MapReady="MapReady"
                 PinSelected="MyMap_PinSelected"    
                 />
@@ -46,7 +57,7 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Clicked="NewPlot"
-                Grid.Row="1"
+                Grid.Row="2"
                 />
                 <Button
                 x:Name="AtLocationButton"
@@ -58,7 +69,7 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Clicked="PinHere"
-                Grid.Row="1"
+                Grid.Row="2"
                 />
                 <Button
                 x:Name="CancelButton"
@@ -70,14 +81,15 @@
                 BackgroundColor="LightGray"
                TextColor="Green"
                 Clicked="Cancel"
-                Grid.Row="1"
+                Grid.Row="2"
                 />
                 <Label
                     x:Name="showName"
                   IsVisible="False"  
                     />
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="90*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="80*" />
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
             </Grid>
