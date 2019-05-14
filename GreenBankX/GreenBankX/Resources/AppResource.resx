@@ -625,7 +625,7 @@
     <value>Yes</value>
   </data>
   <data name="Team" xml:space="preserve">
-    <value>Team</value>
+    <value>About Us</value>
   </data>
   <data name="zyoutube1" xml:space="preserve">
     <value>https://youtube.com/embed/cvJW3ZghrrU</value>
@@ -635,5 +635,17 @@
   </data>
   <data name="zyoutube3" xml:space="preserve">
     <value>https://youtube.com/embed/7tlbBvQb8NU</value>
+  </data>
+  <data name="Cred1" xml:space="preserve">
+    <value>GreenBank: Release Version</value>
+  </data>
+  <data name="Cred2" xml:space="preserve">
+    <value>GreenBank: Prototype Version 2 by: 1 2 Tree</value>
+  </data>
+  <data name="Cred3" xml:space="preserve">
+    <value>GreenBank: Prototype Version 1 by:Team Cali</value>
+  </data>
+  <data name="SatMap" xml:space="preserve">
+    <value>Satellite/Map</value>
   </data>
 </root>

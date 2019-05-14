@@ -7,7 +7,7 @@
         <StackLayout>
             <Label
                 x:Name="title"
-                Text="Measure Tree"
+                Text="{local:TranslateExtension MeasureTree}"
                 FontSize="Medium" 
                 HorizontalOptions="CenterAndExpand" />
             <Grid>

@@ -19,17 +19,18 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
+    <ScrollView>
     <StackLayout 
         VerticalOptions="Center" 
         HorizontalOptions="Center"
         BackgroundColor="LightGray"
         Padding="20, 20, 20, 20">
         <Label
-            Text="Credits"
+            Text="{local:TranslateExtension Team}"
             FontSize="Large"/>
         <Label
             FontSize="Medium"
-            Text="GreenBank Release Version"
+            Text="{local:TranslateExtension Cred1}"
             />
         <Label
             Text="Ben Wildie"
@@ -46,7 +47,7 @@
 
         <Label
             FontSize="Medium"
-            Text="GreenBank Prototype Version 2 by: 1 2 Tree"
+            Text="{local:TranslateExtension Cred2}"
             />
         <Label
             Text="Clancy O'Reilly"
@@ -78,7 +79,7 @@
 
         <Label
             FontSize="Medium"
-            Text="GreenBank Prototype Version 1 by:Team Cali"
+            Text="{local:TranslateExtension Cred3}"
             />
         <Label
             Text="Rohan Singh"
@@ -104,5 +105,11 @@
         <Label
             Text="Dr Nahuel Pachas"
             />
+        <Button
+            x:Name="Close"
+            Text="{local:TranslateExtension Close}"
+            Clicked="Close_Clicked"
+            />
     </StackLayout>
+    </ScrollView>
 </pages:PopupPage>

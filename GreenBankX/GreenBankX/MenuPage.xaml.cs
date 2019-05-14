@@ -177,6 +177,13 @@ namespace GreenBankX
                 Lang.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Language");
                 Tute.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Tutorial");
                 Cred.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Team");
+                try
+                {
+                    User user = null;
+                    user = (User)Application.Current.Properties["User"];
+                    Xamarin.Forms.Application.Current.Properties["Boff"] = "Hello " + user.Name + "\n" + AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome2");
+                }
+                catch { Xamarin.Forms.Application.Current.Properties["Boff"] = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("Welcome1"); }
             });
                await PopupNavigation.Instance.PushAsync(LangPop.GetInstance());
         }

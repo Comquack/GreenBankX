@@ -625,7 +625,7 @@
     <value>ປີປູກ</value>
   </data>
   <data name="Team" xml:space="preserve">
-    <value>ຄູ່​ມື</value>
+    <value>ກ່ຽວ​ກັບ​ພວກ​ເຮົາ</value>
   </data>
   <data name="zyoutube1" xml:space="preserve">
     <value>https://youtube.com/embed/UD86i3kyp54</value>
@@ -635,5 +635,17 @@
   </data>
   <data name="zyoutube3" xml:space="preserve">
     <value>https://youtube.com/embed/sTrRd41pP9w</value>
+  </data>
+  <data name="Cred1" xml:space="preserve">
+    <value>Greenbank: ສະບັບສຸດທ້າຍ</value>
+  </data>
+  <data name="Cred2" xml:space="preserve">
+    <value>GreenBank: ທົດສອບສະບັບ 2 ໂດຍ 12Tree</value>
+  </data>
+  <data name="Cred3" xml:space="preserve">
+    <value>GreenBank: ທົດສອບສະບັບ 1 ໂດຍ Team Cali</value>
+  </data>
+  <data name="SatMap" xml:space="preserve">
+    <value>ດາວທຽມ/ແຜນທີ່</value>
   </data>
 </root>

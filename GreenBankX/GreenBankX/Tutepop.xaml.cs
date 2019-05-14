@@ -150,5 +150,10 @@ namespace GreenBankX
             dennis.Source = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube3");
            // Demmous.Text = AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("zyoutube3");
         }
+
+        async private void Close_Clicked(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PopAsync();
+        }
     }
 }

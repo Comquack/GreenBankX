@@ -277,6 +277,33 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GreenBank: Release Version.
+        /// </summary>
+        public static string Cred1 {
+            get {
+                return ResourceManager.GetString("Cred1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GreenBank: Prototype Version 2 by: 1 2 Tree.
+        /// </summary>
+        public static string Cred2 {
+            get {
+                return ResourceManager.GetString("Cred2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GreenBank: Prototype Version 1 by:Team Cali.
+        /// </summary>
+        public static string Cred3 {
+            get {
+                return ResourceManager.GetString("Cred3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Currency.
         /// </summary>
         public static string CurrAdd {
@@ -1096,6 +1123,15 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Satellite/Map.
+        /// </summary>
+        public static string SatMap {
+            get {
+                return ResourceManager.GetString("SatMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -1321,7 +1357,7 @@ namespace GreenBankX.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Team.
+        ///   Looks up a localized string similar to About Us.
         /// </summary>
         public static string Team {
             get {

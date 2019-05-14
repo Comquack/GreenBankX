@@ -141,7 +141,7 @@ namespace GreenBankX
                 });
             }
             StartMap(true);
-            PolyMap();
+
         }
             public async void StartMap(bool first) {
             //renders map, centres on user, creates pins from plots
@@ -203,24 +203,7 @@ namespace GreenBankX
             {
             }
         }
-        //renders polygons(plot area)
-        public void PolyMap() {
-            //List<TKPolygon> polylist = new List<TKPolygon>();
-            //for (int x = 0; x < ((List<Plot>)Application.Current.Properties["Plots"]).Count(); x++) {
-            //    if (((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetPolygon().Count > 0)
-            //    {
-            //        TKPolygon newpoly = new TKPolygon
-            //        {
-            //            Coordinates = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetPolygon(),
-            //            Color = Color.LightGray,
-            //            StrokeColor = Color.LightGreen
-            //        };
-            //        polylist.Add(newpoly);
-            //    }
-            //        }
 
-            //MyMap.Polygons = polylist;
-        }
         //unselects pin
         async public void Cancel() {
             await PopupNavigation.Instance.PopAsync();

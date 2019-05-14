@@ -26,7 +26,10 @@ namespace GreenBankX
 
         private Credits()
         {
-            
+            if (Application.Current.Properties["Language"] != null)
+            {
+                Thread.CurrentThread.CurrentCulture = (CultureInfo)Application.Current.Properties["Language"];
+            }
             InitializeComponent();
         }
 
@@ -105,7 +108,11 @@ namespace GreenBankX
             // Return false if you don't want to close this popup page when a background of the popup page is clicked
             return base.OnBackgroundClicked();
         }
+        async private void Close_Clicked(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PopAsync();
+        }
 
-       
+
     }
 }

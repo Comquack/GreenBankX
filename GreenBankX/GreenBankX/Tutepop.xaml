@@ -44,6 +44,11 @@
             Text="{local:TranslateExtension Summary}"
             Clicked="SummB_Clicked"
             />
+        <Button
+            x:Name="Close"
+            Text="{local:TranslateExtension Close}"
+            Clicked="Close_Clicked"
+            />
 
     </StackLayout>
 </pages:PopupPage>
