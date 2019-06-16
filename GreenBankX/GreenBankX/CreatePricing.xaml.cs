@@ -316,14 +316,15 @@ namespace GreenBankX
 
         private void maxDiam_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            if (e.NewTextValue != null && e.NewTextValue != "" && double.TryParse(e.NewTextValue, out double latout) && (latout >= 1000 || latout < 0))
             {
                 maxDiam.Text = e.OldTextValue;
             }
         }
         private void minDiam_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (e.NewTextValue != null && e.NewTextValue != "" && (double.Parse(e.NewTextValue) >= 1000 || double.Parse(e.NewTextValue) < 0))
+            
+            if (e.NewTextValue != null && e.NewTextValue != "" && double.TryParse(e.NewTextValue, out double latout) && (latout >= 1000 || latout < 0))
             {
                 minDiam.Text = e.OldTextValue;
             }

@@ -45,7 +45,16 @@ namespace GreenBankX
             if (PlotName.Text != null && int.TryParse(PlotYear.Text, out int yearout)&& yearout <= DateTime.Now.Year)
             {
                 double[] geo;
+                if (Latent.Text == null)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("InputInv"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("WrongCoord"), "OK");
+                    });
+                    return;
+                }
                 string[] splitter = Latent.Text.Split(',');
+
                 if (splitter.Count() != 2) {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -64,10 +73,10 @@ namespace GreenBankX
                 }
                     geo = new double[] { latout, lonout };
                 }
-                else if (Application.Current.Properties["ThisLocation"] != null)
-                {
-                    geo = (double[])Application.Current.Properties["ThisLocation"];
-                }
+             //   else if (Application.Current.Properties["ThisLocation"] != null)
+             //   {
+             //       geo = (double[])Application.Current.Properties["ThisLocation"];
+               // }
                 else {
                     Device.BeginInvokeOnMainThread(() =>
                     {
