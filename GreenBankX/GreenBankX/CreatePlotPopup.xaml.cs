@@ -166,10 +166,11 @@ namespace GreenBankX
             //renders map, centres on user, creates pins from plots
             try
             {
-   
+
                 Pins = new List<TKCustomMapPin>();
                 int num = ((List<Plot>)Application.Current.Properties["Plots"]).Count();
-                for (int x=0; x < num; x++) {
+                for (int x = 0; x < num; x++)
+                {
                     double[] pinLoc = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetTag();
                     Position position = new Position(pinLoc[0], pinLoc[1]);
                     Pins.Add(new TKCustomMapPin
@@ -178,10 +179,19 @@ namespace GreenBankX
                         Title = ((List<Plot>)Application.Current.Properties["Plots"]).ElementAt(x).GetName(),
                         IsVisible = true,
                         ShowCallout = true
-                        
+
                     });
                 }
                 MyMap.Pins = Pins;
+            }
+            catch {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DisplayAlert("dataLoad", "Data load error", "OK");
+                });
+            }
+            try
+            {
                 if (first)
                 {
                     request = new GeolocationRequest(GeolocationAccuracy.High);
@@ -195,11 +205,11 @@ namespace GreenBankX
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    DisplayAlert("map load error", "map load error", "OK");
+                    DisplayAlert("map load error", ex.Message, "OK");
                 });
             }
         }
