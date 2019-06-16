@@ -77,7 +77,7 @@ namespace GreenBankX
             }
         }
         public void AddPriceName() {
-            if (Name.Text != null && Len.Text!=null && double.Parse(Len.Text) > 0)
+            if (Name.Text != null && Len.Text!=null && double.TryParse(Len.Text,out double lent)&& lent > 0)
             {
                 for (int i = 0; i < ((List<PriceRange>)Application.Current.Properties["Prices"]).Count; i++) {
                     if (((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(i).GetName() == Name.Text) {
@@ -169,8 +169,8 @@ namespace GreenBankX
         }
         private void AddPrice_Clicked(object sender, EventArgs e)
         {
-            if (selector>-1 && minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0) {
-                if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(double.Parse(minDiam.Text), double.Parse(price.Text)))
+            if (selector>-1 && minDiam.Text != null && price.Text != null && double.TryParse(minDiam.Text, out double mina)&& mina > 0 && double.TryParse(price.Text, out double pise)&& pise > 0) {
+                if (!((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).addBrack(mina, pise))
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -185,14 +185,14 @@ namespace GreenBankX
                     SaveAll.GetInstance().SavePricing();
                 };
 
-            } else if (minDiam.Text == null || double.Parse(minDiam.Text)<= 0||(maxDiam.Text != null&& double.Parse(minDiam.Text)> double.Parse(maxDiam.Text)))
+            } else if (minDiam.Text == null || double.TryParse(minDiam.Text, out double minx)&&minx<= 0||(maxDiam.Text != null&& double.TryParse(minDiam.Text, out double minb) && double.TryParse(maxDiam.Text, out double maxa) && minb > maxa))
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), "OK");
                 });
             }
-            else if (price.Text == null || double.Parse(price.Text) <= 0)
+            else if (price.Text == null || double.TryParse(price.Text, out double prix)&& prix <= 0)
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -334,7 +334,7 @@ namespace GreenBankX
         {
             if (select2 > -1)
             {
-                if (selector > -1 && minDiam.Text != null && price.Text != null && double.Parse(minDiam.Text) > 0 && double.Parse(price.Text) > 0)
+                if (selector > -1 && minDiam.Text != null && price.Text != null && double.TryParse(minDiam.Text, out double mina)&& mina > 0 && double.TryParse(price.Text, out double prix) && prix > 0)
                 {
                     
                     double key = ((List<PriceRange>)Application.Current.Properties["Prices"]).ElementAt(selector).GetBrack().ElementAt(select2).Key;
@@ -362,14 +362,14 @@ namespace GreenBankX
                     };
 
                 }
-                else if (minDiam.Text == null || double.Parse(minDiam.Text) <= 0)
+                else if (minDiam.Text == null || double.TryParse(minDiam.Text, out double minx) && minx <= 0)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         DisplayAlert(AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), AppResource.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true).GetString("DiaInvalid"), "OK");
                     });
                 }
-                else if (price.Text == null || double.Parse(price.Text) <= 0)
+                else if (price.Text == null || double.TryParse(price.Text, out double pric) && pric <= 0)
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
