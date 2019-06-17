@@ -62,7 +62,7 @@ namespace GreenBankX
                     });
                     return;
                 }
-                if (Application.Current.Properties["ThisLocation"] == null && double.TryParse(splitter.ElementAt(0),out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
+                if (double.TryParse(splitter.ElementAt(0),out double latout) && double.TryParse(splitter.ElementAt(1), out double lonout))
                 {
                     if (latout > 90 || latout < -90 || lonout > 180 || lonout <= -180) {
                         Device.BeginInvokeOnMainThread(() =>

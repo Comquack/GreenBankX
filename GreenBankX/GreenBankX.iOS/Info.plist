@@ -21,13 +21,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>12.0</string>
+	<string>12.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>GreenBankX</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.BWildie.GreenBankX</string>
-	<key>CFBundleVersion</key>
-	<string>1.3</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -64,8 +62,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleShortVersionString</key>
-	<string>1.3</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>XSLaunchImageAssets</key>
@@ -75,6 +71,16 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app needs to know your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>New Entry</string>
+	<string>This app needs to know your location</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.2</string>
+	<key>MKDirectionsApplicationSupportedModes</key>
+	<array>
+		<string>MKDirectionsModePlane</string>
+		<string>MKDirectionsModeBus</string>
+		<string>MKDirectionsModeCar</string>
+	</array>
 </dict>
 </plist>
