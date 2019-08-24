@@ -69,13 +69,13 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs to know your location</string>
+	<string>This app uses Location to locatate user on map</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app needs to know your location</string>
+	<string>This app uses Location to locatate user on map</string>
 	<key>CFBundleVersion</key>
-	<string>2.2</string>
+	<string>2.4</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2</string>
+	<string>2.4</string>
 	<key>MKDirectionsApplicationSupportedModes</key>
 	<array>
 		<string>MKDirectionsModePlane</string>
