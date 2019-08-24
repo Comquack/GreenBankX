@@ -21,13 +21,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>12.0</string>
+	<string>12.1</string>
 	<key>CFBundleDisplayName</key>
 	<string>GreenBankX</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.BWildie.GreenBankX</string>
-	<key>CFBundleVersion</key>
-	<string>1.4</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -36,10 +34,6 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string>Document Type 1</string>
-		</dict>
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>MKDirectionsRequest</string>
@@ -68,8 +62,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>CFBundleShortVersionString</key>
-	<string>1.4</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LaunchScreen</string>
 	<key>XSLaunchImageAssets</key>
@@ -77,8 +69,18 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Location is used to display user's location on a map</string>
+	<string>This app needs to know your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location is used to display user's location on a map</string>
+	<string>This app needs to know your location</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.2</string>
+	<key>MKDirectionsApplicationSupportedModes</key>
+	<array>
+		<string>MKDirectionsModePlane</string>
+		<string>MKDirectionsModeBus</string>
+		<string>MKDirectionsModeCar</string>
+	</array>
 </dict>
 </plist>
