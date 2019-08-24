@@ -94,13 +94,21 @@
     <CodesignKey>iPhone Developer: Ben Wildie (SJ2PY36K26)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>leaf_icon_PtC_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="LoginiOs.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="SaveIOS.cs" />
     <None Include="Entitlements.plist" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="PreviewControllerDS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\GreenBankX.mobileprovision" />
@@ -217,7 +225,9 @@
       <Name>GreenBankX</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="leaf_icon_PtC_icon.ico" />
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\leaf_logo.png" />
   </ItemGroup>
